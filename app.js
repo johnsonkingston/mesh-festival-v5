@@ -113,7 +113,7 @@ app.get("/timetable", async function (req, res) {
 //Page
 async function getPage(pageSlug) {
     console.log(pageSlug);
-    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Pages/?filter[slug][_eq]="+pageSlug+"&fields[]=*.*");
+    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Pages/?filter[slug][_eq]="+pageSlug+"&fields[]=*.*.*");
     if (!response.ok) {
         console.log('Response not okay');
         const data = '';
@@ -154,7 +154,7 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
 //Event
 async function getEvent(eventSlug) {
     console.log(eventSlug);
-    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events/?filter[slug][_eq]="+eventSlug+"&fields[]=*.*");
+    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events/?filter[slug][_eq]="+eventSlug+"&fields[]=*.*.*");
     if (!response.ok) {
         console.log('Response not okay');
         const data = '';
@@ -166,26 +166,104 @@ async function getEvent(eventSlug) {
     }
 }
 
-app.get("/events/:eventSlug", async function (req, res) {
+app.get("/events/:eventSlug/:language?", async function (req, res) {
 
     try { 
         eventSlug = req.params.eventSlug;
+        language = req.params.language  || 'en';
+
+        //console.log(language);
         result = await getEvent(eventSlug);
+        navigation = await getNavigation();
+        footer = await getFooter();
+        news = await getNews();
         console.log(result.data[0]);
-        res.render('event', {data:result.data[0]});
-    
-        res.status(200).json();
-        res.end;
+
+        //Transformations
+        //Price
+        if(result.data[0].Price == 0){
+            result.data[0].translations[0].Price = 'Eintritt gratis';
+            result.data[0].translations[1].Price = 'Free entrance';
+        }else{
+            result.data[0].translations[0].Price = result.data[0].Price+' CHF';
+            result.data[0].translations[1].Price = result.data[0].Price+' CHF';            
+        }
+
+        //Audience
+        if(result.data[0].Audience == 'all'){
+            result.data[0].translations[0].Audience = 'Geeignet für alle Gäste';
+            result.data[0].translations[1].Audience = 'Suitable for all guests';
+        }
+        else if(result.data[0].Audience == 'kids'){
+            result.data[0].translations[0].Audience = 'Geeignet für Kinder';
+            result.data[0].translations[1].Audience = 'Suitable for kids';
+        }
+        else if(result.data[0].Audience == 'pros'){
+            result.data[0].translations[0].Audience = 'Geeignet für Pros';
+            result.data[0].translations[1].Audience = 'Suitable for pros';
+        }else{
+            result.data[0].translations[0].Audience = '';
+            result.data[0].translations[1].Audience = '';         
+        }
+
+        //Language
+        if(result.data[0].Language == 'german'){
+            result.data[0].translations[0].Language = 'Deutsch';
+            result.data[0].translations[1].Language = 'German';
+        }
+        else if(result.data[0].Language == 'english'){
+            result.data[0].translations[0].Language = 'Englisch';
+            result.data[0].translations[1].Language = 'English';
+        }
+        else if(result.data[0].Language == 'pros'){
+            result.data[0].translations[0].Language = 'Geeignet für Pros';
+            result.data[0].translations[1].Language = 'Suitable for pros';
+        }else{
+            result.data[0].translations[0].Language = '';
+            result.data[0].translations[1].Language = '';         
+        }
+
+        //Seats
+        if(result.data[0].Seats_available == 'yes'){
+            result.data[0].translations[0].Seats_available = 'Plätze verfügbar';
+            result.data[0].translations[1].Seats_available = 'Seats available';
+        }
+        else if(result.data[0].Seats_available == 'sold_out'){
+            result.data[0].translations[0].Seats_available = 'Sorry, sold out!';
+            result.data[0].translations[1].Seats_available = 'Sorry, sold out!';
+        }else{
+            result.data[0].translations[0].Seats_available = '';
+            result.data[0].translations[1].Seats_available = '';            
+        }
+
+        //Time
+        if(result.data[0].Time !== null){
+            result.data[0].time_transformed = new Object;
+            result.data[0].time_transformed.start = dateformat(result.data[0].Time[0].Start);
+            result.data[0].time_transformed.end = dateformat(result.data[0].Time[0].End);
+        }else{
+            result.data[0].time_transformed = new Object;
+            result.data[0].time_transformed.start = '';
+            result.data[0].time_transformed.end = '';        
+        }
+
+        languageObject = [language,languageTransform(language)];
+        if(result.data[0]){
+            //console.log(languageObject);
+            res.render('event',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data});
+        }
+
     } catch (err) {
         console.error(err);
         res.status(500).send("Error fetching page");
     }
+
 });
 
 
 //Startpage
 async function getStartpage() {
-    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Startpage?fields[]=*.*.*");
+    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Startpage?fields[]=*.*.*.*");
 
     if (!response.ok) {
         console.log('Response not okay');
@@ -225,12 +303,10 @@ app.get("/:language?", async function (req, res) {
 
 
 
-
-
-
-
-
-
+function dateformat(dateIn){
+    var dateUnix = Date.parse(dateIn);
+    return new Date(dateUnix).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
+}
 
 
 

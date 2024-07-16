@@ -1,14 +1,37 @@
-html 
-    head 
-        title=data.translations[0].Title
-    body 
+html(lang=language[0])
+    include includes/head.pug
+    body.page.event
         include includes/navigation.pug
 
-        h1 
-            =data.translations[0].Title
+        main
+            if data.Main_Image == null
+                img.mainimage(src=imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png')
+            else 
+                img.mainimage(src=imgURL+data.Main_Image.filename_disk)
+                .mainimageCaption !{data.Main_Image.description}
+                
+            img.grid(src=baseURL+'static/img/grid.svg')
+            img.grid#gridRight(src=baseURL+'static/img/grid.svg')
+            h1= data.translations[languageParameter].Title
+            h1= data.Artist
 
-        script.
-            data = !{JSON.stringify(data).replace(/<\//g, "<\\/")};
-            console.log('data object', data);
+            .eventHeader 
+                .eventHeaderColumn
+                    if data.translations[languageParameter].Time_frontend !== null
+                        p= data.translations[languageParameter].Time_frontend
+                    else
+                        p= data.time_transformed.start
+                    
+                    p= data.Venues[0].Venues_id.Name
+                    p= data.translations[languageParameter].Price
+                    if data.translations[languageParameter].Seats_available !== ''
+                        p= data.translations[languageParameter].Seats_available
+                .eventHeaderColumn
+                    p= data.translations[languageParameter].Audience
+                    p= data.translations[languageParameter].Language
+
+
+            if data.translations.length > 0
+                .content !{data.translations[languageParameter].Content}
 
         include includes/footer.pug

@@ -14,14 +14,17 @@ nav
                 EN    
     .navBottom 
         .left 
-            a(href=baseURL+"pages/visit") Visit
+            a(href=baseURL+'pages/visit/'+language[0]) Visit
         .middle 
-            img(src=baseURL+"static/img/icons/sm-icon-01.svg")
-            img(src=baseURL+"static/img/icons/sm-icon-02.svg")
-            img(src=baseURL+"static/img/icons/sm-icon-03.svg")
+            a(href='https://www.instagram.com/meshfestival/',target="_blank")
+                img(src=baseURL+"static/img/icons/sm-icon-01.svg")
+            a(href='https://www.linkedin.com/company/meshfestival',target="_blank")
+                img(src=baseURL+"static/img/icons/sm-icon-02.svg")
+            a(href='https://www.facebook.com/meshfestival/',target="_blank")
+                img(src=baseURL+"static/img/icons/sm-icon-03.svg")
                         
         .right            
-            a(href=baseURL+"pages/about") About
+            a(href=baseURL+'pages/about/'+language[0]) About
 
 
 #navButton(onclick="toggleNav()")

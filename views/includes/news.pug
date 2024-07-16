@@ -1,4 +1,30 @@
 .marquee 
+    - var newsCount = news.length-1;
     p
         each val in [0,1,2,3]
-            span= ' • '+news[0].translations[languageParameter].Title
+            span= ' • '+news[newsCount].translations[languageParameter].Title
+    .newscontent
+        .newscontentInner.grid
+            .grid-sizer
+        
+
+script.
+    $('.marquee span').on('click',function(){
+        $('.marquee').toggleClass('newsopen');
+
+        $('.newscontentInner').html('');
+
+        $( news ).each(function( index ) {
+            var newsarticle = '<div class="newsarticle grid-item"><p class="date">'+dateformat(news[index].date_created)+'</p><h1>'+news[index].translations[languageParameter].Title+'</h1><div class="newsarticleContent">'+news[index].translations[languageParameter].Content+'</div></div>';
+            $('.newscontentInner').prepend(newsarticle);
+        });
+
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-item'
+        });
+
+    });
+
+
+

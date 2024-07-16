@@ -5,20 +5,24 @@ html(lang=language[0])
         include includes/news.pug
 
         main
+            - var n = 1
+            - var z = -10
             each item in data.View
                 section
-                    .bigpill= item.Title_De
-            - var n = 1
-            each item in data.View
-                video(id='video'+n,src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',style='z-index:-'+n+';')
-                - n = n+1
+                    video(id='video'+n,src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',style='z-index:'+z+';')
+                    if(item.Show_Title)
+                        a(href=baseURL+'pages/'+item.Title_Link+'/'+language[0])
+                            .bigpill= item.Title_De
+
+                    - n = n+1
+                    - z = z+1
 
             script.
                 var positions = [];
                 var activeSection;
                 var activeFilter1;
 
-                $(document).on( "scroll", function() {    
+                $('main').on( "scroll", function() {    
                     $( "section" ).each(function( index ) {
                         positions[index] = $('body').scrollTop() - $( this ).position().top;
                         if(positions[index] > 0){
@@ -28,8 +32,9 @@ html(lang=language[0])
                             activeFilter3 = ((100 - (positions[index] / $('section').first().height() *100)) / 10)+1;
                         }
                     });
-                    //console.log(activeSection+' : '+activeFilter1);
-                    $('#video'+(activeSection+1)).css('filter','brightness('+activeFilter1+') contrast('+activeFilter2+') saturate('+activeFilter3+')');
+
+                    $('#video'+(activeSection+2)).css('display','block');                    
+                    $('#video'+(activeSection+2)).css('filter','brightness('+activeFilter1+')');
 
                 });
 
@@ -40,20 +45,30 @@ html(lang=language[0])
                     .
                         !{data.translations[languageParameter].Lead}
                 .right 
-                    each val in [0,1,2]
-                        .previewItem 
-                            if data.Preview_Items[0].Events_id.Main_Image == null
-                                img.previewImage(src=imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png')
-                            else 
-                                img.previewImage(src=imgURL+data.Preview_Items[0].Events_id.Main_Image.filename_disk)
-                            .previewCaptionDot.
-                                •
-                            .previewCaption
-                                h3=data.Preview_Items[0].Events_id.Artist
-                                h4=data.Preview_Items[0].Events_id.Venue+' / '+data.Preview_Items[0].Events_id.Time[0].Start
+                    .eventswrapper
+                        each val in [0,1,2]
+                            if(data.Events_1[val])
+                                a(href=baseURL+'events/'+data.Events_1[val].Events_id.slug+'/'+language[0])
+                                    .events
+                                        if data.Events_1[val].Events_id.Main_Image == null
+                                            .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
+                                        else 
+                                            .eventimg(style='background-image:url('+imgURL+data.Events_1[val].Events_id.Main_Image.filename_disk+')')
+                                                img(src=baseURL+'static/img/grid.svg')
+                                            .
+                                                • 
+                                            .caption= data.Events_1[val].Events_id.Artist
                     .previewItem 
-                        .smallpill.
-                            Mehr Installationen
+                        .smallpill
+                            - var title =data.translations[languageParameter].Title
+                            if(language[0] == 'en' )
+                                .
+                                    More #{title}
+                            else 
+                                .
+                                    Mehr #{title}     
+                            
+                            
 
             <!-- Preview Performances -->    
             .preview
@@ -62,20 +77,31 @@ html(lang=language[0])
                     .
                         !{data.translations_performances[languageParameter].Lead}
                 .right 
-                    each val in [0,1,2]
-                        .previewItem 
-                            if data.Preview_Items[0].Events_id.Main_Image == null
-                                img.previewImage(src=imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png')
-                            else 
-                                img.previewImage(src=imgURL+data.Preview_Items[0].Events_id.Main_Image.filename_disk)
-                            .previewCaptionDot.
-                                •
-                            .previewCaption
-                                h3=data.Preview_Items[0].Events_id.Artist
-                                h4=data.Preview_Items[0].Events_id.Venue+' / '+data.Preview_Items[0].Events_id.Time[0].Start
+                    .eventswrapper
+                        each val in [0,1,2]
+                            if(data.Events_2[val])
+                                a(href=baseURL+'events/'+data.Events_2[val].Events_id.slug+'/'+language[0])
+                                    .events
+                                        if data.Events_2[val].Events_id.Main_Image == null
+                                            .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
+                                        else 
+                                            .eventimg(style='background-image:url('+imgURL+data.Events_2[val].Events_id.Main_Image.filename_disk+')')
+                                                img(src=baseURL+'static/img/grid.svg')
+                                            .
+                                                • 
+                                            .caption= data.Events_2[val].Events_id.Artist
                     .previewItem 
-                        .smallpill.
-                            Mehr Installationen
+                        .smallpill
+                            - var title =data.translations_performances[languageParameter].Title
+                            if(language[0] == 'en' )
+                                .
+                                    More #{title}
+                            else 
+                                .
+                                    Mehr #{title}   
+
+
+
 
             <!-- Preview Screenings -->    
             .preview
@@ -84,19 +110,60 @@ html(lang=language[0])
                     .
                         !{data.translations_screenings[languageParameter].Lead}
                 .right 
-                    each val in [0,1,2]
-                        .previewItem 
-                            if data.Preview_Items[0].Events_id.Main_Image == null
-                                img.previewImage(src=imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png')
-                            else 
-                                img.previewImage(src=imgURL+data.Preview_Items[0].Events_id.Main_Image.filename_disk)
-                            .previewCaptionDot.
-                                •
-                            .previewCaption
-                                h3=data.Preview_Items[0].Events_id.Artist
-                                h4=data.Preview_Items[0].Events_id.Venue+' / '+data.Preview_Items[0].Events_id.Time[0].Start
+                    .eventswrapper
+                        each val in [0,1,2]
+                            if(data.Events_3[val])
+                                a(href=baseURL+'events/'+data.Events_3[val].Events_id.slug+'/'+language[0])
+                                    .events
+                                        if data.Events_3[val].Events_id.Main_Image == null
+                                            .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
+                                        else 
+                                            .eventimg(style='background-image:url('+imgURL+data.Events_3[val].Events_id.Main_Image.filename_disk+')')
+                                                img(src=baseURL+'static/img/grid.svg')
+                                            .
+                                                • 
+                                            .caption= data.Events_3[val].Events_id.Artist
                     .previewItem 
-                        .smallpill.
-                            Mehr Installationen
+                        .smallpill
+                            - var title =data.translations_screenings[languageParameter].Title
+                            if(language[0] == 'en' )
+                                .
+                                    More #{title}
+                            else 
+                                .
+                                    Mehr #{title}   
+            
+
+
+            <!-- Preview Konferenz -->    
+            .preview
+                .left
+                    h2=data.translations_conference[languageParameter].Title
+                    .
+                        !{data.translations_conference[languageParameter].Lead}
+                .right 
+                    .eventswrapper
+                        each val in [0,1,2]
+                            if(data.Events_4[val])
+                                a(href=baseURL+'events/'+data.Events_4[val].Events_id.slug+'/'+language[0])
+                                    .events
+                                        if data.Events_4[val].Events_id.Main_Image == null
+                                            .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
+                                        else 
+                                            .eventimg(style='background-image:url('+imgURL+data.Events_4[val].Events_id.Main_Image.filename_disk+')')
+                                                img(src=baseURL+'static/img/grid.svg')
+                                            .
+                                                • 
+                                            .caption= data.Events_4[val].Events_id.Artist
+                    .previewItem 
+                        .smallpill
+                            - var title =data.translations_conference[languageParameter].Title
+                            if(language[0] == 'en' )
+                                .
+                                    More #{title}
+                            else 
+                                .
+                                    Mehr #{title}   
+            
 
         include includes/footer.pug

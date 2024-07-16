@@ -55,13 +55,14 @@ a{
 }
 h1,h2,h3,h4,h5,h6{
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
     margin-block-start: 0;
     margin-block-end: 0;
     margin-inline-start: 0;
     margin-inline-end: 0;
     padding-inline-start: 0;   
     font-weight: normal !important;
+
 }   
 p{
     margin-block-start: 0.5em;
@@ -85,15 +86,15 @@ ul{
     font-size: $fontSize1;
     line-height: $lineHeight1*2;
     border-radius: $fontSize1;
-    padding: $padding/4 $padding $padding/4 $padding;
-    margin-right: $padding/2;  
+    padding: calc($padding/4) $padding calc($padding/4) $padding;
+    margin-right: calc($padding/2);  
     white-space: nowrap;
 }
 .mediumpill{
     font-size: $fontSize2;
     line-height: $lineHeight2*2;
     border-radius: $fontSize2;
-    padding: $padding/2 $padding*2 $padding/2 $padding*2;
+    padding: calc($padding/2) calc($padding*2) calc($padding/2) calc($padding*2);
     margin-right: $padding;
 }
 .bigpill{
@@ -109,7 +110,30 @@ ul{
 .blur{
     filter:blur(20px);
 }
+.eventswrapper{
+    display: table;
+    width: 100%;
+    a{
+        width: 50%;
+        display: table-cell;
+        .events{
+            width: 92%;
+            .eventimg{
+                background-size: cover;
+                background-position: center;
+                box-shadow: 0 0 20px rgba(var(--color2));
+                margin-bottom: $padding;
+            }
+            .caption{
+                display: inline-block;
+                font-size: $fontSize2;
+                line-height: $lineHeight2;
+            }
+            height: 25vw;
+        }
 
+    }
+}
 
 /*STARTPAGE */
 .startpage
@@ -139,14 +163,20 @@ ul{
             }
         }
         video{
+            position: sticky;
+            top:0;
             width: 100vw;
             height: 100vh;
             object-fit: cover;
             object-position: center bottom;
-            position: fixed;
+            //position: fixed;
             top:0;
             left: 0;
-            mix-blend-mode: difference;
+            mix-blend-mode: overlay;
+            display: none;
+        }
+        #video1{
+            display: block;
         }
         .preview{
             height: calc(100vh - $fontSize2*2);
@@ -171,47 +201,7 @@ ul{
                 }
             }
             .right{
-                .previewItem{
-                    width:45%;
-                    max-width: 34vh;
-                    padding-top: $padding*2; 
-                    display: inline-block;
-                    vertical-align: top;
-                    margin-left: $padding*2;
-                    color: rgba(var(--color2));
-                    text-align: center;
-                    img{
-                        width: 100%;
-                        height: auto;
-                        box-shadow: 0px 0px 5px black;
-                        margin-bottom: $padding;
-                    }
-                    .previewCaptionDot{
-                        font-size: $fontSize0;
-                        line-height: $lineHeight0;   
-                        display: inline-block;
-                        vertical-align: top;
-                        margin-right: $padding;
-                    }
-                    .previewCaption{
-                        text-align: left;
-                        display: inline-block;
-                        vertical-align: top;
-                        max-width: 87%;
-                        h3{
-                            font-size: $fontSize1;
-                            line-height: $lineHeight1;   
-                            text-align: left;
-                            font-family: 'FreeSans-JK';
-                        }
-                        h4{
-                            color: rgba(var(--color2));
-                            font-size: $fontSize0;
-                            line-height: $lineHeight0;   
-                        }
-                    }
-                }
-
+                margin-top: $padding*2; 
             }
             h2{
                 font-size: $fontSize3;
@@ -241,6 +231,7 @@ ul{
                 padding: $padding;
                 margin-left: calc(50% - ($padding*2));
                 min-height: 100vh;
+                padding-bottom: 10vh;
                 .mainimage, .grid{
                     position: fixed;
                     top:0;
@@ -256,12 +247,16 @@ ul{
                     z-index: -2;
                     mix-blend-mode: soft-light;
                 }
+                #gridRight{
+                    left: auto;
+                    Right: 0;
+                }
                 .mainimageCaption{
                     position: fixed;
                     left:$padding;
                     bottom: $padding;
                     font-size: $fontSize1;
-                    color: rgba(var(--color1));
+                    color: rgba(var(--color2));
                     z-index: -1;
                 }
                 .content{
@@ -272,8 +267,39 @@ ul{
                     li:before{
                         content: '• '
                     }
+                    li{
+                        p{
+                            display: contents;
+                        }
+                    }
                     h1{
                         margin-top: $fontSize3;
+                    }
+                    h2{
+                        font-size: $fontSize2;
+                        line-height: $lineHeight2;
+                        font-family: 'FreeSans-JK';
+                        margin-top: $lineHeight2;
+                        background: rgba(var(--color1));
+                        padding: $padding $padding*2;
+                        border-radius: $lineHeight2;
+                        display: inline-block;
+                        margin-left: 50%;
+                        transform: translateX(-50%);
+                        position: sticky;
+                        top: $padding*2;
+                    }
+                    h3{
+                        font-size: $fontSize2;
+                        line-height: $lineHeight2;
+                        font-family: 'FreeSans-JK';
+                        margin-top: $lineHeight2;                        
+                    }
+                    h4{
+                        font-size: $fontSize2;
+                        line-height: $lineHeight2;
+                        color: rgba(var(--color2));
+                        margin-top: $padding;
                     }
                     h6{
                         font-size: $fontSize0;
@@ -288,10 +314,98 @@ ul{
                         border: none;
                         vertical-align: top;
                     }
+                    a{
+                        img{
+                            width: 25%;
+                            display: inline-block;
+                            vertical-align: middle;
+                            margin: $padding;
+                        }
+                    }
+                    img, video{
+                        width:100%;
+                    }
+                    video{
+                        height: 28vw;
+                    }
+                    iframe{
+                        max-width: 100%;
+                    }
+                    blockquote{
+                        margin-block-start: 0;
+                        margin-block-end: 0;
+                        margin-inline-start: 0;
+                        margin-inline-end: 0;
+                        width: 44%;
+                        margin-right: 5%;
+                        background: rgba(var(--color2));
+                        display: inline-block;
+                        vertical-align: top;
+                        margin-bottom: $padding*3;
+                        min-height: 16vw;
+                        border-radius: $padding;
+                        
+                        p{
+                            color: white;
+                            padding: $padding;
+                            margin-block-start: 0;
+                            margin-block-end: 0;
+                            font-family: 'FreeSerif-JK';
+                            font-size: $fontSize2*2;
+                            line-height: $lineHeight2*2;
+                            text-align: center;
+                            -webkit-text-stroke-width: 1px;
+                            -webkit-text-stroke-color: rgba(var(--color3));
+
+                            em{
+                                font-size: $fontSize1;
+                                line-height: $lineHeight1;
+                                font-style: normal;
+                                font-family: 'FreeSans-JK';
+                                text-align: left;
+                                display: block;
+                                -webkit-text-stroke-width: 0;
+                            }
+                            
+
+                        }
+                    }
+                }
+
+        }
+        }
+        .event{
+            main{
+                background: linear-gradient(180deg, rgba(var(--color4)) 0%, rgba(var(--color3)) 10%);
+                margin-top: 100vw;
+                padding-top:10vw;
+            }
+            .eventHeader{
+                color: rgba(var(--color1));
+                margin: $padding*4 0;
+                .eventHeaderColumn{
+                    width: 50%;
+                    display: inline-block;
+                    vertical-align: top;                    
+                    p{
+                        font-size: $fontSize1;
+                        line-height: $lineHeight1;
+                        margin-block-start: 0;
+                        margin-block-end: 0;
+                    }
+                }
+            }
+            .content{
+                a{
+                    background: rgba(var(--color2));
+                    color: rgba(var(--color3));
+                    border-radius: $fontSize1;
+                    padding: calc($padding/4) calc($padding) calc($padding/4) $padding;
+                    margin-right: calc($padding/2);  
+                    white-space: nowrap;
                 }
             }
         }
-
 
 
         h1,h2,h3{
@@ -372,12 +486,12 @@ nav{
 }
 #navButton{
     position: fixed;
-    top: $padding*2;
-    right:$padding*2;
+    top: 1.1vw;
+    right: 1.1vw;
     z-index: 100;
     cursor:pointer;
     img{
-        width:6vw;
+        width:4.7vw;
     }
 }
 .startpage #navButton{
@@ -398,6 +512,18 @@ nav{
     box-sizing: border-box;
     height:$fontSize2*2;
     box-shadow: 0 0 20px black;
+    z-index: 2;
+    transition: all 1s;
+    cursor: pointer;
+
+}
+.newsopen{
+    //top:100vh;
+    height:calc(100vh + $fontSize2*2);
+    span{
+        background-color: rgba(var(--color2));
+        color:rgba(var(--color1));       
+    }
 }
 .marquee p {
     display: inline-block;
@@ -411,8 +537,55 @@ nav{
     0%   { transform: translate(0, 0); }
     100% { transform: translate(-25%, 0); }
 }
+.newscontent{
+    height: calc(100vh - 4.4vw);
+    overflow: scroll;
+    width: 100vw;
+    white-space: normal;
 
-
+    .newscontentInner{
+        width: 100vw;
+        .grid-item, .grid-sizer{
+            width: calc(22%);
+            float: left;
+            padding:$padding;
+            margin-bottom: $padding*3;
+            
+            h1{
+                line-height: $fontSize2*2;
+                font-size: $fontSize2*2;
+                hyphens: auto;
+            }
+            p{
+                display: block;
+                animation: none;
+                white-space: normal;
+                font-family: 'FreeSans-JK';
+                font-size: $fontSize0;
+                line-height: $lineHeight0;
+            }
+            .date{
+                text-align: center;        
+            }
+            img{
+                width: 100%;
+                box-shadow: 0 0 10px rgba(var(--color2));
+                margin-bottom: $padding;
+            }
+            a{
+                margin-top: $padding*2;
+                color: rgba(var(--color1));
+                background-color: rgba(var(--color2));
+                border-radius: $lineHeight1;
+                padding: calc($padding/2) $padding;
+            }
+            span{
+                background: none;
+                color: rgba(var(--color2));
+            }
+        }
+    }
+}
 
 /* FOOTER */
 footer{
