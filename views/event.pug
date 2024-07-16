@@ -3,6 +3,9 @@ html(lang=language[0])
     body.page.event
         include includes/navigation.pug
 
+        .breadcrumb.mediumpill
+            a(href=baseURL+'pages/'+data.Format)= data.Format
+
         main
             if data.Main_Image == null
                 img.mainimage(src=imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png')
@@ -22,7 +25,8 @@ html(lang=language[0])
                     else
                         p= data.time_transformed.start
                     
-                    p= data.Venues[0].Venues_id.Name
+                    if data.Venues.length > 0
+                        p= data.Venues[0].Venues_id.Name
                     p= data.translations[languageParameter].Price
                     if data.translations[languageParameter].Seats_available !== ''
                         p= data.translations[languageParameter].Seats_available

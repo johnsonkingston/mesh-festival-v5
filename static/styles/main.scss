@@ -20,7 +20,7 @@ $padding: 0.8vw;
 $fontSize0: 1.1vw;
 $lineHeight0: 1.4vw;
 $fontSize1: 1.5vw;
-$lineHeight1: 1.5vw;
+$lineHeight1: 1.7vw;
 $fontSize2: 2vw;
 $lineHeight2: 2.2vw;
 $fontSize3: 7vw;
@@ -42,6 +42,7 @@ body{
     margin:0;
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
 
 }
 ::selection {
@@ -84,7 +85,7 @@ ul{
 /*GENERAL*/
 .smallpill{
     font-size: $fontSize1;
-    line-height: $lineHeight1*2;
+    line-height: $lineHeight1;
     border-radius: $fontSize1;
     padding: calc($padding/4) $padding calc($padding/4) $padding;
     margin-right: calc($padding/2);  
@@ -92,7 +93,7 @@ ul{
 }
 .mediumpill{
     font-size: $fontSize2;
-    line-height: $lineHeight2*2;
+    line-height: $lineHeight2;
     border-radius: $fontSize2;
     padding: calc($padding/2) calc($padding*2) calc($padding/2) calc($padding*2);
     margin-right: $padding;
@@ -114,15 +115,19 @@ ul{
     display: table;
     width: 100%;
     a{
-        width: 50%;
+        width: 48%;
         display: table-cell;
         .events{
-            width: 92%;
+            width: 89%;
+            border-radius: $padding;
+
             .eventimg{
                 background-size: cover;
                 background-position: center;
                 box-shadow: 0 0 20px rgba(var(--color2));
                 margin-bottom: $padding;
+                border-radius: $padding;
+
             }
             .caption{
                 display: inline-block;
@@ -147,6 +152,7 @@ ul{
 
         overflow: scroll;
         scroll-snap-type: y mandatory;
+        scrollbar-width: none;
 
         section{
             width: 100vw;
@@ -299,7 +305,12 @@ ul{
                         font-size: $fontSize2;
                         line-height: $lineHeight2;
                         color: rgba(var(--color2));
+                        background: rgba(var(--color3));
+                        border: 0.2vw solid rgba(var(--color2));
+                        border-radius: $lineHeight2;
+                        padding: calc($padding/4) calc($padding) calc($padding/4) $padding;
                         margin-top: $padding;
+                        display: inline-block;
                     }
                     h6{
                         font-size: $fontSize0;
@@ -342,7 +353,6 @@ ul{
                         display: inline-block;
                         vertical-align: top;
                         margin-bottom: $padding*3;
-                        min-height: 16vw;
                         border-radius: $padding;
                         
                         p{
@@ -352,10 +362,11 @@ ul{
                             margin-block-end: 0;
                             font-family: 'FreeSerif-JK';
                             font-size: $fontSize2*2;
-                            line-height: $lineHeight2*2;
+                            line-height: $fontSize2*2;
                             text-align: center;
                             -webkit-text-stroke-width: 1px;
                             -webkit-text-stroke-color: rgba(var(--color3));
+                            hyphens: auto;
 
                             em{
                                 font-size: $fontSize1;
@@ -369,12 +380,25 @@ ul{
                             
 
                         }
+                        a{
+                            color:white;
+                        }
                     }
                 }
 
         }
         }
         .event{
+            .breadcrumb{
+                color:rgba(var(--color2));
+                background: rgba(var(--color1));
+                position: fixed;
+                top: $padding;
+                left: 50vw;
+                transform: translateX(-50%);
+                z-index: 10;
+                text-transform: capitalize;
+            }
             main{
                 background: linear-gradient(180deg, rgba(var(--color4)) 0%, rgba(var(--color3)) 10%);
                 margin-top: 100vw;
@@ -403,6 +427,11 @@ ul{
                     padding: calc($padding/4) calc($padding) calc($padding/4) $padding;
                     margin-right: calc($padding/2);  
                     white-space: nowrap;
+                }
+                .bio-wrapper{
+                    font-size: $fontSize1;
+                    line-height: $lineHeight1;
+                    width: 66%;
                 }
             }
         }
@@ -604,6 +633,9 @@ footer{
     }
     .toplinks{
         width:75%;
+        ul{
+            margin-top: $padding;
+        }
         li{
             display: inline-block;
             .mediumpill{
@@ -633,6 +665,7 @@ footer{
         height:100px;
         .mediumpill{
             border: 1px solid white;
+            line-height: $lineHeight1*3;
         }
         a{
             background-color: rgba(var(--color2));
