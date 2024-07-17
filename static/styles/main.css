@@ -152,7 +152,7 @@ main {
 }
 @media (orientation: portrait) {
   .eventswrapper a .events {
-    width: 100%;
+    width: 92%;
     display: inline-block;
     vertical-align: top;
   }
@@ -242,6 +242,12 @@ main {
   background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgba(var(--color3)) 100%);
   scroll-snap-align: start;
 }
+@media (orientation: portrait) {
+  .startpage main .preview {
+    padding-top: 10vw;
+    height: calc(100vh - 10vw);
+  }
+}
 .startpage main .preview .left, .startpage main .preview .right {
   width: 50%;
   display: inline-block;
@@ -251,6 +257,11 @@ main {
   .startpage main .preview .left, .startpage main .preview .right {
     width: 100%;
     display: block;
+  }
+}
+@media (orientation: portrait) {
+  .startpage main .preview .left {
+    margin-top: 14vw;
   }
 }
 .startpage main .preview .left h2 {
@@ -271,6 +282,7 @@ main {
 }
 .startpage main .preview .right {
   margin-top: 1.6vw;
+  padding: 1.6vw;
 }
 .startpage main .preview .right .previewItem {
   margin-top: 4.8vw;
@@ -282,6 +294,12 @@ main {
   font-size: 7vw;
   line-height: 6vw;
   font-family: "FreeSans-JK";
+}
+@media (orientation: portrait) {
+  .startpage main .preview h2 {
+    font-size: 10.5vw;
+    line-height: 13.5vw;
+  }
 }
 .startpage .smallpill {
   background: rgba(var(--color2));
@@ -329,6 +347,12 @@ main {
   -o-object-fit: cover;
      object-fit: cover;
   z-index: -3;
+}
+@media (orientation: portrait) {
+  .page main .mainimage {
+    -o-object-position: left;
+       object-position: left;
+  }
 }
 .page main .grid {
   z-index: 0;
@@ -456,6 +480,14 @@ main {
 }
 .page main .content iframe {
   max-width: 100%;
+  width: 100%;
+  height: 28vw;
+}
+@media (orientation: portrait) {
+  .page main .content iframe {
+    width: 100%;
+    height: 66vw;
+  }
 }
 .page main .content blockquote {
   margin-block-start: 0;
@@ -545,6 +577,12 @@ main {
   margin-block-start: 0;
   margin-block-end: 0;
 }
+@media (orientation: portrait) {
+  .event .eventHeader .eventHeaderColumn p {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
+  }
+}
 .event .content a {
   background: rgba(var(--color2));
   color: rgba(var(--color3));
@@ -614,15 +652,32 @@ nav {
 nav ul {
   margin-top: 2.4vw;
 }
+@media (orientation: portrait) {
+  nav ul {
+    margin-top: 27vw;
+  }
+}
 nav li.navigation {
   font-size: 10vh;
   line-height: 8vh;
   padding-bottom: 0.8vw;
   text-align: center;
 }
+@media (orientation: portrait) {
+  nav li.navigation {
+    padding-bottom: 0;
+    font-size: 13vw;
+    line-height: 13vw;
+  }
+}
 nav .logo {
   position: absolute;
   width: 27%;
+}
+@media (orientation: portrait) {
+  nav .logo {
+    width: 50%;
+  }
 }
 nav .navBottom {
   display: flex;
@@ -633,14 +688,40 @@ nav .navBottom .left, nav .navBottom .middle, nav .navBottom .right {
   font-size: 10vh;
   font-family: "FreeSerif-JK";
 }
+@media (orientation: portrait) {
+  nav .navBottom .left, nav .navBottom .middle, nav .navBottom .right {
+    font-size: 13vw;
+  }
+}
+@media (orientation: portrait) {
+  nav .navBottom .middle {
+    margin-top: 5vw;
+  }
+}
+@media (orientation: portrait) {
+  nav .navBottom .left, nav .navBottom .right {
+    margin-top: 18vw;
+  }
+}
 nav .navBottom img {
   height: 8vh;
   padding: 0.8vw;
+}
+@media (orientation: portrait) {
+  nav .navBottom img {
+    height: 13vw;
+    padding: 1.6vw;
+  }
 }
 nav .languages {
   position: absolute;
   top: 0;
   right: 9vw;
+}
+@media (orientation: portrait) {
+  nav .languages {
+    right: 20vw;
+  }
 }
 nav .languages li {
   display: inline-block;
