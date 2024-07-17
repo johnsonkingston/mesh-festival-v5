@@ -239,7 +239,7 @@ main{
                 height: calc(100vh - $fontSize2*2*$scaleFactor);
             }
             .left, .right{
-                width:50%;
+                width:47%;
                 display: inline-block;
                 vertical-align: top;
                 @media (orientation: portrait) {
@@ -865,6 +865,8 @@ footer{
     background-color: rgba(var(--color2));
     padding: $padding*2;
     box-shadow: 0 0 20px black;
+    position: sticky;
+    top: 100vh;
 
     a,p{
         color:white;

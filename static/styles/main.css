@@ -249,7 +249,7 @@ main {
   }
 }
 .startpage main .preview .left, .startpage main .preview .right {
-  width: 50%;
+  width: 47%;
   display: inline-block;
   vertical-align: top;
 }
@@ -927,6 +927,8 @@ footer {
   background-color: rgba(var(--color2));
   padding: 1.6vw;
   box-shadow: 0 0 20px black;
+  position: sticky;
+  top: 100vh;
 }
 footer a, footer p {
   color: white;
