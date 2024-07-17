@@ -35,7 +35,7 @@ $scaleFactor: 2.5;
     --color2:   140, 110, 255, 1;
     --color3:   215,215,215,1;
     --color4:   0,0,0,0;
-    }
+}
 
 body{
     font-family: 'FreeSans-JK', sans-serif;
@@ -120,11 +120,17 @@ main{
     width: 100%;
     a{
         width: 48%;
+        @media (orientation: portrait) {
+            width: 100%; 
+            display: block;
+        }
         display: table-cell;
         .events{
             width: 89%;
             border-radius: $padding;
-
+            @media (orientation: portrait) {
+                width: 100%;
+            }
             .eventimg{
                 background-size: cover;
                 background-position: center;
@@ -141,6 +147,9 @@ main{
                 margin-left: $lineHeight2;
             }
             height: 25vw;
+            @media (orientation: portrait) {
+                height: 100vw;
+            }
         }
 
     }
@@ -253,12 +262,18 @@ main{
             main
             {
                 width:50%;
+
                 background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
                 background-attachment: fixed;
                 padding: $padding;
                 margin-left: calc(50% - ($padding*2));
                 min-height: 100vh;
                 padding-bottom: 10vh;
+                @media (orientation: portrait) {
+                    margin-left: 0;
+                    width: 100%;
+                    margin-top: 100vh;
+                }
                 .mainimage, .grid{
                     position: fixed;
                     top:0;
@@ -375,7 +390,10 @@ main{
                         vertical-align: top;
                         margin-bottom: $padding*3;
                         border-radius: $padding;
-                        
+                        @media (orientation: portrait) {
+                            width: 100%;
+                            display: block;
+                        }
                         p{
                             color: white;
                             padding: $padding;

@@ -121,10 +121,21 @@ main {
   width: 48%;
   display: table-cell;
 }
+@media (orientation: portrait) {
+  .eventswrapper a {
+    width: 100%;
+    display: block;
+  }
+}
 .eventswrapper a .events {
   width: 89%;
   border-radius: 0.8vw;
   height: 25vw;
+}
+@media (orientation: portrait) {
+  .eventswrapper a .events {
+    width: 100%;
+  }
 }
 .eventswrapper a .events .eventimg {
   background-size: cover;
@@ -139,6 +150,11 @@ main {
   line-height: 2.2vw;
   text-indent: -2.2vw;
   margin-left: 2.2vw;
+}
+@media (orientation: portrait) {
+  .eventswrapper a .events {
+    height: 100vw;
+  }
 }
 
 /*STARTPAGE */
@@ -241,6 +257,13 @@ main {
   margin-left: calc(50% - 1.6vw);
   min-height: 100vh;
   padding-bottom: 10vh;
+}
+@media (orientation: portrait) {
+  .page main {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 100vh;
+  }
 }
 .page main .mainimage, .page main .grid {
   position: fixed;
@@ -355,6 +378,12 @@ main {
   vertical-align: top;
   margin-bottom: 2.4vw;
   border-radius: 0.8vw;
+}
+@media (orientation: portrait) {
+  .page main .content blockquote {
+    width: 100%;
+    display: block;
+  }
 }
 .page main .content blockquote p {
   color: white;
