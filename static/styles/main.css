@@ -88,6 +88,15 @@ main {
   margin-right: 0.4vw;
   white-space: nowrap;
 }
+@media (orientation: portrait) {
+  .smallpill {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
+    border-radius: 3.75vw;
+    padding: 1vw 4vw 1vw 4vw;
+    margin-right: 1vw;
+  }
+}
 
 .mediumpill {
   font-size: 2vw;
@@ -95,6 +104,14 @@ main {
   border-radius: 2vw;
   padding: 0.4vw 1.6vw 0.4vw 1.6vw;
   margin-right: 0.8vw;
+}
+@media (orientation: portrait) {
+  .mediumpill {
+    font-size: 5vw;
+    line-height: 5.5vw;
+    border-radius: 5vw;
+    padding: 1vw 4vw 1vw 4vw;
+  }
 }
 
 .bigpill {
@@ -107,6 +124,13 @@ main {
   text-align: center;
   width: -moz-fit-content;
   width: fit-content;
+}
+@media (orientation: portrait) {
+  .bigpill {
+    font-size: 10.5vw;
+    line-height: 13.5vw;
+    border-radius: 10.5vw;
+  }
 }
 
 .blur {
@@ -121,12 +145,6 @@ main {
   width: 48%;
   display: table-cell;
 }
-@media (orientation: portrait) {
-  .eventswrapper a {
-    width: 100%;
-    display: block;
-  }
-}
 .eventswrapper a .events {
   width: 89%;
   border-radius: 0.8vw;
@@ -135,6 +153,8 @@ main {
 @media (orientation: portrait) {
   .eventswrapper a .events {
     width: 100%;
+    display: inline-block;
+    vertical-align: top;
   }
 }
 .eventswrapper a .events .eventimg {
@@ -152,8 +172,16 @@ main {
   margin-left: 2.2vw;
 }
 @media (orientation: portrait) {
+  .eventswrapper a .events .caption {
+    font-size: 5vw;
+    line-height: 5.5vw;
+    text-indent: -5.5vw;
+    margin-left: 5.5vw;
+  }
+}
+@media (orientation: portrait) {
   .eventswrapper a .events {
-    height: 100vw;
+    height: auto;
   }
 }
 
@@ -181,6 +209,14 @@ main {
   left: 50vw;
   margin-bottom: 40vh;
   transform: translate(-50%, -50%);
+}
+@media (orientation: portrait) {
+  .startpage main section .bigpill {
+    left: 0;
+    transform: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 .startpage main video {
   position: sticky;
@@ -211,6 +247,12 @@ main {
   display: inline-block;
   vertical-align: top;
 }
+@media (orientation: portrait) {
+  .startpage main .preview .left, .startpage main .preview .right {
+    width: 100%;
+    display: block;
+  }
+}
 .startpage main .preview .left h2 {
   padding-top: 1.6vw;
 }
@@ -219,6 +261,13 @@ main {
   line-height: 2.2vw;
   padding: 0 1.6vw;
   text-align: center;
+}
+@media (orientation: portrait) {
+  .startpage main .preview .left p {
+    font-size: 5vw;
+    line-height: 5.5vw;
+    padding: 0 4vw;
+  }
 }
 .startpage main .preview .right {
   margin-top: 1.6vw;
@@ -247,6 +296,11 @@ main {
   z-index: -1;
   padding-top: 19vw;
 }
+@media (orientation: portrait) {
+  .startpage .mainimageCaption {
+    font-size: 3.75vw;
+  }
+}
 
 /*PAGE */
 .page main {
@@ -261,7 +315,8 @@ main {
 @media (orientation: portrait) {
   .page main {
     margin-left: 0;
-    width: 100%;
+    padding: 2vw;
+    width: calc(100% - 4vw);
     margin-top: 100vh;
   }
 }
@@ -297,6 +352,12 @@ main {
   text-indent: -2.2vw;
   margin-left: 2.2vw;
 }
+@media (orientation: portrait) {
+  .page main .content ul {
+    text-indent: -5.5vw;
+    margin-left: 5.5vw;
+  }
+}
 .page main .content li:before {
   content: "• ";
 }
@@ -320,11 +381,26 @@ main {
   position: sticky;
   top: 1.6vw;
 }
+@media (orientation: portrait) {
+  .page main .content h2 {
+    font-size: 5vw;
+    line-height: 5.5vw;
+    padding: 2vw 4vw;
+    top: 4vw;
+  }
+}
 .page main .content h3 {
   font-size: 2vw;
   line-height: 2.2vw;
   font-family: "FreeSans-JK";
   margin-top: 2.2vw;
+}
+@media (orientation: portrait) {
+  .page main .content h3 {
+    font-size: 5vw;
+    line-height: 5.5vw;
+    margin-top: 5.5vw;
+  }
 }
 .page main .content h4 {
   font-size: 2vw;
@@ -337,11 +413,26 @@ main {
   margin-top: 0.8vw;
   display: inline-block;
 }
+@media (orientation: portrait) {
+  .page main .content h4 {
+    font-size: 5vw;
+    line-height: 5.5vw;
+    border-radius: 5.5vw;
+    padding: 1vw 4vw 1vw 4vw;
+    margin-top: 2vw;
+  }
+}
 .page main .content h6 {
   font-size: 1.1vw;
   line-height: 1.4vw;
   color: rgba(var(--color2));
   margin-bottom: 1.4vw;
+}
+@media (orientation: portrait) {
+  .page main .content h6 {
+    font-size: 2.75vw;
+    line-height: 3.5vw;
+  }
 }
 .page main .content p, .page main .content li {
   -webkit-hyphens: auto;
@@ -399,6 +490,12 @@ main {
   -webkit-hyphens: auto;
           hyphens: auto;
 }
+@media (orientation: portrait) {
+  .page main .content blockquote p {
+    font-size: 10vw;
+    line-height: 10vw;
+  }
+}
 .page main .content blockquote p em {
   font-size: 1.5vw;
   line-height: 1.7vw;
@@ -407,6 +504,12 @@ main {
   text-align: left;
   display: block;
   -webkit-text-stroke-width: 0;
+}
+@media (orientation: portrait) {
+  .page main .content blockquote p em {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
+  }
 }
 .page main .content blockquote a {
   color: white;
@@ -450,10 +553,22 @@ main {
   margin-right: 0.4vw;
   white-space: nowrap;
 }
+@media (orientation: portrait) {
+  .event .content a {
+    border-radius: 3.75vw;
+    padding: 0.5vw 2vw 0.5vw 2vw;
+  }
+}
 .event .content .bio-wrapper {
   font-size: 1.5vw;
   line-height: 1.7vw;
   width: 66%;
+}
+@media (orientation: portrait) {
+  .event .content .bio-wrapper {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
+  }
 }
 
 h1, h2, h3 {
@@ -466,11 +581,23 @@ h1 {
   font-size: 7vw;
   line-height: 6vw;
 }
+@media (orientation: portrait) {
+  h1 {
+    font-size: 17.5vw;
+    line-height: 15vw;
+  }
+}
 
 p, li {
   color: rgba(var(--color2));
   font-size: 2vw;
   line-height: 2.2vw;
+}
+@media (orientation: portrait) {
+  p, li {
+    font-size: 5vw;
+    line-height: 5.5vw;
+  }
 }
 
 /*NAVIGATION */
@@ -535,12 +662,28 @@ nav .languages .smallpill {
   z-index: 100;
   cursor: pointer;
 }
+@media (orientation: portrait) {
+  #navButton, #newsClose, #navButtonClose {
+    top: 2.75vw;
+    right: 2.75vw;
+  }
+}
 #navButton img, #newsClose img, #navButtonClose img {
   width: 4.7vw;
+}
+@media (orientation: portrait) {
+  #navButton img, #newsClose img, #navButtonClose img {
+    width: 11.75vw;
+  }
 }
 
 .startpage #navButton, #newsClose {
   top: 5.6vw;
+}
+@media (orientation: portrait) {
+  .startpage #navButton, #newsClose {
+    top: 14vw;
+  }
 }
 
 #newsClose, #navButtonClose {
@@ -554,6 +697,11 @@ nav .languages .smallpill {
   z-index: 10;
   background: rgba(var(--color1));
   color: rgba(var(--color2));
+}
+@media (orientation: portrait) {
+  #instaButton {
+    top: 11.8vw;
+  }
 }
 
 /* NEWSBAR */
@@ -572,9 +720,19 @@ nav .languages .smallpill {
   z-index: 2;
   transition: all 1s;
 }
+@media (orientation: portrait) {
+  .marquee {
+    height: 10vw;
+  }
+}
 
 .newsopen {
   height: calc(100vh + 4vw);
+}
+@media (orientation: portrait) {
+  .newsopen {
+    height: calc(100vh + 10vw);
+  }
 }
 .newsopen span {
   background-color: rgba(var(--color2));
@@ -589,6 +747,12 @@ nav .languages .smallpill {
   margin-block-start: 0;
   margin-block-end: 0;
   cursor: pointer;
+}
+@media (orientation: portrait) {
+  .marquee p {
+    line-height: 11vw;
+    font-size: 10vw;
+  }
 }
 
 @keyframes marquee {
@@ -614,11 +778,22 @@ nav .languages .smallpill {
   padding: 0.8vw;
   margin-bottom: 2.4vw;
 }
+@media (orientation: portrait) {
+  .newscontent .newscontentInner .grid-item, .newscontent .newscontentInner .grid-sizer {
+    width: 100%;
+  }
+}
 .newscontent .newscontentInner .grid-item h1, .newscontent .newscontentInner .grid-sizer h1 {
   line-height: 4vw;
   font-size: 4vw;
   -webkit-hyphens: auto;
           hyphens: auto;
+}
+@media (orientation: portrait) {
+  .newscontent .newscontentInner .grid-item h1, .newscontent .newscontentInner .grid-sizer h1 {
+    line-height: 10vw;
+    font-size: 10vw;
+  }
 }
 .newscontent .newscontentInner .grid-item p, .newscontent .newscontentInner .grid-sizer p {
   display: block;
@@ -629,6 +804,12 @@ nav .languages .smallpill {
   line-height: 1.4vw;
   cursor: default;
 }
+@media (orientation: portrait) {
+  .newscontent .newscontentInner .grid-item p, .newscontent .newscontentInner .grid-sizer p {
+    font-size: 2.75vw;
+    line-height: 3.5vw;
+  }
+}
 .newscontent .newscontentInner .grid-item .date, .newscontent .newscontentInner .grid-sizer .date {
   text-align: center;
 }
@@ -637,12 +818,23 @@ nav .languages .smallpill {
   box-shadow: 0 0 10px rgba(var(--color2));
   margin-bottom: 0.8vw;
 }
+@media (orientation: portrait) {
+  .newscontent .newscontentInner .grid-item img, .newscontent .newscontentInner .grid-sizer img {
+    margin-bottom: 2vw;
+  }
+}
 .newscontent .newscontentInner .grid-item a, .newscontent .newscontentInner .grid-sizer a {
   margin-top: 1.6vw;
   color: rgba(var(--color1));
   background-color: rgba(var(--color2));
   border-radius: 1.7vw;
   padding: 0.4vw 0.8vw;
+}
+@media (orientation: portrait) {
+  .newscontent .newscontentInner .grid-item a, .newscontent .newscontentInner .grid-sizer a {
+    border-radius: 4.25vw;
+    padding: 1vw 2vw;
+  }
 }
 .newscontent .newscontentInner .grid-item span, .newscontent .newscontentInner .grid-sizer span {
   background: none;
@@ -660,6 +852,12 @@ footer a, footer p {
   font-size: 1.5vw;
   line-height: 1.7vw;
 }
+@media (orientation: portrait) {
+  footer a, footer p {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
+  }
+}
 footer div {
   display: inline-block;
   vertical-align: top;
@@ -667,11 +865,22 @@ footer div {
 footer .toplinks {
   width: 80%;
 }
+@media (orientation: portrait) {
+  footer .toplinks {
+    width: 50%;
+  }
+}
 footer .toplinks ul {
   margin-top: 0.8vw;
 }
 footer .toplinks li {
   display: inline-block;
+}
+@media (orientation: portrait) {
+  footer .toplinks li {
+    display: block;
+    margin-top: 5.5vw;
+  }
 }
 footer .toplinks li .mediumpill {
   border: 1px solid rgba(var(--color1));
@@ -690,6 +899,11 @@ footer .toplinks .logo {
   margin-top: -1vw;
   margin-left: -1vw;
 }
+@media (orientation: portrait) {
+  footer .toplinks .logo {
+    width: 100%;
+  }
+}
 footer .toplinks .logo, footer .toplinks ul {
   display: inline-block;
   vertical-align: top;
@@ -697,9 +911,22 @@ footer .toplinks .logo, footer .toplinks ul {
 footer .adresse {
   width: 30%;
 }
+@media (orientation: portrait) {
+  footer .adresse {
+    width: 100%;
+    margin-top: 10vw;
+  }
+}
 footer .left {
   width: 20%;
   height: 100px;
+}
+@media (orientation: portrait) {
+  footer .left {
+    width: 50%;
+    height: auto;
+    margin-top: 29vw;
+  }
 }
 footer .left .mediumpill {
   border: 1px solid white;
@@ -719,19 +946,53 @@ footer .left .nohover:hover {
 footer .left .smicons {
   margin-bottom: 2.4vw;
 }
+@media (orientation: portrait) {
+  footer .left .smicons {
+    width: 100%;
+  }
+}
 footer .left .smicons img {
   width: 5vw;
   margin-right: 0.8vw;
 }
+@media (orientation: portrait) {
+  footer .left .smicons img {
+    width: 12.5vw;
+    margin-right: 2vw;
+  }
+}
+@media (orientation: portrait) {
+  footer .left li {
+    display: block;
+    margin-top: 5.5vw;
+  }
+}
 footer .middle {
   width: 50%;
+}
+@media (orientation: portrait) {
+  footer .middle {
+    width: 100%;
+  }
 }
 footer .middle p {
   font-size: 1.1vw;
   line-height: 1.4vw;
 }
+@media (orientation: portrait) {
+  footer .middle p {
+    font-size: 2.75vw;
+    line-height: 3.5vw;
+  }
+}
 footer .middle .logofooter {
   display: inline-block;
   height: 2vw;
   padding: 0.8vw 2.4vw 0.8vw 0;
+}
+@media (orientation: portrait) {
+  footer .middle .logofooter {
+    height: 5vw;
+    padding: 2vw 6vw 2vw 0;
+  }
 }/*# sourceMappingURL=main.css.map */

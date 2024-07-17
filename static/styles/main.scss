@@ -94,6 +94,13 @@ main{
     padding: calc($padding/2) $padding*2 calc($padding/2) $padding*2;
     margin-right: calc($padding/2);  
     white-space: nowrap;
+    @media (orientation: portrait) {
+        font-size: $fontSize1*$scaleFactor;
+        line-height: $lineHeight1*$scaleFactor;
+        border-radius: $fontSize1*$scaleFactor;
+        padding: calc($padding/2)*$scaleFactor $padding*2*$scaleFactor calc($padding/2)*$scaleFactor $padding*2*$scaleFactor;
+        margin-right: calc($padding/2)*$scaleFactor;  
+    }
 }
 .mediumpill{
     font-size: $fontSize2;
@@ -101,6 +108,12 @@ main{
     border-radius: $fontSize2;
     padding: calc($padding/2) calc($padding*2) calc($padding/2) calc($padding*2);
     margin-right: $padding;
+    @media (orientation: portrait) {
+        font-size: $fontSize2*$scaleFactor;
+        line-height: $lineHeight2*$scaleFactor;
+        border-radius: $fontSize2*$scaleFactor;       
+        padding: calc($padding/2)*$scaleFactor calc($padding*2)*$scaleFactor calc($padding/2)*$scaleFactor calc($padding*2)*$scaleFactor;
+    }
 }
 .bigpill{
     font-size: $fontSize3;
@@ -111,6 +124,11 @@ main{
     color: rgba(var(--color2));
     text-align: center;
     width: fit-content;
+    @media (orientation: portrait) {
+        font-size: $fontSize3*1.5;
+        line-height: $lineHeight3*1.5*1.5;
+        border-radius: $fontSize3*1.5;
+    }
 }
 .blur{
     filter:blur(20px);
@@ -120,16 +138,15 @@ main{
     width: 100%;
     a{
         width: 48%;
-        @media (orientation: portrait) {
-            width: 100%; 
-            display: block;
-        }
+
         display: table-cell;
         .events{
             width: 89%;
             border-radius: $padding;
             @media (orientation: portrait) {
                 width: 100%;
+                display: inline-block;
+                vertical-align: top;
             }
             .eventimg{
                 background-size: cover;
@@ -145,10 +162,16 @@ main{
                 line-height: $lineHeight2;
                 text-indent: -$lineHeight2;
                 margin-left: $lineHeight2;
+                @media (orientation: portrait) {
+                    font-size: $fontSize2*$scaleFactor;
+                    line-height: $lineHeight2*$scaleFactor;
+                    text-indent: -$lineHeight2*$scaleFactor;
+                    margin-left: $lineHeight2*$scaleFactor;                   
+                }
             }
             height: 25vw;
             @media (orientation: portrait) {
-                height: 100vw;
+                height: auto;
             }
         }
 
@@ -181,6 +204,12 @@ main{
                 left: 50vw;
                 margin-bottom: 40vh;
                 transform: translate(-50%, -50%);
+                @media (orientation: portrait) {
+                    left: 0;
+                    transform: none;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
             }
         }
         video{
@@ -209,6 +238,10 @@ main{
                 width:50%;
                 display: inline-block;
                 vertical-align: top;
+                @media (orientation: portrait) {
+                    width: 100%;
+                    display: block;
+                }
             }
             .left{
                 h2{
@@ -219,6 +252,11 @@ main{
                     line-height: $lineHeight2;
                     padding: 0 $padding*2;
                     text-align: center;
+                    @media (orientation: portrait) {
+                        font-size: $fontSize2*$scaleFactor;
+                        line-height: $lineHeight2*$scaleFactor;
+                        padding: 0 $padding*2*$scaleFactor;                   
+                    }
                 }
             }
             .right{
@@ -235,6 +273,7 @@ main{
                 font-size: $fontSize3;
                 line-height: $lineHeight3;
                 font-family: 'FreeSans-JK';
+
             }
 
         }
@@ -251,6 +290,9 @@ main{
         color: rgba(var(--color2));
         z-index: -1;
         padding-top: 19vw;
+        @media (orientation: portrait) {
+            font-size: $fontSize1*$scaleFactor;
+        }
     }
 
 
@@ -271,7 +313,8 @@ main{
                 padding-bottom: 10vh;
                 @media (orientation: portrait) {
                     margin-left: 0;
-                    width: 100%;
+                    padding: $padding*$scaleFactor;;
+                    width: calc(100% - $padding*2*$scaleFactor);
                     margin-top: 100vh;
                 }
                 .mainimage, .grid{
@@ -305,6 +348,10 @@ main{
                     ul{
                         text-indent: -$lineHeight2;
                         margin-left: $lineHeight2;
+                        @media (orientation: portrait) {
+                            text-indent: -$lineHeight2*$scaleFactor;
+                            margin-left: $lineHeight2*$scaleFactor;                            
+                        }
                     }
                     li:before{
                         content: '• '
@@ -330,12 +377,23 @@ main{
                         transform: translateX(-50%);
                         position: sticky;
                         top: $padding*2;
+                        @media (orientation: portrait) {
+                            font-size: $fontSize2*$scaleFactor;
+                            line-height: $lineHeight2*$scaleFactor;
+                            padding: $padding*$scaleFactor $padding*2*$scaleFactor;    
+                            top: $padding*2*$scaleFactor;                        
+                        }
                     }
                     h3{
                         font-size: $fontSize2;
                         line-height: $lineHeight2;
                         font-family: 'FreeSans-JK';
-                        margin-top: $lineHeight2;                        
+                        margin-top: $lineHeight2;
+                        @media (orientation: portrait) {
+                            font-size: $fontSize2*$scaleFactor;
+                            line-height: $lineHeight2*$scaleFactor;  
+                            margin-top: $lineHeight2*$scaleFactor;                          
+                        }                        
                     }
                     h4{
                         font-size: $fontSize2;
@@ -347,12 +405,23 @@ main{
                         padding: calc($padding/2) calc($padding*2) calc($padding/2) $padding*2;
                         margin-top: $padding;
                         display: inline-block;
+                        @media (orientation: portrait) {
+                            font-size: $fontSize2*$scaleFactor;
+                            line-height: $lineHeight2*$scaleFactor;
+                            border-radius: $lineHeight2*$scaleFactor;
+                            padding: calc($padding/2)*$scaleFactor calc($padding*2)*$scaleFactor calc($padding/2)*$scaleFactor $padding*2*$scaleFactor;
+                            margin-top: $padding*$scaleFactor;
+                        }
                     }
                     h6{
                         font-size: $fontSize0;
                         line-height: $lineHeight0;
                         color:  rgba(var(--color2));
                         margin-bottom: $lineHeight0;
+                        @media (orientation: portrait) {
+                            font-size: $fontSize0*$scaleFactor;
+                            line-height: $lineHeight0*$scaleFactor;
+                        }
                     }
                     p, li{
                         hyphens: auto;
@@ -406,7 +475,10 @@ main{
                             -webkit-text-stroke-width: 1px;
                             -webkit-text-stroke-color: rgba(var(--color3));
                             hyphens: auto;
-
+                            @media (orientation: portrait) {
+                                font-size: $fontSize2*2*$scaleFactor;
+                                line-height: $fontSize2*2*$scaleFactor; 
+                            }
                             em{
                                 font-size: $fontSize1;
                                 line-height: $lineHeight1;
@@ -415,6 +487,10 @@ main{
                                 text-align: left;
                                 display: block;
                                 -webkit-text-stroke-width: 0;
+                                @media (orientation: portrait) {
+                                    font-size: $fontSize1*$scaleFactor;
+                                    line-height: $lineHeight1*$scaleFactor;
+                                }
                             }
                             
 
@@ -466,11 +542,19 @@ main{
                     padding: calc($padding/4) calc($padding) calc($padding/4) $padding;
                     margin-right: calc($padding/2);  
                     white-space: nowrap;
+                    @media (orientation: portrait) {
+                        border-radius: $fontSize1*$scaleFactor;
+                        padding: calc($padding/4)*$scaleFactor calc($padding)*$scaleFactor calc($padding/4)*$scaleFactor $padding*$scaleFactor;
+                    }
                 }
                 .bio-wrapper{
                     font-size: $fontSize1;
                     line-height: $lineHeight1;
                     width: 66%;
+                    @media (orientation: portrait) {
+                        font-size: $fontSize1*$scaleFactor;
+                        line-height: $lineHeight1*$scaleFactor;
+                    }
                 }
             }
         }
@@ -484,12 +568,20 @@ main{
         h1{
             font-size: $fontSize3;
             line-height: $lineHeight3;
+            @media (orientation: portrait) {
+                font-size: $fontSize3*$scaleFactor;
+                line-height: $lineHeight3*$scaleFactor;                
+            }
         }
         p,li
         {
             color: rgba(var(--color2));
             font-size: $fontSize2;
             line-height: $lineHeight2;
+            @media (orientation: portrait) {
+                font-size: $fontSize2*$scaleFactor;
+                line-height: $lineHeight2*$scaleFactor;                
+            }
         }
 
 
@@ -557,12 +649,22 @@ nav{
     right: 1.1vw;
     z-index: 100;
     cursor:pointer;
+    @media (orientation: portrait) {
+        top: 1.1vw*$scaleFactor;
+        right: 1.1vw*$scaleFactor;      
+    }
     img{
         width:4.7vw;
+        @media (orientation: portrait) {
+            width:4.7vw*$scaleFactor; 
+        }
     }
 }
 .startpage #navButton, #newsClose{
     top:$fontSize2*2 + $padding*2;
+    @media (orientation: portrait) {
+        top:$fontSize2*2*$scaleFactor + $padding*2*$scaleFactor;  
+    }
 }
 #newsClose,#navButtonClose{
     display: none;
@@ -574,6 +676,9 @@ nav{
     z-index: 10;
     background: rgba(var(--color1));
     color: rgba(var(--color2));
+    @media (orientation: portrait) {
+        top: $lineHeight2*2*$scaleFactor + $padding;
+    }
 }
 
 
@@ -595,10 +700,16 @@ nav{
     box-shadow: 0 0 20px black;
     z-index: 2;
     transition: all 1s;
+    @media (orientation: portrait) {
+        height:$fontSize2*2*$scaleFactor;
+    }
 }
 .newsopen{
     //top:100vh;
     height:calc(100vh + $fontSize2*2);
+    @media (orientation: portrait) {
+        height:calc(100vh + $fontSize2*2*$scaleFactor);   
+    }
     span{
         background-color: rgba(var(--color2));
         color:rgba(var(--color1));       
@@ -612,6 +723,10 @@ nav{
     margin-block-start: 0;
     margin-block-end: 0;
     cursor: pointer;
+    @media (orientation: portrait) {
+        line-height: $lineHeight2*2*$scaleFactor;
+        font-size: $fontSize2*2*$scaleFactor;        
+    }
 }
 @keyframes marquee {
     0%   { transform: translate(0, 0); }
@@ -630,11 +745,18 @@ nav{
             float: left;
             padding:$padding;
             margin-bottom: $padding*3;
+            @media (orientation: portrait) {
+                width:100%;
+            }
             
             h1{
                 line-height: $fontSize2*2;
                 font-size: $fontSize2*2;
                 hyphens: auto;
+                @media (orientation: portrait) {
+                    line-height: $fontSize2*2*$scaleFactor;
+                    font-size: $fontSize2*2*$scaleFactor;                   
+                }
             }
             p{
                 display: block;
@@ -644,6 +766,10 @@ nav{
                 font-size: $fontSize0;
                 line-height: $lineHeight0;
                 cursor: default;
+                @media (orientation: portrait) {
+                    font-size: $fontSize0*$scaleFactor;
+                    line-height: $lineHeight0*$scaleFactor;                   
+                }
 
             }
             .date{
@@ -653,6 +779,9 @@ nav{
                 width: 100%;
                 box-shadow: 0 0 10px rgba(var(--color2));
                 margin-bottom: $padding;
+                @media (orientation: portrait) {
+                    margin-bottom: $padding*$scaleFactor;     
+                }
             }
             a{
                 margin-top: $padding*2;
@@ -660,6 +789,10 @@ nav{
                 background-color: rgba(var(--color2));
                 border-radius: $lineHeight1;
                 padding: calc($padding/2) $padding;
+                @media (orientation: portrait) {
+                    border-radius: $lineHeight1*$scaleFactor;
+                    padding: calc($padding/2)*$scaleFactor $padding*$scaleFactor;                   
+                }
             }
             span{
                 background: none;
@@ -679,6 +812,10 @@ footer{
         color:white;
         font-size: $fontSize1;
         line-height: $lineHeight1;
+        @media (orientation: portrait) {
+            font-size: $fontSize1*$scaleFactor;
+            line-height: $lineHeight1*$scaleFactor;            
+        }
     }
     div{
         display: inline-block;
@@ -686,11 +823,19 @@ footer{
     }
     .toplinks{
         width:80%;
+        @media (orientation: portrait) {
+            width: 50%;
+        }
         ul{
             margin-top: $padding;
+
         }
         li{
             display: inline-block;
+            @media (orientation: portrait) {
+                display: block;
+                margin-top: $lineHeight2*$scaleFactor;
+            }
             .mediumpill{
                 border: 1px solid rgba(var(--color1));
             }
@@ -708,6 +853,9 @@ footer{
             margin-right: 8%;
             margin-top: -1vw;
             margin-left: -1vw;
+            @media (orientation: portrait) {
+                width: 100%;
+            }
         }
         .logo,ul{
             display: inline-block;
@@ -716,10 +864,19 @@ footer{
     }
     .adresse{
         width:30%;
+        @media (orientation: portrait) {
+            width: 100%;
+            margin-top: 10vw;
+        }
     }
     .left{
         width: 20%;
         height:100px;
+        @media (orientation: portrait) {
+            width: 50%;
+            height: auto;
+            margin-top: 29vw;
+        }
         .mediumpill{
             border: 1px solid white;
             line-height: $lineHeight1*3;
@@ -736,23 +893,48 @@ footer{
             color: rgba(var(--color1));
         }
         .smicons{
+            @media (orientation: portrait) {
+                width: 100%;
+            }
             img{
                 width: $fontSize2*2.5;
                 margin-right: $padding;
+                @media (orientation: portrait) {
+                    width: $fontSize2*2.5*$scaleFactor; 
+                    margin-right: $padding*$scaleFactor;
+                }
             }
             margin-bottom: $padding*3;
         }
+        li{
+            @media (orientation: portrait) {
+                display: block;
+                margin-top: $lineHeight2*$scaleFactor;
+            }
+        }
+
     }
     .middle{
         width: 50%;
+        @media (orientation: portrait) {
+            width: 100%;
+        }
         p{
             font-size: $fontSize0;
             line-height: $lineHeight0;
+            @media (orientation: portrait) {
+                font-size: $fontSize0*$scaleFactor;
+                line-height: $lineHeight0*$scaleFactor;               
+            }
         }
         .logofooter{
             display: inline-block;
             height: $fontSize2;
             padding: $padding $padding*3 $padding 0;
+            @media (orientation: portrait) {
+                height: $fontSize2*$scaleFactor;
+                padding: $padding*$scaleFactor $padding*3*$scaleFactor $padding*$scaleFactor 0;
+            }
         }
     }
 }
