@@ -13,7 +13,8 @@ html(lang=language[0])
                     if(item.Show_Title)
                         a(href=baseURL+'pages/'+item.Title_Link+'/'+language[0])
                             .bigpill= item.Title_De
-                            .caption= item.Caption_De
+                            a(href=baseURL+item.Caption_Link)
+                                .mainimageCaption= item.Caption_De
                     - n = n+1
                     - z = z+1
 
@@ -60,12 +61,13 @@ html(lang=language[0])
                     .previewItem 
                         .smallpill
                             - var title =data.translations[languageParameter].Title
-                            if(language[0] == 'en' )
-                                .
-                                    More #{title}
-                            else 
-                                .
-                                    Mehr #{title}     
+                            a(href=baseURL+'pages/'+data.Events_1_Link)
+                                if(language[0] == 'en' )
+                                    .
+                                        More #{title}
+                                else 
+                                    .
+                                        Mehr #{title}     
                             
                             
 
@@ -92,12 +94,13 @@ html(lang=language[0])
                     .previewItem 
                         .smallpill
                             - var title =data.translations_performances[languageParameter].Title
-                            if(language[0] == 'en' )
-                                .
-                                    More #{title}
-                            else 
-                                .
-                                    Mehr #{title}   
+                            a(href=baseURL+'pages/'+data.Events_2_Link)
+                                if(language[0] == 'en' )
+                                    .
+                                        More #{title}
+                                else 
+                                    .
+                                        Mehr #{title}   
 
 
 
@@ -125,12 +128,13 @@ html(lang=language[0])
                     .previewItem 
                         .smallpill
                             - var title =data.translations_screenings[languageParameter].Title
-                            if(language[0] == 'en' )
-                                .
-                                    More #{title}
-                            else 
-                                .
-                                    Mehr #{title}   
+                            a(href=baseURL+'pages/'+data.Events_3_Link)
+                                if(language[0] == 'en' )
+                                    .
+                                        More #{title}
+                                else 
+                                    .
+                                        Mehr #{title}   
             
 
 
@@ -157,12 +161,12 @@ html(lang=language[0])
                     .previewItem 
                         .smallpill
                             - var title =data.translations_conference[languageParameter].Title
-                            if(language[0] == 'en' )
-                                .
-                                    More #{title}
-                            else 
-                                .
-                                    Mehr #{title}   
+                            a(href=baseURL+'pages/'+data.Events_4_Link)
+                                if(language[0] == 'en' )
+                                    .
+                                        More #{title}
+                                else 
+                                    .
+                                        Mehr #{title}   
             
-
         include includes/footer.pug

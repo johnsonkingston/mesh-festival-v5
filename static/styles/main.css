@@ -38,7 +38,6 @@ body {
 a {
   text-decoration: none;
   color: rgba(var(--color2));
-  transition: color 1s linear;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -72,12 +71,20 @@ ul {
   display: none;
 }
 
+a, h1, h2, h3, h4, h5, h6, p, li, blockquote, div, section, main, footer {
+  transition: color 1s linear, background-color 2s linear;
+}
+
+main {
+  transition: all 1s linear;
+}
+
 /*GENERAL*/
 .smallpill {
   font-size: 1.5vw;
   line-height: 1.7vw;
   border-radius: 1.5vw;
-  padding: 0.2vw 0.8vw 0.2vw 0.8vw;
+  padding: 0.4vw 1.6vw 0.4vw 1.6vw;
   margin-right: 0.4vw;
   white-space: nowrap;
 }
@@ -130,6 +137,8 @@ ul {
   display: inline-block;
   font-size: 2vw;
   line-height: 2.2vw;
+  text-indent: -2.2vw;
+  margin-left: 2.2vw;
 }
 
 /*STARTPAGE */
@@ -198,16 +207,29 @@ ul {
 .startpage main .preview .right {
   margin-top: 1.6vw;
 }
+.startpage main .preview .right .previewItem {
+  margin-top: 4.8vw;
+}
+.startpage main .preview .right .previewItem a {
+  color: rgba(var(--color3));
+}
 .startpage main .preview h2 {
   font-size: 7vw;
   line-height: 6vw;
   font-family: "FreeSans-JK";
 }
 .startpage .smallpill {
-  margin-top: 8vw;
   background: rgba(var(--color2));
-  color: rgba(var(--color1));
+  color: rgba(var(--color3));
   display: inline-block;
+}
+.startpage .mainimageCaption {
+  margin-left: 0.8vw;
+  bottom: 0.8vw;
+  font-size: 1.5vw;
+  color: rgba(var(--color2));
+  z-index: -1;
+  padding-top: 19vw;
 }
 
 /*PAGE */
@@ -288,7 +310,7 @@ ul {
   background: rgba(var(--color3));
   border: 0.2vw solid rgba(var(--color2));
   border-radius: 2.2vw;
-  padding: 0.2vw 0.8vw 0.2vw 0.8vw;
+  padding: 0.4vw 1.6vw 0.4vw 1.6vw;
   margin-top: 0.8vw;
   display: inline-block;
 }
@@ -373,7 +395,7 @@ ul {
 }
 .event main {
   background: linear-gradient(180deg, rgba(var(--color4)) 0%, rgba(var(--color3)) 10%);
-  margin-top: 100vw;
+  margin-top: 78vh;
   padding-top: 10vw;
 }
 .event .eventHeader {
@@ -409,7 +431,6 @@ h1, h2, h3 {
   font-family: "FreeSerif-JK";
   text-align: center;
   color: rgba(var(--color2));
-  transition: color 1s linear;
 }
 
 h1 {
@@ -426,9 +447,9 @@ p, li {
 /*NAVIGATION */
 nav {
   position: fixed;
-  top: -90%;
+  top: -100%;
   width: 100%;
-  height: 90%;
+  height: 100%;
   background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
   transition: top 0.5s ease-in-out;
   z-index: 90;
@@ -478,19 +499,32 @@ nav .languages .smallpill {
   top: 0;
 }
 
-#navButton {
+#navButton, #newsClose, #navButtonClose {
   position: fixed;
   top: 1.1vw;
   right: 1.1vw;
   z-index: 100;
   cursor: pointer;
 }
-#navButton img {
+#navButton img, #newsClose img, #navButtonClose img {
   width: 4.7vw;
 }
 
-.startpage #navButton {
+.startpage #navButton, #newsClose {
   top: 5.6vw;
+}
+
+#newsClose, #navButtonClose {
+  display: none;
+}
+
+#instaButton {
+  position: fixed;
+  top: 5.2vw;
+  left: 0.8vw;
+  z-index: 10;
+  background: rgba(var(--color1));
+  color: rgba(var(--color2));
 }
 
 /* NEWSBAR */
@@ -508,7 +542,6 @@ nav .languages .smallpill {
   box-shadow: 0 0 20px black;
   z-index: 2;
   transition: all 1s;
-  cursor: pointer;
 }
 
 .newsopen {
@@ -526,6 +559,7 @@ nav .languages .smallpill {
   font-size: 4vw;
   margin-block-start: 0;
   margin-block-end: 0;
+  cursor: pointer;
 }
 
 @keyframes marquee {
@@ -564,6 +598,7 @@ nav .languages .smallpill {
   font-family: "FreeSans-JK";
   font-size: 1.1vw;
   line-height: 1.4vw;
+  cursor: default;
 }
 .newscontent .newscontentInner .grid-item .date, .newscontent .newscontentInner .grid-sizer .date {
   text-align: center;
@@ -601,7 +636,7 @@ footer div {
   vertical-align: top;
 }
 footer .toplinks {
-  width: 75%;
+  width: 80%;
 }
 footer .toplinks ul {
   margin-top: 0.8vw;
@@ -621,16 +656,20 @@ footer .toplinks li a:hover {
   color: rgba(var(--color1));
 }
 footer .toplinks .logo {
-  width: 33%;
+  width: 30%;
+  margin-right: 8%;
+  margin-top: -1vw;
+  margin-left: -1vw;
 }
 footer .toplinks .logo, footer .toplinks ul {
   display: inline-block;
   vertical-align: top;
 }
-footer .adresse, footer .left {
-  width: 25%;
+footer .adresse {
+  width: 30%;
 }
 footer .left {
+  width: 20%;
   height: 100px;
 }
 footer .left .mediumpill {
@@ -644,6 +683,10 @@ footer .left a:hover {
   background-color: white;
   color: rgba(var(--color2));
 }
+footer .left .nohover:hover {
+  background-color: transparent;
+  color: rgba(var(--color1));
+}
 footer .left .smicons {
   margin-bottom: 2.4vw;
 }
@@ -653,4 +696,13 @@ footer .left .smicons img {
 }
 footer .middle {
   width: 50%;
+}
+footer .middle p {
+  font-size: 1.1vw;
+  line-height: 1.4vw;
+}
+footer .middle .logofooter {
+  display: inline-block;
+  height: 2vw;
+  padding: 0.8vw 2.4vw 0.8vw 0;
 }/*# sourceMappingURL=main.css.map */

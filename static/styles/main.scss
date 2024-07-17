@@ -51,8 +51,6 @@ body{
 a{
     text-decoration: none; 
     color: rgba(var(--color2));
-    transition: color 1s linear;
-
 }
 h1,h2,h3,h4,h5,h6{
     max-width: 100%;
@@ -63,7 +61,6 @@ h1,h2,h3,h4,h5,h6{
     margin-inline-end: 0;
     padding-inline-start: 0;   
     font-weight: normal !important;
-
 }   
 p{
     margin-block-start: 0.5em;
@@ -82,12 +79,19 @@ ul{
     display: none;
 }
 
+a,h1,h2,h3,h4,h5,h6,p,li,blockquote,div,section,main,footer{
+    transition: color 1s linear, background-color 2s linear;
+}
+main{
+    transition: all 1s linear
+}
+
 /*GENERAL*/
 .smallpill{
     font-size: $fontSize1;
     line-height: $lineHeight1;
     border-radius: $fontSize1;
-    padding: calc($padding/4) $padding calc($padding/4) $padding;
+    padding: calc($padding/2) $padding*2 calc($padding/2) $padding*2;
     margin-right: calc($padding/2);  
     white-space: nowrap;
 }
@@ -133,6 +137,8 @@ ul{
                 display: inline-block;
                 font-size: $fontSize2;
                 line-height: $lineHeight2;
+                text-indent: -$lineHeight2;
+                margin-left: $lineHeight2;
             }
             height: 25vw;
         }
@@ -208,6 +214,13 @@ ul{
             }
             .right{
                 margin-top: $padding*2; 
+                .previewItem{
+                    margin-top: $padding*6;
+                    a{
+                        color:rgba(var(--color3));
+                    }
+                    
+                }
             }
             h2{
                 font-size: $fontSize3;
@@ -218,11 +231,19 @@ ul{
         }
     }
     .smallpill{
-        margin-top: 8vw;
         background: rgba(var(--color2));
-        color: rgba(var(--color1));
+        color: rgba(var(--color3));
         display: inline-block;
     }
+    .mainimageCaption{
+        margin-left: $padding;
+        bottom: $padding;
+        font-size: $fontSize1;
+        color: rgba(var(--color2));
+        z-index: -1;
+        padding-top: 19vw;
+    }
+
 
 }
 
@@ -308,7 +329,7 @@ ul{
                         background: rgba(var(--color3));
                         border: 0.2vw solid rgba(var(--color2));
                         border-radius: $lineHeight2;
-                        padding: calc($padding/4) calc($padding) calc($padding/4) $padding;
+                        padding: calc($padding/2) calc($padding*2) calc($padding/2) $padding*2;
                         margin-top: $padding;
                         display: inline-block;
                     }
@@ -401,7 +422,7 @@ ul{
             }
             main{
                 background: linear-gradient(180deg, rgba(var(--color4)) 0%, rgba(var(--color3)) 10%);
-                margin-top: 100vw;
+                margin-top: 78vh;
                 padding-top:10vw;
             }
             .eventHeader{
@@ -441,7 +462,6 @@ ul{
             font-family: 'FreeSerif-JK';
             text-align: center;
             color: rgba(var(--color2));
-            transition: color 1s linear;
         }
         h1{
             font-size: $fontSize3;
@@ -460,9 +480,9 @@ ul{
 /*NAVIGATION */
 nav{
     position: fixed;
-    top:-90%;
+    top:-100%;
     width:100%;
-    height: 90%;
+    height: 100%;
     background: linear-gradient(0deg,  rgba(var(--color1))0%, rgba(var(--color3)) 50%);
     transition: top 0.5s ease-in-out;
     z-index: 90;
@@ -513,7 +533,7 @@ nav{
 .open{
     top:0;
 }
-#navButton{
+#navButton,#newsClose,#navButtonClose{
     position: fixed;
     top: 1.1vw;
     right: 1.1vw;
@@ -523,9 +543,23 @@ nav{
         width:4.7vw;
     }
 }
-.startpage #navButton{
+.startpage #navButton, #newsClose{
     top:$fontSize2*2 + $padding*2;
 }
+#newsClose,#navButtonClose{
+    display: none;
+}
+#instaButton{
+    position: fixed;
+    top: $lineHeight2*2 + $padding;
+    left: $padding;
+    z-index: 10;
+    background: rgba(var(--color1));
+    color: rgba(var(--color2));
+}
+
+
+
 
 
 /* NEWSBAR */
@@ -543,8 +577,6 @@ nav{
     box-shadow: 0 0 20px black;
     z-index: 2;
     transition: all 1s;
-    cursor: pointer;
-
 }
 .newsopen{
     //top:100vh;
@@ -561,6 +593,7 @@ nav{
     font-size: $fontSize2*2;
     margin-block-start: 0;
     margin-block-end: 0;
+    cursor: pointer;
 }
 @keyframes marquee {
     0%   { transform: translate(0, 0); }
@@ -592,6 +625,8 @@ nav{
                 font-family: 'FreeSans-JK';
                 font-size: $fontSize0;
                 line-height: $lineHeight0;
+                cursor: default;
+
             }
             .date{
                 text-align: center;        
@@ -632,7 +667,7 @@ footer{
         vertical-align: top;
     }
     .toplinks{
-        width:75%;
+        width:80%;
         ul{
             margin-top: $padding;
         }
@@ -651,17 +686,21 @@ footer{
             }
         }
         .logo{
-            width: 33%;
+            width: 30%;
+            margin-right: 8%;
+            margin-top: -1vw;
+            margin-left: -1vw;
         }
         .logo,ul{
             display: inline-block;
             vertical-align: top;
         }
     }
-    .adresse,.left{
-        width:25%;
+    .adresse{
+        width:30%;
     }
     .left{
+        width: 20%;
         height:100px;
         .mediumpill{
             border: 1px solid white;
@@ -674,6 +713,10 @@ footer{
             background-color: white;
             color:rgba(var(--color2));
         }
+        .nohover:hover{
+            background-color: transparent;
+            color: rgba(var(--color1));
+        }
         .smicons{
             img{
                 width: $fontSize2*2.5;
@@ -684,5 +727,14 @@ footer{
     }
     .middle{
         width: 50%;
+        p{
+            font-size: $fontSize0;
+            line-height: $lineHeight0;
+        }
+        .logofooter{
+            display: inline-block;
+            height: $fontSize2;
+            padding: $padding $padding*3 $padding 0;
+        }
     }
 }

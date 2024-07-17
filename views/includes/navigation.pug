@@ -17,16 +17,17 @@ nav
             a(href=baseURL+'pages/visit/'+language[0]) Visit
         .middle 
             a(href='https://www.instagram.com/meshfestival/',target="_blank")
-                img(src=baseURL+"static/img/icons/sm-icon-01.svg")
-            a(href='https://www.linkedin.com/company/meshfestival',target="_blank")
                 img(src=baseURL+"static/img/icons/sm-icon-02.svg")
+            a(href='https://www.linkedin.com/company/meshfestival',target="_blank")
+                img(src=baseURL+"static/img/icons/sm-icon-01.svg")
             a(href='https://www.facebook.com/meshfestival/',target="_blank")
                 img(src=baseURL+"static/img/icons/sm-icon-03.svg")
                         
         .right            
             a(href=baseURL+'pages/about/'+language[0]) About
 
-
+#navButtonClose(onclick="toggleNav()")
+    img(src=baseURL+"static/img/close.svg")
 #navButton(onclick="toggleNav()")
     img(src=baseURL+"static/img/hamburger.svg")
     script.
@@ -34,4 +35,6 @@ nav
             $('nav').toggleClass('open');
             $('main').toggleClass('blur');
             $('footer').toggleClass('blur');
+            $('#navButtonClose').toggle();
+            $('#navButton').toggle();
         }

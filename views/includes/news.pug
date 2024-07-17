@@ -6,11 +6,15 @@
     .newscontent
         .newscontentInner.grid
             .grid-sizer
-        
+
+#newsClose(onclick='closeNews()')
+    img(src=baseURL+'static/img/close.svg')
+#instaButton.mediumpill
+    a(href="https://www.instagram.com/meshfestival/",target="_blank") @meshfestival
 
 script.
     $('.marquee span').on('click',function(){
-        $('.marquee').toggleClass('newsopen');
+        closeNews();
 
         $('.newscontentInner').html('');
 
@@ -26,5 +30,10 @@ script.
 
     });
 
+    function closeNews(){
+        $('.marquee').toggleClass('newsopen');
+        $('#newsClose').toggle();
+        $('#navButton').toggle();
+    }
 
 

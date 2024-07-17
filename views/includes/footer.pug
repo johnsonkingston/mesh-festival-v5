@@ -8,9 +8,12 @@ footer
                     a.mediumpill(href=baseURL+val.URL+'/'+language[0])= val.Title
     div.left
         div.smicons
-            img(src=baseURL+"static/img/icons/sm-icon-01.svg")
-            img(src=baseURL+"static/img/icons/sm-icon-02.svg")
-            img(src=baseURL+"static/img/icons/sm-icon-03.svg")
+            a(href="https://www.instagram.com/meshfestival/",target="_blank").nohover
+                img(src=baseURL+"static/img/icons/sm-icon-02.svg")
+            a(href="https://www.linkedin.com/company/meshfestival/",target="_blank").nohover
+                img(src=baseURL+"static/img/icons/sm-icon-01.svg")
+            a(href="https://www.facebook.com/meshfestival/",target="_blank").nohover
+                img(src=baseURL+"static/img/icons/sm-icon-03.svg")
         div 
             ul 
                 each val in footer[0].Second_Links
@@ -21,7 +24,7 @@ footer
             ul 
                 each val in footer[0].Small_Links
                     li
-                        a(href=baseURL+val.URL+'/'+language[0])= val.Title
+                        a(href=baseURL+val.URL).nohover= val.Title
 
     div.adresse 
         p !{footer[0].Adress}
@@ -29,7 +32,23 @@ footer
     div.middle
         div
             p !{footer[0].Title_Logo_Line_1}
-
+            a(href='https://hek.ch/',target='_blank')
+                img(src=baseURL+'static/img/hek.svg').logofooter
+            a(href='https://iart.ch/',target='_blank')
+                img(src=baseURL+'static/img/iart.svg').logofooter
+            a(href='https://www.fhnw.ch/de/die-fhnw/hochschulen/hgk',target='_blank')
+                img(src=baseURL+'static/img/FHNW_HGK_DE.svg').logofooter                
         div 
             p !{footer[0].Title_Logo_Line_2}
+            a(href="http://www.swisslosfonds.bs.ch/",target="_blank")
+                img(src=baseURL+"static/img/swisslos-bs.svg").logofooter  
+            a(href="https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/swisslos-fonds",target="_blank")
+                img(src=baseURL+"static/img/swisslos-bl.svg").logofooter  
+            a(href="https://www.cms-basel.ch/",target="_blank")
+                img(src=baseURL+"static/img/cms.svg").logofooter  
+            a(href="https://www.mobiliar.ch/",target="_blank")
+                img(src=baseURL+"static/img/MOB_d_RGB_weiss.svg").logofooter  
+            a(href="https://www.kbhg.ch/",target="_blank")
+                img(src=baseURL+"static/img/kbhg.svg").logofooter  
 
+    script(src=baseURL+'static/script/main.js')
