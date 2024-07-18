@@ -559,6 +559,13 @@ main{
                             line-height: $lineHeight1*$scaleFactor;                           
                         }
                     }
+                    #ticketlink{
+                        background-color: rgba(var(--color1));
+                        color: rgba(var(--color2));
+                        display: inline-block;
+                        cursor: pointer;
+                        margin-left: -$fontSize1;
+                    }
                 }
             }
             .content{
@@ -610,7 +617,28 @@ main{
                 line-height: $lineHeight2*$scaleFactor;                
             }
         }
-
+        #ticketshop{
+            display: none;
+            position: fixed;
+            width: 50vw;
+            top: 10vh;
+            left: 50vw;
+            transform: translateX(-50%);
+            max-height: 80vh;
+            z-index: 10;
+            overflow: scroll;
+            box-shadow: 0 0 20px rgba(var(--color2));
+        }
+        #ticketclose{
+            top:0;
+            left:0;
+            display: none;
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            cursor: pointer;
+            z-index: 9;
+        }
 
 
 

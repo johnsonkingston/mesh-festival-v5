@@ -583,6 +583,13 @@ main {
     line-height: 4.25vw;
   }
 }
+.event .eventHeader .eventHeaderColumn #ticketlink {
+  background-color: rgba(var(--color1));
+  color: rgba(var(--color2));
+  display: inline-block;
+  cursor: pointer;
+  margin-left: -1.5vw;
+}
 .event .content a {
   background: rgba(var(--color2));
   color: rgba(var(--color3));
@@ -636,6 +643,30 @@ p, li {
     font-size: 5vw;
     line-height: 5.5vw;
   }
+}
+
+#ticketshop {
+  display: none;
+  position: fixed;
+  width: 50vw;
+  top: 10vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  max-height: 80vh;
+  z-index: 10;
+  overflow: scroll;
+  box-shadow: 0 0 20px rgba(var(--color2));
+}
+
+#ticketclose {
+  top: 0;
+  left: 0;
+  display: none;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  cursor: pointer;
+  z-index: 9;
 }
 
 /*NAVIGATION */

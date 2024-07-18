@@ -22,7 +22,7 @@ html(lang=language[0])
 
                         a(href=baseURL+'events/'+val.Events_id.slug+'/'+language[0])
                             .events
-                                .eventimg(style='background-image:url('+imgURL+val.Events_id.Main_Image+')')
+                                .eventimg(style='background-image:url('+imgURL+val.Events_id.Main_Image+'?key=icon)')
                                     img(src=baseURL+'static/img/grid.svg')
                                 .caption &bull; #{caption}
    
