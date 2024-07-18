@@ -23,9 +23,21 @@ h1 {
   font-family: "FreeSerif-JK" !important;
 }
 
-.pill {
-  padding: 10px 5px;
+h2 {
+  padding: 5px 10px;
   border-radius: 20px;
   border: 1px solid blue;
   color: blue;
+}
+
+.pill {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid blue;
+  color: blue;
+}
+
+.bio-wrapper {
+  font-size: 66%;
+  width: 66%;
 }/*# sourceMappingURL=editor.css.map */
