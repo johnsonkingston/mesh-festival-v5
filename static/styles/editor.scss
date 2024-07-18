@@ -15,12 +15,11 @@
     font-display: swap;
 }
 body{
-    font-family: 'FreeSans-JK';
+    font-family: 'FreeSans-JK' !important;
 }
 h1,h2,h3,h4,h5,h6{
-    font-weight: normal;
+    font-weight: normal !important;
 }
 h1{
-    font-family: 'FreeSerif-JK';
-    font-size: 2em;
+    font-family: 'FreeSerif-JK' !important;
 }
