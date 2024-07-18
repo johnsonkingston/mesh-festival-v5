@@ -414,8 +414,8 @@ main {
   }
 }
 .page main .content h3 {
-  font-size: 2vw;
-  line-height: 2.2vw;
+  font-size: 6.3vw;
+  line-height: 5.4vw;
   font-family: "FreeSans-JK";
   margin-top: 2.2vw;
 }
@@ -773,7 +773,7 @@ nav .languages .smallpill {
 
 #instaButton {
   position: fixed;
-  top: 5.2vw;
+  bottom: 0.8vw;
   left: 0.8vw;
   z-index: 10;
   background: rgba(var(--color1));
@@ -927,8 +927,6 @@ footer {
   background-color: rgba(var(--color2));
   padding: 1.6vw;
   box-shadow: 0 0 20px black;
-  position: sticky;
-  top: 100vh;
 }
 footer a, footer p {
   color: white;

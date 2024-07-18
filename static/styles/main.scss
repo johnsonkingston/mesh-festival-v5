@@ -402,8 +402,8 @@ main{
                         }
                     }
                     h3{
-                        font-size: $fontSize2;
-                        line-height: $lineHeight2;
+                        font-size: $fontSize3*0.9;
+                        line-height: $lineHeight3*0.9;
                         font-family: 'FreeSans-JK';
                         margin-top: $lineHeight2;
                         @media (orientation: portrait) {
@@ -729,7 +729,7 @@ nav{
 }
 #instaButton{
     position: fixed;
-    top: $lineHeight2*2 + $padding;
+    bottom: $padding;
     left: $padding;
     z-index: 10;
     background: rgba(var(--color1));
@@ -865,8 +865,7 @@ footer{
     background-color: rgba(var(--color2));
     padding: $padding*2;
     box-shadow: 0 0 20px black;
-    position: sticky;
-    top: 100vh;
+
 
     a,p{
         color:white;
