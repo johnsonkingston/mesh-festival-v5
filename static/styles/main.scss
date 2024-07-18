@@ -569,7 +569,15 @@ main{
                 }
             }
             .content{
-                a{
+                .pill{
+                    p{
+                        display: inline;
+                        color: rgba(var(--color3));
+                        font-size: $fontSize1;
+                        line-height: $lineHeight1;
+                    }
+                    font-size: $fontSize1;
+                    line-height: $lineHeight1;
                     background: rgba(var(--color2));
                     color: rgba(var(--color3));
                     border-radius: $fontSize1;
