@@ -501,14 +501,6 @@ main {
   vertical-align: top;
   margin-bottom: 2.4vw;
   border-radius: 0.8vw;
-}
-@media (orientation: portrait) {
-  .page main .content .boxtext {
-    width: 100%;
-    display: block;
-  }
-}
-.page main .content .boxtext p {
   color: white;
   padding: 0.8vw;
   margin-block-start: 0;
@@ -523,12 +515,18 @@ main {
           hyphens: auto;
 }
 @media (orientation: portrait) {
-  .page main .content .boxtext p {
+  .page main .content .boxtext {
+    width: 100%;
+    display: block;
+  }
+}
+@media (orientation: portrait) {
+  .page main .content .boxtext {
     font-size: 10vw;
     line-height: 10vw;
   }
 }
-.page main .content .boxtext p em {
+.page main .content .boxtext em {
   font-size: 1.5vw;
   line-height: 1.7vw;
   font-style: normal;
@@ -538,7 +536,7 @@ main {
   -webkit-text-stroke-width: 0;
 }
 @media (orientation: portrait) {
-  .page main .content .boxtext p em {
+  .page main .content .boxtext em {
     font-size: 3.75vw;
     line-height: 4.25vw;
   }
