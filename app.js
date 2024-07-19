@@ -129,7 +129,7 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
 
     try { 
         pageSlug = req.params.pageSlug;
-        language = req.params.language  || 'en';
+        language = req.params.language  || 'de';
 
         //console.log(language);
         result = await getPage(pageSlug);
@@ -170,7 +170,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
 
     try { 
         eventSlug = req.params.eventSlug;
-        language = req.params.language  || 'en';
+        language = req.params.language  || 'de';
 
         //console.log(language);
         result = await getEvent(eventSlug);
@@ -279,7 +279,7 @@ async function getStartpage() {
 app.get("/:language?", async function (req, res) {
 
     try { 
-        language = req.params.language  || 'en';
+        language = req.params.language  || 'de';
 
         result = await getStartpage();
         navigation = await getNavigation();
