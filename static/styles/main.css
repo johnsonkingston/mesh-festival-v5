@@ -479,6 +479,10 @@ main {
   vertical-align: middle;
   margin: 0.8vw;
 }
+.page main .content em, .page main .content i {
+  text-transform: uppercase;
+  font-style: normal;
+}
 .page main .content img, .page main .content video {
   width: 100%;
 }

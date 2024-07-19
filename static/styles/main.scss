@@ -462,6 +462,10 @@ main{
                             margin: $padding;
                         }
                     }
+                    em, i{
+                        text-transform: uppercase;
+                        font-style: normal;
+                    }
                     img, video{
                         width:100%;
                     }
