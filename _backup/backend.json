@@ -1,0 +1,32 @@
+{
+    "content_css": "https://env-7400230-v2.appengine.flow.ch/static/styles/editor.min.css"
+}
+
+
+[
+    {
+        "title": "Biotext",
+        "selector": "p",
+        "classes": "bio-wrapper"
+    },
+    {
+        "title": "Boxtext",
+        "selector": "p",
+        "classes": "box-text"
+    },
+    {
+        "title": "Pill",
+        "selector": "a",
+        "classes": "pill"
+    },
+    {
+        "title": "Image half",
+        "selector": "img",
+        "classes": "image-half"
+    },
+    {
+        "title": "Image caption",
+        "selector": "p",
+        "classes": "image-caption"
+    }
+]

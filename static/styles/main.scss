@@ -389,7 +389,9 @@ main{
                         background: rgba(var(--color1));
                         padding: $padding $padding*2;
                         border-radius: $lineHeight2;
-                        display: inline-block;
+                        display: block;
+                        width: fit-content;
+                        white-space: nowrap;
                         margin-left: 50%;
                         transform: translateX(-50%);
                         position: sticky;

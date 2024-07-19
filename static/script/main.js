@@ -13,6 +13,8 @@ const colors = [
         "color2":"0, 200, 60"
     }
 ];
+const languageShort = ['de','en'];
+
 var currentColor = 0;
 
 function changeColors(){ 
@@ -26,3 +28,14 @@ function changeColors(){
 }
 
 const intervalID = setInterval(changeColors, 10000);
+
+
+//Links
+$( document ).ready(function() {
+    $( '.content a').each(function( index ) {
+        if($(this).attr('href').substr(0, 4) !== 'http'){
+            console.log(baseURL+$(this).attr('href')+'/'+languageShort[languageParameter]);
+        }
+        
+    });
+});

@@ -399,7 +399,10 @@ main {
   background: rgba(var(--color1));
   padding: 0.8vw 1.6vw;
   border-radius: 2.2vw;
-  display: inline-block;
+  display: block;
+  width: -moz-fit-content;
+  width: fit-content;
+  white-space: nowrap;
   margin-left: 50%;
   transform: translateX(-50%);
   position: sticky;

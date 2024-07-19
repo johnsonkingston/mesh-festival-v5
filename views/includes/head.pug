@@ -9,6 +9,7 @@ head
     script(src="https://embed.ticketpark.ch/v1/")
 
     script.
+        var baseURL = '!{baseURL}';
         var currentUrl = window.location.pathname;
         var languageParameter = !{languageParameter};
         if(currentUrl.substr(currentUrl.length - 3) == '/de'){
@@ -30,4 +31,9 @@ head
             var dateUnix = Date.parse(dateIn);
             return new Date(dateUnix).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
         }
-    title Mesh Festival Basel – #{data.translations[languageParameter].Title}
+         
+    if(data.translations[languageParameter] === undefined)
+        title Mesh Festival Basel – #{data.title}
+    else 
+        title Mesh Festival Basel – #{data.translations[languageParameter].Title}
+
