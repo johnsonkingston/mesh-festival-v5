@@ -21,8 +21,8 @@ h1,h2,h3,h4,h5,h6{
     font-weight: normal !important;
 }
 h1{
-    font-size: 56px;
-    line-height: 66px;
+    font-size: 56px !important;;
+    line-height: 66px !important;;
     font-family: 'FreeSerif-JK' !important;
 }
 h2{
@@ -30,14 +30,15 @@ h2{
     border-radius: 20px;
     border-style: solid;
     border-width: 1px;  
+    display: inline;
 }
 h3{
-    font-size: 36px;
-    line-height: 46px;
+    font-size: 36px !important;
+    line-height: 46px !important;
 }
 h4{
-    font-size: 15px;
-    line-height: 24px;
+    font-size: 15px !important;
+    line-height: 24px !important;
     padding: 5px 10px;
     border-radius: 20px;
     border-style: solid;
@@ -45,8 +46,8 @@ h4{
     display: inline;
 }
 h6{
-    font-size: 75%;
-    line-height: 75%;  
+    font-size: 75% !important;
+    line-height: 125% !important;
 }
 .pill{
     padding: 5px 10px;
@@ -57,6 +58,6 @@ h6{
 }
 .bio-wrapper{
     font-size: 75%;
-    line-height: 75%;
+    line-height: 125%;
     width: 75%
 }
