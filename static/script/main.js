@@ -34,7 +34,7 @@ const intervalID = setInterval(changeColors, 10000);
 $( document ).ready(function() {
     $( '.content a').each(function( index ) {
         if($(this).attr('href').substr(0, 4) !== 'http'){
-            console.log(baseURL+$(this).attr('href')+'/'+languageShort[languageParameter]);
+            $(this).attr('href',baseURL+$(this).attr('href')+'/'+languageShort[languageParameter]);
         }
         
     });
