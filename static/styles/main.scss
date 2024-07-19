@@ -430,6 +430,11 @@ main{
                             margin-top: $padding*$scaleFactor;
                         }
                     }
+                    h5{
+                        font-size: $fontSize1;
+                        line-height: $lineHeight1;                       
+                        color:  rgba(var(--color2));
+                    }
                     h6{
                         font-size: $fontSize0;
                         line-height: $lineHeight0;

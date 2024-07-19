@@ -446,6 +446,11 @@ main {
     margin-top: 2vw;
   }
 }
+.page main .content h5 {
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+  color: rgba(var(--color2));
+}
 .page main .content h6 {
   font-size: 1.1vw;
   line-height: 1.4vw;
