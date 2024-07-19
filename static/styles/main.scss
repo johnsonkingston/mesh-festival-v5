@@ -520,6 +520,7 @@ main{
                             text-align: left;
                             display: block;
                             -webkit-text-stroke-width: 0;
+                            text-transform: none;
                             @media (orientation: portrait) {
                                 font-size: $fontSize1*$scaleFactor;
                                 line-height: $lineHeight1*$scaleFactor;
