@@ -31,12 +31,12 @@ h2 {
   border-style: solid;
   border-width: 1px;
   display: inline;
+  background: rgb(215, 255, 0);
 }
 
 h3 {
   font-size: 36px !important;
   line-height: 46px !important;
-  text-align: center;
 }
 
 h4 {
@@ -83,4 +83,10 @@ h6 {
   font-family: "FreeSans-JK";
   font-size: 15px !important;
   line-height: 24px !important;
+}
+
+.image-half {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
 }/*# sourceMappingURL=editor.css.map */
