@@ -36,6 +36,7 @@ h2 {
 h3 {
   font-size: 36px !important;
   line-height: 46px !important;
+  text-align: center;
 }
 
 h4 {
@@ -65,4 +66,21 @@ h6 {
   font-size: 75%;
   line-height: 125%;
   width: 75%;
+}
+
+.boxtext {
+  padding: 5px;
+  border-width: 1px;
+  border-style: solid;
+  width: 50%;
+  font-family: "FreeSerif-JK";
+  text-align: center;
+  font-size: 36px !important;
+  line-height: 49px !important;
+}
+.boxtext i, .boxtext em {
+  font-style: normal !important;
+  font-family: "FreeSans-JK";
+  font-size: 15px !important;
+  line-height: 24px !important;
 }/*# sourceMappingURL=editor.css.map */
