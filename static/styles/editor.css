@@ -31,7 +31,7 @@ h2 {
   border-style: solid;
   border-width: 1px;
   display: inline;
-  background: rgb(215, 255, 0);
+  background: color-mix(in srgb, #0000FF, #16151a 25%);
 }
 
 h3 {
@@ -89,4 +89,10 @@ h6 {
   width: 50%;
   display: inline-block;
   vertical-align: top;
+}
+
+.image-caption {
+  font-size: 75% !important;
+  line-height: 125% !important;
+  margin-block-start: 0em !important;
 }/*# sourceMappingURL=editor.css.map */

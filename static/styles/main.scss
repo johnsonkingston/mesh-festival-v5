@@ -522,6 +522,35 @@ main{
                             color:white;
                         }
                     }
+                    .pill{
+                        p{
+                            display: inline;
+                            color: rgba(var(--color3));
+                            font-size: $fontSize1;
+                            line-height: $lineHeight1;
+                        }
+                        font-size: $fontSize1;
+                        line-height: $lineHeight1;
+                        background: rgba(var(--color2));
+                        color: rgba(var(--color3));
+                        border-radius: $fontSize1;
+                        padding: calc($padding/4) calc($padding) calc($padding/4) $padding;
+                        margin-right: calc($padding/2);  
+                        white-space: nowrap;
+                        @media (orientation: portrait) {
+                            border-radius: $fontSize1*$scaleFactor;
+                            padding: calc($padding/4)*$scaleFactor calc($padding)*$scaleFactor calc($padding/4)*$scaleFactor $padding*$scaleFactor;
+                        }
+                    }
+                    .bio-wrapper{
+                        font-size: $fontSize1;
+                        line-height: $lineHeight1;
+                        width: 66%;
+                        @media (orientation: portrait) {
+                            font-size: $fontSize1*$scaleFactor;
+                            line-height: $lineHeight1*$scaleFactor;
+                        }
+                    }
                 }
 
         }
@@ -569,35 +598,7 @@ main{
                 }
             }
             .content{
-                .pill{
-                    p{
-                        display: inline;
-                        color: rgba(var(--color3));
-                        font-size: $fontSize1;
-                        line-height: $lineHeight1;
-                    }
-                    font-size: $fontSize1;
-                    line-height: $lineHeight1;
-                    background: rgba(var(--color2));
-                    color: rgba(var(--color3));
-                    border-radius: $fontSize1;
-                    padding: calc($padding/4) calc($padding) calc($padding/4) $padding;
-                    margin-right: calc($padding/2);  
-                    white-space: nowrap;
-                    @media (orientation: portrait) {
-                        border-radius: $fontSize1*$scaleFactor;
-                        padding: calc($padding/4)*$scaleFactor calc($padding)*$scaleFactor calc($padding/4)*$scaleFactor $padding*$scaleFactor;
-                    }
-                }
-                .bio-wrapper{
-                    font-size: $fontSize1;
-                    line-height: $lineHeight1;
-                    width: 66%;
-                    @media (orientation: portrait) {
-                        font-size: $fontSize1*$scaleFactor;
-                        line-height: $lineHeight1*$scaleFactor;
-                    }
-                }
+
             }
         }
 

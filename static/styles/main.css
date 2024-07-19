@@ -546,6 +546,39 @@ main {
 .page main .content blockquote a {
   color: white;
 }
+.page main .content .pill {
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+  background: rgba(var(--color2));
+  color: rgba(var(--color3));
+  border-radius: 1.5vw;
+  padding: 0.2vw 0.8vw 0.2vw 0.8vw;
+  margin-right: 0.4vw;
+  white-space: nowrap;
+}
+.page main .content .pill p {
+  display: inline;
+  color: rgba(var(--color3));
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+}
+@media (orientation: portrait) {
+  .page main .content .pill {
+    border-radius: 3.75vw;
+    padding: 0.5vw 2vw 0.5vw 2vw;
+  }
+}
+.page main .content .bio-wrapper {
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+  width: 66%;
+}
+@media (orientation: portrait) {
+  .page main .content .bio-wrapper {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
+  }
+}
 
 .event .breadcrumb {
   color: rgba(var(--color2));
@@ -590,40 +623,6 @@ main {
   cursor: pointer;
   margin-left: -1.5vw;
 }
-.event .content .pill {
-  font-size: 1.5vw;
-  line-height: 1.7vw;
-  background: rgba(var(--color2));
-  color: rgba(var(--color3));
-  border-radius: 1.5vw;
-  padding: 0.2vw 0.8vw 0.2vw 0.8vw;
-  margin-right: 0.4vw;
-  white-space: nowrap;
-}
-.event .content .pill p {
-  display: inline;
-  color: rgba(var(--color3));
-  font-size: 1.5vw;
-  line-height: 1.7vw;
-}
-@media (orientation: portrait) {
-  .event .content .pill {
-    border-radius: 3.75vw;
-    padding: 0.5vw 2vw 0.5vw 2vw;
-  }
-}
-.event .content .bio-wrapper {
-  font-size: 1.5vw;
-  line-height: 1.7vw;
-  width: 66%;
-}
-@media (orientation: portrait) {
-  .event .content .bio-wrapper {
-    font-size: 3.75vw;
-    line-height: 4.25vw;
-  }
-}
-
 h1, h2, h3 {
   font-family: "FreeSerif-JK";
   text-align: center;
