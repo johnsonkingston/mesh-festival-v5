@@ -31,7 +31,6 @@ h2 {
   border-style: solid;
   border-width: 1px;
   display: inline;
-  background: color-mix(in srgb, #0000FF, #16151a 25%);
 }
 
 h3 {
