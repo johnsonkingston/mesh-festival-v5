@@ -134,12 +134,13 @@ main{
     filter:blur(20px);
 }
 .eventswrapper{
-    display: table;
+    display: block;
     width: 100%;
     a{
         width: 48%;
 
-        display: table-cell;
+        display: inline-block;
+        vertical-align: top;
         .events{
             width: 89%;
             border-radius: $padding;

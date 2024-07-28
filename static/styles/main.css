@@ -138,12 +138,13 @@ main {
 }
 
 .eventswrapper {
-  display: table;
+  display: block;
   width: 100%;
 }
 .eventswrapper a {
   width: 48%;
-  display: table-cell;
+  display: inline-block;
+  vertical-align: top;
 }
 .eventswrapper a .events {
   width: 89%;
