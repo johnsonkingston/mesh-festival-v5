@@ -519,7 +519,7 @@ main{
                         height: 28vw;
                         @media (orientation: portrait) {
                             height: calc(100vw / 16 * 9);
-                            background: rgba(var(--color1));
+                            background: rgba(var(--color2));
                         }
                     }
                     iframe{
