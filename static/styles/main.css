@@ -647,11 +647,19 @@ main {
     line-height: 4.25vw;
   }
 }
-.page main .content .image-half {
+.page main .content .image-half, .page main .content .image-bio {
   width: calc(50% - 0.8vw);
   margin-right: 0.8vw;
   display: inline-block;
   vertical-align: top;
+}
+.page main .content .image-bio {
+  width: 30%;
+}
+@media (orientation: portrait) {
+  .page main .content .image-bio {
+    width: 66%;
+  }
 }
 .page main .content .image-caption {
   font-size: 1.5vw;
@@ -668,6 +676,11 @@ main {
   transform: translateX(-50%);
   z-index: 10;
   text-transform: capitalize;
+}
+@media (orientation: portrait) {
+  .event .breadcrumb {
+    top: 2vw;
+  }
 }
 .event main {
   background: linear-gradient(180deg, rgba(var(--color4)) 0%, rgba(var(--color3)) 10%);
@@ -711,6 +724,8 @@ h1, h2, h3 {
 h1 {
   font-size: 7vw;
   line-height: 6vw;
+  -webkit-hyphens: auto;
+          hyphens: auto;
 }
 @media (orientation: portrait) {
   h1 {
@@ -1173,6 +1188,16 @@ footer .left .smicons img {
   }
 }
 @media (orientation: portrait) {
+  footer .left .smalllinks {
+    margin-top: 4vw;
+  }
+}
+@media (orientation: portrait) {
+  footer .left .smalllinks li {
+    margin-top: 2vw;
+  }
+}
+@media (orientation: portrait) {
   footer .left li {
     display: block;
     margin-top: 5.5vw;
@@ -1213,4 +1238,9 @@ footer .middle .logofooter {
 footer .middle .logofooterlang {
   width: 12vw;
   height: auto;
+}
+@media (orientation: portrait) {
+  footer .middle .logofooterlang {
+    width: 30vw;
+  }
 }/*# sourceMappingURL=main.css.map */

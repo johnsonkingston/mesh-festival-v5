@@ -21,7 +21,7 @@ footer
                         a.mediumpill(href=baseURL+val.URL)= val.Title
 
         div 
-            ul 
+            ul.smalllinks
                 each val in footer[languageParameter].Small_Links
                     li
                         a(href=baseURL+val.URL).nohover= val.Title

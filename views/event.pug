@@ -66,5 +66,11 @@ html(lang=language[0])
                         openticket();
                     }
                 });
-
+        script.
+            $( document ).ready(function() {
+                $( "video" ).each(function( index ) {
+                    $(this).attr('playsinline','true');
+                    $(this).attr('preload','metadata');
+                });
+            });
         include includes/footer.pug

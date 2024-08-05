@@ -610,11 +610,17 @@ main{
                             line-height: $lineHeight1*$scaleFactor;
                         }
                     }
-                    .image-half{
+                    .image-half, .image-bio{
                         width: calc(50% - $padding);
                         margin-right: $padding;
                         display: inline-block;
                         vertical-align: top;
+                    }
+                    .image-bio{
+                        width: 30%;
+                        @media (orientation: portrait) {
+                            width: 66%;
+                        }
                     }
                     .image-caption{
                         font-size: $fontSize1;
@@ -635,6 +641,9 @@ main{
                 transform: translateX(-50%);
                 z-index: 10;
                 text-transform: capitalize;
+                @media (orientation: portrait) {
+                    top: $padding*$scaleFactor;
+                }
             }
             main{
                 background: linear-gradient(180deg, rgba(var(--color4)) 0%, rgba(var(--color3)) 10%);
@@ -681,6 +690,7 @@ main{
         h1{
             font-size: $fontSize3;
             line-height: $lineHeight3;
+            hyphens: auto;
             @media (orientation: portrait) {
                 font-size: $fontSize3*$scaleFactor;
                 line-height: $lineHeight3*$scaleFactor;                
@@ -1086,6 +1096,17 @@ footer{
             }
             margin-bottom: $padding*3;
         }
+        .smalllinks{
+            @media (orientation: portrait) {
+                margin-top: $padding*$scaleFactor*2;
+            }
+                li{
+                @media (orientation: portrait) {
+                    margin-top: $padding*$scaleFactor;
+                }
+            }
+
+        }
         li{
             @media (orientation: portrait) {
                 display: block;
@@ -1122,6 +1143,9 @@ footer{
         .logofooterlang{
             width: $fontSize2*6;
             height: auto;
+            @media (orientation: portrait) {
+                width:30vw;
+            }
         }
     }
 }
