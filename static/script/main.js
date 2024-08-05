@@ -18,13 +18,12 @@ const languageShort = ['de','en'];
 var currentColor = 0;
 
 function changeColors(){ 
-    $(':root').css('--color1', colors[currentColor].color1);
-    $(':root').css('--color2', colors[currentColor].color2);
-
     currentColor++;
     if(currentColor > colors.length-1){
         currentColor = 0;
     }
+    $(':root').css('--color1', colors[currentColor].color1);
+    $(':root').css('--color2', colors[currentColor].color2);
 }
 
 const intervalID = setInterval(changeColors, 10000);

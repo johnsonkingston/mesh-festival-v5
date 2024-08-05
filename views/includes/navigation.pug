@@ -47,9 +47,18 @@ nav
             a(href=baseURL+'pages/about/'+language[0]) About
 
 #navButtonClose(onclick="toggleNav()")
-    img(src=baseURL+"static/img/close.svg")
+    //img(src=baseURL+"static/img/close.svg")
+    svg#Ebene_1(version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewbox='0 0 97.4 97.4' style='enable-background:new 0 0 97.4 97.4;' xml:space='preserve')
+        rect.st0(x='44.4' y='-15.9' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -20.2077 48.6849)' width='8.5' height='129.2')
+        rect.st0(x='-15.9' y='44.4' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -20.1577 48.6642)' width='129.2' height='8.5')
+
 #navButton(onclick="toggleNav()")
-    img(src=baseURL+"static/img/hamburger.svg")
+    //img(src=baseURL+"static/img/hamburger.svg")
+    svg#Ebene_1(version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewbox='0 0 97.4 97.4' style='enable-background:new 0 0 97.4 97.4;' xml:space='preserve')
+        rect.st1(y='0' width='97.4' height='8.5')
+        rect.st1(y='44.4' width='97.4' height='8.5')
+        rect.st1(y='88.9' width='97.4' height='8.5')
+
     script.
         function toggleNav(){
             $('nav').toggleClass('open');

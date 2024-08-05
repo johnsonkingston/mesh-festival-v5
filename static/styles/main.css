@@ -130,6 +130,8 @@ main {
     font-size: 10.5vw;
     line-height: 13.5vw;
     border-radius: 10.5vw;
+    padding-left: 4.8vw;
+    padding-right: 4.8vw;
   }
 }
 
@@ -268,6 +270,7 @@ main {
   .startpage main .preview {
     padding-top: 10vw;
     height: calc(100vh - 10vw);
+    overflow: scroll;
   }
 }
 .startpage main .preview .left, .startpage main .preview .right {
@@ -283,7 +286,7 @@ main {
 }
 @media (orientation: portrait) {
   .startpage main .preview .left {
-    margin-top: 14vw;
+    margin-top: 2vw;
   }
 }
 .startpage main .preview .left h2 {
@@ -511,6 +514,7 @@ main {
 }
 .page main .content img, .page main .content video {
   width: 100%;
+  margin-bottom: 0.8vw;
 }
 .page main .content video {
   height: 28vw;
@@ -616,8 +620,8 @@ main {
   }
 }
 .page main .content .image-half {
-  width: 48%;
-  margin-right: 1%;
+  width: calc(50% - 0.8vw);
+  margin-right: 0.8vw;
   display: inline-block;
   vertical-align: top;
 }
@@ -840,13 +844,19 @@ nav .languages .smallpill {
     right: 2.75vw;
   }
 }
-#navButton img, #newsClose img, #navButtonClose img {
+#navButton img, #navButton svg, #newsClose img, #newsClose svg, #navButtonClose img, #navButtonClose svg {
   width: 4.7vw;
 }
 @media (orientation: portrait) {
-  #navButton img, #newsClose img, #navButtonClose img {
+  #navButton img, #navButton svg, #newsClose img, #newsClose svg, #navButtonClose img, #navButtonClose svg {
     width: 11.75vw;
   }
+}
+#navButton .st0, #newsClose .st0, #navButtonClose .st0 {
+  fill: rgba(var(--color2));
+}
+#navButton .st1, #newsClose .st1, #navButtonClose .st1 {
+  fill: rgba(var(--color1));
 }
 
 .startpage #navButton, #newsClose {
@@ -873,6 +883,7 @@ nav .languages .smallpill {
 @media (orientation: portrait) {
   #instaButton {
     top: 11.8vw;
+    bottom: auto;
   }
 }
 

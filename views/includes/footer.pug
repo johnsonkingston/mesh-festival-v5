@@ -3,9 +3,9 @@ footer
         a(href=baseURL)
             img.logo(src=baseURL+"static/img/mesh-festival.png")
         ul 
-            each val in footer[0].Top_Links
+            each val in footer[languageParameter].Top_Links
                 li
-                    a.mediumpill(href=baseURL+val.URL+'/'+language[0])= val.Title
+                    a.mediumpill(href=baseURL+val.URL)= val.Title
     div.left
         div.smicons
             a(href="https://www.instagram.com/meshfestival/",target="_blank").nohover
@@ -16,22 +16,22 @@ footer
                 img(src=baseURL+"static/img/icons/sm-icon-03.svg")
         div 
             ul 
-                each val in footer[0].Second_Links
+                each val in footer[languageParameter].Second_Links
                     li
-                        a.mediumpill(href=baseURL+val.URL+'/'+language[0])= val.Title
+                        a.mediumpill(href=baseURL+val.URL)= val.Title
 
         div 
             ul 
-                each val in footer[0].Small_Links
+                each val in footer[languageParameter].Small_Links
                     li
                         a(href=baseURL+val.URL).nohover= val.Title
 
     div.adresse 
-        p !{footer[0].Adress}
+        p !{footer[languageParameter].Adress}
         
     div.middle
         div
-            p !{footer[0].Title_Logo_Line_1}
+            p !{footer[languageParameter].Title_Logo_Line_1}
             a(href='https://hek.ch/',target='_blank')
                 img(src=baseURL+'static/img/hek.svg').logofooter
             a(href='https://iart.ch/',target='_blank')
@@ -39,7 +39,7 @@ footer
             a(href='https://www.fhnw.ch/de/die-fhnw/hochschulen/hgk',target='_blank')
                 img(src=baseURL+'static/img/FHNW_HGK_DE.svg').logofooter                
         div 
-            p !{footer[0].Title_Logo_Line_2}
+            p !{footer[languageParameter].Title_Logo_Line_2}
             a(href="http://www.swisslosfonds.bs.ch/",target="_blank")
                 img(src=baseURL+"static/img/swisslos-bs.svg").logofooter  
             a(href="https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/swisslos-fonds",target="_blank")
@@ -51,7 +51,7 @@ footer
             a(href="https://www.kbhg.ch/",target="_blank")
                 img(src=baseURL+"static/img/kbhg.svg").logofooter  
         div 
-            p !{footer[0].Title_Logo_Line_3}
+            p !{footer[languageParameter].Title_Logo_Line_3}
             a(href="https://www.musik-akademie.ch/klassik/de/projekte-und-ensembles/elektronisches-studio-basel.html",target="_blank")
                 img(src=baseURL+"static/img/elektronisches-studio-basel.svg").logofooter.logofooterlang
             a(href="https://radiox.ch/",target="_blank")
@@ -59,7 +59,7 @@ footer
             a(href="https://derivative.ca/",target="_blank")
                 img(src=baseURL+"static/img/touchdesigner.svg").logofooter  
         div 
-            p !{footer[0].Title_Logo_Line_4}            
+            p !{footer[languageParameter].Title_Logo_Line_4}            
             a(href="https://kunsthausbaselland.ch/",target="_blank")
                 img(src=baseURL+"static/img/kunsthaus-baselland.svg").logofooter.logofooterlang  
             a(href="https://www.herzogdemeuron.com/",target="_blank")
