@@ -10,6 +10,12 @@ html(lang=language[0])
             each item in data.View
                 section
                     video(id='video'+n,src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',style='z-index:'+z+';')
+                    //if(n == 1)
+                        div.bubbles.bubblesLeft
+                            video#bubbleLeftVideo.desktopVideo(src="static/videos/01-1-DE.mp4",autoplay="true",loop="true",muted="true",playsinline="true") 
+                        div.bubbles.bubblesRight
+                            video#bubbleRightVideo.desktopVideo(src="static/videos/02-1-DE.mp4",autoplay="true",loop="true",muted="true",playsinline="true") 
+
                     if(item.Show_Title)
                         a(href=baseURL+'pages/'+item.Title_Link+'/'+language[0])
                             .bigpill= item.Title_De
@@ -17,28 +23,8 @@ html(lang=language[0])
                                 .mainimageCaption= item.Caption_De
                     - n = n+1
                     - z = z+1
-
-            script.
-                var positions = [];
-                var activeSection;
-                var activeFilter1;
-
-                $('main').on( "scroll", function() {    
-                    $( "section" ).each(function( index ) {
-                        positions[index] = $('body').scrollTop() - $( this ).position().top;
-                        if(positions[index] > 0){
-                            activeSection = index;
-                            activeFilter1 = ((100 - (positions[index] / $('section').first().height() *100)) / 10)+1;
-                            activeFilter2 = ((100 - (positions[index] / $('section').first().height() *100)) / 10)+1;
-                            activeFilter3 = ((100 - (positions[index] / $('section').first().height() *100)) / 10)+1;
-                        }
-                    });
-
-                    $('#video'+(activeSection+2)).css('display','block');                    
-                    $('#video'+(activeSection+2)).css('filter','brightness('+activeFilter1+')');
-
-                });
-
+            script(src=baseURL+'static/script/startpage-scroll.js')
+            
             <!-- Preview Installationen -->    
             .preview
                 .left
