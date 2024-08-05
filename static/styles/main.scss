@@ -531,7 +531,7 @@ main{
                             height: 66vw;
                         }
                     }
-                    .boxtext{
+                    .box-text{
                         margin-block-start: 0;
                         margin-block-end: 0;
                         margin-inline-start: 0;
@@ -581,6 +581,16 @@ main{
                         a{
                             color:white;
                         }
+                    }
+                    table{
+                        border-collapse: separate !important;
+                        border-spacing: $padding;
+                    }
+                    td.box-text{
+                        width: auto;
+                        margin-right: 0;
+                        display: table-cell;
+
                     }
                     .pill{
                         p{

@@ -559,7 +559,7 @@ main {
     height: 66vw;
   }
 }
-.page main .content .boxtext {
+.page main .content .box-text {
   margin-block-start: 0;
   margin-block-end: 0;
   margin-inline-start: 0;
@@ -585,18 +585,18 @@ main {
           hyphens: auto;
 }
 @media (orientation: portrait) {
-  .page main .content .boxtext {
+  .page main .content .box-text {
     width: 100%;
     display: block;
   }
 }
 @media (orientation: portrait) {
-  .page main .content .boxtext {
+  .page main .content .box-text {
     font-size: 10vw;
     line-height: 10vw;
   }
 }
-.page main .content .boxtext em {
+.page main .content .box-text em {
   font-size: 1.5vw;
   line-height: 1.7vw;
   font-style: normal;
@@ -607,13 +607,22 @@ main {
   text-transform: none;
 }
 @media (orientation: portrait) {
-  .page main .content .boxtext em {
+  .page main .content .box-text em {
     font-size: 3.75vw;
     line-height: 4.25vw;
   }
 }
-.page main .content .boxtext a {
+.page main .content .box-text a {
   color: white;
+}
+.page main .content table {
+  border-collapse: separate !important;
+  border-spacing: 0.8vw;
+}
+.page main .content td.box-text {
+  width: auto;
+  margin-right: 0;
+  display: table-cell;
 }
 .page main .content .pill {
   font-size: 1.5vw;
