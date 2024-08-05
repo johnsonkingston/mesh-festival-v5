@@ -148,6 +148,12 @@ main {
   display: inline-block;
   vertical-align: top;
 }
+@media (orientation: portrait) {
+  .eventswrapper a {
+    width: calc(50% - 1.6vw);
+    margin-right: 1.6vw;
+  }
+}
 .eventswrapper a .events {
   width: 89%;
   border-radius: 0.8vw;
@@ -155,9 +161,10 @@ main {
 }
 @media (orientation: portrait) {
   .eventswrapper a .events {
-    width: 92%;
+    width: 100%;
     display: inline-block;
     vertical-align: top;
+    margin-bottom: 1.6vw;
   }
 }
 .eventswrapper a .events .eventimg {
@@ -185,6 +192,11 @@ main {
 @media (orientation: portrait) {
   .eventswrapper a .events {
     height: auto;
+  }
+}
+@media (orientation: portrait) {
+  .eventswrapper .eventLink:last-of-type {
+    display: none;
   }
 }
 
@@ -270,7 +282,7 @@ main {
   .startpage main .preview {
     padding-top: 10vw;
     height: calc(100vh - 10vw);
-    overflow: scroll;
+    overflow: hidden;
   }
 }
 .startpage main .preview .left, .startpage main .preview .right {
@@ -280,7 +292,7 @@ main {
 }
 @media (orientation: portrait) {
   .startpage main .preview .left, .startpage main .preview .right {
-    width: 100%;
+    width: calc(100% - 3.2vw);
     display: block;
   }
 }
@@ -315,6 +327,16 @@ main {
 }
 .startpage main .preview .right .previewItem a {
   color: rgba(var(--color3));
+}
+@media (orientation: portrait) {
+  .startpage main .preview .right .previewItem {
+    margin-top: 4vw;
+    width: 100%;
+    text-align: center;
+  }
+}
+.startpage main .preview .right .previewItem .smallpill {
+  text-align: left;
 }
 .startpage main .preview h2 {
   font-size: 7vw;
@@ -440,6 +462,7 @@ main {
     line-height: 5.5vw;
     padding: 2vw 4vw;
     top: 4vw;
+    border-radius: 5.5vw;
   }
 }
 .page main .content h3 {
@@ -518,6 +541,11 @@ main {
 }
 .page main .content video {
   height: 28vw;
+}
+@media (orientation: portrait) {
+  .page main .content video {
+    height: 56.25vw;
+  }
 }
 .page main .content iframe {
   max-width: 100%;

@@ -40,7 +40,7 @@ html(lang=language[0])
                     .eventswrapper
                         each val in [0,1,2]
                             if(data.Events_1[val].Events_id !== null)
-                                a(href=baseURL+'events/'+data.Events_1[val].Events_id.slug+'/'+language[0])
+                                a(href=baseURL+'events/'+data.Events_1[val].Events_id.slug+'/'+language[0]).eventLink
                                     .events
                                         if data.Events_1[val].Events_id.Main_Image == null
                                             .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
@@ -72,7 +72,7 @@ html(lang=language[0])
                     .eventswrapper
                         each val in [0,1,2]
                             if(data.Events_2[val].Events_id !== null)
-                                a(href=baseURL+'events/'+data.Events_2[val].Events_id.slug+'/'+language[0])
+                                a(href=baseURL+'events/'+data.Events_2[val].Events_id.slug+'/'+language[0]).eventLink
                                     .events
                                         if data.Events_2[val].Events_id.Main_Image == null
                                             .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
@@ -106,7 +106,7 @@ html(lang=language[0])
                     .eventswrapper
                         each val in [0,1,2]
                             if(data.Events_3[val].Events_id !== null)
-                                a(href=baseURL+'events/'+data.Events_3[val].Events_id.slug+'/'+language[0])
+                                a(href=baseURL+'events/'+data.Events_3[val].Events_id.slug+'/'+language[0]).eventLink
                                     .events
                                         if data.Events_3[val].Events_id.Main_Image == null
                                             .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
@@ -139,7 +139,7 @@ html(lang=language[0])
                     .eventswrapper
                         each val in [0,1,]
                             if(data.Events_4[val].Events_id !== null)
-                                a(href=baseURL+'events/'+data.Events_4[val].Events_id.slug+'/'+language[0])
+                                a(href=baseURL+'events/'+data.Events_4[val].Events_id.slug+'/'+language[0]).eventLink
                                 .events
                                     if data.Events_4[val].Events_id.Main_Image == null
                                         .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')

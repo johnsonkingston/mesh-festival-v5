@@ -140,16 +140,21 @@ main{
     width: 100%;
     a{
         width: 48%;
-
         display: inline-block;
         vertical-align: top;
+        @media (orientation: portrait) {
+            width: calc(50% - $padding*2);
+            margin-right: $padding*2;
+        }
+
         .events{
             width: 89%;
             border-radius: $padding;
             @media (orientation: portrait) {
-                width: 92%;
+                width: 100%;
                 display: inline-block;
                 vertical-align: top;
+                margin-bottom: $padding*2;
             }
             .eventimg{
                 background-size: cover;
@@ -177,7 +182,11 @@ main{
                 height: auto;
             }
         }
-
+    }
+    .eventLink:last-of-type {
+        @media (orientation: portrait) {
+            display: none;
+        }
     }
 }
 
@@ -259,14 +268,14 @@ main{
             @media (orientation: portrait) {
                 padding-top: $fontSize2*2*$scaleFactor;
                 height: calc(100vh - $fontSize2*2*$scaleFactor);
-                overflow: scroll;
+                overflow: hidden;
             }
             .left, .right{
                 width:47%;
                 display: inline-block;
                 vertical-align: top;
                 @media (orientation: portrait) {
-                    width: 100%;
+                    width: calc(100% - $padding*4);
                     display: block;
                 }
             }
@@ -297,8 +306,17 @@ main{
                     a{
                         color:rgba(var(--color3));
                     }
+                    @media (orientation: portrait) {
+                        margin-top: 4vw;
+                        width: 100%;
+                        text-align: center;
+                    }
+                    .smallpill{
+                        text-align: left;
+                    }
                 }
                 padding: $padding*2;
+
             }
             h2{
                 font-size: $fontSize3;
@@ -424,7 +442,8 @@ main{
                             font-size: $fontSize2*$scaleFactor;
                             line-height: $lineHeight2*$scaleFactor;
                             padding: $padding*$scaleFactor $padding*2*$scaleFactor;    
-                            top: $padding*2*$scaleFactor;                        
+                            top: $padding*2*$scaleFactor;   
+                            border-radius: $lineHeight2*$scaleFactor;                     
                         }
                     }
                     h3{
@@ -498,6 +517,9 @@ main{
                     }
                     video{
                         height: 28vw;
+                        @media (orientation: portrait) {
+                            height: calc(100vw / 16 * 9);
+                        }
                     }
                     iframe{
                         max-width: 100%;
