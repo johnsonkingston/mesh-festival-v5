@@ -22,11 +22,13 @@ script.
             var newsarticle = '<div class="newsarticle grid-item"><p class="date">'+dateformat(news[index].date_created)+'</p><h1>'+news[index].translations[languageParameter].Title+'</h1><div class="newsarticleContent">'+news[index].translations[languageParameter].Content+'</div></div>';
             $('.newscontentInner').prepend(newsarticle);
         });
+        if($( window ).width() > $( window ).height()){
+            $('.grid').masonry({
+                itemSelector: '.grid-item',
+                columnWidth: '.grid-item'
+            });
+        }
 
-        $('.grid').masonry({
-            itemSelector: '.grid-item',
-            columnWidth: '.grid-item'
-        });
 
     });
 

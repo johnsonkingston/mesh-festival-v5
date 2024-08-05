@@ -74,5 +74,13 @@ html(lang=language[0])
                     $(this).attr('playsinline','true');
                     $(this).attr('preload','metadata');
                 });
+
+                isOverflown();
+
+                
+                setTimeout(() => {
+                    $("html, body").animate({ scrollTop: $(window).outerHeight()*0.4 },1000);
+                }, 200);
+
             });
         include includes/footer.pug

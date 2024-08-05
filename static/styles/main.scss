@@ -536,7 +536,7 @@ main{
                         margin-block-end: 0;
                         margin-inline-start: 0;
                         margin-inline-end: 0;
-                        width: 44%;
+                        width: calc(100% - ($padding*2));
                         margin-right: 5%;
                         background: rgba(var(--color2));
                         display: inline-block;
@@ -647,9 +647,19 @@ main{
                 }
             }
             main{
-                background: linear-gradient(180deg, rgba(var(--color4)) 0%, rgba(var(--color3)) 10%);
-                margin-top: 78vh;
+                background: linear-gradient(180deg, rgba(var(--color4)) 0%, rgba(var(--color3)) 4%);
+                margin-top: 95vh;
                 padding-top:10vw;
+                @media (orientation: portrait) {
+                    padding-top:30vw;
+                    margin-top: 85vh;
+
+                }
+                .mainimage{
+                    @media (orientation: portrait) {
+                        object-position: center;
+                    }
+                }
             }
             .eventHeader{
                 color: rgba(var(--color1));
@@ -691,7 +701,6 @@ main{
         h1{
             font-size: $fontSize3;
             line-height: $lineHeight3;
-            hyphens: auto;
             @media (orientation: portrait) {
                 font-size: $fontSize3*$scaleFactor;
                 line-height: $lineHeight3*$scaleFactor;                
@@ -862,7 +871,7 @@ nav{
     position: fixed;
     bottom: $padding;
     left: $padding;
-    z-index: -2;
+    z-index: 1;
     background: rgba(var(--color1));
     color: rgba(var(--color2));
     @media (orientation: portrait) {
@@ -898,7 +907,7 @@ nav{
     //top:100vh;
     height:calc(100vh + $fontSize2*2);
     @media (orientation: portrait) {
-        height:calc(100vh + $fontSize2*2*$scaleFactor);   
+        height:calc(100vh);   
     }
     span{
         background-color: rgba(var(--color2));
@@ -927,7 +936,9 @@ nav{
     overflow: scroll;
     width: 100vw;
     white-space: normal;
-
+    @media (orientation: portrait) {
+        height:calc(100vh - $fontSize2*2*$scaleFactor);   
+    }
     .newscontentInner{
         width: 100vw;
         .grid-item, .grid-sizer{
@@ -936,13 +947,13 @@ nav{
             padding:$padding;
             margin-bottom: $padding*3;
             @media (orientation: portrait) {
-                width:100%;
+                width:calc(100% - $padding*2);
+                padding-bottom: 10vh;
             }
             
             h1{
                 line-height: $fontSize2*2;
                 font-size: $fontSize2*2;
-                hyphens: auto;
                 @media (orientation: portrait) {
                     line-height: $fontSize2*2*$scaleFactor;
                     font-size: $fontSize2*2*$scaleFactor;                   
@@ -971,6 +982,12 @@ nav{
                 margin-bottom: $padding;
                 @media (orientation: portrait) {
                     margin-bottom: $padding*$scaleFactor;     
+                }
+            }
+            video{
+                width: 100%;
+                @media (orientation: portrait) {
+                    height: calc(100vw / 16 * 9);
                 }
             }
             a{

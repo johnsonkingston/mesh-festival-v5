@@ -32,6 +32,9 @@ html(lang=language[0])
                                 .eventimg(style='background-image:url('+imgURL+val.Events_id.Main_Image+'?key=icon)')
                                     img(src=baseURL+'static/img/grid.svg')
                                 .caption &bull; #{caption}
-   
+            script.
+                $( document ).ready(function() {
+                    isOverflown();
+                }); 
 
         include includes/footer.pug
