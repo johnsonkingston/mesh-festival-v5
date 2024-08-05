@@ -48,26 +48,26 @@ html(lang=language[0])
                 .right 
                     .eventswrapper
                         each val in [0,1,2]
-                            if(data.Events_1[val])
-                                //a(href=baseURL+'events/'+data.Events_1[val].Events_id.slug+'/'+language[0])
-                                .events
-                                    if data.Events_1[val].Events_id.Main_Image == null
-                                        .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
+                            if(data.Events_1[val].Events_id !== null)
+                                a(href=baseURL+'events/'+data.Events_1[val].Events_id.slug+'/'+language[0])
+                                    .events
+                                        if data.Events_1[val].Events_id.Main_Image == null
+                                            .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
+                                        else 
+                                            - var caption =data.Events_1[val].Events_id.Artist
+                                            .eventimg(style='background-image:url('+imgURL+data.Events_1[val].Events_id.Main_Image.filename_disk+')')
+                                                img(src=baseURL+'static/img/grid.svg')
+                                            .caption &bull; #{caption}
+                        .previewItem 
+                            .smallpill
+                                - var title =data.translations[languageParameter].Title
+                                a(href=baseURL+'pages/'+data.Events_1_Link)
+                                    if(language[0] == 'en' )
+                                        .
+                                            More #{title}
                                     else 
-                                        - var caption =data.Events_1[val].Events_id.Artist
-                                        .eventimg(style='background-image:url('+imgURL+data.Events_1[val].Events_id.Main_Image.filename_disk+')')
-                                            img(src=baseURL+'static/img/grid.svg')
-                                        .caption &bull; #{caption}
-                    .previewItem 
-                        .smallpill
-                            - var title =data.translations[languageParameter].Title
-                            a(href=baseURL+'pages/'+data.Events_1_Link)
-                                if(language[0] == 'en' )
-                                    .
-                                        More #{title}
-                                else 
-                                    .
-                                        Mehr #{title}     
+                                        .
+                                            Mehr #{title}     
                             
                             
 
@@ -80,7 +80,7 @@ html(lang=language[0])
                 .right 
                     .eventswrapper
                         each val in [0,1,2]
-                            if(data.Events_2[val])
+                            if(data.Events_2[val].Events_id !== null)
                                 a(href=baseURL+'events/'+data.Events_2[val].Events_id.slug+'/'+language[0])
                                     .events
                                         if data.Events_2[val].Events_id.Main_Image == null
@@ -91,16 +91,16 @@ html(lang=language[0])
                                                 img(src=baseURL+'static/img/grid.svg')
                                             .caption &bull; #{caption}
 
-                    .previewItem 
-                        .smallpill
-                            - var title =data.translations_performances[languageParameter].Title
-                            a(href=baseURL+'pages/'+data.Events_2_Link)
-                                if(language[0] == 'en' )
-                                    .
-                                        More #{title}
-                                else 
-                                    .
-                                        Mehr #{title}   
+                        .previewItem 
+                            .smallpill
+                                - var title =data.translations_performances[languageParameter].Title
+                                a(href=baseURL+'pages/'+data.Events_2_Link)
+                                    if(language[0] == 'en' )
+                                        .
+                                            More #{title}
+                                    else 
+                                        .
+                                            Mehr #{title}   
 
 
 
@@ -114,7 +114,7 @@ html(lang=language[0])
                 .right 
                     .eventswrapper
                         each val in [0,1,2]
-                            if(data.Events_3[val])
+                            if(data.Events_3[val].Events_id !== null)
                                 a(href=baseURL+'events/'+data.Events_3[val].Events_id.slug+'/'+language[0])
                                     .events
                                         if data.Events_3[val].Events_id.Main_Image == null
@@ -125,16 +125,16 @@ html(lang=language[0])
                                                 img(src=baseURL+'static/img/grid.svg')
                                             .caption &bull; #{caption}
 
-                    .previewItem 
-                        .smallpill
-                            - var title =data.translations_screenings[languageParameter].Title
-                            a(href=baseURL+'pages/'+data.Events_3_Link)
-                                if(language[0] == 'en' )
-                                    .
-                                        More #{title}
-                                else 
-                                    .
-                                        Mehr #{title}   
+                        .previewItem 
+                            .smallpill
+                                - var title =data.translations_screenings[languageParameter].Title
+                                a(href=baseURL+'pages/'+data.Events_3_Link)
+                                    if(language[0] == 'en' )
+                                        .
+                                            More #{title}
+                                    else 
+                                        .
+                                            Mehr #{title}   
             
 
 
@@ -146,27 +146,27 @@ html(lang=language[0])
                         !{data.translations_conference[languageParameter].Lead}
                 .right 
                     .eventswrapper
-                        each val in [0,1,2]
-                            if(data.Events_4[val])
-                                //a(href=baseURL+'events/'+data.Events_4[val].Events_id.slug+'/'+language[0])
+                        each val in [0,1,]
+                            if(data.Events_4[val].Events_id !== null)
+                                a(href=baseURL+'events/'+data.Events_4[val].Events_id.slug+'/'+language[0])
                                 .events
-                                    //if data.Events_4[val].Events_id.Main_Image == null
+                                    if data.Events_4[val].Events_id.Main_Image == null
                                         .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
-                                    //else 
+                                    else 
                                         - var caption =data.Events_4[val].Events_id.Artist
                                         .eventimg(style='background-image:url('+imgURL+data.Events_4[val].Events_id.Main_Image.filename_disk+')')
                                             img(src=baseURL+'static/img/grid.svg')
                                         .caption &bull; #{caption}
 
-                    .previewItem 
-                        .smallpill
-                            - var title =data.translations_conference[languageParameter].Title
-                            a(href=baseURL+'pages/'+data.Events_4_Link)
-                                if(language[0] == 'en' )
-                                    .
-                                        More #{title}
-                                else 
-                                    .
-                                        Mehr #{title}   
+                        .previewItem 
+                            .smallpill
+                                - var title =data.translations_conference[languageParameter].Title
+                                a(href=baseURL+'pages/'+data.Events_4_Link)
+                                    if(language[0] == 'en' )
+                                        .
+                                            More #{title}
+                                    else 
+                                        .
+                                            Mehr #{title}   
             
         include includes/footer.pug

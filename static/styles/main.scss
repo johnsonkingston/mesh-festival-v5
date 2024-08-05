@@ -270,7 +270,8 @@ main{
             .right{
                 margin-top: $padding*2; 
                 .previewItem{
-                    margin-top: $padding*6;
+                    margin-top: $padding*10;
+                    display: inline-block;
                     a{
                         color:rgba(var(--color3));
                     }
@@ -730,13 +731,19 @@ nav{
                 margin-top: 18vw;
             }
         }
-        img{
+        img,svg{
             height: $fontSize3VH*0.8;
             padding: $padding;
             @media (orientation: portrait) {
                 height: 13vw;
                 padding: $padding*2;
             }
+        }
+        .cls-1 {
+            fill: none;
+            stroke: rgba(var(--color2));
+            stroke-miterlimit: 10;
+            stroke-width: 20px;
         }
 
     }
@@ -792,7 +799,7 @@ nav{
     position: fixed;
     bottom: $padding;
     left: $padding;
-    z-index: 10;
+    z-index: -2;
     background: rgba(var(--color1));
     color: rgba(var(--color2));
     @media (orientation: portrait) {
@@ -1036,8 +1043,10 @@ footer{
     }
     .middle{
         width: 50%;
+        margin-top: $padding*-4;
         @media (orientation: portrait) {
             width: 100%;
+            margin-top: 0;
         }
         p{
             font-size: $fontSize0;
@@ -1049,12 +1058,17 @@ footer{
         }
         .logofooter{
             display: inline-block;
+            vertical-align: middle;
             height: $fontSize2;
             padding: $padding $padding*3 $padding 0;
             @media (orientation: portrait) {
                 height: $fontSize2*$scaleFactor;
                 padding: $padding*$scaleFactor $padding*3*$scaleFactor $padding*$scaleFactor 0;
             }
+        }
+        .logofooterlang{
+            width: $fontSize2*6;
+            height: auto;
         }
     }
 }
