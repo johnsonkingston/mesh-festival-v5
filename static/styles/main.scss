@@ -716,6 +716,15 @@ main{
                 line-height: $lineHeight3*$scaleFactor;                
             }
         }
+        h3{
+            font-family: 'FreeSans-JK';  
+            font-size: $fontSize3;
+            line-height: $lineHeight3;
+            @media (orientation: portrait) {
+                font-size: $fontSize3*$scaleFactor;
+                line-height: $lineHeight3*$scaleFactor;                
+            }         
+        }
         p,li
         {
             color: rgba(var(--color2));
