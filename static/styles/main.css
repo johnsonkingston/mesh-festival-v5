@@ -545,6 +545,7 @@ main {
 @media (orientation: portrait) {
   .page main .content video {
     height: 56.25vw;
+    background: rgba(var(--color1));
   }
 }
 .page main .content iframe {
