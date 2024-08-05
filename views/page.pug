@@ -7,7 +7,7 @@ html(lang=language[0])
             if data.Main_Image == null
                 img.mainimage(src=imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png')
             else 
-                img.mainimage(src=imgURL+data.Main_Image.filename_disk)
+                img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen)')
                 .mainimageCaption !{data.Main_Image.description}
                 
             img.grid(src=baseURL+'static/img/grid.svg')
