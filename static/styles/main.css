@@ -436,7 +436,7 @@ main {
 .page main .content li p {
   display: contents;
 }
-.page main .content h1 {
+.page main .content h3 {
   margin-top: 7vw;
 }
 .page main .content h2 {
@@ -465,14 +465,14 @@ main {
     border-radius: 5.5vw;
   }
 }
-.page main .content h3 {
+.page main .content h1 {
   font-size: 6.3vw;
   line-height: 5.4vw;
   font-family: "FreeSans-JK";
   margin-top: 2.2vw;
 }
 @media (orientation: portrait) {
-  .page main .content h3 {
+  .page main .content h1 {
     font-size: 5vw;
     line-height: 5.5vw;
     margin-top: 5.5vw;
@@ -743,24 +743,24 @@ h1, h2, h3 {
   color: rgba(var(--color2));
 }
 
-h1 {
-  font-size: 7vw;
-  line-height: 6vw;
+h3 {
+  font-size: 6.3vw;
+  line-height: 5.4vw;
 }
 @media (orientation: portrait) {
-  h1 {
-    font-size: 17.5vw;
-    line-height: 15vw;
+  h3 {
+    font-size: 15.75vw;
+    line-height: 13.5vw;
   }
 }
 
-h3 {
+h1 {
   font-family: "FreeSans-JK";
   font-size: 7vw;
   line-height: 6vw;
 }
 @media (orientation: portrait) {
-  h3 {
+  h1 {
     font-size: 17.5vw;
     line-height: 15vw;
   }
