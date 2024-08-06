@@ -483,8 +483,8 @@ main {
 }
 @media (orientation: portrait) {
   .page main .content h1 {
-    font-size: 5vw;
-    line-height: 5.5vw;
+    font-size: 4.5vw;
+    line-height: 4.95vw;
     margin-top: 5.5vw;
   }
 }
@@ -771,8 +771,8 @@ h1 {
 }
 @media (orientation: portrait) {
   h1 {
-    font-size: 17.5vw;
-    line-height: 15vw;
+    font-size: 15.75vw;
+    line-height: 13.5vw;
   }
 }
 
