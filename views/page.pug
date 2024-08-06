@@ -26,12 +26,19 @@ html(lang=language[0])
                 .eventswrapper
                     each val in data.Events
                         - var caption =val.Events_id.Artist
-                        if(val.Events_id.status == 'published')
-                            a(href=baseURL+'events/'+val.Events_id.slug+'/'+language[0])
-                                .events
-                                    .eventimg(style='background-image:url('+imgURL+val.Events_id.Main_Image+'?key=icon)')
-                                        img(src=baseURL+'static/img/grid.png')
-                                    .caption &bull; #{caption}
+                        if(val.Events_id.status == 'published' || val.Events_id.status == 'preview')
+                            if(val.Events_id.status == 'preview')
+                                a
+                                    .events
+                                        .eventimg(style='background-image:url('+imgURL+val.Events_id.Main_Image+'?key=icon)')
+                                            img(src=baseURL+'static/img/grid.png')
+                                        .caption &bull; #{caption} 
+                            else
+                                a(href=baseURL+'events/'+val.Events_id.slug+'/'+language[0])
+                                    .events
+                                        .eventimg(style='background-image:url('+imgURL+val.Events_id.Main_Image+'?key=icon)')
+                                            img(src=baseURL+'static/img/grid.png')
+                                        .caption &bull; #{caption}
             script.
                 $( document ).ready(function() {
                     isOverflown();

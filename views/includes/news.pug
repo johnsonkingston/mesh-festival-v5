@@ -19,7 +19,7 @@ script.
         $('.newscontentInner').html('');
 
         $( news ).each(function( index ) {
-            var newsarticle = '<div class="newsarticle grid-item"><p class="date">'+dateformat(news[index].date_created)+'</p><h1>'+news[index].translations[languageParameter].Title+'</h1><div class="newsarticleContent">'+news[index].translations[languageParameter].Content+'</div></div>';
+            var newsarticle = '<div class="newsarticle grid-item"><h1>'+news[index].translations[languageParameter].Title+'</h1><div class="newsarticleContent">'+news[index].translations[languageParameter].Content+'</div></div>';
             $('.newscontentInner').prepend(newsarticle);
         });
         if($( window ).width() > $( window ).height()){

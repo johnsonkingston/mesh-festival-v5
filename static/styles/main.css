@@ -833,7 +833,7 @@ nav ul {
 }
 @media (orientation: portrait) {
   nav ul {
-    margin-top: 27vw;
+    margin-top: 19vh;
   }
 }
 nav li.navigation {

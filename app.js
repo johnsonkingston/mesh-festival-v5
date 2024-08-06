@@ -194,6 +194,9 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         if(result.data[0].Price == 0){
             result.data[0].translations[0].Price = 'Eintritt gratis';
             result.data[0].translations[1].Price = 'Free entrance';
+        }else if(result.data[0].Price == null){
+            result.data[0].translations[0].Price = '';
+            result.data[0].translations[1].Price = '';           
         }else{
             result.data[0].translations[0].Price = result.data[0].Price+' CHF';
             result.data[0].translations[1].Price = result.data[0].Price+' CHF';            
@@ -211,7 +214,12 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         else if(result.data[0].Audience == 'pros'){
             result.data[0].translations[0].Audience = 'Geeignet für Pros';
             result.data[0].translations[1].Audience = 'Suitable for pros';
-        }else{
+        }
+        else if(result.data[0].Audience == 'konferenz'){
+                result.data[0].translations[0].Audience = 'Für Konferenzgäste';
+                result.data[0].translations[1].Audience = 'For guests of the conference';
+        }
+        else{
             result.data[0].translations[0].Audience = '';
             result.data[0].translations[1].Audience = '';         
         }
@@ -219,17 +227,14 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
 
         //Language
         if(result.data[0].Language == 'german'){
-            result.data[0].translations[0].Language = 'Deutsch';
-            result.data[0].translations[1].Language = 'German';
+            result.data[0].translations[0].Language = 'In deutscher Sprache';
+            result.data[0].translations[1].Language = 'In German';
         }
         else if(result.data[0].Language == 'english'){
-            result.data[0].translations[0].Language = 'Englisch';
-            result.data[0].translations[1].Language = 'English';
+            result.data[0].translations[0].Language = 'In englischer Sprache';
+            result.data[0].translations[1].Language = 'In English';
         }
-        else if(result.data[0].Language == 'pros'){
-            result.data[0].translations[0].Language = 'Geeignet für Pros';
-            result.data[0].translations[1].Language = 'Suitable for pros';
-        }else{
+        else{
             result.data[0].translations[0].Language = '';
             result.data[0].translations[1].Language = '';         
         }
@@ -257,6 +262,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
             result.data[0].time_transformed.start = '';
             result.data[0].time_transformed.end = '';        
         }
+
         //Format
         var formatSlug = result.data[0].Format;
         const formatTranslation = {
@@ -269,6 +275,17 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
             diskurs: 'Discourse'
         };
         result.data[0].formatTranslation = [result.data[0].Format, formatTranslation[formatSlug]];
+
+        //Time Frontend
+        console.log(result.data[0].translations[0].Time_frontend );
+        if(result.data[0].translations[0].Time_frontend !== null){
+            result.data[0].translations[0].Time_frontend = result.data[0].translations[0].Time_frontend.replace('\n','<br>');
+        }
+        if(result.data[0].translations[1].Time_frontend !== null){
+            result.data[0].translations[1].Time_frontend = result.data[0].translations[1].Time_frontend.replace('\n','<br>');
+        }
+ 
+
 
         languageObject = [language,languageTransform(language)];
         if(result.data[0]){

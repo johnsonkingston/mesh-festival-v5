@@ -23,7 +23,7 @@ html(lang=language[0])
             .eventHeader 
                 .eventHeaderColumn
                     if data.translations[languageParameter].Time_frontend !== null
-                        p= data.translations[languageParameter].Time_frontend
+                        p !{data.translations[languageParameter].Time_frontend}
                     else
                         p= data.time_transformed.start
                     

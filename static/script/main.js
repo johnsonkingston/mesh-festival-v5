@@ -22,6 +22,8 @@ function changeColors(){
     if(currentColor > colors.length-1){
         currentColor = 0;
     }
+    $('#footerlogo').attr('src',baseURL+'static/img/mesh-festival'+(currentColor+1)+'.png');
+    $('#headerlogo').attr('src',baseURL+'static/img/mesh-festival'+(currentColor+1)+'_top.png');
     $(':root').css('--color1', colors[currentColor].color1);
     $(':root').css('--color2', colors[currentColor].color2);
 }
