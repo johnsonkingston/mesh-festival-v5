@@ -162,10 +162,11 @@ main{
                 box-shadow: 0 0 20px rgba(var(--color2));
                 margin-bottom: $padding;
                 border-radius: $padding;
+                overflow: hidden;
                 img{
                     width: 100%;
                     height: auto;
-                    mix-blend-mode: overlay;
+                    mix-blend-mode: hard-light;
                 }
             }
             .caption{
@@ -1341,4 +1342,59 @@ footer{
         padding-top:0;
     
     }
+}
+
+
+/*SOCKET */
+
+#status, .member{
+    display:inline-block;
+    background-color: rgba(var(--color1));
+    color: rgba(var(--color2));
+    transition: color 1s linear;
+    padding: $padding/2 $padding $padding/2 $padding;
+    font-size: $fontSize0;
+    line-height: $lineHeight0;
+    margin-left:  $padding*2;
+    margin-bottom: $padding;
+    @media (orientation: portrait) {
+        font-size: $fontSize0*$scaleFactor;
+        line-height: $lineHeight0*$scaleFactor;
+        margin-left:  $padding*$scaleFactor;
+        margin-bottom: $padding*$scaleFactor;
+        padding: $padding/2*$scaleFactor $padding*$scaleFactor $padding/2*$scaleFactor $padding*$scaleFactor;
+        border-radius: $lineHeight1*$scaleFactor;
+    }
+}
+.cursor{
+    position: fixed;
+    z-index: 1000;
+    left:-10vw;
+    top:-10vw;
+    font-size: 3vw;
+    @media (orientation: portrait) {
+        font-size: $fontSize2*$scaleFactor;
+    }
+}
+.meetingPoint{
+    position: fixed;
+    z-index: 4;
+}
+@keyframes emojiFly {
+    0% {
+        transform: translateY(-3000px);
+    }
+    1% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-3000px);
+    }
+}
+.emoji{
+    position: absolute;
+    transform: translateX(0px);
+    animation: emojiFly 4s forwards;
+    font-size: 3vw;
+
 }
