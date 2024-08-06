@@ -126,5 +126,7 @@ function  emojiFly(divID,id1,id2){
     }else{
         emojiPrint = emojis[id2];
     }
-    $('#'+divID).append('<div class="emoji" style="margin-left: '+(Math.floor(Math.random() * 60) - 30)+'px;">'+emojiPrint+'</div>');
+    if(emojiPrint !== undefined){
+        $('#'+divID).append('<div class="emoji" style="margin-left: '+(Math.floor(Math.random() * 60) - 30)+'px;">'+emojiPrint+'</div>');
+    }
 }

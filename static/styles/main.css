@@ -637,10 +637,81 @@ main {
   border-collapse: separate !important;
   border-spacing: 0.8vw;
 }
-.page main .content td.box-text {
+@media (orientation: portrait) {
+  .page main .content table {
+    width: 100%;
+  }
+}
+.page main .content td {
+  background: rgba(var(--color2));
+  border-radius: 0.8vw;
   width: auto;
   margin-right: 0;
   display: table-cell;
+  vertical-align: top;
+  text-align: center;
+  font-family: "FreeSerif-JK";
+  font-size: 2.6vw;
+  line-height: 2.6vw;
+  color: white;
+  padding: 0.8vw;
+  margin-bottom: 2vw;
+}
+@media (orientation: portrait) {
+  .page main .content td {
+    display: block;
+    width: 100%;
+    font-size: 10vw;
+    line-height: 10vw;
+  }
+}
+.page main .content td em {
+  display: block;
+  font-family: "FreeSans-JK";
+  font-size: 1.5vw;
+  line-height: 1.5vw;
+  text-align: center;
+}
+@media (orientation: portrait) {
+  .page main .content td em {
+    font-size: 3.75vw;
+    line-height: 3.75vw;
+  }
+}
+.page main .content td p {
+  background: rgba(var(--color2));
+  border-radius: 0.8vw;
+  width: auto;
+  margin-right: 0;
+  vertical-align: top;
+  text-align: center;
+  font-family: "FreeSerif-JK";
+  font-size: 2.6vw;
+  line-height: 2.6vw;
+  color: white;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+@media (orientation: portrait) {
+  .page main .content td p {
+    display: block;
+    width: 100%;
+    font-size: 10vw;
+    line-height: 10vw;
+  }
+}
+.page main .content td p em {
+  display: block;
+  font-family: "FreeSans-JK";
+  font-size: 1.5vw;
+  line-height: 1.5vw;
+  text-align: center;
+}
+@media (orientation: portrait) {
+  .page main .content td p em {
+    font-size: 3.75vw;
+    line-height: 3.75vw;
+  }
 }
 .page main .content .pill {
   font-size: 1.5vw;
@@ -780,6 +851,7 @@ h1 {
   font-family: "FreeSans-JK";
   font-size: 6.3vw;
   line-height: 5.4vw;
+  margin-bottom: 0.8vw;
 }
 @media (orientation: portrait) {
   h1 {
@@ -922,6 +994,10 @@ nav .languages li {
 nav .languages .smallpill {
   margin-top: 3vw;
   background: rgba(var(--color1));
+}
+nav .languages .smallpill:hover {
+  background: rgba(var(--color2));
+  color: rgba(var(--color1));
 }
 
 .open {
