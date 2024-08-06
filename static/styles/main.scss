@@ -162,7 +162,11 @@ main{
                 box-shadow: 0 0 20px rgba(var(--color2));
                 margin-bottom: $padding;
                 border-radius: $padding;
-
+                img{
+                    width: 100%;
+                    height: auto;
+                    mix-blend-mode: overlay;
+                }
             }
             .caption{
                 display: inline-block;
@@ -399,7 +403,7 @@ main{
                     z-index: 0;
                     width:auto;
                     z-index: -2;
-                    mix-blend-mode: soft-light;
+                    mix-blend-mode: overlay;
                 }
                 #gridRight{
                     left: auto;
