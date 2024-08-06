@@ -1375,6 +1375,7 @@ footer{
     @media (orientation: portrait) {
         font-size: $fontSize2*$scaleFactor;
     }
+    transition: all 0.1s;
 }
 .meetingPoint{
     position: fixed;
