@@ -9,11 +9,13 @@ html(lang=language[0])
             - var z = -10
             each item in data.View
                 section(id='section'+n)
-                    video.videoDesk(id='video'+n,src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',preload="auto",style='z-index:'+z+';')
+
+                    video.videoDesk(id='video'+n,src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',preload="auto",)
                     if(item.Video_Id_Mobile !== undefined)
-                        video.videoMobile(src=imgURL+item.Video_Id_Mobile,muted='true',autoplay='true',loop='true',playsinline='true',preload="auto",style='z-index:'+z+';')
+                        video.videoMobile(src=imgURL+item.Video_Id_Mobile,muted='true',autoplay='true',loop='true',playsinline='true',preload="auto")
                     else
-                        video.videoMobile(src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',preload="auto",style='z-index:'+z+';')
+                        video.videoMobile(src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',preload="auto")
+
 
                     if(item.Show_Title)
                         a(href=baseURL+'pages/'+item.Title_Link+'/'+language[0])
