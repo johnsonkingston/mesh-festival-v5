@@ -8,10 +8,15 @@ var subtitles = [];
 var windowWidth = $(window).width();
 var windowHeight = $(window).outerHeight();
 
+var emojiIdGuest;
+var emojiIdSelf;
+
 var id;
 var idSelf = socket.id;
 
 var currentMousePos = { id: idSelf, x: -1, y: -1 };
+
+var emojis = ['❤️','🧶','👂','👃🏿','🧵','🥢'];
 
 function newJoin(data){
     console.log(data.id+' joined!');
@@ -20,10 +25,12 @@ function newJoin(data){
 
     idSelf = socket.id;
 
+    var emojiId = Math.floor(Math.random() * emojis.length);
+
     if(id !== idSelf){
-        $('body').append('<div class="cursor" id="'+data.id+'" onmouseover="meeting(this)">🍥</div>');
+        $('body').append('<div class="cursor" id="'+data.id+'" data-id="'+emojiId+'" onmouseover="meeting(this)">'+emojis[emojiId]+'</div>');
     }else{
-        $('body').append('<div class="cursor" id="'+data.id+'">🍥</div>');
+        $('body').append('<div class="cursor" id="'+data.id+'" data-id="'+emojiId+'">'+emojis[emojiId]+'</div>');
     }
 
     //$('#status').html('<div class="status">'+data.id.substr(0,4).toUpperCase()+' joined!</div>');
@@ -86,10 +93,12 @@ setInterval(sendJoined, 2000);
 
 
 function meeting(element){
+    emojiIdGuest = $(element).attr('data-id');
+    emojiIdSelf = $('#'+idSelf).attr('data-id');
+
     var meetingPoint = {};
     meetingPoint.x = parseInt($(element).css('left'))/windowWidth;
     meetingPoint.y = parseInt($(element).css('top'))/windowHeight;
-    console.log(parseInt($(element).css('top'))+' '+windowHeight);
 
     socket.emit('meeting', meetingPoint);
 }
@@ -98,7 +107,7 @@ socket.on('meetingSend', function(data){
     var meetingID = new Date().getTime();
     $('body').append('<div class="meetingPoint" id="meet_'+meetingID+'" style="left:'+data.x*100+'vw;top:'+data.y*100+'vh;"></div>');
     
-    const intervalID = setInterval(emojiFly, 200, 'meet_'+meetingID);
+    const intervalID = setInterval(emojiFly, 200, 'meet_'+meetingID,emojiIdGuest, emojiIdSelf);
 
     setTimeout(() => {
         clearTimeout(intervalID);
@@ -111,6 +120,11 @@ socket.on('meetingSend', function(data){
     //   }, "10000");
 });
 
-function  emojiFly(divID){
-    $('#'+divID).append('<div class="emoji" style="margin-left: '+(Math.floor(Math.random() * 60) - 30)+'px;">🍥</div>');
+function  emojiFly(divID,id1,id2){
+    if(Math.random() > 0.5){
+        emojiPrint = emojis[id1];
+    }else{
+        emojiPrint = emojis[id2];
+    }
+    $('#'+divID).append('<div class="emoji" style="margin-left: '+(Math.floor(Math.random() * 60) - 30)+'px;">'+emojiPrint+'</div>');
 }

@@ -1482,7 +1482,6 @@ footer .middle .logofooterlang {
   left: -10vw;
   top: -10vw;
   font-size: 3vw;
-  transition: all 0.1s;
 }
 @media (orientation: portrait) {
   .cursor {
