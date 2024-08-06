@@ -1,4 +1,10 @@
-                var positions = [];
+$( document ).ready(function() {
+$('#section1').on( "click", function() {
+    console.log('scroll');
+    $("main").animate({ scrollTop: $(window).outerHeight()*2},2000);
+});
+});
+/*                 var positions = [];
                 var activeSection;
                 var activeFilter1;
 
@@ -20,4 +26,4 @@
                 });
                 if($( window ).width() > $( window ).height()){
                     $('#video1').show();
-                }
+                } */

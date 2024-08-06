@@ -157,7 +157,7 @@ main {
 .eventswrapper a .events {
   width: 89%;
   border-radius: 0.8vw;
-  height: 25vw;
+  margin-bottom: 1.6vw;
 }
 @media (orientation: portrait) {
   .eventswrapper a .events {
@@ -179,6 +179,10 @@ main {
   width: 100%;
   height: auto;
   mix-blend-mode: hard-light;
+  max-height: calc(50vh - 10vw);
+}
+.eventswrapper a .events .eventimg:hover {
+  box-shadow: 0 0 5px rgba(var(--color2));
 }
 .eventswrapper a .events .caption {
   display: inline-block;
@@ -222,7 +226,6 @@ main {
   width: 100vw;
   height: calc(200vh - 8vw);
   scroll-snap-align: start;
-  padding-top: 1.4vw;
 }
 .startpage main section .bigpill {
   position: sticky;
@@ -264,7 +267,6 @@ main {
   top: 0;
   left: 0;
   mix-blend-mode: overlay;
-  display: none;
 }
 .startpage main .bubbles {
   position: absolute;
@@ -692,6 +694,10 @@ main {
   line-height: 1.7vw;
   margin-block-start: 0.2em;
 }
+.page main .content .video-portrait video {
+  width: 50%;
+  height: auto;
+}
 
 .event .breadcrumb {
   color: rgba(var(--color2));
@@ -1087,6 +1093,10 @@ nav .languages .smallpill {
     font-size: 2.75vw;
     line-height: 3.5vw;
   }
+}
+.newscontent .newscontentInner .grid-item .video-portrait video, .newscontent .newscontentInner .grid-sizer .video-portrait video {
+  width: 100%;
+  height: auto;
 }
 .newscontent .newscontentInner .grid-item .date, .newscontent .newscontentInner .grid-sizer .date {
   text-align: center;

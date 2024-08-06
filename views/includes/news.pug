@@ -22,6 +22,11 @@ script.
             var newsarticle = '<div class="newsarticle grid-item"><h1>'+news[index].translations[languageParameter].Title+'</h1><div class="newsarticleContent">'+news[index].translations[languageParameter].Content+'</div></div>';
             $('.newscontentInner').prepend(newsarticle);
         });
+        $( "video" ).each(function( index ) {
+            $(this).attr('playsinline','true');
+            $(this).attr('preload','metadata');
+        });
+
         if($( window ).width() > $( window ).height()){
             $('.grid').masonry({
                 itemSelector: '.grid-item',

@@ -150,6 +150,7 @@ main{
         .events{
             width: 89%;
             border-radius: $padding;
+            margin-bottom: $padding*2;
             @media (orientation: portrait) {
                 width: 100%;
                 display: inline-block;
@@ -167,7 +168,11 @@ main{
                     width: 100%;
                     height: auto;
                     mix-blend-mode: hard-light;
+                    max-height: calc(50vh - 10vw);
                 }
+            }
+            .eventimg:hover{
+                box-shadow: 0 0 5px rgba(var(--color2));
             }
             .caption{
                 display: inline-block;
@@ -182,7 +187,6 @@ main{
                     margin-left: $lineHeight2*$scaleFactor;                   
                 }
             }
-            height: 25vw;
             @media (orientation: portrait) {
                 height: auto;
             }
@@ -213,7 +217,6 @@ main{
             width: 100vw;
             height: calc(200vh - $fontSize2*4);
             scroll-snap-align: start;
-            padding-top: $lineHeight0;
 
             .bigpill{
                 position: sticky;
@@ -251,7 +254,6 @@ main{
             top:0;
             left: 0;
             mix-blend-mode: overlay;
-            display: none;
         }
 
         .bubbles{
@@ -654,6 +656,10 @@ main{
                         line-height: $lineHeight1;
                         margin-block-start: .2em;                      
                     }
+                    .video-portrait video{
+                        width: 50%;
+                        height: auto;
+                    }
                 }
 
         }
@@ -1007,6 +1013,12 @@ nav{
                     line-height: $lineHeight0*$scaleFactor;                   
                 }
 
+            }
+            .video-portrait{
+                video{
+                    width: 100%;
+                    height: auto;
+                }
             }
             .date{
                 text-align: center;        
