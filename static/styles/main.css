@@ -437,7 +437,8 @@ main {
   display: contents;
 }
 .page main .content h3 {
-  margin-top: 7vw;
+  margin-top: 2.4vw;
+  margin-bottom: 1.6vw;
 }
 .page main .content h2 {
   font-size: 2vw;
@@ -453,7 +454,6 @@ main {
   white-space: nowrap;
   margin-left: 50%;
   transform: translateX(-50%);
-  position: sticky;
   top: 1.6vw;
 }
 @media (orientation: portrait) {
@@ -744,20 +744,20 @@ h1, h2, h3 {
 }
 
 h3 {
-  font-size: 6.3vw;
-  line-height: 5.4vw;
+  font-size: 7vw;
+  line-height: 6vw;
 }
 @media (orientation: portrait) {
   h3 {
-    font-size: 15.75vw;
-    line-height: 13.5vw;
+    font-size: 17.5vw;
+    line-height: 15vw;
   }
 }
 
 h1 {
   font-family: "FreeSans-JK";
-  font-size: 7vw;
-  line-height: 6vw;
+  font-size: 6.3vw;
+  line-height: 5.4vw;
 }
 @media (orientation: portrait) {
   h1 {
@@ -1287,4 +1287,152 @@ footer .middle .logofooterlang {
   footer .middle .logofooterlang {
     width: 30vw;
   }
+}
+
+#newsletterClose {
+  display: none;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  z-index: 9;
+}
+
+#newsletterBox {
+  display: none;
+  position: fixed;
+  width: 50vw;
+  height: auto;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  background: rgba(var(--color1));
+  padding: 0.8vw;
+  padding-top: 3.2vw;
+  top: 20vh;
+  text-align: center;
+  border-radius: 0.8vw;
+  box-shadow: 0 0 20px rgba(var(--color1));
+  z-index: 10;
+}
+@media (orientation: portrait) {
+  #newsletterBox {
+    width: 98.4vw;
+  }
+}
+#newsletterBox label {
+  font-weight: bold;
+  font-family: "FreeSans-JK";
+  color: rgba(var(--color2));
+  transition: color 1s linear;
+  font-size: 2vw;
+  line-height: 2.2vw;
+}
+@media (orientation: portrait) {
+  #newsletterBox label {
+    font-size: 5vw;
+    line-height: 5.5vw;
+  }
+}
+#newsletterBox #mc_embed_signup .button {
+  display: inline-block;
+  background-color: rgba(var(--color2));
+  color: rgba(var(--color1));
+  transition: color 1s linear;
+  transition: background-color 1s linear;
+  padding: 0.8vw 1.6vw 0.8vw 1.6vw;
+  border-radius: 1.7vw;
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+  margin-left: 0.8vw;
+  margin-bottom: 0.8vw;
+  cursor: pointer;
+}
+@media (orientation: portrait) {
+  #newsletterBox #mc_embed_signup .button {
+    font-size: 5.625vw;
+    line-height: 6.375vw;
+    padding: 2vw 4vw 2vw 4vw;
+    margin-left: 2vw;
+    margin-bottom: 2vw;
+    border-radius: 8.5vw;
+  }
+}
+#newsletterBox .submit, #newsletterBox input, #newsletterBox #mc_embed_signup input {
+  background-color: transparent;
+  border: 0.2vw solid rgba(var(--color2));
+  color: rgba(var(--color2));
+  transition: color 1s linear;
+  margin-left: 50%;
+  margin-right: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.8vw;
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+  padding: 1.2vw 2.4vw 1.2vw 2.4vw;
+  border-radius: 5.1vw;
+  font-family: "FreeSans-JK", sans-serif;
+}
+@media (orientation: portrait) {
+  #newsletterBox .submit, #newsletterBox input, #newsletterBox #mc_embed_signup input {
+    font-size: 7.5vw;
+    line-height: 4.25vw;
+    padding: 6vw 12vw 6vw 12vw;
+    border-radius: 12.75vw;
+    border: 1vw solid rgba(var(--color2));
+  }
+}
+#newsletterBox #mc_embed_signup .mc-field-group input {
+  width: 70%;
+  margin-top: 0.5vw;
+}
+@media (orientation: portrait) {
+  #newsletterBox #mc_embed_signup .mc-field-group input {
+    width: 90%;
+  }
+}
+#newsletterBox #mc_embed_signup .mc-field-group {
+  min-height: auto;
+}
+#newsletterBox #mc_embed_signup .foot {
+  width: 100%;
+  grid-template-columns: auto;
+}
+#newsletterBox #mc_embed_signup .button {
+  font-family: "FreeSans-JK";
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  transform: translateX(0);
+}
+#newsletterBox #mc_embed_signup .asterisk {
+  color: rgba(var(--color2));
+}
+#newsletterBox #mc_embed_signup #mc-embedded-subscribe-form div.mce_inline_error, #newsletterBox #mc_embed_signup .helper_text {
+  background: none;
+  color: rgba(var(--color2));
+}
+#newsletterBox #mc_embed_signup #mc-embedded-subscribe-form input.mce_inline_error {
+  border: 0.4vw solid #e85c41;
+}
+@media (orientation: portrait) {
+  #newsletterBox #mc_embed_signup #mc-embedded-subscribe-form input.mce_inline_error {
+    border: 1vw solid #e85c41;
+  }
+}
+#newsletterBox #mc_embed_signup .mc-field-group label {
+  text-align: center;
+}
+#newsletterBox #mc_embed_signup form {
+  z-index: 0;
+}
+#newsletterBox #mc_embed_signup #mce-success-response {
+  font-size: 7vw;
+  line-height: 6vw;
+  font-family: "FreeSerif-JK";
+  width: 100%;
+  text-align: center;
+  color: rgba(var(--color2));
+  padding-top: 0;
 }/*# sourceMappingURL=main.css.map */

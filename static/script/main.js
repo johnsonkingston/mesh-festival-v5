@@ -42,9 +42,9 @@ $( document ).ready(function() {
 //Trennungen
 function isOverflown() {
     var elementWidth = $('main').children("h1").first().get(0).scrollWidth;
-    var screenWidth = $('main').width();
+    var screenWidth = $('main').outerWidth();
+    console.log(elementWidth+' elementWidth / '+screenWidth+' screenWidth');
     if(elementWidth > screenWidth){
-        console.log('overflow');
         $('main').children("h1").first().css('hyphens','auto');
     }
 }

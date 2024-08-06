@@ -421,7 +421,8 @@ main{
                         }
                     }
                     h3{
-                        margin-top: $fontSize3;
+                        margin-top: $padding*3;
+                        margin-bottom: $padding*2;
                     }
                     h2{
                         font-size: $fontSize2;
@@ -436,7 +437,7 @@ main{
                         white-space: nowrap;
                         margin-left: 50%;
                         transform: translateX(-50%);
-                        position: sticky;
+                        //position: sticky;
                         top: $padding*2;
                         @media (orientation: portrait) {
                             font-size: $fontSize2*$scaleFactor;
@@ -709,17 +710,17 @@ main{
             color: rgba(var(--color2));
         }
         h3{
-            font-size: $fontSize3*0.9;
-            line-height: $lineHeight3*0.9;
+            font-size: $fontSize3;
+            line-height: $lineHeight3;
             @media (orientation: portrait) {
-                font-size: $fontSize3*$scaleFactor*0.9;
-                line-height: $lineHeight3*$scaleFactor*0.9;                
+                font-size: $fontSize3*$scaleFactor;
+                line-height: $lineHeight3*$scaleFactor;                
             }
         }
         h1{
             font-family: 'FreeSans-JK';  
-            font-size: $fontSize3;
-            line-height: $lineHeight3;
+            font-size: $fontSize3*0.9;
+            line-height: $lineHeight3*0.9;
             @media (orientation: portrait) {
                 font-size: $fontSize3*$scaleFactor;
                 line-height: $lineHeight3*$scaleFactor;                
@@ -1184,5 +1185,146 @@ footer{
                 width:30vw;
             }
         }
+    }
+}
+#newsletterClose{
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    z-index: 9;
+}
+#newsletterBox{
+    display: none;
+    position: fixed;
+    width: 50vw;
+    height: auto;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    background: rgba(var(--color1));
+    padding: $padding;
+    padding-top: $padding*4;
+    top: 20vh;
+    text-align: center;
+    border-radius: $padding;
+    box-shadow: 0 0 20px rgba(var(--color1));
+    z-index: 10;
+    @media (orientation: portrait) {
+        width: calc(100vw - $padding*2);
+
+    }
+    label{
+        font-weight: bold;
+        font-family: 'FreeSans-JK';
+        color: rgba(var(--color2));
+        transition: color 1s linear;
+        font-size: $fontSize2;
+        line-height: $lineHeight2;    
+    
+        @media (orientation: portrait) {
+            font-size: $fontSize2*$scaleFactor;
+            line-height: $lineHeight2*$scaleFactor;    
+        }
+    }
+    #mc_embed_signup .button{
+        display: inline-block;
+        background-color: rgba(var(--color2));
+        color: rgba(var(--color1));
+        transition: color 1s linear;
+        transition: background-color 1s linear;
+        padding: $padding $padding*2 $padding $padding*2;
+        border-radius: $lineHeight1;
+        font-size: $fontSize1;
+        line-height: $lineHeight1;
+        margin-left:  $padding;
+        margin-bottom: $padding;
+        cursor: pointer;
+        @media (orientation: portrait) {
+            font-size: $fontSize1*$scaleFactor*1.5;
+            line-height: $lineHeight1*$scaleFactor*1.5;           
+            padding: $padding*$scaleFactor $padding*2*$scaleFactor $padding*$scaleFactor $padding*2*$scaleFactor;
+            margin-left:  $padding*$scaleFactor;
+            margin-bottom: $padding*$scaleFactor;
+            border-radius: $lineHeight1*$scaleFactor*2;
+        }
+    }
+
+    .submit, input, #mc_embed_signup input{
+        background-color: transparent;
+        border: 0.2vw solid rgba(var(--color2));
+        color: rgba(var(--color2));  
+        transition: color 1s linear;
+        margin-left: 50%;
+        margin-right: 50%;  
+        transform: translateX(-50%);    
+        margin-top: $padding;
+        font-size: $fontSize1;
+        line-height: $lineHeight1;
+        padding: $padding*1.5 $padding*3 $padding*1.5 $padding*3;
+        border-radius: $lineHeight1*3;
+        font-family: "FreeSans-JK", sans-serif;
+        @media (orientation: portrait) {
+            font-size: $fontSize1*2*$scaleFactor;
+            line-height: $lineHeight1*$scaleFactor;
+            padding: $padding*3*$scaleFactor $padding*6*$scaleFactor $padding*3*$scaleFactor $padding*6*$scaleFactor;
+            border-radius: $lineHeight1*3*$scaleFactor;      
+            border: 1vw solid rgba(var(--color2));
+    
+        }
+
+    }
+    #mc_embed_signup .mc-field-group input{
+        width: 70%;
+        margin-top:0.5vw;
+        @media (orientation: portrait) {
+            width: 90%;
+        }
+  
+    }
+    #mc_embed_signup .mc-field-group{
+        min-height: auto;
+    }
+    #mc_embed_signup .foot{
+        width: 100%;
+        grid-template-columns: auto;
+    }
+    #mc_embed_signup .button{
+        font-family: "FreeSans-JK";
+        height:auto;
+        margin-left: auto;
+        margin-right: auto;
+        transform: translateX(0);
+    }
+    #mc_embed_signup .asterisk{
+        color:rgba(var(--color2));
+    }
+    #mc_embed_signup #mc-embedded-subscribe-form div.mce_inline_error, #mc_embed_signup .helper_text{
+        background: none;
+        color:rgba(var(--color2));
+    }
+    #mc_embed_signup #mc-embedded-subscribe-form input.mce_inline_error{
+        border: 0.4vw solid #e85c41;
+        @media (orientation: portrait) {
+            border: 1vw solid #e85c41;
+        }
+    }
+    #mc_embed_signup .mc-field-group label{
+        text-align: center;
+    }
+    #mc_embed_signup form{
+        z-index: 0;
+    }
+    #mc_embed_signup #mce-success-response{
+        font-size: $fontSize3;
+        line-height: $lineHeight3;
+        font-family: "FreeSerif-JK";
+        width:100%;
+        text-align: center;
+        color:rgba(var(--color2));
+        padding-top:0;
+    
     }
 }

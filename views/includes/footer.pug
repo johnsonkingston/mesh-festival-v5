@@ -19,6 +19,8 @@ footer
                 each val in footer[languageParameter].Second_Links
                     li
                         a.mediumpill(href=baseURL+val.URL)= val.Title
+                li
+                    a.mediumpill(href="#",onclick="showNewsletter()").nohover Newsletter
 
         div 
             ul.smalllinks

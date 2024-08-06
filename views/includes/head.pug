@@ -13,8 +13,8 @@ head
         var baseURL = '!{baseURL}';
         var currentUrl = window.location.pathname;
         var languageParameter = !{languageParameter};
-        if(currentUrl.substr(currentUrl.length - 3) == '/en'){
-            currentUrl = currentUrl.replace('/en','');
+        if(currentUrl.substr(currentUrl.length - 3) == '/de'){
+            currentUrl = currentUrl.replace('/de','');
         }
 
         data = !{JSON.stringify(data).replace(/<\//g, "<\\/")};

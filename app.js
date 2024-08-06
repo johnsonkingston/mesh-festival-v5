@@ -131,7 +131,7 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         pageSlug = req.params.pageSlug;
         language = req.params.language  || 'de';
 
-        //console.log(language);
+        console.log(language);
         result = await getPage(pageSlug);
         navigation = await getNavigation();
         footer = await getFooter();
@@ -140,7 +140,7 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         //console.log(result.data[0]);
         languageObject = [language,languageTransform(language)];
         if(result.data[0]){
-            console.log(languageObject);
+            //console.log(languageObject);
             res.render('page',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data});
         }
 
@@ -172,12 +172,22 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         eventSlug = req.params.eventSlug;
         language = req.params.language  || 'de';
 
-        //console.log(language);
+        console.log(language);
         result = await getEvent(eventSlug);
         navigation = await getNavigation();
         footer = await getFooter();
         news = await getNews();
-        console.log(result.data[0]);
+        //console.log(result.data[0]);
+
+        //Order of languages
+        if(result.data[0].translations[0].languages_code.code == 'en'){
+            let engData =  result.data[0].translations[0];
+            let deData = result.data[0].translations[1];
+            result.data[0].translations[0] = deData;
+            result.data[0].translations[1] = engData;
+        }
+        console.log('Code: '+result.data[0].translations[0].languages_code.code);
+
 
         //Transformations
         //Price
@@ -205,6 +215,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
             result.data[0].translations[0].Audience = '';
             result.data[0].translations[1].Audience = '';         
         }
+
 
         //Language
         if(result.data[0].Language == 'german'){
@@ -246,6 +257,18 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
             result.data[0].time_transformed.start = '';
             result.data[0].time_transformed.end = '';        
         }
+        //Format
+        var formatSlug = result.data[0].Format;
+        const formatTranslation = {
+            ausstellungen: 'Exhibitions',
+            performances: 'Performances',
+            screenings: 'Screenings',
+            konferenz: 'Conference',
+            workshops: 'Workshops',
+            clubnights: 'Club Nights',
+            diskurs: 'Discourse'
+        };
+        result.data[0].formatTranslation = [result.data[0].Format, formatTranslation[formatSlug]];
 
         languageObject = [language,languageTransform(language)];
         if(result.data[0]){

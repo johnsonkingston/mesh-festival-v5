@@ -4,7 +4,7 @@ html(lang=language[0])
         include includes/navigation.pug
 
         .breadcrumb.mediumpill
-            a(href=baseURL+'pages/'+data.Format)= data.Format
+            a(href=baseURL+'pages/'+data.Format)= data.formatTranslation[languageParameter]
 
         main
             if data.Main_Image == null
