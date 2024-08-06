@@ -43,8 +43,8 @@ function newJoin(data){
 
 
 $(document).mousemove(function(event) {
-    currentMousePos.x = event.clientX/windowWidth;
-    currentMousePos.y = event.clientY/windowHeight;
+    currentMousePos.x = (event.clientX+10)/windowWidth;
+    currentMousePos.y = (event.clientY+10)/windowHeight;
     socket.emit('move',currentMousePos);
 });  
 
