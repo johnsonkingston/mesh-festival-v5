@@ -13,7 +13,11 @@
                         }
                     });
 
-                    $('#video'+(activeSection+2)).css('display','block');                    
-                    $('#video'+(activeSection+2)).css('filter','brightness('+activeFilter1+')');
-
+                    if($( window ).width() > $( window ).height()){
+                        $('#video'+(activeSection+2)).css('display','block');                    
+                        //$('#video'+(activeSection+2)).css('filter','brightness('+activeFilter1+')');
+                    }
                 });
+                if($( window ).width() > $( window ).height()){
+                    $('#video1').show();
+                }

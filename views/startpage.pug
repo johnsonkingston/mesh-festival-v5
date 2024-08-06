@@ -9,12 +9,11 @@ html(lang=language[0])
             - var z = -10
             each item in data.View
                 section
-                    video(id='video'+n,src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',style='z-index:'+z+';')
-                    //if(n == 1)
-                        div.bubbles.bubblesLeft
-                            video#bubbleLeftVideo.desktopVideo(src="static/videos/01-1-DE.mp4",autoplay="true",loop="true",muted="true",playsinline="true") 
-                        div.bubbles.bubblesRight
-                            video#bubbleRightVideo.desktopVideo(src="static/videos/02-1-DE.mp4",autoplay="true",loop="true",muted="true",playsinline="true") 
+                    video.videoDesk(id='video'+n,src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',style='z-index:'+z+';')
+                    if(item.Video_Id_Mobile !== undefined)
+                        video.videoMobile(src=imgURL+item.Video_Id_Mobile,muted='true',autoplay='true',loop='true',playsinline='true',style='z-index:'+z+';')
+                    else
+                        video.videoMobile(src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',style='z-index:'+z+';')
 
                     if(item.Show_Title)
                         a(href=baseURL+'pages/'+item.Title_Link+'/'+language[0])

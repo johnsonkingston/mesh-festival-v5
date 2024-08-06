@@ -223,6 +223,17 @@ main{
                     margin-right: auto;
                 }
             }
+            .videoDesk{
+                @media (orientation: portrait) {
+                    display: none;
+                }
+            }
+            .videoMobile{
+                display: none;
+                @media (orientation: portrait) {
+                    display: block;
+                }
+            }
         }
         video{
             position: sticky;
@@ -237,6 +248,7 @@ main{
             mix-blend-mode: overlay;
             display: none;
         }
+
         .bubbles{
             position: absolute;
             top:0;
@@ -256,9 +268,7 @@ main{
         #bubbleRightVideo{
             float: right;
         }
-        #video1{
-            display: block;
-        }
+
         .preview{
             height: calc(100vh - $fontSize2*2);
             padding-top: $fontSize2*2;

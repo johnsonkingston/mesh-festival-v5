@@ -233,6 +233,19 @@ main {
     margin-right: auto;
   }
 }
+@media (orientation: portrait) {
+  .startpage main section .videoDesk {
+    display: none;
+  }
+}
+.startpage main section .videoMobile {
+  display: none;
+}
+@media (orientation: portrait) {
+  .startpage main section .videoMobile {
+    display: block;
+  }
+}
 .startpage main video {
   position: sticky;
   top: 0;
@@ -267,9 +280,6 @@ main {
 }
 .startpage main #bubbleRightVideo {
   float: right;
-}
-.startpage main #video1 {
-  display: block;
 }
 .startpage main .preview {
   height: calc(100vh - 4vw);
