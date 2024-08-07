@@ -10,11 +10,11 @@ html(lang=language[0])
             each item in data.View
                 section(id='section'+n)
 
-                    video.videoDesk(id='video'+n,src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',preload="auto",)
+                    video.videoDesk(id='video'+n,src=imgURL+item.Video_Id,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto",)
                     if(item.Video_Id_Mobile !== undefined)
-                        video.videoMobile(src=imgURL+item.Video_Id_Mobile,muted='true',autoplay='true',loop='true',playsinline='true',preload="auto")
+                        video.videoMobile(src=imgURL+item.Video_Id_Mobile,muted='true',poster=imgURL+item.Video_Cover_Mobile+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
                     else
-                        video.videoMobile(src=imgURL+item.Video_Id,muted='true',autoplay='true',loop='true',playsinline='true',preload="auto")
+                        video.videoMobile(src=imgURL+item.Video_Id,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
 
 
                     if(item.Show_Title)
