@@ -44,7 +44,7 @@ html(lang=language[0])
                 $( document ).ready(function() {
                     isOverflown();
                 }); 
-                if($( window ).width() < $( window ).height()){
+                if($( window ).width() < $( window ).outerHeight()){
                     setTimeout(() => {
                         $("html, body").animate({ scrollTop: $(window).outerHeight()*0.4 },1000);
                     }, 200);

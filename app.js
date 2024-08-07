@@ -39,10 +39,19 @@ function languageTransform(string){
     }
 }
 
+function langRemove(pathname){
+    if(pathname.substr(pathname.length - 3) == '/en' || pathname.substr(pathname.length - 3) == '/de' ){
+        return pathname.substring(1,pathname.length - 3);
+    }else{
+        return pathname.substring(1,pathname.length);
+    }
+}
+
 
 //Navigation
 async function getNavigation() {
     const response = await fetch("https://env-9468449.appengine.flow.ch/items/Navigation_translations");
+
     if (!response.ok) {
         console.log('Response not okay');
         const data = '';
@@ -126,6 +135,8 @@ async function getPage(pageSlug) {
 }
 
 app.get("/pages/:pageSlug/:language?", async function (req, res) {
+    
+    var pathname = req.originalUrl;
 
     try { 
         pageSlug = req.params.pageSlug;
@@ -136,6 +147,8 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         navigation = await getNavigation();
         footer = await getFooter();
         news = await getNews();
+
+        result.data[0].pathname = langRemove(pathname);
 
         //console.log(result.data[0]);
         languageObject = [language,languageTransform(language)];
@@ -168,6 +181,8 @@ async function getEvent(eventSlug) {
 
 app.get("/events/:eventSlug/:language?", async function (req, res) {
 
+    var pathname = req.originalUrl;
+
     try { 
         eventSlug = req.params.eventSlug;
         language = req.params.language  || 'de';
@@ -178,6 +193,8 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         footer = await getFooter();
         news = await getNews();
         //console.log(result.data[0]);
+
+        result.data[0].pathname = langRemove(pathname);
 
         //Order of languages
         if(result.data[0].translations[0].languages_code.code == 'en'){

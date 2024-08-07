@@ -9,8 +9,8 @@ head
     script(src="https://embed.ticketpark.ch/v1/")
     meta(name="viewport", content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0")
 
-    meta(name="description",content="Mesh – Festival für Kunst und Technologie – 17.–20. Oktober 2024")
-    meta(property="og:title" content="Mesh – Festival für Kunst und Technologie – 17.–20. Oktober 2024")
+    meta(name="description",content="Mesh – Festival für Kunst und Technologie – 16.–20. Oktober 2024")
+    meta(property="og:title" content="Mesh – Festival für Kunst und Technologie – 16.–20. Oktober 2024")
     meta(property="og:description", content="Multisensorische Erfahrungen, interaktive, immersive Erlebnisse und Installationen, Nachdenken über eine freundliche Zukunft")
     meta(property="og:type", content="website")
     meta(property="og:url", content="https://meshfestival.ch")
@@ -54,8 +54,10 @@ head
             return new Date(dateUnix).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
         }
          
-    if(data.translations[languageParameter] === undefined)
-        title Mesh Festival Basel – #{data.title}
+    if(data.id == 1)     
+        title Mesh – Festival für Kunst und Technologie – Münchenstein / Basel
+    else if(data.translations[languageParameter] === undefined)
+        title Mesh – Festival für Kunst und Technologie – #{data.title}
     else 
-        title Mesh Festival Basel – #{data.translations[languageParameter].Title}
+        title Mesh – Festival für Kunst und Technologie – #{data.translations[languageParameter].Title}
 

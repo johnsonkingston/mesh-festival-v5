@@ -744,6 +744,8 @@ main {
 }
 @media (orientation: portrait) {
   .page main .content .pill {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
     border-radius: 3.75vw;
     padding: 0.5vw 2vw 0.5vw 2vw;
   }

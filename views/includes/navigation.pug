@@ -7,10 +7,10 @@ nav
                 a(href=baseURL+'pages/'+val.URL+'/'+language[0])= val.Title
     .languages
         li.smallpill
-            a(href=baseURL+'de').
+            a(href=baseURL+data.pathname+'/de').
                 DE
         li.smallpill
-            a(href=baseURL+'en').
+            a(href=baseURL+data.pathname+'/en').
                 EN    
     .navBottom 
         .left 
