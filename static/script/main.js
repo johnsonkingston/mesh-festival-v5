@@ -45,7 +45,7 @@ $( document ).ready(function() {
 function isOverflown() {
     var elementWidth = $('main').children("h1").first().get(0).scrollWidth;
     var screenWidth = $('main').outerWidth();
-    console.log(elementWidth+' elementWidth / '+screenWidth+' screenWidth');
+    //console.log(elementWidth+' elementWidth / '+screenWidth+' screenWidth');
     if(elementWidth > screenWidth){
         $('main').children("h1").first().css('hyphens','auto');
     }

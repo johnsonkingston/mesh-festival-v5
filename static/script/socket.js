@@ -79,7 +79,7 @@ socket.on('left', function(data){
     //$('#status').html('<div class="status">'+data.substr(0,4).toUpperCase()+' left!</div>');
     $('#'+data).remove();
     $('#member'+data).remove();
-    console.log(currentMembers);
+    //console.log(currentMembers);
     removeItem(currentMembers, data);
     // setTimeout(() => {
     //     clearStatus();

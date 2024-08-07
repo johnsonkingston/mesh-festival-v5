@@ -394,9 +394,12 @@ main{
                 padding-bottom: 10vh;
                 @media (orientation: portrait) {
                     margin-left: 0;
-                    padding: $padding*$scaleFactor;;
+                    padding: $padding*$scaleFactor;
                     width: calc(100% - $padding*2*$scaleFactor);
                     margin-top: 100vh;
+                    background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 95%, rgba(255,255,255,0) 100% );
+                    padding-top: $padding*12;
+
                 }
                 .mainimage, .grid{
                     position: fixed;
@@ -618,7 +621,7 @@ main{
                             width: 100%;
                         }
                     }
-                    td{
+                    .table-boxes td{
                         background: rgba(var(--color2));
                         border-radius: $padding;
                         width: auto;
