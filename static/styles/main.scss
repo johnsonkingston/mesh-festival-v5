@@ -865,6 +865,14 @@ nav{
     transition: top 0.5s ease-in-out;
     z-index: 90;
     overflow: hidden;
+    @media (orientation: portrait) {
+        overflow: scroll;
+    }
+    #headerlogo{
+        @media (orientation: portrait) {
+            position: fixed;
+        }
+    }
     ul{
         margin-top: $padding*3;
         @media (orientation: portrait) {
