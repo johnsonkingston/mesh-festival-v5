@@ -10,12 +10,22 @@ html(lang=language[0])
             each item in data.View
                 section(id='section'+n)
 
-                    video.videoDesk(id='video'+n,src=imgURL+item.Video_Id,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto",)
-                    if(item.Video_Id_Mobile !== undefined)
-                        video.videoMobile(src=imgURL+item.Video_Id_Mobile,muted='true',poster=imgURL+item.Video_Cover_Mobile+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
-                    else
-                        video.videoMobile(src=imgURL+item.Video_Id,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
+                    if(language[0] == 'en' && item.Video_Id_En !== undefined)
+                        video.videoDesk(id='video'+n,src=imgURL+item.Video_Id_En,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto",)
+                    else 
+                        video.videoDesk(id='video'+n,src=imgURL+item.Video_Id,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto",)
 
+                    if(language[0] == 'en' && item.Video_Id_Mobile_En !== undefined)
+                        if(item.Video_Id_Mobile !== undefined)
+                            video.videoMobile(src=imgURL+item.Video_Id_Mobile_En,muted='true',poster=imgURL+item.Video_Cover_Mobile+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
+                        else
+                            video.videoMobile(src=imgURL+item.Video_Id_En,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
+                    else 
+                        if(item.Video_Id_Mobile !== undefined)
+                            video.videoMobile(src=imgURL+item.Video_Id_Mobile,muted='true',poster=imgURL+item.Video_Cover_Mobile+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
+                        else
+                            video.videoMobile(src=imgURL+item.Video_Id,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
+                   
 
                     if(item.Show_Title)
                         a(href=baseURL+'pages/'+item.Title_Link+'/'+language[0])
@@ -197,5 +207,48 @@ html(lang=language[0])
                                     else 
                                         .
                                             Mehr #{title}   
-            
+
+
+            <!-- Section 5 -->    
+            .preview
+                .left
+                    h2=data.translations_five[languageParameter].Title
+                    .
+                        !{data.translations_five[languageParameter].Lead}
+                .right 
+                    .eventswrapper
+                        each val in [0,1,]
+                            if(data.Events_5[val] !== undefined)
+                                if(data.Events_5[val].Events_id.status == 'preview')
+                                    a.eventLink
+                                        .events
+                                            if data.Events_5[val].Events_id.Main_Image == null
+                                                .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
+                                            else 
+                                                - var caption =data.Events_5[val].Events_id.Artist
+                                                .eventimg(style='background-image:url('+imgURL+data.Events_5[val].Events_id.Main_Image.filename_disk+')')
+                                                    img(src=baseURL+'static/img/grid.svg')
+                                                .caption &bull; #{caption}
+                                else 
+                                    a(href=baseURL+'events/'+data.Events_5[val].Events_id.slug+'/'+language[0]).eventLink
+                                        .events
+                                            if data.Events_5[val].Events_id.Main_Image == null
+                                                .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
+                                            else 
+                                                - var caption =data.Events_5[val].Events_id.Artist
+                                                .eventimg(style='background-image:url('+imgURL+data.Events_5[val].Events_id.Main_Image.filename_disk+')')
+                                                    img(src=baseURL+'static/img/grid.svg')
+                                                .caption &bull; #{caption}                                
+                        .previewItem 
+                            .smallpill
+                                - var title =data.translations_five[languageParameter].Title
+                                a(href=baseURL+'pages/'+data.Events_5_Link)
+                                    if(language[0] == 'en' )
+                                        .
+                                            More #{title}
+                                    else 
+                                        .
+                                            Mehr #{title} 
+
+
         include includes/footer.pug

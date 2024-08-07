@@ -6,12 +6,20 @@ nav
             li.navigation
                 a(href=baseURL+'pages/'+val.URL+'/'+language[0])= val.Title
     .languages
-        li.smallpill
-            a(href=baseURL+data.pathname+'/de').
-                DE
-        li.smallpill
-            a(href=baseURL+data.pathname+'/en').
-                EN    
+        if(data.pathname == '')
+            li.smallpill
+                a(href=baseURL+data.pathname+'de').
+                    DE
+            li.smallpill
+                a(href=baseURL+data.pathname+'en').
+                    EN   
+        else
+            li.smallpill
+                a(href=baseURL+data.pathname+'/de').
+                    DE
+            li.smallpill
+                a(href=baseURL+data.pathname+'/en').
+                    EN    
     .navBottom 
         .left 
             a(href=baseURL+'pages/visit/'+language[0]) Visit

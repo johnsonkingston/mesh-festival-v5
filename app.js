@@ -321,7 +321,9 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
 //Startpage
 async function getStartpage() {
     const response = await fetch("https://env-9468449.appengine.flow.ch/items/Startpage?fields[]=*.*.*.*");
+    
 
+    
     if (!response.ok) {
         console.log('Response not okay');
         const data = '';
@@ -334,6 +336,8 @@ async function getStartpage() {
 }
 
 app.get("/:language?", async function (req, res) {
+    
+    var pathname = req.originalUrl;
 
     try { 
         language = req.params.language  || 'de';
@@ -347,6 +351,7 @@ app.get("/:language?", async function (req, res) {
 
         //console.log(result);
         //console.log(language);
+        result.data.pathname = langRemove(pathname);
 
         if(result){
              res.render('startpage',{data:result.data,navigation:navigation.data,footer:footer.data,news:news.data,language:languageObject});
