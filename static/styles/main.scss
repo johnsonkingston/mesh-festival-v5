@@ -365,12 +365,12 @@ main{
         display: inline-block;
     }
     .mainimageCaption{
-        margin-left: $padding;
-        bottom: $padding;
-        font-size: $fontSize1;
+        margin-left: .8vw;
+        top: calc(100vh - 4vw);
+        font-size: 1.5vw;
         color: rgba(var(--color2));
-        z-index: -1;
-        padding-top: 19vw;
+        z-index: 1;
+        position: sticky;
         @media (orientation: portrait) {
             font-size: $fontSize1*$scaleFactor;
         }
@@ -1000,7 +1000,7 @@ nav{
 }
 #instaButton{
     position: fixed;
-    bottom: $padding;
+    top: $lineHeight2*2 + $padding;
     left: $padding;
     z-index: 1;
     background: rgba(var(--color1));

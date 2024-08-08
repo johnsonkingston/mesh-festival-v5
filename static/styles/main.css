@@ -385,11 +385,11 @@ main {
 }
 .startpage .mainimageCaption {
   margin-left: 0.8vw;
-  bottom: 0.8vw;
+  top: calc(100vh - 4vw);
   font-size: 1.5vw;
   color: rgba(var(--color2));
-  z-index: -1;
-  padding-top: 19vw;
+  z-index: 1;
+  position: sticky;
 }
 @media (orientation: portrait) {
   .startpage .mainimageCaption {
@@ -1072,7 +1072,7 @@ nav .languages .smallpill:hover {
 
 #instaButton {
   position: fixed;
-  bottom: 0.8vw;
+  top: 5.2vw;
   left: 0.8vw;
   z-index: 1;
   background: rgba(var(--color1));

@@ -32,11 +32,11 @@ html(lang=language[0])
                             if(languageParameter == 0)
                                 .bigpill= item.Title_De
                                 a(href=baseURL+item.Caption_Link)
-                                    .mainimageCaption= item.Caption_De
+                                    .mainimageCaption= item.Caption_Desktop
                             else
                                 .bigpill= item.Title_En
                                 a(href=baseURL+item.Caption_Link)
-                                    .mainimageCaption= item.Caption_En
+                                    .mainimageCaption= item.Caption_Desktop
                     - n = n+1
                     - z = z+1
             script(src=baseURL+'static/script/startpage-scroll.js')
