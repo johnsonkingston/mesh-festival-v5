@@ -701,8 +701,8 @@ main {
   vertical-align: top;
   text-align: center;
   font-family: "FreeSerif-JK";
-  font-size: 2.6vw;
-  line-height: 2.6vw;
+  font-size: 4vw;
+  line-height: 4vw;
   color: white;
   margin-block-start: 0em;
   margin-block-end: 0em;
@@ -718,8 +718,8 @@ main {
 .page main .content .table-boxes td p em {
   display: block;
   font-family: "FreeSans-JK";
-  font-size: 1.5vw;
-  line-height: 1.5vw;
+  font-size: 1.1vw;
+  line-height: 1.1vw;
   text-align: center;
 }
 @media (orientation: portrait) {

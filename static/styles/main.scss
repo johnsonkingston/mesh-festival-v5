@@ -661,8 +661,8 @@ main{
                             vertical-align: top;
                             text-align: center;
                             font-family: 'FreeSerif-JK';
-                            font-size: $fontSize2*1.3;
-                            line-height: $fontSize2*1.3;
+                            font-size: $fontSize2*2;
+                            line-height: $fontSize2*2;
                             color: white;
                             margin-block-start: 0em;
                             margin-block-end: 0em;
@@ -675,8 +675,8 @@ main{
                             em{
                                 display: block;
                                 font-family: 'FreeSans-JK';
-                                font-size: $fontSize1;
-                                line-height: $fontSize1;
+                                font-size: $fontSize0;
+                                line-height: $fontSize0;
                                 text-align: center;
                                 @media (orientation: portrait) {
                                     font-size: $fontSize1*$scaleFactor;
