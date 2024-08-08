@@ -38,7 +38,7 @@ html(lang=language[0])
                     p= data.translations[languageParameter].Audience
                     p= data.translations[languageParameter].Language
                     if data.Ticketlink !== null
-                        #ticketlink(onclick='openticket();').smallpill Buy tickets now
+                        #ticketlink(onclick='openticket("'+data.Ticketlink+'");').smallpill Buy tickets now
 
 
 
@@ -46,28 +46,7 @@ html(lang=language[0])
             if data.translations.length > 0
                 .content !{data.translations[languageParameter].Content}
 
-        if data.Ticketlink !== null
-            #ticketshop
-            #ticketclose(onclick="openticket()")
-            script.
-                function openticket(){
-                    $('#ticketshop').fadeToggle();
-                    $('#ticketclose').fadeToggle();
-                    $('main').toggleClass('blur');
-                    $('footer').toggleClass('blur');
-                }
-                new ticketpark.Show("#ticketshop",{
-                    pid: '!{data.Ticketlink}', 
-                    language: "de",
-                    capacityStyle: "relative",
-                    customCssFiles: 'https://env-7400230-v2.appengine.flow.ch/static/styles/ticket.min.css'
-                });   
-                $(window).keydown(function(){
-                    var x = event.keyCode;
-                    if (x == 27) {
-                        openticket();
-                    }
-                });
+
         script.
             $( document ).ready(function() {
                 $( "video" ).each(function( index ) {

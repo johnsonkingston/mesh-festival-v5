@@ -43,6 +43,7 @@ body{
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    background: rgba(var(--color3));
 
 }
 ::selection {
@@ -52,6 +53,10 @@ a{
     text-decoration: none; 
     color: rgba(var(--color2));
 }
+a:hover{
+    text-shadow: 0 0 10px;
+}
+
 h1,h2,h3,h4,h5,h6{
     max-width: 100%;
     overflow: visible;
@@ -632,10 +637,11 @@ main{
                         @media (orientation: portrait) {
                             width: 100%;
                         }
-                        tbody{
+                        tbody.table-boxes{
                             width: 100%;
                             display: grid;
                         }
+                        
                     }
                     .table-boxes td{
                         background: rgba(var(--color2));

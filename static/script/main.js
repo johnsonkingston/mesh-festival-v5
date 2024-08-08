@@ -37,6 +37,15 @@ $( document ).ready(function() {
         if($(this).attr('href').substr(0, 4) !== 'http'){
             $(this).attr('href',baseURL+$(this).attr('href')+'/'+languageShort[languageParameter]);
         }
+        //Ticketlinks
+        if($(this).attr('href').indexOf('ticketid') !== -1){
+            var id = $(this).attr('href').split("ticketid:")[1];
+            id = id.split("/")[0];
+            $(this).attr('onclick','openticket("'+id+'")');
+            console.log(id);
+            $(this).removeAttr('href');
+
+        }
         
     });
 });
@@ -50,3 +59,25 @@ function isOverflown() {
         $('main').children("h1").first().css('hyphens','auto');
     }
 }
+
+//Ticketopen
+function openticket(ticketid){
+    $('#ticketshop').fadeToggle();
+    $('#ticketclose').fadeToggle();
+    $('main').toggleClass('blur');
+    $('footer').toggleClass('blur');
+    new ticketpark.Show("#ticketshop",{
+        pid: ticketid, 
+        language: "de",
+        capacityStyle: "relative",
+        customCssFiles: 'https://env-7400230-v2.appengine.flow.ch/static/styles/ticket.min.css'
+    });  
+}
+ 
+$(window).keydown(function(){
+    var x = event.keyCode;
+    if (x == 27) {
+        openticket();
+    }
+});
+

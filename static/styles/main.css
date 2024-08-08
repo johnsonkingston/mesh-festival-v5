@@ -25,6 +25,7 @@ body {
   overscroll-behavior: none;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  background: rgba(var(--color3));
 }
 
 ::-moz-selection {
@@ -38,6 +39,10 @@ body {
 a {
   text-decoration: none;
   color: rgba(var(--color2));
+}
+
+a:hover {
+  text-shadow: 0 0 10px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -669,7 +674,7 @@ main {
     width: 100%;
   }
 }
-.page main .content table tbody {
+.page main .content table tbody.table-boxes {
   width: 100%;
   display: grid;
 }
