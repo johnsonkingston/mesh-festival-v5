@@ -662,11 +662,16 @@ main {
 .page main .content table {
   border-collapse: separate !important;
   border-spacing: 0.8vw;
+  width: 100%;
 }
 @media (orientation: portrait) {
   .page main .content table {
     width: 100%;
   }
+}
+.page main .content table tbody {
+  width: 100%;
+  display: grid;
 }
 .page main .content .table-boxes td {
   background: rgba(var(--color2));

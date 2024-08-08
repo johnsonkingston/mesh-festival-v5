@@ -628,8 +628,13 @@ main{
                     table{
                         border-collapse: separate !important;
                         border-spacing: $padding;
+                        width: 100%;
                         @media (orientation: portrait) {
                             width: 100%;
+                        }
+                        tbody{
+                            width: 100%;
+                            display: grid;
                         }
                     }
                     .table-boxes td{
