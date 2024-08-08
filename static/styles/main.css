@@ -180,6 +180,8 @@ main {
   height: auto;
   mix-blend-mode: hard-light;
   max-height: calc(50vh - 10vw);
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .eventswrapper a .events .eventimg:hover {
   box-shadow: 0 0 5px rgba(var(--color2));
@@ -628,8 +630,8 @@ main {
   }
 }
 .page main .content .box-text em {
-  font-size: 1.5vw;
-  line-height: 1.7vw;
+  font-size: 1.1vw;
+  line-height: 1.4vw;
   font-style: normal;
   font-family: "FreeSans-JK";
   text-align: left;
@@ -664,8 +666,8 @@ main {
   vertical-align: top;
   text-align: center;
   font-family: "FreeSerif-JK";
-  font-size: 2.6vw;
-  line-height: 2.6vw;
+  font-size: 4vw;
+  line-height: 4vw;
   color: white;
   padding: 0.8vw;
   margin-bottom: 2vw;
@@ -681,8 +683,8 @@ main {
 .page main .content .table-boxes td em {
   display: block;
   font-family: "FreeSans-JK";
-  font-size: 1.5vw;
-  line-height: 1.5vw;
+  font-size: 1.1vw;
+  line-height: 1.1vw;
   text-align: center;
 }
 @media (orientation: portrait) {

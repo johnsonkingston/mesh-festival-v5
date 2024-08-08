@@ -169,6 +169,7 @@ main{
                     height: auto;
                     mix-blend-mode: hard-light;
                     max-height: calc(50vh - 10vw);
+                    object-fit: cover;
                 }
             }
             .eventimg:hover{
@@ -595,8 +596,8 @@ main{
                             line-height: $fontSize2*2*$scaleFactor; 
                         }
                         em{
-                            font-size: $fontSize1;
-                            line-height: $lineHeight1;
+                            font-size: $fontSize0;
+                            line-height: $lineHeight0;
                             font-style: normal;
                             font-family: 'FreeSans-JK';
                             text-align: left;
@@ -630,8 +631,8 @@ main{
                         vertical-align: top;
                         text-align: center;
                         font-family: 'FreeSerif-JK';
-                        font-size: $fontSize2*1.3;
-                        line-height: $fontSize2*1.3;
+                        font-size: $fontSize2*2;
+                        line-height: $fontSize2*2;
                         color: white;
                         padding: $padding;
                         margin-bottom: $padding*$scaleFactor;
@@ -644,8 +645,8 @@ main{
                         em{
                             display: block;
                             font-family: 'FreeSans-JK';
-                            font-size: $fontSize1;
-                            line-height: $fontSize1;
+                            font-size: $fontSize0;
+                            line-height: $fontSize0;
                             text-align: center;
                             @media (orientation: portrait) {
                                 font-size: $fontSize1*$scaleFactor;
