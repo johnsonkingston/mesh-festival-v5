@@ -21,11 +21,13 @@ head
 
     else if(data.translations[languageParameter] === undefined)
         meta(property="og:title" content=data.title)
+    else if(data.Artist == undefined)
+        meta(property="og:title" content=data.translations[languageParameter].Title+' / Mesh – Festival für Kunst und Technologie')
     else 
         meta(property="og:title" content=data.Artist+': '+data.translations[languageParameter].Title)
 
     meta(name="description",content="Mesh – Festival für Kunst und Technologie – 16.–20. Oktober 2024")
-    meta(property="og:description", content="Multisensorische Erfahrungen, interaktive, immersive Erlebnisse und Installationen, Nachdenken über eine freundliche Zukunft")
+    meta(property="og:description", content="Mesh – Festival für Kunst und Technologie – 16.–20. Oktober 2024: Multisensorische Erfahrungen, interaktive, immersive Erlebnisse und Installationen, Nachdenken über eine freundliche Zukunft")
     meta(property="og:type", content="website")
     meta(property="og:url", content="https://meshfestival.ch")
     if data.Main_Image == null
