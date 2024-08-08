@@ -18,7 +18,7 @@ footer
             ul 
                 each val in footer[languageParameter].Second_Links
                     li
-                        a.mediumpill(href=baseURL+val.URL)= val.Title
+                        a.mediumpill(href=baseURL+val.URL+'/'+language[0])= val.Title
                 li
                     a.mediumpill(href="#",onclick="showNewsletter()").nohover Newsletter
 
@@ -26,7 +26,7 @@ footer
             ul.smalllinks
                 each val in footer[languageParameter].Small_Links
                     li
-                        a(href=baseURL+val.URL).nohover= val.Title
+                        a(href=baseURL+val.URL+'/'+language[0]).nohover= val.Title
 
     div.adresse 
         p !{footer[languageParameter].Adress}

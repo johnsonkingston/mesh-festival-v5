@@ -6,7 +6,7 @@ nav
             li.navigation
                 a(href=baseURL+'pages/'+val.URL+'/'+language[0])= val.Title
     .languages
-        if(data.pathname == '')
+        if(data.pathname == '' || data.pathname == '/' )
             li.smallpill
                 a(href=baseURL+data.pathname+'de').
                     DE

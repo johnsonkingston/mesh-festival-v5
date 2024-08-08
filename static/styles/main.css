@@ -800,6 +800,9 @@ main {
   width: 50%;
   height: auto;
 }
+.page .eventswrapper a .events .eventimg img {
+  max-height: none;
+}
 
 .event .breadcrumb {
   color: rgba(var(--color2));

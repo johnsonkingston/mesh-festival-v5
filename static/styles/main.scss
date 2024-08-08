@@ -754,6 +754,9 @@ main{
                 }
 
         }
+        .eventswrapper a .events .eventimg img {
+            max-height: none;
+        }
         }
         .event{
             .breadcrumb{
