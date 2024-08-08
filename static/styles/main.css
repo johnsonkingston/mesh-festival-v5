@@ -284,7 +284,6 @@ main {
      object-position: center bottom;
   top: 0;
   left: 0;
-  mix-blend-mode: overlay;
 }
 .startpage main .bubbles {
   position: absolute;
