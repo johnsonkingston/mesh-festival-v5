@@ -14,8 +14,10 @@ head
     meta(property="og:description", content="Multisensorische Erfahrungen, interaktive, immersive Erlebnisse und Installationen, Nachdenken über eine freundliche Zukunft")
     meta(property="og:type", content="website")
     meta(property="og:url", content="https://meshfestival.ch")
-
-    meta(property="og:image" content="/static/img/favicon/android-chrome-512x512.png")
+    if data.Main_Image == null
+        meta(property="og:image" content="/static/img/favicon/android-chrome-512x512.png")
+    else
+        meta(property="og:image" content=imgURL+data.Main_Image.filename_disk+'?key=icon')
     meta(property="og:site_name" content="Mesh – Festival für Kunst und Technologie")
 
     link(rel="apple-touch-icon",sizes="180x180",href="/static/img/favicon/android-chrome-192x192.png")
