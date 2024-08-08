@@ -41,10 +41,15 @@ function languageTransform(string){
 
 function langRemove(pathname){
     if(pathname.substr(pathname.length - 3) == '/en' || pathname.substr(pathname.length - 3) == '/de' ){
-        return pathname.substring(1,pathname.length - 3);
+        pathname = pathname.substring(1,pathname.length - 3);
     }else{
-        return pathname.substring(1,pathname.length);
+        pathname = pathname.substring(1,pathname.length);
     }
+    if(pathname == '/'){
+        pathname = '';
+    }
+    return pathname;
+
 }
 
 
