@@ -175,7 +175,7 @@ html(lang=language[0])
                         !{data.translations_conference[languageParameter].Lead}
                 .right 
                     .eventswrapper
-                        each val in [0,1,]
+                        each val in [0,1,2]
                             if(data.Events_4[val] !== undefined)
                                 if(data.Events_4[val].Events_id.status == 'preview')
                                     a.eventLink
@@ -217,7 +217,7 @@ html(lang=language[0])
                         !{data.translations_five[languageParameter].Lead}
                 .right 
                     .eventswrapper
-                        each val in [0,1,]
+                        each val in [0,1,2]
                             if(data.Events_5[val] !== undefined)
                                 if(data.Events_5[val].Events_id.status == 'preview')
                                     a.eventLink

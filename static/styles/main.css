@@ -71,7 +71,7 @@ ul {
   display: none;
 }
 
-a, h1, h2, h3, h4, h5, h6, p, li, blockquote, div, section, main, footer {
+a, h1, h2, h3, h4, h5, h6, p, li, blockquote, div, section, main, footer, td, table, tbody, td p {
   transition: color 1s linear, background-color 2s linear;
 }
 
@@ -348,6 +348,16 @@ main {
     padding: 0 4vw;
   }
 }
+.startpage main .preview .left p.bio-wrapper {
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+}
+@media (orientation: portrait) {
+  .startpage main .preview .left p.bio-wrapper {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
+  }
+}
 .startpage main .preview .right {
   margin-top: 1.6vw;
   padding: 1.6vw;
@@ -415,7 +425,7 @@ main {
     padding: 2vw;
     width: calc(100% - 4vw);
     margin-top: 100vh;
-    background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 95%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(var(--color3)) 15vw, rgba(var(--color1)) 100%);
     padding-top: 9.6vw;
   }
 }
@@ -621,6 +631,7 @@ main {
   .page main .content .box-text {
     width: 100%;
     display: block;
+    border-radius: 2vw;
   }
 }
 @media (orientation: portrait) {
@@ -675,9 +686,9 @@ main {
 @media (orientation: portrait) {
   .page main .content .table-boxes td {
     display: block;
-    width: 100%;
-    font-size: 10vw;
-    line-height: 10vw;
+    font-size: 3.75vw;
+    line-height: 3.75vw;
+    border-radius: 2vw;
   }
 }
 .page main .content .table-boxes td em {
@@ -689,8 +700,10 @@ main {
 }
 @media (orientation: portrait) {
   .page main .content .table-boxes td em {
-    font-size: 3.75vw;
-    line-height: 3.75vw;
+    font-size: 5vw;
+    line-height: 5vw;
+    border-radius: 2vw;
+    padding: 2vw;
   }
 }
 .page main .content .table-boxes td p {
@@ -710,9 +723,10 @@ main {
 @media (orientation: portrait) {
   .page main .content .table-boxes td p {
     display: block;
-    width: 100%;
-    font-size: 10vw;
-    line-height: 10vw;
+    font-size: 17.5vw;
+    line-height: 17.5vw;
+    border-radius: 2vw;
+    padding: 2vw;
   }
 }
 .page main .content .table-boxes td p em {
@@ -724,8 +738,8 @@ main {
 }
 @media (orientation: portrait) {
   .page main .content .table-boxes td p em {
-    font-size: 3.75vw;
-    line-height: 3.75vw;
+    font-size: 5vw;
+    line-height: 5vw;
   }
 }
 .page main .content .pill {
