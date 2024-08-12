@@ -691,6 +691,8 @@ main {
   color: white;
   padding: 0.8vw;
   margin-bottom: 2vw;
+  -webkit-hyphens: none;
+          hyphens: none;
 }
 @media (orientation: portrait) {
   .page main .content .table-boxes td {
@@ -728,6 +730,8 @@ main {
   color: white;
   margin-block-start: 0em;
   margin-block-end: 0em;
+  -webkit-hyphens: none;
+          hyphens: none;
 }
 @media (orientation: portrait) {
   .page main .content .table-boxes td p {

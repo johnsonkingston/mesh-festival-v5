@@ -656,6 +656,8 @@ main{
                         color: white;
                         padding: $padding;
                         margin-bottom: $padding*$scaleFactor;
+                        hyphens: none;
+
                         @media (orientation: portrait) {
                             display: block;
                             font-size: $fontSize1*$scaleFactor;
@@ -688,6 +690,7 @@ main{
                             color: white;
                             margin-block-start: 0em;
                             margin-block-end: 0em;
+                            hyphens: none;
                             @media (orientation: portrait) {
                                 display: block;
                                 font-size: $fontSize3*$scaleFactor;
