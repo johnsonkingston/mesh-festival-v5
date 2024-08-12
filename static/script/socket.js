@@ -112,7 +112,7 @@ socket.on('meetingSend', function(data){
 
     setTimeout(() => {
         clearTimeout(intervalID);
-    }, "2000");
+    }, "1500");
 
     // setTimeout(() => {
     //     $('#meet_'+meetingID).fadeOut( "slow", function() {
