@@ -786,6 +786,9 @@ main {
     line-height: 4.25vw;
   }
 }
+.page main .content h4.bio-wrapper {
+  width: auto;
+}
 .page main .content .image-half, .page main .content .image-bio {
   width: calc(50% - 0.8vw);
   margin-right: 0.8vw;
