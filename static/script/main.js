@@ -66,11 +66,12 @@ function openticket(ticketid){
     $('#ticketclose').fadeToggle();
     $('main').toggleClass('blur');
     $('footer').toggleClass('blur');
-    new ticketpark.Show("#ticketshop",{
-        show: ticketid, 
+    console.log(ticketid);
+    new ticketpark.Auto("#ticketshop",{
+        pid: ticketid, 
         language: "de",
         capacityStyle: "relative",
-        customCssFiles: 'https://env-7400230-v2.appengine.flow.ch/static/styles/ticket.min.css'
+        customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css'
     });  
 }
  
