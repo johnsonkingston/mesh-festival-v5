@@ -8,7 +8,7 @@ html(lang=language[0])
             - var n = 1
             - var z = -10
             each item in data.View
-                section(id='section'+n)
+                section.nosnap(id='section'+n)
 
                     if(language[0] == 'en' && item.Video_Id_En !== undefined)
                         video.videoDesk(id='video'+n,src=imgURL+item.Video_Id_En,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto",)
