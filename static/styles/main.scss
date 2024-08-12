@@ -740,6 +740,9 @@ main{
                             line-height: $lineHeight1*$scaleFactor;
                         }
                     }
+                    h4.bio-wrapper {
+                        width: auto;
+                    }
                     .image-half, .image-bio{
                         width: calc(50% - $padding);
                         margin-right: $padding;
