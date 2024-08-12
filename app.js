@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());     
 app.use(express.urlencoded());
 
-var	force = require('express-force-domain');
+var force = require('express-force-domain');
 app.use( force('https://meshfestival.ch') );
 
 app.use('/static', express.static('static'));
@@ -157,6 +157,14 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         news = await getNews();
 
         result.data[0].pathname = langRemove(pathname);
+
+
+        if(result.data[0].translations[0].languages_code.code !== 'de'){
+            var deContent = result.data[0].translations[1];
+            result.data[0].translations[1] = result.data[0].translations[0];
+            result.data[0].translations[0] = deContent;
+
+        }
 
         //console.log(result.data[0]);
         languageObject = [language,languageTransform(language)];
