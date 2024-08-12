@@ -677,6 +677,12 @@ main {
   width: 100%;
   display: grid;
 }
+.page main .content a .table-boxes td:hover {
+  box-shadow: 0 0 10px rgba(var(--color2));
+}
+.page main .content a .table-boxes td {
+  cursor: pointer;
+}
 .page main .content .table-boxes td {
   background: rgba(var(--color2));
   border-radius: 0.8vw;

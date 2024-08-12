@@ -642,6 +642,12 @@ main{
                         }
                         
                     }
+                    a .table-boxes td:hover{
+                        box-shadow: 0 0 10px rgba(var(--color2));
+                    }
+                    a .table-boxes td{
+                        cursor: pointer;
+                    }
                     .table-boxes td{
                         background: rgba(var(--color2));
                         border-radius: $padding;
