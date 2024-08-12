@@ -67,7 +67,7 @@ function openticket(ticketid){
     $('main').toggleClass('blur');
     $('footer').toggleClass('blur');
     new ticketpark.Show("#ticketshop",{
-        pid: ticketid, 
+        show: ticketid, 
         language: "de",
         capacityStyle: "relative",
         customCssFiles: 'https://env-7400230-v2.appengine.flow.ch/static/styles/ticket.min.css'
