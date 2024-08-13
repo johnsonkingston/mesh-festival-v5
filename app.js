@@ -123,7 +123,7 @@ app.get("/timetable", async function (req, res) {
         res.end;
     } catch (err) {
         console.error(err);
-        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</script>");
+        res.status(500).send("Error fetching events");
     }
 });
 
@@ -176,12 +176,13 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         }
     }else{
         console.log('404');
-        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</script>");
+        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</a>");
+
     }
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</script>");
+        res.status(500).send("Error fetching page");
     }
 
 
@@ -336,7 +337,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</script>");
+        res.status(500).send("Error fetching page");
     }
 
 });
@@ -385,7 +386,7 @@ app.get("/:language?", async function (req, res) {
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</script>");
+        res.status(500).send("Error fetching page");
     }
 });
 
@@ -395,6 +396,7 @@ function dateformat(dateIn){
     var dateUnix = Date.parse(dateIn);
     return new Date(dateUnix).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
 }
+
 
 
 
