@@ -243,6 +243,11 @@ main {
   height: calc(200vh - 8vw);
   scroll-snap-align: start;
 }
+@media (orientation: portrait) {
+  .startpage main section {
+    height: 100vh;
+  }
+}
 .startpage main section .bigpill {
   position: sticky;
   top: 50vh;
@@ -256,6 +261,10 @@ main {
     transform: none;
     margin-left: auto;
     margin-right: auto;
+    position: sticky;
+    top: auto;
+    position: relative;
+    margin-top: -57vh;
   }
 }
 @media (orientation: portrait) {

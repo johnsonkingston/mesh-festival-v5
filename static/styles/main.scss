@@ -230,6 +230,9 @@ main{
             width: 100vw;
             height: calc(200vh - $fontSize2*4);
             scroll-snap-align: start;
+            @media (orientation: portrait) {
+                height: 100vh;
+            }
 
             .bigpill{
                 position: sticky;
@@ -242,6 +245,10 @@ main{
                     transform: none;
                     margin-left: auto;
                     margin-right: auto;
+                    position: sticky;
+                    top:auto;
+                    position: relative;
+                    margin-top: -57vh;
                 }
             }
             .videoDesk{
