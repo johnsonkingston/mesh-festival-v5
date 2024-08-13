@@ -651,6 +651,8 @@ main{
                             display: grid;
                             @media (orientation: portrait) {
                                 display: block;
+                                width: 195vw;
+                                overflow: scroll;
                             }
                         }
                         

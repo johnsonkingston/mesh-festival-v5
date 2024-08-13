@@ -694,6 +694,8 @@ main {
 @media (orientation: portrait) {
   .page main .content table tbody.table-boxes {
     display: block;
+    width: 195vw;
+    overflow: scroll;
   }
 }
 .page main .content a .table-boxes td:hover {
