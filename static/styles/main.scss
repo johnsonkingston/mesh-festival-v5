@@ -678,7 +678,7 @@ main{
                         hyphens: none;
 
                         @media (orientation: portrait) {
-                            display: contents;
+                            display: block;
                             font-size: $fontSize1*$scaleFactor;
                             line-height: $fontSize1*$scaleFactor;
                             border-radius: $padding*$scaleFactor;

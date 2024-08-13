@@ -721,7 +721,7 @@ main {
 }
 @media (orientation: portrait) {
   .page main .content .table-boxes td {
-    display: contents;
+    display: block;
     font-size: 3.75vw;
     line-height: 3.75vw;
     border-radius: 2vw;
