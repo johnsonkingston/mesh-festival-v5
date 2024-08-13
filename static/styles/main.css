@@ -686,6 +686,11 @@ main {
   width: 100%;
   display: grid;
 }
+@media (orientation: portrait) {
+  .page main .content table tbody.table-boxes {
+    display: block;
+  }
+}
 .page main .content a .table-boxes td:hover {
   box-shadow: 0 0 10px rgba(var(--color2));
 }

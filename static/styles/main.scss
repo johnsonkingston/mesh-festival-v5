@@ -646,6 +646,9 @@ main{
                         tbody.table-boxes{
                             width: 100%;
                             display: grid;
+                            @media (orientation: portrait) {
+                                display: block;
+                            }
                         }
                         
                     }
