@@ -1293,7 +1293,11 @@ footer {
   background-color: rgba(var(--color2));
   padding: 1.6vw;
   box-shadow: 0 0 20px black;
-  scroll-snap-align: start;
+}
+@media (orientation: portrait) {
+  footer {
+    scroll-snap-align: start;
+  }
 }
 footer a, footer p {
   color: white;

@@ -1197,8 +1197,9 @@ footer{
     background-color: rgba(var(--color2));
     padding: $padding*2;
     box-shadow: 0 0 20px black;
-    scroll-snap-align: start;
-
+    @media (orientation: portrait) {
+        scroll-snap-align: start;
+    }
     a,p{
         color:white;
         font-size: $fontSize1;
