@@ -581,6 +581,11 @@ main {
   border: none;
   vertical-align: top;
 }
+@media (orientation: portrait) {
+  .page main .content table, .page main .content tr, .page main .content td {
+    display: block;
+  }
+}
 .page main .content a img {
   width: 25%;
   display: inline-block;
@@ -953,6 +958,11 @@ p, li {
   z-index: 10;
   overflow: scroll;
   box-shadow: 0 0 20px rgba(var(--color2));
+}
+@media (orientation: portrait) {
+  #ticketshop {
+    width: 90vw;
+  }
 }
 
 #ticketclose {

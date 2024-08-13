@@ -551,6 +551,9 @@ main{
                     table,tr,td{
                         border: none;
                         vertical-align: top;
+                        @media (orientation: portrait) {
+                            display: block;
+                        }
                     }
                     a{
                         img{
@@ -895,6 +898,9 @@ main{
             z-index: 10;
             overflow: scroll;
             box-shadow: 0 0 20px rgba(var(--color2));
+            @media (orientation: portrait) {
+                width: 90vw;
+            }
         }
         #ticketclose{
             top:0;
