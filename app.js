@@ -123,7 +123,7 @@ app.get("/timetable", async function (req, res) {
         res.end;
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error fetching events");
+        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</script>");
     }
 });
 
@@ -145,7 +145,6 @@ async function getPage(pageSlug) {
 app.get("/pages/:pageSlug/:language?", async function (req, res) {
     
     var pathname = req.originalUrl;
-
     try { 
         pageSlug = req.params.pageSlug;
         language = req.params.language  || 'de';
@@ -155,6 +154,9 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         navigation = await getNavigation();
         footer = await getFooter();
         news = await getNews();
+
+        if(result.length !== undefined){
+
 
         result.data[0].pathname = langRemove(pathname);
 
@@ -172,11 +174,17 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
             //console.log(languageObject);
             res.render('page',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data});
         }
+    }else{
+        console.log('404');
+        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</script>");
+    }
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error fetching page");
+        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</script>");
     }
+
+
 });
 
 
@@ -328,7 +336,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error fetching page");
+        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</script>");
     }
 
 });
@@ -337,9 +345,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
 //Startpage
 async function getStartpage() {
     const response = await fetch("https://env-9468449.appengine.flow.ch/items/Startpage?fields[]=*.*.*.*");
-    
-
-    
+        
     if (!response.ok) {
         console.log('Response not okay');
         const data = '';
@@ -352,8 +358,12 @@ async function getStartpage() {
 }
 
 app.get("/:language?", async function (req, res) {
-    
-    var pathname = req.originalUrl;
+
+       //if(result.length<1){
+        //console.log(req);
+        //}    
+        var pathname = req.originalUrl;
+
 
     try { 
         language = req.params.language  || 'de';
@@ -375,7 +385,7 @@ app.get("/:language?", async function (req, res) {
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error fetching page");
+        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</script>");
     }
 });
 
@@ -388,11 +398,6 @@ function dateformat(dateIn){
 
 
 
-
-//404
-/* app.get('*', function(req, res){
-    res.status(404).send('what???');
-}); */
 
 
 // robots.txt
