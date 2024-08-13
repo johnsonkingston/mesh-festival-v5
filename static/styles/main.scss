@@ -1207,7 +1207,7 @@ footer{
     padding: $padding*2;
     box-shadow: 0 0 20px black;
     @media (orientation: portrait) {
-        scroll-snap-align: start;
+        scroll-snap-align: none;
     }
     a,p{
         color:white;

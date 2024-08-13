@@ -1311,7 +1311,7 @@ footer {
 }
 @media (orientation: portrait) {
   footer {
-    scroll-snap-align: start;
+    scroll-snap-align: none;
   }
 }
 footer a, footer p {
