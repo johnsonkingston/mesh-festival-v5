@@ -155,7 +155,7 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         footer = await getFooter();
         news = await getNews();
 
-        if(result.length !== undefined){
+        //if(result.length !== undefined){
 
 
         result.data[0].pathname = langRemove(pathname);
@@ -174,11 +174,11 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
             //console.log(languageObject);
             res.render('page',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data});
         }
-    }else{
-        console.log('404');
-        res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</a>");
+    //}else{
+        //console.log('404');
+        //res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</a>");
 
-    }
+    //}
 
     } catch (err) {
         console.error(err);
