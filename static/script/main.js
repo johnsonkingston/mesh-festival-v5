@@ -66,6 +66,8 @@ function openticket(ticketid){
     $('#ticketclose').fadeToggle();
     $('main').toggleClass('blur');
     $('footer').toggleClass('blur');
+    $('#navButton').toggle();
+
     console.log(ticketid);
 
     new ticketpark.Auto("#ticketshop",{
