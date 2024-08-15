@@ -67,12 +67,20 @@ function openticket(ticketid){
     $('main').toggleClass('blur');
     $('footer').toggleClass('blur');
     console.log(ticketid);
+
     new ticketpark.Auto("#ticketshop",{
-        pid: ticketid, 
+        pid: ticketid,
         language: "de",
-        capacityStyle: "relative",
-        customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css'
-    });  
+        customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
+        displayInvitationCodeLink: true,
+        texts: {
+            "de": { 
+                "invitation_prompt":"Haben Sie einen Einladungscode?",
+                "invitation_link": "Bitte geben Sie ihren Code ein"
+            }}
+        });
+
+
 }
  
 $(window).keydown(function(){
@@ -81,4 +89,7 @@ $(window).keydown(function(){
         openticket();
     }
 });
+
+
+
 
