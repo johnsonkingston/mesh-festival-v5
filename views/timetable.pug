@@ -1,9 +1,39 @@
-html 
-    head 
+html(lang=language[0])
+    include includes/head.pug
+    script(src="static/script/timetable.js")
 
-    body 
+
+
+    body.timetable
+        include includes/navigation.pug
+
+
+        - var hourHeight = 10;
+        - var hourStart = 8;
+        - var hoursPerDay = 15;
+        - var dayOutput = {16: ['Mittwoch, 16. Oktober', 'Thursday'], 17: ['Donnerstag, 17. Oktober', 'Thursday'], 18: ['Freitag, 18. Oktober', 'Thursday'], 19: ['Samstag, 19. Oktober', 'Thursday']}
         main
-            each event in data
-                h1=event.translations[0].Title
-
-                hr
+            //day
+            each day in [16,17,18,19]
+                //venue
+                div(class="timetableDay",style="height:"+hoursPerDay*hourHeight+"vw")
+                    h1(style="height:"+hourHeight+"vw")=dayOutput[day][0]
+                    - var n = hourStart+1;
+                    while n < hoursPerDay+hourStart+1
+                        .timetableHourline(style="height:"+hourHeight+"vw")= n++
+                    each val in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]
+                        div(class='timetableSpalte')
+                            each event in events 
+                                if(event.Venues[0] !== undefined)
+                                    if(event.status == 'published' && event.In_Timetable && event.Venues[0].Venues_id == val && event.Hour !== '' && day == event.Day)
+                                        .TimetableSpacer
+                                        a(href=baseURL+'events/'+event.slug+'/'+language[0]) 
+                                            .EventTimetable(class=event.Format,style="height:"+((event.HourEnd-event.Hour)*hourHeight)+"vw;top:"+(((event.Hour-hourStart)*hourHeight)+((day-16)*hoursPerDay*hourHeight))+"vw;")
+                                                h3.format=event.Format
+                                                h2.artist='• '+event.Artist
+                                                if(event.translations[0] !== undefined)
+                                                    h3.title=event.translations[0].Title
+                                                h3.time=+event.Hour+':'+event.Minute+' / '+event.Venues[0].Venues_id
+                                            
+                        
+        include includes/footer.pug

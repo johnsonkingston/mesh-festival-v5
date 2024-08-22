@@ -987,6 +987,79 @@ p, li {
   z-index: 9;
 }
 
+.timetable main {
+  min-height: 200vh;
+}
+.timetable .timetableSpalte {
+  display: table-cell;
+}
+.timetable .timetableSpalte .TimetableSpacer {
+  width: 23vw;
+  height: 0;
+}
+.timetable .EventTimetable {
+  background: rgba(var(--color2));
+  color: rgba(var(--color1));
+  border-radius: 0.8vw;
+  position: absolute;
+  width: 22vw;
+  box-shadow: 0 0 10px rgba(var(--color2));
+}
+.timetable .performances {
+  background: rgba(var(--color1));
+}
+.timetable .performances h2, .timetable .performances h3 {
+  color: rgba(var(--color2));
+}
+.timetable .screenings {
+  background: rgba(var(--color3));
+}
+.timetable .screenings h2, .timetable .screenings h3 {
+  color: rgba(var(--color2));
+}
+.timetable .ausstellungen h2, .timetable .ausstellungen h3 {
+  color: rgba(var(--color3));
+}
+.timetable .konferenz {
+  background: rgba(var(--color3));
+}
+.timetable .konferenz h2, .timetable .konferenz h3 {
+  color: rgba(var(--color2));
+}
+.timetable h1 {
+  margin-bottom: 0;
+  background: rgba(var(--color3));
+}
+.timetable h2, .timetable h3 {
+  font-family: "FreeSans-JK";
+  font-size: 2vw;
+  line-height: 2.2vw;
+  text-align: left;
+  margin-left: 3vw;
+  margin-top: 0.8vw;
+}
+.timetable h3 {
+  font-size: 1.1vw;
+  line-height: 1.4vw;
+}
+.timetable .artist {
+  text-indent: -2.2vw;
+}
+.timetable .title {
+  margin-top: 0;
+}
+.timetable .time {
+  margin-top: 0.4vw;
+}
+.timetable .format {
+  text-transform: capitalize;
+}
+.timetable .timetableHourline {
+  border-top: 1px solid rgba(var(--color2));
+  color: rgba(var(--color2));
+  font-size: 1.1vw;
+}
+
 /*NAVIGATION */
 nav {
   position: fixed;

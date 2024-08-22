@@ -862,7 +862,6 @@ main{
             }
         }
 
-
         h1,h2,h3{
             font-family: 'FreeSerif-JK';
             text-align: center;
@@ -921,7 +920,84 @@ main{
             cursor: pointer;
             z-index: 9;
         }
+        .timetable{
+            main{
+                min-height: 200vh;
+            }
+            .timetableSpalte{
+                display: table-cell;
+                .TimetableSpacer{
+                    width: 23vw;
+                    height: 0;
+                }
+            }
+            .EventTimetable{
+                background: rgba(var(--color2));
+                color: rgba(var(--color1));
+                border-radius: $padding;
+                position: absolute;
+                width: 22vw;
+                box-shadow: 0 0 10px rgba(var(--color2));
+            }
+            .performances{
+                background: rgba(var(--color1));
+                h2, h3{
+                    color: rgba(var(--color2));
+                }
+            }
+            .screenings{
+                background: rgba(var(--color3));
+                h2, h3{
+                    color: rgba(var(--color2));
+                }
+            }
+            .ausstellungen{
+                h2, h3{
+                    color: rgba(var(--color3));
+                }
+            }
 
+            .konferenz{
+                background: rgba(var(--color3));
+                h2, h3{
+                    color: rgba(var(--color2));
+                }
+            }
+            h1{
+                margin-bottom: 0;
+                background: rgba(var(--color3));
+            }
+            h2,h3{
+                font-family: 'FreeSans-JK';  
+                font-size: $fontSize2;
+                line-height: $lineHeight2;
+                text-align: left;
+                margin-left: $lineHeight2+$padding;
+                margin-top: $padding;
+
+            }
+            h3{
+                font-size: $fontSize0;
+                line-height: $lineHeight0;
+            }
+            .artist{
+                text-indent: -$lineHeight2;
+            }
+            .title{
+                margin-top: 0;
+            }
+            .time{
+                margin-top: calc($padding/2);
+            }
+            .format{
+                text-transform: capitalize;
+            }
+            .timetableHourline{
+                border-top: 1px solid rgba(var(--color2));
+                color: rgba(var(--color2));
+                font-size: $fontSize0;
+            }
+        }
 
 
 /*NAVIGATION */
