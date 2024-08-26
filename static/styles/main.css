@@ -992,6 +992,7 @@ p, li {
 }
 .timetable .timetableSpalte {
   display: table-cell;
+  vertical-align: top;
 }
 .timetable .timetableSpalte .TimetableSpacer {
   width: 23vw;
@@ -1001,34 +1002,43 @@ p, li {
   background: rgba(var(--color2));
   color: rgba(var(--color1));
   border-radius: 0.8vw;
-  position: absolute;
+  position: relative;
   width: 22vw;
   box-shadow: 0 0 10px rgba(var(--color2));
+}
+.timetable .EventTimetable .EventTimetableContent {
+  padding: 0.8vw;
+}
+.timetable .EventTimetable p {
+  font-size: 1.5vw;
+  line-height: 1.7vw;
 }
 .timetable .performances {
   background: rgba(var(--color1));
 }
-.timetable .performances h2, .timetable .performances h3 {
+.timetable .performances h2, .timetable .performances h3, .timetable .performances p {
   color: rgba(var(--color2));
 }
 .timetable .screenings {
   background: rgba(var(--color3));
 }
-.timetable .screenings h2, .timetable .screenings h3 {
+.timetable .screenings h2, .timetable .screenings h3, .timetable .screenings p {
   color: rgba(var(--color2));
 }
-.timetable .ausstellungen h2, .timetable .ausstellungen h3 {
+.timetable .ausstellungen h2, .timetable .ausstellungen h3, .timetable .ausstellungen p {
   color: rgba(var(--color3));
 }
 .timetable .konferenz {
   background: rgba(var(--color3));
 }
-.timetable .konferenz h2, .timetable .konferenz h3 {
+.timetable .konferenz h2, .timetable .konferenz h3, .timetable .konferenz p {
   color: rgba(var(--color2));
 }
 .timetable h1 {
   margin-bottom: 0;
   background: rgba(var(--color3));
+  position: sticky;
+  top: 14vw;
 }
 .timetable h2, .timetable h3 {
   font-family: "FreeSans-JK";
@@ -1054,10 +1064,39 @@ p, li {
 .timetable .format {
   text-transform: capitalize;
 }
-.timetable .timetableHourline {
+.timetable .timetableHourlineWrap {
+  position: absolute;
+  width: 100vw;
+  height: 0;
+}
+.timetable .timetableHourlineWrap .timetableHourline {
   border-top: 1px solid rgba(var(--color2));
   color: rgba(var(--color2));
   font-size: 1.1vw;
+}
+.timetable #filters {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 10vw;
+  background: rgba(var(--color3));
+  box-shadow: 0 0 2vw black;
+  z-index: 10;
+}
+.timetable #filters .mediumpill {
+  background: rgba(var(--color1));
+  color: rgba(var(--color2));
+  display: inline-block;
+  text-transform: capitalize;
+  margin-top: 0.8vw;
+  margin-left: 0.8vw;
+  margin-right: 0;
+  transition: none;
+}
+.timetable #filters .active, .timetable #filters .mediumpill:hover {
+  background: rgba(var(--color2));
+  color: rgba(var(--color1));
 }
 
 /*NAVIGATION */

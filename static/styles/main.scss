@@ -926,6 +926,7 @@ main{
             }
             .timetableSpalte{
                 display: table-cell;
+                vertical-align: top;
                 .TimetableSpacer{
                     width: 23vw;
                     height: 0;
@@ -935,37 +936,46 @@ main{
                 background: rgba(var(--color2));
                 color: rgba(var(--color1));
                 border-radius: $padding;
-                position: absolute;
+                position: relative;
                 width: 22vw;
                 box-shadow: 0 0 10px rgba(var(--color2));
+                .EventTimetableContent{
+                    padding: $padding;
+                }
+                p{
+                    font-size: $fontSize1;
+                    line-height: $lineHeight1;
+                }
             }
             .performances{
                 background: rgba(var(--color1));
-                h2, h3{
+                h2, h3, p{
                     color: rgba(var(--color2));
                 }
             }
             .screenings{
                 background: rgba(var(--color3));
-                h2, h3{
+                h2, h3, p{
                     color: rgba(var(--color2));
                 }
             }
             .ausstellungen{
-                h2, h3{
+                h2, h3, p{
                     color: rgba(var(--color3));
                 }
             }
 
             .konferenz{
                 background: rgba(var(--color3));
-                h2, h3{
+                h2, h3, p{
                     color: rgba(var(--color2));
                 }
             }
             h1{
                 margin-bottom: 0;
                 background: rgba(var(--color3));
+                position: sticky;
+                top: 14vw;
             }
             h2,h3{
                 font-family: 'FreeSans-JK';  
@@ -992,10 +1002,39 @@ main{
             .format{
                 text-transform: capitalize;
             }
-            .timetableHourline{
-                border-top: 1px solid rgba(var(--color2));
-                color: rgba(var(--color2));
-                font-size: $fontSize0;
+            .timetableHourlineWrap{
+                position: absolute;
+                width: 100vw;
+                height: 0;
+                .timetableHourline{
+                    border-top: 1px solid rgba(var(--color2));
+                    color: rgba(var(--color2));
+                    font-size: $fontSize0;
+                }
+            }
+            #filters{
+                position: fixed;
+                top:0;
+                left: 0;
+                width: 100vw;
+                height: 10vw;
+                background: rgba(var(--color3));
+                box-shadow: 0 0 2vw black;
+                z-index: 10;
+                .mediumpill{
+                    background: rgba(var(--color1));
+                    color: rgba(var(--color2));
+                    display: inline-block;
+                    text-transform: capitalize;
+                    margin-top: $padding;
+                    margin-left: $padding;
+                    margin-right: 0;
+                    transition: none;
+                }
+                .active, .mediumpill:hover{
+                    background: rgba(var(--color2));
+                    color: rgba(var(--color1));                   
+                }
             }
         }
 

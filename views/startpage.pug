@@ -10,21 +10,27 @@ html(lang=language[0])
             each item in data.View
                 section.nosnap(id='section'+n)
 
+                    if(language[0] == 'en' && item.Video_Id_Mobile_En !== undefined)
+                        if(item.Video_Id_Mobile !== undefined)
+                            video.videoMobile(muted='true',poster=imgURL+item.Video_Cover_Mobile+'?key=icon',autoplay='true',loop='true',playsinline='true')
+                                source(src=imgURL+item.Video_Id_Mobile_En,type="video/mp4") 
+                        else
+                            video.videoMobile(muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true')
+                                source(src=imgURL+item.Video_Id_En,type="video/mp4") 
+
+                    else 
+                        if(item.Video_Id_Mobile !== undefined)
+                            video.videoMobile(muted='true',poster=imgURL+item.Video_Cover_Mobile+'?key=icon',autoplay='true',loop='true',playsinline='true')
+                                source(src=imgURL+item.Video_Id_Mobile,type="video/mp4") 
+                        else
+                            video.videoMobile(muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true')
+                                source(srcimgURL+item.Video_Id,type="video/mp4") 
+
                     if(language[0] == 'en' && item.Video_Id_En !== undefined)
                         video.videoDesk(id='video'+n,src=imgURL+item.Video_Id_En,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto",)
                     else 
                         video.videoDesk(id='video'+n,src=imgURL+item.Video_Id,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto",)
 
-                    if(language[0] == 'en' && item.Video_Id_Mobile_En !== undefined)
-                        if(item.Video_Id_Mobile !== undefined)
-                            video.videoMobile(src=imgURL+item.Video_Id_Mobile_En,muted='true',poster=imgURL+item.Video_Cover_Mobile+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
-                        else
-                            video.videoMobile(src=imgURL+item.Video_Id_En,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
-                    else 
-                        if(item.Video_Id_Mobile !== undefined)
-                            video.videoMobile(src=imgURL+item.Video_Id_Mobile,muted='true',poster=imgURL+item.Video_Cover_Mobile+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
-                        else
-                            video.videoMobile(src=imgURL+item.Video_Id,muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true',preload="auto")
                    
 
                     if(item.Show_Title)
