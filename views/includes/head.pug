@@ -66,10 +66,7 @@ head
         console.log('language object', language);
         news = !{JSON.stringify(news).replace(/<\//g, "<\\/")};
         console.log('news object', news);
-        events = !{JSON.stringify(events).replace(/<\//g, "<\\/")};
-        console.log('events object', events);
-        venues = !{JSON.stringify(venues).replace(/<\//g, "<\\/")};
-        console.log('venues object', venues);
+
 
         function dateformat(dateIn){
             var dateUnix = Date.parse(dateIn);
