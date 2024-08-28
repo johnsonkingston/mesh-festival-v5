@@ -135,7 +135,6 @@ async function getAllEvents() {
     let eventsTemp2 = [];
 
     for (const [key, value] of Object.entries(events)) {
-        
         if(value.Time == undefined){
             events[key].Time = [{}];
             events[key].Time[0].Start = '';
