@@ -121,6 +121,12 @@ async function getFooter() {
 //Timetable
 async function getAllEvents() {
     const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*");
+    if (!response.ok) {
+        console.log('Response not okay');
+        const data = '';
+        return data;
+    }else
+    {
     const data = await response.json();
 
     events = data.data;
@@ -163,6 +169,7 @@ async function getAllEvents() {
     events.sort((a, b) => (a.DateToOrder || "").localeCompare(b.DateToOrder || ""));
 
     return data;
+    }
 }
 
 
