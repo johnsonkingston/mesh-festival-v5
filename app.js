@@ -137,8 +137,8 @@ async function getAllEvents() {
             events[key].DateToOrder = 'zzz';
             events[key].Day = '';
             events[key].Hour = '';
-            events[key].HourEnd = '';
             events[key].Minute = '';
+            events[key].HourEnd = '';
         }else{
             if(value.Time.length > 1){
                 corrEvents = [];
@@ -173,7 +173,8 @@ function rewriteDate(event,subkey){
     event.Minute = event.Time[subkey].Start.split(':')[1];
     
     if(event.Time[subkey].End !== undefined){
-        event.HourEnd = event.Time[subkey].End.split('-')[2].substring(3,5);
+        event.HourEnd = parseInt(event.Time[subkey].End.split('-')[2].substring(3,5)) + (parseInt(event.Time[subkey].End.split(':')[1])/60);
+
         event.MinuteEnd = event.Time[subkey].End.split(':')[1];
     }else{
         event.HourEnd = '';

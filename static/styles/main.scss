@@ -17,6 +17,9 @@
 
 $padding: 0.8vw;
 
+$fontSizeMicro: 0.8vw;
+$lineHeightMicro: 1vw;
+
 $fontSize0: 1.1vw;
 $lineHeight0: 1.4vw;
 $fontSize1: 1.5vw;
@@ -35,6 +38,7 @@ $scaleFactor: 2.5;
     --color2:   140, 110, 255, 1;
     --color3:   215,215,215,1;
     --color4:   0,0,0,0;
+    --hourHeight: 7vw; 
 }
 
 body{
@@ -920,32 +924,76 @@ main{
             cursor: pointer;
             z-index: 9;
         }
+
+
+
+
         .timetable{
+            font-size: 1vw;
+            @media (orientation: portrait) {
+                font-size: 3vw;
+            }
             main{
                 min-height: 200vh;
+                margin-top: 4.5vw;
+            }
+            .timetableDay{
+                width: 94vw;
+                margin-left: 1vw;
+            }
+            .timetableSpalteWrap{
+                position: absolute;
+                top:4.5vw;
+                z-index: 2;
+                margin-left: 3vw;
+                width: 97vw;
+                overflow: scroll;
             }
             .timetableSpalte{
                 display: table-cell;
                 vertical-align: top;
-                .TimetableSpacer{
-                    width: 23vw;
-                    height: 0;
-                }
+
             }
             .EventTimetable{
                 background: rgba(var(--color2));
                 color: rgba(var(--color1));
                 border-radius: $padding;
                 position: relative;
-                width: 22vw;
+                width: 12vw;
                 box-shadow: 0 0 10px rgba(var(--color2));
+                margin-right: $padding;
+                overflow: hidden;
+                height: 100%;
+                @media (orientation: portrait) {
+                    width: 27vw;
+                }
                 .EventTimetableContent{
                     padding: $padding;
+                    h3{
+                        margin-left: 1.2vw;
+                    }
                 }
                 p{
-                    font-size: $fontSize1;
-                    line-height: $lineHeight1;
+                    font-size: $fontSize0;
+                    line-height: $lineHeight0;
+                    margin-block-start: 0;
+                    margin-block-end: 0;
+                    margin-left: 1.2vw;
+                    text-indent: -1.2vw;
+                    @media (orientation: portrait) {
+                        font-size: $fontSize0*$scaleFactor;
+                        line-height: $lineHeight0*$scaleFactor;                        
+                    }
                 }
+            }
+            .EventTimetable:hover{
+                height: auto !important;
+                z-index: 10;
+            }
+
+
+            .EventTimetableA{
+                display: block;
             }
             .performances{
                 background: rgba(var(--color1));
@@ -964,6 +1012,12 @@ main{
                     color: rgba(var(--color3));
                 }
             }
+            .clubnights{
+                background: rgba(var(--color2));
+                h2, h3, p{
+                    color: rgba(var(--color1));
+                }               
+            }
 
             .konferenz{
                 background: rgba(var(--color3));
@@ -971,27 +1025,65 @@ main{
                     color: rgba(var(--color2));
                 }
             }
-            h1{
-                margin-bottom: 0;
+            .diskurs{
                 background: rgba(var(--color3));
+                h2, h3, p{
+                    color: rgba(var(--color2));
+                }                
+            }
+            .date{
+                margin-bottom: 0;
                 position: sticky;
-                top: 14vw;
+                top: 6vw;
+                z-index: 1;
+                height: 0;
+                text-align: center;
+                z-index: 5;
+                @media (orientation: portrait) {
+                    top:12vw;
+                }
+                h1{
+
+                    font-size: $fontSize1;
+                    line-height: $lineHeight1;
+                    background: rgba(var(--color1));
+                    color: rgba(var(--color2));
+                    border: 1px solid rgba(var(--color1));
+                    transition: none;
+                    display: inline;
+                    padding: $padding*0.5 $padding*2;
+                    border-radius: 2vw;
+                    @media (orientation: portrait) {
+                        font-size: $fontSize1*$scaleFactor;
+                        line-height: $lineHeight1*$scaleFactor;   
+                        border-radius: 4vw;                     
+                    }
+                }
             }
             h2,h3{
                 font-family: 'FreeSans-JK';  
-                font-size: $fontSize2;
-                line-height: $lineHeight2;
+                font-size: $fontSize0;
+                line-height: $lineHeight0;
                 text-align: left;
-                margin-left: $lineHeight2+$padding;
-                margin-top: $padding;
+                margin-left: $lineHeight0+$padding;
+                margin-top: $padding/2;
+                margin-right: $padding;
+                @media (orientation: portrait) {
+                    font-size: $fontSize0*$scaleFactor;
+                    line-height: $lineHeight0*$scaleFactor;                    
+                }
 
             }
             h3{
-                font-size: $fontSize0;
-                line-height: $lineHeight0;
+                font-size: $fontSizeMicro;
+                line-height: $lineHeightMicro;
+                @media (orientation: portrait) {
+                    font-size: $fontSizeMicro*$scaleFactor;
+                    line-height: $lineHeightMicro*$scaleFactor;               
+                }
             }
             .artist{
-                text-indent: -$lineHeight2;
+                text-indent: -1.2vw;
             }
             .title{
                 margin-top: 0;
@@ -1001,15 +1093,20 @@ main{
             }
             .format{
                 text-transform: capitalize;
+                margin-top: 0;
+                padding: $padding $padding 0 0;
             }
             .timetableHourlineWrap{
-                position: absolute;
-                width: 100vw;
-                height: 0;
+                width: 99vw;
                 .timetableHourline{
-                    border-top: 1px solid rgba(var(--color2));
                     color: rgba(var(--color2));
-                    font-size: $fontSize0;
+                    background-image: url('../img/timetableBackground.png');
+                    background-size: contain;
+                    background-repeat: repeat;
+                    width: 99vw;
+                    .hourlineChar{
+                        font-size: $fontSize0;
+                    }
                 }
             }
             #filters{
@@ -1017,12 +1114,20 @@ main{
                 top:0;
                 left: 0;
                 width: 100vw;
-                height: 10vw;
+                height: 4.5vw;
                 background: rgba(var(--color3));
                 box-shadow: 0 0 2vw black;
                 z-index: 10;
+                white-space: nowrap;
+                overflow: scroll;
+                @media (orientation: portrait) {
+                    height: 8.5vw;
+                }
                 .mediumpill{
-                    background: rgba(var(--color1));
+                    font-size: $fontSize1;
+                    line-height: $lineHeight1;
+                    background: rgba(var(--color3));
+                    border: 1px solid rgba(var(--color2));
                     color: rgba(var(--color2));
                     display: inline-block;
                     text-transform: capitalize;
@@ -1030,10 +1135,45 @@ main{
                     margin-left: $padding;
                     margin-right: 0;
                     transition: none;
+                    @media (orientation: portrait) {
+                        font-size: $fontSize1*$scaleFactor;
+                        line-height: $lineHeight1*$scaleFactor;                      
+                    }
                 }
                 .active, .mediumpill:hover{
                     background: rgba(var(--color2));
                     color: rgba(var(--color1));                   
+                }
+            }
+            .scaler{
+                position: fixed;
+                right: $padding*2;
+                top: 30vh;
+                font-size: $fontSize3;
+                line-height: 5vw;
+                background: rgba(var(--color1));  
+                color: rgba(var(--color2));
+                z-index: 10;
+                border-radius: $lineHeight3;
+                width: $lineHeight3;
+                height: $lineHeight3;
+                text-align: center;
+                @media (orientation: portrait) {
+                    font-size: $fontSize3*$scaleFactor;
+                    line-height: 5vw*$scaleFactor;
+                    width: $lineHeight3*$scaleFactor;
+                    height: $lineHeight3*$scaleFactor;
+                }
+
+            }
+            #minus{
+                top: 40vh;
+
+            }
+            #navButton{
+                top: 5.6vw;
+                @media (orientation: portrait) {
+                    top: 9.75vw;
                 }
             }
         }

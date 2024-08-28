@@ -17,6 +17,7 @@
   --color2: 140, 110, 255, 1;
   --color3: 215,215,215,1;
   --color4: 0,0,0,0;
+  --hourHeight: 7vw;
 }
 
 body {
@@ -987,31 +988,76 @@ p, li {
   z-index: 9;
 }
 
+.timetable {
+  font-size: 1vw;
+}
+@media (orientation: portrait) {
+  .timetable {
+    font-size: 3vw;
+  }
+}
 .timetable main {
   min-height: 200vh;
+  margin-top: 4.5vw;
+}
+.timetable .timetableDay {
+  width: 94vw;
+  margin-left: 1vw;
+}
+.timetable .timetableSpalteWrap {
+  position: absolute;
+  top: 4.5vw;
+  z-index: 2;
+  margin-left: 3vw;
+  width: 97vw;
+  overflow: scroll;
 }
 .timetable .timetableSpalte {
   display: table-cell;
   vertical-align: top;
-}
-.timetable .timetableSpalte .TimetableSpacer {
-  width: 23vw;
-  height: 0;
 }
 .timetable .EventTimetable {
   background: rgba(var(--color2));
   color: rgba(var(--color1));
   border-radius: 0.8vw;
   position: relative;
-  width: 22vw;
+  width: 12vw;
   box-shadow: 0 0 10px rgba(var(--color2));
+  margin-right: 0.8vw;
+  overflow: hidden;
+  height: 100%;
+}
+@media (orientation: portrait) {
+  .timetable .EventTimetable {
+    width: 27vw;
+  }
 }
 .timetable .EventTimetable .EventTimetableContent {
   padding: 0.8vw;
 }
+.timetable .EventTimetable .EventTimetableContent h3 {
+  margin-left: 1.2vw;
+}
 .timetable .EventTimetable p {
-  font-size: 1.5vw;
-  line-height: 1.7vw;
+  font-size: 1.1vw;
+  line-height: 1.4vw;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-left: 1.2vw;
+  text-indent: -1.2vw;
+}
+@media (orientation: portrait) {
+  .timetable .EventTimetable p {
+    font-size: 2.75vw;
+    line-height: 3.5vw;
+  }
+}
+.timetable .EventTimetable:hover {
+  height: auto !important;
+  z-index: 10;
+}
+.timetable .EventTimetableA {
+  display: block;
 }
 .timetable .performances {
   background: rgba(var(--color1));
@@ -1028,32 +1074,83 @@ p, li {
 .timetable .ausstellungen h2, .timetable .ausstellungen h3, .timetable .ausstellungen p {
   color: rgba(var(--color3));
 }
+.timetable .clubnights {
+  background: rgba(var(--color2));
+}
+.timetable .clubnights h2, .timetable .clubnights h3, .timetable .clubnights p {
+  color: rgba(var(--color1));
+}
 .timetable .konferenz {
   background: rgba(var(--color3));
 }
 .timetable .konferenz h2, .timetable .konferenz h3, .timetable .konferenz p {
   color: rgba(var(--color2));
 }
-.timetable h1 {
-  margin-bottom: 0;
+.timetable .diskurs {
   background: rgba(var(--color3));
+}
+.timetable .diskurs h2, .timetable .diskurs h3, .timetable .diskurs p {
+  color: rgba(var(--color2));
+}
+.timetable .date {
+  margin-bottom: 0;
   position: sticky;
-  top: 14vw;
+  top: 6vw;
+  z-index: 1;
+  height: 0;
+  text-align: center;
+  z-index: 5;
+}
+@media (orientation: portrait) {
+  .timetable .date {
+    top: 12vw;
+  }
+}
+.timetable .date h1 {
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+  background: rgba(var(--color1));
+  color: rgba(var(--color2));
+  border: 1px solid rgba(var(--color1));
+  transition: none;
+  display: inline;
+  padding: 0.4vw 1.6vw;
+  border-radius: 2vw;
+}
+@media (orientation: portrait) {
+  .timetable .date h1 {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
+    border-radius: 4vw;
+  }
 }
 .timetable h2, .timetable h3 {
   font-family: "FreeSans-JK";
-  font-size: 2vw;
-  line-height: 2.2vw;
-  text-align: left;
-  margin-left: 3vw;
-  margin-top: 0.8vw;
-}
-.timetable h3 {
   font-size: 1.1vw;
   line-height: 1.4vw;
+  text-align: left;
+  margin-left: 2.2vw;
+  margin-top: 0.4vw;
+  margin-right: 0.8vw;
+}
+@media (orientation: portrait) {
+  .timetable h2, .timetable h3 {
+    font-size: 2.75vw;
+    line-height: 3.5vw;
+  }
+}
+.timetable h3 {
+  font-size: 0.8vw;
+  line-height: 1vw;
+}
+@media (orientation: portrait) {
+  .timetable h3 {
+    font-size: 2vw;
+    line-height: 2.5vw;
+  }
 }
 .timetable .artist {
-  text-indent: -2.2vw;
+  text-indent: -1.2vw;
 }
 .timetable .title {
   margin-top: 0;
@@ -1063,15 +1160,20 @@ p, li {
 }
 .timetable .format {
   text-transform: capitalize;
+  margin-top: 0;
+  padding: 0.8vw 0.8vw 0 0;
 }
 .timetable .timetableHourlineWrap {
-  position: absolute;
-  width: 100vw;
-  height: 0;
+  width: 99vw;
 }
 .timetable .timetableHourlineWrap .timetableHourline {
-  border-top: 1px solid rgba(var(--color2));
   color: rgba(var(--color2));
+  background-image: url("../img/timetableBackground.png");
+  background-size: contain;
+  background-repeat: repeat;
+  width: 99vw;
+}
+.timetable .timetableHourlineWrap .timetableHourline .hourlineChar {
   font-size: 1.1vw;
 }
 .timetable #filters {
@@ -1079,13 +1181,23 @@ p, li {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 10vw;
+  height: 4.5vw;
   background: rgba(var(--color3));
   box-shadow: 0 0 2vw black;
   z-index: 10;
+  white-space: nowrap;
+  overflow: scroll;
+}
+@media (orientation: portrait) {
+  .timetable #filters {
+    height: 8.5vw;
+  }
 }
 .timetable #filters .mediumpill {
-  background: rgba(var(--color1));
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+  background: rgba(var(--color3));
+  border: 1px solid rgba(var(--color2));
   color: rgba(var(--color2));
   display: inline-block;
   text-transform: capitalize;
@@ -1094,9 +1206,48 @@ p, li {
   margin-right: 0;
   transition: none;
 }
+@media (orientation: portrait) {
+  .timetable #filters .mediumpill {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
+  }
+}
 .timetable #filters .active, .timetable #filters .mediumpill:hover {
   background: rgba(var(--color2));
   color: rgba(var(--color1));
+}
+.timetable .scaler {
+  position: fixed;
+  right: 1.6vw;
+  top: 30vh;
+  font-size: 7vw;
+  line-height: 5vw;
+  background: rgba(var(--color1));
+  color: rgba(var(--color2));
+  z-index: 10;
+  border-radius: 6vw;
+  width: 6vw;
+  height: 6vw;
+  text-align: center;
+}
+@media (orientation: portrait) {
+  .timetable .scaler {
+    font-size: 17.5vw;
+    line-height: 12.5vw;
+    width: 15vw;
+    height: 15vw;
+  }
+}
+.timetable #minus {
+  top: 40vh;
+}
+.timetable #navButton {
+  top: 5.6vw;
+}
+@media (orientation: portrait) {
+  .timetable #navButton {
+    top: 9.75vw;
+  }
 }
 
 /*NAVIGATION */
