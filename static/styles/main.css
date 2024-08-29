@@ -1075,7 +1075,12 @@ p, li {
   display: block;
   margin-bottom: 0.4vw;
   box-shadow: 0 0 10px;
-  background: rgba(var(--color3));
+  background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
+}
+@media (orientation: portrait) {
+  .timetable .EventTimetable a {
+    margin-bottom: 1vw;
+  }
 }
 .timetable .EventTimetable p {
   font-size: 1.1vw;
@@ -1091,13 +1096,13 @@ p, li {
 }
 .timetable .EventTimetable p i, .timetable .EventTimetable p em {
   font-size: 0.8vw;
-  line-height: 1vw;
+  line-height: 0.8vw;
   font-style: normal;
 }
 @media (orientation: portrait) {
   .timetable .EventTimetable p i, .timetable .EventTimetable p em {
     font-size: 2vw;
-    line-height: 2.5vw;
+    line-height: 2vw;
   }
 }
 .timetable .EventTimetable:hover {
@@ -1157,13 +1162,13 @@ p, li {
 }
 .timetable h3 {
   font-size: 0.8vw;
-  line-height: 1vw;
+  line-height: 0.8vw;
   margin-top: 0;
 }
 @media (orientation: portrait) {
   .timetable h3 {
     font-size: 2vw;
-    line-height: 2.5vw;
+    line-height: 2vw;
   }
 }
 .timetable .title {

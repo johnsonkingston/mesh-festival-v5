@@ -1008,7 +1008,11 @@ main{
                     display: block;
                     margin-bottom: $padding*0.5;
                     box-shadow: 0 0 10px;
-                    background: rgba(var(--color3));
+                    background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
+                    @media (orientation: portrait) {
+                        margin-bottom: $padding*0.5*$scaleFactor;
+                    
+                    }
                 }
                 p{
                     font-size: $fontSize0;
@@ -1021,11 +1025,11 @@ main{
                     }
                     i,em{
                         font-size: $fontSizeMicro;
-                        line-height: $lineHeightMicro;
+                        line-height: 0.8vw;
                         font-style: normal;
                         @media (orientation: portrait) {
                             font-size: $fontSizeMicro*$scaleFactor;
-                            line-height: $lineHeightMicro*$scaleFactor;                            
+                            line-height: 0.8vw*$scaleFactor;                            
                         }
                     }
                 }
@@ -1085,11 +1089,11 @@ main{
             }
             h3{
                 font-size: $fontSizeMicro;
-                line-height: $lineHeightMicro;
+                line-height: 0.8vw;
                 margin-top: 0;
                 @media (orientation: portrait) {
                     font-size: $fontSizeMicro*$scaleFactor;
-                    line-height: $lineHeightMicro*$scaleFactor;               
+                    line-height: 0.8vw*$scaleFactor;               
                 }
             }
             .artist{
