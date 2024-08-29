@@ -10,16 +10,15 @@ head
 
     meta(name="viewport", content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0")
 
-    if(data.id == 1)     
+    if(data.id == 1 || data.id == 3)     
         title Mesh – Festival für Kunst und Technologie – Münchenstein / Basel
     else if(data.translations[languageParameter] === undefined)
         title Mesh – Festival für Kunst und Technologie – #{data.title}
     else 
         title Mesh – Festival für Kunst und Technologie – #{data.translations[languageParameter].Title}
 
-    if(data.id == 1)     
+    if(data.id == 1 || data.id == 3)     
         meta(property="og:title" content="Mesh – Festival für Kunst und Technologie – 16.–20. Oktober 2024")
-
     else if(data.translations[languageParameter] === undefined)
         meta(property="og:title" content=data.title)
     else if(data.Artist == undefined)
@@ -31,7 +30,7 @@ head
     meta(property="og:description", content="Mesh – Festival für Kunst und Technologie – 16.–20. Oktober 2024: Multisensorische Erfahrungen, interaktive, immersive Erlebnisse und Installationen, Nachdenken über eine freundliche Zukunft")
     meta(property="og:type", content="website")
     meta(property="og:url", content="https://meshfestival.ch")
-    if data.Main_Image == null
+    if(data.Main_Image == null || data.id == 3)
         meta(property="og:image" content="/static/img/favicon/android-chrome-512x512.png")
     else
         meta(property="og:image" content=imgURL+data.Main_Image.filename_disk+'?key=icon')
