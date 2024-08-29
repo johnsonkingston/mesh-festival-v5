@@ -45,7 +45,7 @@ function getFirstByColumn(){
     var venueBefore = '';
     var dayBefore = '';
     for (const property in eventsJS) {
-        if(venueBefore !== eventsJS[property].venue && dayBefore !== eventsJS[property].day ){
+        if(venueBefore !== eventsJS[property].venue){
             var venue = eventsJS[property].venue;
             var id = eventsJS[property].id;
             var day = eventsJS[property].day;
@@ -84,7 +84,7 @@ function getEarliestEvent(){
             EarliestEvent[day].hour = parseInt(hour);
     }
     }
-    console.log(EarliestEvent);
+    //console.log(EarliestEvent);
 }
 
 function getLastestEvent(){
@@ -104,7 +104,7 @@ function getLastestEvent(){
             LastestEvent[day].hourEnd = parseInt(hourEnd);
         }
     }
-    console.log(LastestEvent);
+    //console.log(LastestEvent);
 
 
 
@@ -189,15 +189,6 @@ function runShrink(){
 }
 
 
-function scale(direction){
-    if(direction == 'plus'){
-        var newSize = parseFloat($('body').attr('data-size'))+0.2;
-    }else{
-        var newSize = parseFloat($('body').attr('data-size'))-0.2;
-    }
-    $('body').attr('data-size',newSize);
-    $('.timetable').css('font-size',newSize+'vw');
-}
 
 $( document ).ready(function() {
     runShrink();

@@ -929,7 +929,7 @@ main{
 
 
         .timetable{
-            font-size: 1vw;
+            font-size: 1.3vh;
             @media (orientation: portrait) {
                 font-size: 3vw;
             }
@@ -948,11 +948,19 @@ main{
                 margin-left: 3vw;
                 width: 97vw;
                 overflow: scroll;
+                white-space: nowrap;
             }
             .timetableSpalte{
-                display: table-cell;
+                display: inline-block;
                 vertical-align: top;
+                overflow: hidden;
+                padding-bottom: 30vw;
 
+            }
+            .timetableSpalte10{
+                position: absolute;
+                left: 0;
+                z-index: -1;
             }
             .EventTimetable{
                 background: rgba(var(--color2));
@@ -961,15 +969,19 @@ main{
                 position: relative;
                 width: 12vw;
                 box-shadow: 0 0 10px rgba(var(--color2));
-                margin-right: $padding;
+                margin-right: $padding*0.5;
+                margin-left: $padding*0.5;
                 overflow: hidden;
                 height: 100%;
                 @media (orientation: portrait) {
                     width: 27vw;
                 }
                 .EventTimetableContent{
-                    padding: $padding;
+                    padding: $padding $padding 0 $padding;
                     h3{
+                        padding-top:0;
+                        margin-top:0;
+                        padding-bottom: $padding*0.5;
                         margin-left: 1.2vw;
                     }
                 }
@@ -994,6 +1006,7 @@ main{
 
             .EventTimetableA{
                 display: block;
+                white-space: normal;
             }
             .performances{
                 background: rgba(var(--color1));
@@ -1065,7 +1078,7 @@ main{
                 font-size: $fontSize0;
                 line-height: $lineHeight0;
                 text-align: left;
-                margin-left: $lineHeight0+$padding;
+                margin-left: $padding;
                 margin-top: $padding/2;
                 margin-right: $padding;
                 @media (orientation: portrait) {
@@ -1077,24 +1090,25 @@ main{
             h3{
                 font-size: $fontSizeMicro;
                 line-height: $lineHeightMicro;
+                margin-top: 0;
                 @media (orientation: portrait) {
                     font-size: $fontSizeMicro*$scaleFactor;
                     line-height: $lineHeightMicro*$scaleFactor;               
                 }
             }
             .artist{
-                text-indent: -1.2vw;
             }
             .title{
                 margin-top: 0;
             }
             .time{
-                margin-top: calc($padding/2);
+                padding-bottom:$padding*0.5;
+                padding-top:0;
             }
             .format{
                 text-transform: capitalize;
                 margin-top: 0;
-                padding: $padding $padding 0 0;
+                padding: 0 $padding 0 0;
             }
             .timetableHourlineWrap{
                 width: 99vw;
@@ -1144,30 +1158,6 @@ main{
                     background: rgba(var(--color2));
                     color: rgba(var(--color1));                   
                 }
-            }
-            .scaler{
-                position: fixed;
-                right: $padding*2;
-                top: 30vh;
-                font-size: $fontSize3;
-                line-height: 5vw;
-                background: rgba(var(--color1));  
-                color: rgba(var(--color2));
-                z-index: 10;
-                border-radius: $lineHeight3;
-                width: $lineHeight3;
-                height: $lineHeight3;
-                text-align: center;
-                @media (orientation: portrait) {
-                    font-size: $fontSize3*$scaleFactor;
-                    line-height: 5vw*$scaleFactor;
-                    width: $lineHeight3*$scaleFactor;
-                    height: $lineHeight3*$scaleFactor;
-                }
-
-            }
-            #minus{
-                top: 40vh;
 
             }
             #navButton{
@@ -1175,6 +1165,12 @@ main{
                 @media (orientation: portrait) {
                     top: 9.75vw;
                 }
+            }
+            .venueLabel{
+                white-space: nowrap;
+                width: 0;
+                position: sticky;
+                bottom: 2vw;
             }
         }
 

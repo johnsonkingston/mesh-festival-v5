@@ -989,7 +989,7 @@ p, li {
 }
 
 .timetable {
-  font-size: 1vw;
+  font-size: 1.3vh;
 }
 @media (orientation: portrait) {
   .timetable {
@@ -1011,10 +1011,18 @@ p, li {
   margin-left: 3vw;
   width: 97vw;
   overflow: scroll;
+  white-space: nowrap;
 }
 .timetable .timetableSpalte {
-  display: table-cell;
+  display: inline-block;
   vertical-align: top;
+  overflow: hidden;
+  padding-bottom: 30vw;
+}
+.timetable .timetableSpalte10 {
+  position: absolute;
+  left: 0;
+  z-index: -1;
 }
 .timetable .EventTimetable {
   background: rgba(var(--color2));
@@ -1023,7 +1031,8 @@ p, li {
   position: relative;
   width: 12vw;
   box-shadow: 0 0 10px rgba(var(--color2));
-  margin-right: 0.8vw;
+  margin-right: 0.4vw;
+  margin-left: 0.4vw;
   overflow: hidden;
   height: 100%;
 }
@@ -1033,9 +1042,12 @@ p, li {
   }
 }
 .timetable .EventTimetable .EventTimetableContent {
-  padding: 0.8vw;
+  padding: 0.8vw 0.8vw 0 0.8vw;
 }
 .timetable .EventTimetable .EventTimetableContent h3 {
+  padding-top: 0;
+  margin-top: 0;
+  padding-bottom: 0.4vw;
   margin-left: 1.2vw;
 }
 .timetable .EventTimetable p {
@@ -1058,6 +1070,7 @@ p, li {
 }
 .timetable .EventTimetableA {
   display: block;
+  white-space: normal;
 }
 .timetable .performances {
   background: rgba(var(--color1));
@@ -1129,7 +1142,7 @@ p, li {
   font-size: 1.1vw;
   line-height: 1.4vw;
   text-align: left;
-  margin-left: 2.2vw;
+  margin-left: 0.8vw;
   margin-top: 0.4vw;
   margin-right: 0.8vw;
 }
@@ -1142,6 +1155,7 @@ p, li {
 .timetable h3 {
   font-size: 0.8vw;
   line-height: 1vw;
+  margin-top: 0;
 }
 @media (orientation: portrait) {
   .timetable h3 {
@@ -1149,19 +1163,17 @@ p, li {
     line-height: 2.5vw;
   }
 }
-.timetable .artist {
-  text-indent: -1.2vw;
-}
 .timetable .title {
   margin-top: 0;
 }
 .timetable .time {
-  margin-top: 0.4vw;
+  padding-bottom: 0.4vw;
+  padding-top: 0;
 }
 .timetable .format {
   text-transform: capitalize;
   margin-top: 0;
-  padding: 0.8vw 0.8vw 0 0;
+  padding: 0 0.8vw 0 0;
 }
 .timetable .timetableHourlineWrap {
   width: 99vw;
@@ -1216,31 +1228,6 @@ p, li {
   background: rgba(var(--color2));
   color: rgba(var(--color1));
 }
-.timetable .scaler {
-  position: fixed;
-  right: 1.6vw;
-  top: 30vh;
-  font-size: 7vw;
-  line-height: 5vw;
-  background: rgba(var(--color1));
-  color: rgba(var(--color2));
-  z-index: 10;
-  border-radius: 6vw;
-  width: 6vw;
-  height: 6vw;
-  text-align: center;
-}
-@media (orientation: portrait) {
-  .timetable .scaler {
-    font-size: 17.5vw;
-    line-height: 12.5vw;
-    width: 15vw;
-    height: 15vw;
-  }
-}
-.timetable #minus {
-  top: 40vh;
-}
 .timetable #navButton {
   top: 5.6vw;
 }
@@ -1248,6 +1235,12 @@ p, li {
   .timetable #navButton {
     top: 9.75vw;
   }
+}
+.timetable .venueLabel {
+  white-space: nowrap;
+  width: 0;
+  position: sticky;
+  bottom: 2vw;
 }
 
 /*NAVIGATION */
