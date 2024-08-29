@@ -195,7 +195,7 @@ $( document ).ready(function() {
 
 
     //Hover fix mobile
-    lastTip = null;
+/*     lastTip = null;
 
     if($(window).width() < $(window).height()){
         
@@ -210,7 +210,7 @@ $( document ).ready(function() {
             });
         
         });
-    }
+    } */
 
 
 

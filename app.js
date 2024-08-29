@@ -10,8 +10,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());     
 app.use(express.urlencoded());
 
-var force = require('express-force-domain');
-app.use( force('https://meshfestival.ch') );
+//var force = require('express-force-domain');
+//app.use( force('https://meshfestival.ch') );
 
 app.use('/static', express.static('static'));
 app.use('/static/lang', express.static('lang'));
@@ -193,10 +193,11 @@ function rewriteDate(event,subkey){
 
 
 
-app.get("/timetable", async function (req, res) {
+app.get("/timetable/:language?/:format?", async function (req, res) {
     var pathname = req.originalUrl;
     language = req.params.language  || 'de';
     languageObject = [language,languageTransform(language)];
+    format = req.params.format  || 'none';
 
     try { 
         result = await getAllEvents();
@@ -205,9 +206,10 @@ app.get("/timetable", async function (req, res) {
         news = await getNews();
         venues = await getVenues();
 
+        language = req.params.language  || 'de';
 
         if(result.data[0]){
-            res.render('timetable', {data:result.data[0],events:events,navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,venues:venues.data});
+            res.render('timetable', {data:result.data[0],events:events,navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,venues:venues.data,format:format});
         }
         
     } catch (err) {
