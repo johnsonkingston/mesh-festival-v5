@@ -1050,19 +1050,29 @@ p, li {
   padding-bottom: 0.4vw;
   margin-left: 1.2vw;
 }
+.timetable .EventTimetable a {
+  border: 1px solid;
+  border-radius: 0.8vw;
+  padding: 0.4vw;
+  display: block;
+  margin-bottom: 0.4vw;
+}
 .timetable .EventTimetable p {
   font-size: 1.1vw;
   line-height: 1.4vw;
   margin-block-start: 0;
   margin-block-end: 0;
-  margin-left: 1.2vw;
-  text-indent: -1.2vw;
 }
 @media (orientation: portrait) {
   .timetable .EventTimetable p {
     font-size: 2.75vw;
     line-height: 3.5vw;
   }
+}
+.timetable .EventTimetable p i, .timetable .EventTimetable p em {
+  font-size: 0.8vw;
+  line-height: 1vw;
+  font-style: normal;
 }
 .timetable .EventTimetable:hover {
   height: auto !important;
@@ -1075,34 +1085,34 @@ p, li {
 .timetable .performances {
   background: rgba(var(--color1));
 }
-.timetable .performances h2, .timetable .performances h3, .timetable .performances p {
+.timetable .performances h2, .timetable .performances h3, .timetable .performances p, .timetable .performances a {
   color: rgba(var(--color2));
 }
 .timetable .screenings {
   background: rgba(var(--color3));
 }
-.timetable .screenings h2, .timetable .screenings h3, .timetable .screenings p {
+.timetable .screenings h2, .timetable .screenings h3, .timetable .screenings p, .timetable .screenings a {
   color: rgba(var(--color2));
 }
-.timetable .ausstellungen h2, .timetable .ausstellungen h3, .timetable .ausstellungen p {
+.timetable .ausstellungen h2, .timetable .ausstellungen h3, .timetable .ausstellungen p, .timetable .ausstellungen a {
   color: rgba(var(--color3));
 }
 .timetable .clubnights {
   background: rgba(var(--color2));
 }
-.timetable .clubnights h2, .timetable .clubnights h3, .timetable .clubnights p {
+.timetable .clubnights h2, .timetable .clubnights h3, .timetable .clubnights p, .timetable .clubnights a {
   color: rgba(var(--color1));
 }
 .timetable .konferenz {
   background: rgba(var(--color3));
 }
-.timetable .konferenz h2, .timetable .konferenz h3, .timetable .konferenz p {
+.timetable .konferenz h2, .timetable .konferenz h3, .timetable .konferenz p, .timetable .konferenz a {
   color: rgba(var(--color2));
 }
 .timetable .diskurs {
   background: rgba(var(--color3));
 }
-.timetable .diskurs h2, .timetable .diskurs h3, .timetable .diskurs p {
+.timetable .diskurs h2, .timetable .diskurs h3, .timetable .diskurs p, .timetable .diskurs a {
   color: rgba(var(--color2));
 }
 .timetable .date {
@@ -1226,9 +1236,12 @@ p, li {
     line-height: 4.25vw;
   }
 }
-.timetable #filters .active, .timetable #filters .mediumpill:hover {
+.timetable #filters .active {
   background: rgba(var(--color2));
   color: rgba(var(--color1));
+}
+.timetable #filters .mediumpill:hover {
+  box-shadow: 0 0 10px rgba(var(--color2));
 }
 .timetable #navButton {
   top: 5.6vw;

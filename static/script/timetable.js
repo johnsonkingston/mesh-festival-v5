@@ -23,7 +23,7 @@ function filterTimetableAll(){
         $('#filterAll').attr('data-all','1');
         $('#filterAll').addClass('active');
         $('.EventTimetable').show();
-        $('.filterpill').addClass('active');
+        $('.filterpill').removeClass('active');
         $('.filterpill').attr('data-visible',1);
     }
     runShrink();

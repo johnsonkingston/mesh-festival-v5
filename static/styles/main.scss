@@ -984,17 +984,28 @@ main{
                         padding-bottom: $padding*0.5;
                         margin-left: 1.2vw;
                     }
+
+                }
+                a{
+                    border: 1px solid;
+                    border-radius: $padding;
+                    padding: $padding*0.5;
+                    display: block;
+                    margin-bottom: $padding*0.5;
                 }
                 p{
                     font-size: $fontSize0;
                     line-height: $lineHeight0;
                     margin-block-start: 0;
                     margin-block-end: 0;
-                    margin-left: 1.2vw;
-                    text-indent: -1.2vw;
                     @media (orientation: portrait) {
                         font-size: $fontSize0*$scaleFactor;
                         line-height: $lineHeight0*$scaleFactor;                        
+                    }
+                    i,em{
+                        font-size: $fontSizeMicro;
+                        line-height: $lineHeightMicro;
+                        font-style: normal;
                     }
                 }
             }
@@ -1010,37 +1021,37 @@ main{
             }
             .performances{
                 background: rgba(var(--color1));
-                h2, h3, p{
+                h2, h3, p, a{
                     color: rgba(var(--color2));
                 }
             }
             .screenings{
                 background: rgba(var(--color3));
-                h2, h3, p{
+                h2, h3, p, a{
                     color: rgba(var(--color2));
                 }
             }
             .ausstellungen{
-                h2, h3, p{
+                h2, h3, p, a{
                     color: rgba(var(--color3));
                 }
             }
             .clubnights{
                 background: rgba(var(--color2));
-                h2, h3, p{
+                h2, h3, p, a{
                     color: rgba(var(--color1));
                 }               
             }
 
             .konferenz{
                 background: rgba(var(--color3));
-                h2, h3, p{
+                h2, h3, p, a{
                     color: rgba(var(--color2));
                 }
             }
             .diskurs{
                 background: rgba(var(--color3));
-                h2, h3, p{
+                h2, h3, p, a{
                     color: rgba(var(--color2));
                 }                
             }
@@ -1156,9 +1167,12 @@ main{
                         line-height: $lineHeight1*$scaleFactor;                      
                     }
                 }
-                .active, .mediumpill:hover{
+                .active{
                     background: rgba(var(--color2));
                     color: rgba(var(--color1));                   
+                }
+                .mediumpill:hover{
+                    box-shadow: 0 0 10px rgba(var(--color2));
                 }
 
             }

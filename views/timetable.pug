@@ -16,7 +16,7 @@ html(lang=language[0])
         #filters 
             .mediumpill.active#filterAll(onclick="filterTimetableAll()",data-all='1')='All'
             each format in formats
-                .mediumpill.filterpill.active(onclick="filterTimetable('"+format+"',$(this))",data-visible=1)=format
+                .mediumpill.filterpill(onclick="filterTimetable('"+format+"',$(this))",data-visible=1)=format
         
         main
             //day
@@ -52,20 +52,20 @@ html(lang=language[0])
                                     - if(firstEvent) hourMargin = hourMargin + ((parseInt(event.Day) - 16) * (hoursPerDay+1))                                    
                                     - if(event.Timetable_only !== '1') var Timetable_only = true
 
-                                    .EventTimetableA(style="height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;margin-top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=parseInt(event.Hour)+((parseInt(event.Minute)/60)),data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-venue=event.Venues[0].Venues_id,data-id=id,id="Event-"+id)
-                                        .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
-                                            if(event.Timetable_only == '1')
-                                                .EventTimetableContent !{event.translations[languageParameter].Content}
-                                                h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id-1].Name
-                                            else
-                                                h2.artist='• '+event.Artist
-                                                h3.format=event.Format
-                                                //if(event.translations[0] !== undefined)
-                                                    h3.title=event.translations[0].Title
-                                                h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id-1].Name
-                                        - currentDay = event.Day
-                                        - hourBefore = event.HourEnd
-                                        - firstEvent = false
-                                        - id++
+                                    #{event.Timetable_only == '1' ? 'div' : 'a'}(href=baseURL+'events/'+data.slug+'/'+language[0])
+                                        .EventTimetableA(style="height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;margin-top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=parseInt(event.Hour)+((parseInt(event.Minute)/60)),data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-venue=event.Venues[0].Venues_id,data-id=id,id="Event-"+id)
+                                            .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
+                                                if(event.Timetable_only == '1')
+                                                    .EventTimetableContent !{event.translations[languageParameter].Content}
+                                                else
+                                                    h2.artist='• '+event.Artist
+                                                    h3.format=event.Format
+                                                    //if(event.translations[0] !== undefined)
+                                                        h3.title=event.translations[0].Title
+                                                    h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id-1].Name
+                                            - currentDay = event.Day
+                                            - hourBefore = event.HourEnd
+                                            - firstEvent = false
+                                            - id++
         
         include includes/footer.pug
