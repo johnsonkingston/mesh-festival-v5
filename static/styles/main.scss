@@ -1114,12 +1114,14 @@ main{
                 width: 99vw;
                 .timetableHourline{
                     color: rgba(var(--color2));
-                    background-image: url('../img/timetableBackground.png');
-                    background-size: contain;
+                    background-image: url('../img/timetableBackground.svg');
+                    background-size: cover;
                     background-repeat: repeat;
                     width: 99vw;
                     .hourlineChar{
-                        font-size: $fontSize0;
+                        font-size: $fontSizeMicro;
+                        text-align: right;
+                        width: 2vw;
                     }
                 }
             }

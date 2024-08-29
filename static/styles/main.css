@@ -1180,13 +1180,15 @@ p, li {
 }
 .timetable .timetableHourlineWrap .timetableHourline {
   color: rgba(var(--color2));
-  background-image: url("../img/timetableBackground.png");
-  background-size: contain;
+  background-image: url("../img/timetableBackground.svg");
+  background-size: cover;
   background-repeat: repeat;
   width: 99vw;
 }
 .timetable .timetableHourlineWrap .timetableHourline .hourlineChar {
-  font-size: 1.1vw;
+  font-size: 0.8vw;
+  text-align: right;
+  width: 2vw;
 }
 .timetable #filters {
   position: fixed;
