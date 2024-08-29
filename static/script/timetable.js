@@ -193,6 +193,9 @@ function runShrink(){
 $( document ).ready(function() {
     runShrink();
 
+    if(format !== 'none'){
+        filterTimetable(format,$('#filter-'+format));
+    }
 
     //Hover fix mobile
 /*     lastTip = null;

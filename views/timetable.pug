@@ -16,7 +16,7 @@ html(lang=language[0])
         #filters 
             .mediumpill.active#filterAll(onclick="filterTimetableAll()",data-all='1')='All'
             each format in formats
-                .mediumpill.filterpill(onclick="filterTimetable('"+format+"',$(this))",data-visible=1)=format
+                .mediumpill.filterpill(onclick="filterTimetable('"+format+"',$(this))",data-visible=1,id="filter-"+format)=format
         
         main
             //day
