@@ -1013,6 +1013,12 @@ p, li {
   overflow: scroll;
   white-space: nowrap;
 }
+@media (orientation: portrait) {
+  .timetable .timetableSpalteWrap {
+    margin-left: 6vw;
+    width: 94vw;
+  }
+}
 .timetable .timetableSpalte {
   display: inline-block;
   vertical-align: top;
@@ -1023,6 +1029,9 @@ p, li {
   position: absolute;
   left: 0;
   z-index: -1;
+}
+.timetable .timetableSpalte11 {
+  margin-left: -25.6vw;
 }
 .timetable .EventTimetable {
   background: rgba(var(--color2));
@@ -1042,7 +1051,7 @@ p, li {
   }
 }
 .timetable .EventTimetable .EventTimetableContent {
-  padding: 0.8vw 0.8vw 0 0.8vw;
+  padding: 0.4vw 0.8vw 0 0.8vw;
 }
 .timetable .EventTimetable .EventTimetableContent h3 {
   padding-top: 0;
@@ -1051,11 +1060,11 @@ p, li {
   margin-left: 1.2vw;
 }
 .timetable .EventTimetable a {
-  border: 1px solid;
   border-radius: 0.8vw;
   padding: 0.4vw;
   display: block;
   margin-bottom: 0.4vw;
+  box-shadow: 0 0 10px;
 }
 .timetable .EventTimetable p {
   font-size: 1.1vw;
@@ -1199,6 +1208,12 @@ p, li {
   font-size: 0.8vw;
   text-align: right;
   width: 2vw;
+}
+@media (orientation: portrait) {
+  .timetable .timetableHourlineWrap .timetableHourline .hourlineChar {
+    font-size: 2vw;
+    width: 5vw;
+  }
 }
 .timetable #filters {
   position: fixed;

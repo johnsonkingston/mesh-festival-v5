@@ -949,6 +949,10 @@ main{
                 width: 97vw;
                 overflow: scroll;
                 white-space: nowrap;
+                @media (orientation: portrait) {
+                    margin-left: 6vw;     
+                    width: 94vw;              
+                }
             }
             .timetableSpalte{
                 display: inline-block;
@@ -961,6 +965,10 @@ main{
                 position: absolute;
                 left: 0;
                 z-index: -1;
+            }
+
+            .timetableSpalte11{
+                margin-left: -25.6vw;
             }
             .EventTimetable{
                 background: rgba(var(--color2));
@@ -977,7 +985,7 @@ main{
                     width: 27vw;
                 }
                 .EventTimetableContent{
-                    padding: $padding $padding 0 $padding;
+                    padding: $padding*0.5 $padding 0 $padding;
                     h3{
                         padding-top:0;
                         margin-top:0;
@@ -987,11 +995,11 @@ main{
 
                 }
                 a{
-                    border: 1px solid;
                     border-radius: $padding;
                     padding: $padding*0.5;
                     display: block;
                     margin-bottom: $padding*0.5;
+                    box-shadow: 0 0 10px;
                 }
                 p{
                     font-size: $fontSize0;
@@ -1133,6 +1141,10 @@ main{
                         font-size: $fontSizeMicro;
                         text-align: right;
                         width: 2vw;
+                        @media (orientation: portrait) {
+                            font-size: $fontSizeMicro*$scaleFactor;
+                            width: 2vw*$scaleFactor;
+                        }
                     }
                 }
             }
