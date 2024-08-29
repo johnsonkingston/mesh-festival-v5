@@ -263,7 +263,7 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         languageObject = [language,languageTransform(language)];
         if(result.data[0]){
             //console.log(languageObject);
-            res.render('page',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,events:[],venues:[]});
+            res.render('page',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,events:[],venues:[],format:[]});
         }
     //}else{
         //console.log('404');
@@ -423,7 +423,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         languageObject = [language,languageTransform(language)];
         if(result.data[0]){
             //console.log(languageObject);
-            res.render('event',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,events:[],venues:[]});
+            res.render('event',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,events:[],venues:[],format:[]});
         }
 
     } catch (err) {
@@ -472,7 +472,7 @@ app.get("/:language?", async function (req, res) {
         result.data.pathname = langRemove(pathname);
 
         if(result){
-             res.render('startpage',{data:result.data,navigation:navigation.data,footer:footer.data,news:news.data,language:languageObject,events:[],venues:[]});
+             res.render('startpage',{data:result.data,navigation:navigation.data,footer:footer.data,news:news.data,language:languageObject,events:[],venues:[],format:[]});
         }
 
     } catch (err) {
