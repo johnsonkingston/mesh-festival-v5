@@ -929,6 +929,8 @@ main{
 
 
         .timetable{
+            background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%); 
+            background-attachment: fixed;
             font-size: 1.3vh;
             @media (orientation: portrait) {
                 font-size: 3vw;
@@ -945,8 +947,8 @@ main{
                 position: absolute;
                 top:4.5vw;
                 z-index: 2;
-                margin-left: 3vw;
-                width: 97vw;
+                margin-left: 4vw;
+                width: 96vw;
                 overflow: scroll;
                 white-space: nowrap;
                 @media (orientation: portrait) {
@@ -971,7 +973,7 @@ main{
                 margin-left: -25.6vw;
             }
             .EventTimetable{
-                background: rgba(var(--color2));
+                background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
                 color: rgba(var(--color1));
                 border-radius: $padding;
                 position: relative;
@@ -983,9 +985,15 @@ main{
                 height: 100%;
                 @media (orientation: portrait) {
                     width: 27vw;
+                    margin-right: $padding*0.5*$scaleFactor;
+                    margin-left: $padding*0.5*$scaleFactor;
+                    border-radius: $padding*$scaleFactor;
                 }
                 .EventTimetableContent{
-                    padding: $padding*0.5 $padding 0 $padding;
+                    padding: $padding*0.5 $padding*0.5 0 $padding*0.5;
+                    @media (orientation: portrait) {
+                        padding: $padding $padding 0 $padding;
+                    }
                     h3{
                         padding-top:0;
                         margin-top:0;
@@ -1000,20 +1008,25 @@ main{
                     display: block;
                     margin-bottom: $padding*0.5;
                     box-shadow: 0 0 10px;
+                    background: rgba(var(--color3));
                 }
                 p{
                     font-size: $fontSize0;
-                    line-height: $lineHeight0;
+                    line-height: 1.2vw;
                     margin-block-start: 0;
                     margin-block-end: 0;
                     @media (orientation: portrait) {
                         font-size: $fontSize0*$scaleFactor;
-                        line-height: $lineHeight0*$scaleFactor;                        
+                        line-height: 1.2vw*$scaleFactor;                        
                     }
                     i,em{
                         font-size: $fontSizeMicro;
                         line-height: $lineHeightMicro;
                         font-style: normal;
+                        @media (orientation: portrait) {
+                            font-size: $fontSizeMicro*$scaleFactor;
+                            line-height: $lineHeightMicro*$scaleFactor;                            
+                        }
                     }
                 }
             }
@@ -1026,42 +1039,6 @@ main{
             .EventTimetableA{
                 display: block;
                 white-space: normal;
-            }
-            .performances{
-                background: rgba(var(--color1));
-                h2, h3, p, a{
-                    color: rgba(var(--color2));
-                }
-            }
-            .screenings{
-                background: rgba(var(--color3));
-                h2, h3, p, a{
-                    color: rgba(var(--color2));
-                }
-            }
-            .ausstellungen{
-                h2, h3, p, a{
-                    color: rgba(var(--color3));
-                }
-            }
-            .clubnights{
-                background: rgba(var(--color2));
-                h2, h3, p, a{
-                    color: rgba(var(--color1));
-                }               
-            }
-
-            .konferenz{
-                background: rgba(var(--color3));
-                h2, h3, p, a{
-                    color: rgba(var(--color2));
-                }
-            }
-            .diskurs{
-                background: rgba(var(--color3));
-                h2, h3, p, a{
-                    color: rgba(var(--color2));
-                }                
             }
             .date{
                 margin-bottom: 0;
@@ -1078,9 +1055,9 @@ main{
 
                     font-size: $fontSize1;
                     line-height: $lineHeight1;
-                    background: rgba(var(--color1));
-                    color: rgba(var(--color2));
-                    border: 1px solid rgba(var(--color1));
+                    background: rgba(var(--color2));
+                    color: rgba(var(--color1));
+                    border: 1px solid rgba(var(--color2));
                     transition: none;
                     display: inline;
                     padding: $padding*0.5 $padding*2;
@@ -1095,14 +1072,14 @@ main{
             h2,h3{
                 font-family: 'FreeSans-JK';  
                 font-size: $fontSize0;
-                line-height: $lineHeight0;
+                line-height: 1.2vw;
                 text-align: left;
                 margin-left: $padding;
                 margin-top: $padding/2;
                 margin-right: $padding;
                 @media (orientation: portrait) {
                     font-size: $fontSize0*$scaleFactor;
-                    line-height: $lineHeight0*$scaleFactor;                    
+                    line-height: 1.2vw*$scaleFactor;                    
                 }
 
             }
@@ -1193,6 +1170,9 @@ main{
                 @media (orientation: portrait) {
                     top: 9.75vw;
                 }
+                .st1{
+                    fill:rgba(var(--color2));
+                }
             }
             .venueLabel{
                 white-space: nowrap;
@@ -1200,6 +1180,7 @@ main{
                 position: sticky;
                 bottom: 2vw;
             }
+
         }
 
 

@@ -193,4 +193,43 @@ function runShrink(){
 $( document ).ready(function() {
     runShrink();
 
+
+    //Hover fix mobile
+    lastTip = null;
+
+    if($(window).width() < $(window).height()){
+        
+        $( '.timetableSpalte a').each(function( index ) {
+            $(this).addEventListener("click", function(e) {
+                if(lastTip != e.target) {
+                    e.preventDefault();
+                    if(lastTip) lastTip.classList.remove("force-tip");
+                    lastTip = e.target;
+                    lastTip.classList.add("force-tip");
+                }
+            });
+        
+        });
+    }
+
+
+
+
 });
+
+
+
+/* if(mobile) {
+    var withtip = document.querySelectorAll(".has-tip");
+
+    for(var i=0; i<withtip.length; ++i) {
+        withtip[i].addEventListener("click", function(e) {
+            if(lastTip != e.target) {
+                e.preventDefault();
+                if(lastTip) lastTip.classList.remove("force-tip");
+                lastTip = e.target;
+                lastTip.classList.add("force-tip");
+            }
+        });
+    }
+} */
