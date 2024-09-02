@@ -203,7 +203,11 @@ $( document ).ready(function() {
             $(this).on( "click", function( event ) {
                 event.preventDefault();
                 if($(this).hasClass('clicked')){
-                    location.href = $(this).attr('href');
+                    var urlLink = $(this).attr('href');
+                    if(urlLink.substr(0,4) !== 'http'){
+                        urlLink = baseURL+$(this).attr('href');
+                    }
+                    location.href = urlLink;
                 }else{
                     $('.clicked').removeClass('clicked');
                     $(this).addClass('clicked');
