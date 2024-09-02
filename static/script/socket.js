@@ -20,7 +20,7 @@ var emojis = ['❤️','🧶','👂','👃🏿','🧵','🥢','🧠','🕶️','
 
 
 function newJoin(data){
-    console.log(data.id+' joined!');
+    //console.log(data.id+' joined!');
     currentMembers[data.id] = data.id;
     id = data.id;
 

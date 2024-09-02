@@ -62,7 +62,7 @@ function getFirstByColumn(){
         venueBefore = eventsJS[property].venue;
         dayBefore = eventsJS[property].day;
     }
-    console.log(firstInRow);
+    //console.log(firstInRow);
 }
 
 
@@ -198,41 +198,17 @@ $( document ).ready(function() {
     }
 
     //Hover fix mobile
-/*     lastTip = null;
-
-    if($(window).width() < $(window).height()){
-        
-        $( '.timetableSpalte a').each(function( index ) {
-            $(this).addEventListener("click", function(e) {
-                if(lastTip != e.target) {
-                    e.preventDefault();
-                    if(lastTip) lastTip.classList.remove("force-tip");
-                    lastTip = e.target;
-                    lastTip.classList.add("force-tip");
+    if($(window).width() < $(window).outerHeight()){
+        $('.timetableSpalte a').each(function( index ) {
+            $(this).on( "click", function( event ) {
+                event.preventDefault();
+                if($(this).hasClass('clicked')){
+                    location.href = baseURL+$(this).attr('href');
+                }else{
+                    $('.clicked').removeClass('clicked');
+                    $(this).addClass('clicked');
                 }
             });
-        
-        });
-    } */
-
-
-
-
-});
-
-
-
-/* if(mobile) {
-    var withtip = document.querySelectorAll(".has-tip");
-
-    for(var i=0; i<withtip.length; ++i) {
-        withtip[i].addEventListener("click", function(e) {
-            if(lastTip != e.target) {
-                e.preventDefault();
-                if(lastTip) lastTip.classList.remove("force-tip");
-                lastTip = e.target;
-                lastTip.classList.add("force-tip");
-            }
         });
     }
-} */
+});

@@ -5,6 +5,12 @@ nav
         each val in navigation[languageParameter].Menu
             li.navigation
                 a(href=baseURL+'pages/'+val.URL+'/'+language[0])= val.Title
+
+    //.navTimetable 
+        if(language[0] == 'de')
+            a(href=baseURL+'timetable/de') Mi – So  
+        else              
+            a(href=baseURL+'timetable/en') Wed – Sun
     .languages
         if(data.pathname == '' || data.pathname == '/' )
             li.smallpill

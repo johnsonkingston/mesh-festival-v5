@@ -207,6 +207,9 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
         venues = await getVenues();
 
         language = req.params.language  || 'de';
+        
+        result.data[0].pathname = langRemove(pathname);
+
 
         if(result.data[0]){
             res.render('timetable', {data:result.data[0],events:events,navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,venues:venues.data,format:format});

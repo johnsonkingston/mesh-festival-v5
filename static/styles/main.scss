@@ -933,7 +933,7 @@ main{
             background-attachment: fixed;
             font-size: 1.3vh;
             @media (orientation: portrait) {
-                font-size: 3vw;
+                font-size: 2vw;
             }
             main{
                 min-height: 200vh;
@@ -1038,8 +1038,6 @@ main{
                 height: auto !important;
                 z-index: 10;
             }
-
-
             .EventTimetableA{
                 display: block;
                 white-space: normal;
@@ -1230,11 +1228,29 @@ nav{
             width: 50%;
         }
     }
+    .navTimetable{
+        position: absolute;
+        right: 5vw;
+        top: 26vh;
+        width: 20vh;
+        text-align: center;
+        color: rgba(var(--color2));
+        font-size: $fontSize3VH;
+        line-height: $lineHeight3VH;
+        @media (orientation: portrait) {
+            position: relative;
+            width: 100%;
+            top: 0;
+            font-size: 13vw;
+            line-height: 13vw;
+            right: 0;
+        }
+    }
     .navBottom{
         display: flex;
         text-align: center;
         .left, .middle, .right{
-            width: 33%;
+            width: 32%;
             font-size: $fontSize3VH;
             font-family: 'FreeSerif-JK';
             @media (orientation: portrait) {
@@ -1242,6 +1258,7 @@ nav{
             }     
         }
         .middle{
+            width:34%;
             @media (orientation: portrait) {
                 margin-top: 5vw;
             }

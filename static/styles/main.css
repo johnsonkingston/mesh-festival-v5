@@ -995,7 +995,7 @@ p, li {
 }
 @media (orientation: portrait) {
   .timetable {
-    font-size: 3vw;
+    font-size: 2vw;
   }
 }
 .timetable main {
@@ -1316,12 +1316,32 @@ nav .logo {
     width: 50%;
   }
 }
+nav .navTimetable {
+  position: absolute;
+  right: 5vw;
+  top: 26vh;
+  width: 20vh;
+  text-align: center;
+  color: rgba(var(--color2));
+  font-size: 10vh;
+  line-height: 8vh;
+}
+@media (orientation: portrait) {
+  nav .navTimetable {
+    position: relative;
+    width: 100%;
+    top: 0;
+    font-size: 13vw;
+    line-height: 13vw;
+    right: 0;
+  }
+}
 nav .navBottom {
   display: flex;
   text-align: center;
 }
 nav .navBottom .left, nav .navBottom .middle, nav .navBottom .right {
-  width: 33%;
+  width: 32%;
   font-size: 10vh;
   font-family: "FreeSerif-JK";
 }
@@ -1329,6 +1349,9 @@ nav .navBottom .left, nav .navBottom .middle, nav .navBottom .right {
   nav .navBottom .left, nav .navBottom .middle, nav .navBottom .right {
     font-size: 13vw;
   }
+}
+nav .navBottom .middle {
+  width: 34%;
 }
 @media (orientation: portrait) {
   nav .navBottom .middle {
