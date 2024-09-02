@@ -486,6 +486,9 @@ main {
   color: rgba(var(--color2));
   z-index: -1;
 }
+.page main .content {
+  overflow: hidden;
+}
 .page main .content ul {
   text-indent: -2.2vw;
   margin-left: 2.2vw;

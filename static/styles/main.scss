@@ -467,6 +467,7 @@ main{
                     z-index: -1;
                 }
                 .content{
+                    overflow: hidden;
                     ul{
                         text-indent: -$lineHeight2;
                         margin-left: $lineHeight2;
