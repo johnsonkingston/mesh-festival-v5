@@ -1751,6 +1751,12 @@ footer{
                 width:30vw;
             }
         }
+        .logofootersquare{
+            height: 3vw;
+            @media (orientation: portrait) {
+                height: 3vw*$scaleFactor;
+            }
+        }
     }
 }
 #newsletterClose{

@@ -1910,6 +1910,14 @@ footer .middle .logofooterlang {
     width: 30vw;
   }
 }
+footer .middle .logofootersquare {
+  height: 3vw;
+}
+@media (orientation: portrait) {
+  footer .middle .logofootersquare {
+    height: 7.5vw;
+  }
+}
 
 #newsletterClose {
   display: none;
