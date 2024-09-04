@@ -1131,46 +1131,7 @@ main{
                     }
                 }
             }
-            #filters{
-                position: fixed;
-                top:0;
-                left: 0;
-                width: 100vw;
-                height: 4.5vw;
-                background: rgba(var(--color3));
-                box-shadow: 0 0 2vw black;
-                z-index: 10;
-                white-space: nowrap;
-                overflow: scroll;
-                @media (orientation: portrait) {
-                    height: 8.5vw;
-                }
-                .mediumpill{
-                    font-size: $fontSize1;
-                    line-height: $lineHeight1;
-                    background: rgba(var(--color3));
-                    border: 1px solid rgba(var(--color2));
-                    color: rgba(var(--color2));
-                    display: inline-block;
-                    text-transform: capitalize;
-                    margin-top: $padding;
-                    margin-left: $padding;
-                    margin-right: 0;
-                    transition: none;
-                    @media (orientation: portrait) {
-                        font-size: $fontSize1*$scaleFactor;
-                        line-height: $lineHeight1*$scaleFactor;                      
-                    }
-                }
-                .active{
-                    background: rgba(var(--color2));
-                    color: rgba(var(--color1));                   
-                }
-                .mediumpill:hover{
-                    box-shadow: 0 0 10px rgba(var(--color2));
-                }
-
-            }
+            
             #navButton{
                 top: 5.6vw;
                 @media (orientation: portrait) {
@@ -1189,6 +1150,144 @@ main{
 
         }
 
+
+/*ARTISTS */
+.artists{
+    main{
+        margin-top: 4.5vw;
+        margin-bottom: 4.5vw;
+        min-height: 80vh;
+        @media (orientation: portrait) {
+            margin-top: 8.5vw;
+        }
+        .char{
+            position: sticky;
+            top: 5vw;
+            text-align: left;
+            background: rgba(var(--color3));
+            padding: $padding;
+            margin-bottom: calc(-6vw - $padding);
+            width: 10vw;
+            @media (orientation: portrait) {
+                margin-bottom: -17.7vw;
+                top: 9vw;
+                width: 13vw;
+                z-index: -1;
+            }
+
+        }
+        .artist{
+            display: flex;
+            justify-content: space-between;
+            align-items: top;
+            @media (orientation: portrait) {
+                display: block;
+            }
+            .left, .middle, .right{
+                padding: $padding;
+                h3{
+                    @media (orientation: portrait) {
+                        font-size: 13vw;
+                        line-height: 13vw;
+                    }                   
+                }
+                h4{
+                    font-size: $fontSize1;
+                    line-height: $lineHeight1;
+                    @media (orientation: portrait) {
+                        font-size: $fontSize1*$scaleFactor;
+                        line-height: $fontSize1*$scaleFactor; 
+                        text-align: center;
+                    }
+
+                }
+            }
+            .left{
+                width: 14vw;
+                h3{
+                    text-align: left;
+
+                }
+            }
+            .middle{
+                text-align: center;
+                @media (orientation: portrait) {
+                    padding: $padding*2 0 0 0;
+                }
+                h3{
+                    font-family: 'JK-MESH-Sans';
+                    max-width: 64vw;
+                    @media (orientation: portrait) {
+                        max-width: 80vw;
+                        margin-left: 10vw;
+                    }
+                }
+                @media (orientation: portrait) {
+                    h3{
+                        padding-bottom: 0;
+
+                    }
+                }
+            }
+            .right{
+                width: 14vw;
+                @media (orientation: portrait) {
+                    width: 100%;
+                    padding: 0;
+                }
+            }
+
+        }   
+    }
+    #navButton{
+        top: 5.6vw;
+        @media (orientation: portrait) {
+            top: 9.75vw;
+        }
+    }
+}
+
+/*FILTERS */
+#filters{
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 4.5vw;
+    background: rgba(var(--color3));
+    box-shadow: 0 0 2vw black;
+    z-index: 10;
+    white-space: nowrap;
+    overflow: scroll;
+    @media (orientation: portrait) {
+        height: 8.5vw;
+    }
+    .mediumpill{
+        font-size: $fontSize1;
+        line-height: $lineHeight1;
+        background: rgba(var(--color3));
+        border: 1px solid rgba(var(--color2));
+        color: rgba(var(--color2));
+        display: inline-block;
+        text-transform: capitalize;
+        margin-top: $padding;
+        margin-left: $padding;
+        margin-right: 0;
+        transition: none;
+        @media (orientation: portrait) {
+            font-size: $fontSize1*$scaleFactor;
+            line-height: $lineHeight1*$scaleFactor;                      
+        }
+    }
+    .active{
+        background: rgba(var(--color2));
+        color: rgba(var(--color1));                   
+    }
+    .mediumpill:hover{
+        box-shadow: 0 0 10px rgba(var(--color2));
+    }
+
+}
 
 /*NAVIGATION */
 nav{

@@ -211,6 +211,8 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
         result.data[0].pathname = langRemove(pathname);
 
 
+
+
         if(result.data[0]){
             res.render('timetable', {data:result.data[0],events:events,navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,venues:venues.data,format:format});
         }
@@ -220,6 +222,81 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
         res.status(500).send("Error fetching events");
     }
 });
+
+//Artists
+
+async function getAllArtists() {
+    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*");
+    if (!response.ok) {
+        console.log('Response not okay');
+        const data = '';
+        return data;
+    }else
+    {
+    const data = await response.json();
+
+    events = data.data;
+    let artists = [];
+
+    for (const [key, value] of Object.entries(events)) {
+
+        if(events[key].Artists_in_List !== null && events[key].status == 'published'){
+            var artist = [];
+            for (const [keyArtist, valueArtist] of Object.entries(events[key].Artists_in_List)) {
+                if(valueArtist.First_name == undefined){
+                    artist.First_Name = '';
+                }else{
+                    artist.First_Name = valueArtist.First_name;
+                }
+                
+                artist.Name = valueArtist.Name;
+                artist.Format = value.Format;
+                artist.slug = value.slug;
+                artist.Venues = value.Venues;
+                console.log(value.Venues[0]);
+                artists.push(structuredClone(artist));
+            }
+        }   
+    }
+
+    artists.sort((a, b) => (a.Name).localeCompare(b.Name));
+
+    events = artists;
+
+    return data;
+    }
+}
+
+
+
+
+app.get("/artists/:language?/", async function (req, res) {
+    var pathname = req.originalUrl;
+    language = req.params.language  || 'de';
+    languageObject = [language,languageTransform(language)];
+
+    try { 
+        result = await getAllArtists();
+        navigation = await getNavigation();
+        footer = await getFooter();
+        news = await getNews();
+        venues = await getVenues();
+
+        language = req.params.language  || 'de';
+        
+        result.data[0].pathname = langRemove(pathname);
+
+
+        if(result.data[0]){
+            res.render('artists', {data:result.data[0],events:events,navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,venues:venues.data,format:[]});
+        }
+        
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error fetching events");
+    }
+});
+
 
 //Page
 async function getPage(pageSlug) {

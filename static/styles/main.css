@@ -1210,49 +1210,6 @@ p, li {
     width: 5vw;
   }
 }
-.timetable #filters {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 4.5vw;
-  background: rgba(var(--color3));
-  box-shadow: 0 0 2vw black;
-  z-index: 10;
-  white-space: nowrap;
-  overflow: scroll;
-}
-@media (orientation: portrait) {
-  .timetable #filters {
-    height: 8.5vw;
-  }
-}
-.timetable #filters .mediumpill {
-  font-size: 1.5vw;
-  line-height: 1.7vw;
-  background: rgba(var(--color3));
-  border: 1px solid rgba(var(--color2));
-  color: rgba(var(--color2));
-  display: inline-block;
-  text-transform: capitalize;
-  margin-top: 0.8vw;
-  margin-left: 0.8vw;
-  margin-right: 0;
-  transition: none;
-}
-@media (orientation: portrait) {
-  .timetable #filters .mediumpill {
-    font-size: 3.75vw;
-    line-height: 4.25vw;
-  }
-}
-.timetable #filters .active {
-  background: rgba(var(--color2));
-  color: rgba(var(--color1));
-}
-.timetable #filters .mediumpill:hover {
-  box-shadow: 0 0 10px rgba(var(--color2));
-}
 .timetable #navButton {
   top: 5.6vw;
 }
@@ -1269,6 +1226,156 @@ p, li {
   width: 0;
   position: sticky;
   bottom: 2vw;
+}
+
+/*ARTISTS */
+.artists main {
+  margin-top: 4.5vw;
+  margin-bottom: 4.5vw;
+  min-height: 80vh;
+}
+@media (orientation: portrait) {
+  .artists main {
+    margin-top: 8.5vw;
+  }
+}
+.artists main .char {
+  position: sticky;
+  top: 5vw;
+  text-align: left;
+  background: rgba(var(--color3));
+  padding: 0.8vw;
+  margin-bottom: -6.8vw;
+  width: 10vw;
+}
+@media (orientation: portrait) {
+  .artists main .char {
+    margin-bottom: -17.7vw;
+    top: 9vw;
+    width: 13vw;
+    z-index: -1;
+  }
+}
+.artists main .artist {
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+}
+@media (orientation: portrait) {
+  .artists main .artist {
+    display: block;
+  }
+}
+.artists main .artist .left, .artists main .artist .middle, .artists main .artist .right {
+  padding: 0.8vw;
+}
+@media (orientation: portrait) {
+  .artists main .artist .left h3, .artists main .artist .middle h3, .artists main .artist .right h3 {
+    font-size: 13vw;
+    line-height: 13vw;
+  }
+}
+.artists main .artist .left h4, .artists main .artist .middle h4, .artists main .artist .right h4 {
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+}
+@media (orientation: portrait) {
+  .artists main .artist .left h4, .artists main .artist .middle h4, .artists main .artist .right h4 {
+    font-size: 3.75vw;
+    line-height: 3.75vw;
+    text-align: center;
+  }
+}
+.artists main .artist .left {
+  width: 14vw;
+}
+.artists main .artist .left h3 {
+  text-align: left;
+}
+.artists main .artist .middle {
+  text-align: center;
+}
+@media (orientation: portrait) {
+  .artists main .artist .middle {
+    padding: 1.6vw 0 0 0;
+  }
+}
+.artists main .artist .middle h3 {
+  font-family: "JK-MESH-Sans";
+  max-width: 64vw;
+}
+@media (orientation: portrait) {
+  .artists main .artist .middle h3 {
+    max-width: 80vw;
+    margin-left: 10vw;
+  }
+}
+@media (orientation: portrait) {
+  .artists main .artist .middle h3 {
+    padding-bottom: 0;
+  }
+}
+.artists main .artist .right {
+  width: 14vw;
+}
+@media (orientation: portrait) {
+  .artists main .artist .right {
+    width: 100%;
+    padding: 0;
+  }
+}
+.artists #navButton {
+  top: 5.6vw;
+}
+@media (orientation: portrait) {
+  .artists #navButton {
+    top: 9.75vw;
+  }
+}
+
+/*FILTERS */
+#filters {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 4.5vw;
+  background: rgba(var(--color3));
+  box-shadow: 0 0 2vw black;
+  z-index: 10;
+  white-space: nowrap;
+  overflow: scroll;
+}
+@media (orientation: portrait) {
+  #filters {
+    height: 8.5vw;
+  }
+}
+#filters .mediumpill {
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+  background: rgba(var(--color3));
+  border: 1px solid rgba(var(--color2));
+  color: rgba(var(--color2));
+  display: inline-block;
+  text-transform: capitalize;
+  margin-top: 0.8vw;
+  margin-left: 0.8vw;
+  margin-right: 0;
+  transition: none;
+}
+@media (orientation: portrait) {
+  #filters .mediumpill {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
+  }
+}
+#filters .active {
+  background: rgba(var(--color2));
+  color: rgba(var(--color1));
+}
+#filters .mediumpill:hover {
+  box-shadow: 0 0 10px rgba(var(--color2));
 }
 
 /*NAVIGATION */
