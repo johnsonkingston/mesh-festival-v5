@@ -2,27 +2,35 @@ function filterTimetable(format,el){
     if($('#filterAll').attr('data-all') == '1'){
         $('#filterAll').attr('data-all','0');
         $('.EventTimetable').hide();
+        $('.EventTimetableA').hide();
         $('.active').removeClass('active');
 
     }
-
     if(el.attr('data-visible') == '1'){
         $('.'+format).show();
+        $('.A'+format).show();
         el.addClass('active');
         el.attr('data-visible',0);
     }else{
 
         $('.'+format).hide();
+        $('.A'+format).hide();
         el.removeClass('active');
         el.attr('data-visible',1);
     }
-    runShrink()
+
+    runShrink();
+
+
+    
 }
+
 function filterTimetableAll(){
     if($('#filterAll').attr('data-all') == '0'){
         $('#filterAll').attr('data-all','1');
         $('#filterAll').addClass('active');
         $('.EventTimetable').show();
+        $('.EventTimetableA').show();
         $('.filterpill').removeClass('active');
         $('.filterpill').attr('data-visible',1);
     }
@@ -49,14 +57,16 @@ function getFirstByColumn(){
             var venue = eventsJS[property].venue;
             var id = eventsJS[property].id;
             var day = eventsJS[property].day;
+            var hour = eventsJS[property].hour;
             var firstInRowElement = true;
-            firstInRow.push({venue,id,day,firstInRowElement});
+            firstInRow.push({venue,id,day,hour,firstInRowElement});
         }else if(venueBefore !== eventsJS[property].venue || dayBefore !== eventsJS[property].day){
             var venue = eventsJS[property].venue;
             var id = eventsJS[property].id;
             var day = eventsJS[property].day;
+            var hour = eventsJS[property].hour;
             var firstInRowElement = false;
-            firstInRow.push({venue,id,day,firstInRowElement});            
+            firstInRow.push({venue,id,day,hour,firstInRowElement});            
         }
         
         venueBefore = eventsJS[property].venue;
@@ -105,9 +115,6 @@ function getLastestEvent(){
         }
     }
     //console.log(LastestEvent);
-
-
-
 }
 
 
@@ -126,40 +133,60 @@ function shrink(){
     };
     $('.timetableHourline').height(originalHeight+'em');
 
+    var emHeight = $('.timetableHourline').height()/7;
+    //console.log('emHeight: '+emHeight);
+
     for (const keyDay in days) {
         var day = days[keyDay];
+        
         var i = 9; 
         while (i < EarliestEvent[day].hour) {
             $('#timetableHourline'+day+'-'+i).height(shrinkHeight+'em');
             totalShrink[day] += reductionHeight;
             i++;
         }
+        if(EarliestEvent[day].hour == 100){
+            totalShrink[day] = 5*reductionHeight;
+            totalShrink[day] = 0;
+        }
 
         var i = 27; 
-        while (i >= LastestEvent[day].hourEnd) {
-            $('#timetableHourline'+day+'-'+i).height(shrinkHeight+'em');
-            totalShrink[day+1] += reductionHeight;
-            i--;
+        if(LastestEvent[day].hour !== 0){
+            while (i >= LastestEvent[day].hourEnd) {
+                $('#timetableHourline'+day+'-'+i).height(shrinkHeight+'em');
+                totalShrink[day+1] += reductionHeight;
+                i--;
+            }
         }
 
         for (const key in firstInRow) {
+
+            if($('#timetableHourline'+firstInRow[key].day+'-'+Math.floor(firstInRow[key].hour)).length){
+                var topMargin = $('#timetableHourline'+firstInRow[key].day+'-'+Math.floor(firstInRow[key].hour)).offset().top-$('#filters').height();
+                topMargin = topMargin/emHeight;
+                
+            }else{
+                console.log(firstInRow[key].id+' : not existant : '+firstInRow[key].day+'_'+firstInRow[key].hour);
+                var topMargin = 0;
+            }
+
+            //$('#Event-'+firstInRow[key].id).attr('data-topedit',topMargin);
+           
+           
             if(firstInRow[key].day == day && !firstInRow[key].firstInRowElement){
                 topMargin = parseInt($('#Event-'+firstInRow[key].id).attr('data-topedit'))-totalShrink[day];
+
                 $('#Event-'+firstInRow[key].id).attr('data-topedit',topMargin);
             }else if(firstInRow[key].day >= day && firstInRow[key].firstInRowElement){
-                topMargin = parseInt($('#Event-'+firstInRow[key].id).attr('data-topedit'))-totalShrink[day];
+                //topMargin = parseInt($('#Event-'+firstInRow[key].id).attr('data-topedit'))-totalShrink[day];
                 $('#Event-'+firstInRow[key].id).attr('data-topedit',topMargin);
-            }
+            } 
         }
     }
-
 
     $( '.EventTimetableA').each(function( index ) {      
         $(this).css('margin-top',$(this).attr('data-topedit')+'em');
     });
-
-
-
 }
 
 function getElements(){
@@ -168,7 +195,7 @@ function getElements(){
         $(this).css('margin-top',$(this).attr('data-top'));
         $(this).attr('data-topedit',$(this).attr('data-top'));
 
-        if($(this).is(":visible")){
+        if($(this).children('.EventTimetable').is(":visible")){
             var day = $(this).attr('data-day');
             var hour = $(this).attr('data-hour');
             var venue = $(this).attr('data-venue');

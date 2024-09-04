@@ -848,6 +848,7 @@ main{
                         line-height: $lineHeight1;
                         margin-block-start: 0;
                         margin-block-end: 0;
+                        hyphens: none;
                         @media (orientation: portrait) {
                             font-size: $fontSize1*$scaleFactor;
                             line-height: $lineHeight1*$scaleFactor;                           
@@ -933,12 +934,13 @@ main{
             background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%); 
             background-attachment: fixed;
             font-size: 1.3vh;
-            @media (orientation: portrait) {
-                font-size: 2vw;
-            }
+
             main{
                 min-height: 200vh;
                 margin-top: 4.5vw;
+                @media (orientation: portrait) {
+                    margin-top: 8.5vw;
+                }
             }
             .timetableDay{
                 width: 94vw;
@@ -954,7 +956,8 @@ main{
                 white-space: nowrap;
                 @media (orientation: portrait) {
                     margin-left: 6vw;     
-                    width: 94vw;              
+                    width: 94vw;
+                    top:8.5vw;              
                 }
             }
             .timetableSpalte{

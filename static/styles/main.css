@@ -906,6 +906,8 @@ main {
   line-height: 1.7vw;
   margin-block-start: 0;
   margin-block-end: 0;
+  -webkit-hyphens: none;
+          hyphens: none;
 }
 @media (orientation: portrait) {
   .event .eventHeader .eventHeaderColumn p {
@@ -996,14 +998,14 @@ p, li {
   background-attachment: fixed;
   font-size: 1.3vh;
 }
-@media (orientation: portrait) {
-  .timetable {
-    font-size: 2vw;
-  }
-}
 .timetable main {
   min-height: 200vh;
   margin-top: 4.5vw;
+}
+@media (orientation: portrait) {
+  .timetable main {
+    margin-top: 8.5vw;
+  }
 }
 .timetable .timetableDay {
   width: 94vw;
@@ -1022,6 +1024,7 @@ p, li {
   .timetable .timetableSpalteWrap {
     margin-left: 6vw;
     width: 94vw;
+    top: 8.5vw;
   }
 }
 .timetable .timetableSpalte {

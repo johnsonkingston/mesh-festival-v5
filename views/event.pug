@@ -30,11 +30,10 @@ html(lang=language[0])
                     if data.Venues.length > 0
                         p= data.Venues[0].Venues_id.Name
                     p= data.translations[languageParameter].Price
-                    if data.translations[languageParameter].Seats_available !== ''
-                        p= data.translations[languageParameter].Seats_available
-
                 
                 .eventHeaderColumn
+                    if data.translations[languageParameter].Seats_available !== ''
+                        p= data.translations[languageParameter].Seats_available
                     p= data.translations[languageParameter].Audience
                     p= data.translations[languageParameter].Language
                     if data.Ticketlink !== null
