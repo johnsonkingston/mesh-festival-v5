@@ -1247,19 +1247,19 @@ p, li {
   padding: 0.8vw;
   margin-bottom: -6.8vw;
   width: 10vw;
+  z-index: -1;
 }
 @media (orientation: portrait) {
   .artists main .char {
     margin-bottom: -17.7vw;
     top: 9vw;
     width: 13vw;
-    z-index: -1;
   }
 }
 .artists main .artist {
   display: flex;
   justify-content: space-between;
-  align-items: top;
+  align-items: center;
 }
 @media (orientation: portrait) {
   .artists main .artist {
@@ -1278,6 +1278,7 @@ p, li {
 .artists main .artist .left h4, .artists main .artist .middle h4, .artists main .artist .right h4 {
   font-size: 1.5vw;
   line-height: 1.7vw;
+  color: rgba(var(--color2));
 }
 @media (orientation: portrait) {
   .artists main .artist .left h4, .artists main .artist .middle h4, .artists main .artist .right h4 {
@@ -1429,7 +1430,7 @@ nav .logo {
     width: 50%;
   }
 }
-nav .navTimetable {
+nav .navTimetable, nav .navArtists {
   position: absolute;
   right: 5vw;
   top: 26vh;
@@ -1440,13 +1441,26 @@ nav .navTimetable {
   line-height: 8vh;
 }
 @media (orientation: portrait) {
-  nav .navTimetable {
+  nav .navTimetable, nav .navArtists {
     position: relative;
     width: 100%;
     top: 0;
     font-size: 13vw;
     line-height: 13vw;
     right: 0;
+  }
+}
+nav .navArtists {
+  right: auto;
+  left: 3vw;
+  width: 26vh;
+  top: 35vh;
+}
+@media (orientation: portrait) {
+  nav .navArtists {
+    top: 0;
+    width: 100%;
+    left: 0;
   }
 }
 nav .navBottom {

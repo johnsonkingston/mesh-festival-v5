@@ -1168,18 +1168,18 @@ main{
             padding: $padding;
             margin-bottom: calc(-6vw - $padding);
             width: 10vw;
+            z-index: -1;
             @media (orientation: portrait) {
                 margin-bottom: -17.7vw;
                 top: 9vw;
                 width: 13vw;
-                z-index: -1;
             }
 
         }
         .artist{
             display: flex;
             justify-content: space-between;
-            align-items: top;
+            align-items: center;
             @media (orientation: portrait) {
                 display: block;
             }
@@ -1194,6 +1194,7 @@ main{
                 h4{
                     font-size: $fontSize1;
                     line-height: $lineHeight1;
+                    color: rgba(var(--color2));
                     @media (orientation: portrait) {
                         font-size: $fontSize1*$scaleFactor;
                         line-height: $fontSize1*$scaleFactor; 
@@ -1331,7 +1332,7 @@ nav{
             width: 50%;
         }
     }
-    .navTimetable{
+    .navTimetable, .navArtists{
         position: absolute;
         right: 5vw;
         top: 26vh;
@@ -1347,6 +1348,17 @@ nav{
             font-size: 13vw;
             line-height: 13vw;
             right: 0;
+        }
+    }
+    .navArtists{
+        right: auto;
+        left: 3vw;
+        width: 26vh;
+        top: 35vh;
+        @media (orientation: portrait) {
+            top:0;
+            width: 100%;
+            left: 0;
         }
     }
     .navBottom{
