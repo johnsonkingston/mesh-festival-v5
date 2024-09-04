@@ -1301,7 +1301,7 @@ p, li {
   }
 }
 .artists main .artist .middle h3 {
-  font-family: "JK-MESH-Sans";
+  font-family: "FreeSans-JK";
   max-width: 64vw;
 }
 @media (orientation: portrait) {
