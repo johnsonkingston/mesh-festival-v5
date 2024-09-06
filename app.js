@@ -482,7 +482,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
             ausstellungen: 'Exhibitions',
             performances: 'Performances',
             screenings: 'Screenings',
-            konferenz: 'Tech-Conference',
+            konferenz: 'Conference',
             workshops: 'Workshops',
             clubnights: 'Club Nights',
             diskurs: 'Discourse'
