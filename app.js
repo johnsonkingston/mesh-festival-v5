@@ -565,7 +565,9 @@ app.get("/:language?", async function (req, res) {
 
 function dateformat(dateIn){
     var dateUnix = Date.parse(dateIn);
-    return new Date(dateUnix).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
+    var time = dateIn.split('-')[2].substring(3,5)+':'+dateIn.split(':')[1];
+
+    return new Date(dateUnix).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})+' / '+time;
 }
 
 
