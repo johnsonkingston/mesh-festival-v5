@@ -915,12 +915,13 @@ main {
     line-height: 4.25vw;
   }
 }
-.event .eventHeader .eventHeaderColumn #ticketlink {
+.event .eventHeader .eventHeaderColumn #ticketlink, .event .eventHeader .eventHeaderColumn #ticketlink2 {
   background-color: rgba(var(--color1));
   color: rgba(var(--color2));
   display: inline-block;
   cursor: pointer;
   margin-left: -1.5vw;
+  margin-bottom: 0.8vw;
 }
 h1, h2, h3 {
   font-family: "FreeSerif-JK";

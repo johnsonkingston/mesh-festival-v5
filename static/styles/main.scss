@@ -854,12 +854,13 @@ main{
                             line-height: $lineHeight1*$scaleFactor;                           
                         }
                     }
-                    #ticketlink{
+                    #ticketlink, #ticketlink2{
                         background-color: rgba(var(--color1));
                         color: rgba(var(--color2));
                         display: inline-block;
                         cursor: pointer;
                         margin-left: -$fontSize1;
+                        margin-bottom: $padding;
                     }
                 }
             }

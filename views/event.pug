@@ -24,7 +24,7 @@ html(lang=language[0])
                 .eventHeaderColumn
                     if data.translations[languageParameter].Time_frontend !== null
                         p !{data.translations[languageParameter].Time_frontend}
-                    else
+                    if data.Display_Time
                         p= data.time_transformed.start
                     
                     if data.Venues.length > 0
@@ -37,7 +37,9 @@ html(lang=language[0])
                     p= data.translations[languageParameter].Audience
                     p= data.translations[languageParameter].Language
                     if data.Ticketlink !== null
-                        #ticketlink(onclick='openticket("'+data.Ticketlink+'");').smallpill Buy tickets now
+                        #ticketlink(onclick='openticket("'+data.Ticketlink+'","show");').smallpill Buy Day Pass
+                        a(href=baseURL+'pages/visit#festivalpass/')
+                            #ticketlink2.smallpill Buy Festival Pass
 
 
 
