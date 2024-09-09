@@ -411,8 +411,8 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
             result.data[0].translations[0].Price = '';
             result.data[0].translations[1].Price = '';           
         }else{
-            result.data[0].translations[0].Price = result.data[0].Price+' CHF';
-            result.data[0].translations[1].Price = result.data[0].Price+' CHF';            
+            result.data[0].translations[0].Price = result.data[0].Price;
+            result.data[0].translations[1].Price = result.data[0].Price;            
         }
 
         //Audience
