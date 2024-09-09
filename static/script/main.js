@@ -34,18 +34,23 @@ const intervalID = setInterval(changeColors, 10000);
 //Links
 $( document ).ready(function() {
     $( '.content a').each(function( index ) {
-        if($(this).attr('href').substr(0, 4) !== 'http'){
-            $(this).attr('href',baseURL+$(this).attr('href')+'/'+languageShort[languageParameter]);
-        }
+
         //Ticketlinks
-        if($(this).attr('href').indexOf('ticketid') !== -1){
-            var id = $(this).attr('href').split("ticketid:")[1];
+        if($(this).attr('href').indexOf('ticketshow') !== -1){
+            var id = $(this).attr('href').split("ticketshow:")[1];
             id = id.split("/")[0];
-            $(this).attr('onclick','openticket("'+id+'")');
+            $(this).attr('onclick','openticket("'+id+'","show")');
             console.log(id);
             $(this).removeAttr('href');
-
-        }
+        }else if($(this).attr('href').indexOf('ticketid') !== -1){
+            var id = $(this).attr('href').split("ticketid:")[1];
+            id = id.split("/")[0];
+            $(this).attr('onclick','openticket("'+id+'","event")');
+            console.log(id);
+            $(this).removeAttr('href');
+        }else if($(this).attr('href').substr(0, 4) !== 'http'){
+                $(this).attr('href',baseURL+$(this).attr('href')+'/'+languageShort[languageParameter]);
+            }
         
     });
 });
@@ -61,7 +66,7 @@ function isOverflown() {
 }
 
 //Ticketopen
-function openticket(ticketid){
+function openticket(ticketid,format){
     $('#ticketshop').fadeToggle();
     $('#ticketclose').fadeToggle();
     $('main').toggleClass('blur');
@@ -70,17 +75,34 @@ function openticket(ticketid){
 
     console.log(ticketid);
 
-    new ticketpark.Auto("#ticketshop",{
-        pid: ticketid,
-        language: "de",
-        customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
-        displayInvitationCodeLink: true,
-        texts: {
-            "de": { 
-                "invitation_prompt":"Haben Sie einen Einladungscode?",
-                "invitation_link": "Bitte geben Sie ihren Code ein"
-            }}
-        });
+    if(format == 'show'){
+        new ticketpark.Show("#ticketshop",{
+            pid: ticketid,
+            language: "de",
+            customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
+            displayInvitationCodeLink: true,
+            texts: {
+                "de": { 
+                    "invitation_prompt":"Haben Sie einen Einladungscode?",
+                    "invitation_link": "Bitte geben Sie ihren Code ein"
+                }}
+            });
+    }else{
+
+        new ticketpark.Auto("#ticketshop",{
+            pid: ticketid,
+            language: "de",
+            customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
+            displayInvitationCodeLink: true,
+            texts: {
+                "de": { 
+                    "invitation_prompt":"Haben Sie einen Einladungscode?",
+                    "invitation_link": "Bitte geben Sie ihren Code ein"
+                }}
+            });
+    }
+
+
 
 
 }
