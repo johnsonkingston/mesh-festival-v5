@@ -1040,10 +1040,10 @@ p, li {
   z-index: -1;
 }
 .timetable .timetableSpalte11 {
-  margin-left: -51.2vw;
+  margin-left: -25vw;
 }
-.timetable .timetableSpalte2 {
-  margin-left: -26.1vw;
+.timetable .timetableSpalte22 {
+  margin-left: -25vw;
 }
 .timetable .EventTimetable {
   background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
