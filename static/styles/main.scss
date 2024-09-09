@@ -975,10 +975,10 @@ main{
             }
 
             .timetableSpalte11{
-                margin-left: -25vw;
+                margin-left: -25.6vw;
             }
             .timetableSpalte22{
-                margin-left: -25vw;
+                margin-left: -25.6vw;
             }
             .EventTimetable{
                 background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
@@ -1007,6 +1007,9 @@ main{
                         margin-top:0;
                         padding-bottom: $padding*0.5;
                         margin-left: 1.2vw;
+                    }
+                    h5, h6{
+                        color: rgba(var(--color2));
                     }
 
                 }

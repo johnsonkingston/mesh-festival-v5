@@ -1040,10 +1040,10 @@ p, li {
   z-index: -1;
 }
 .timetable .timetableSpalte11 {
-  margin-left: -25vw;
+  margin-left: -25.6vw;
 }
 .timetable .timetableSpalte22 {
-  margin-left: -25vw;
+  margin-left: -25.6vw;
 }
 .timetable .EventTimetable {
   background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
@@ -1078,6 +1078,9 @@ p, li {
   margin-top: 0;
   padding-bottom: 0.4vw;
   margin-left: 1.2vw;
+}
+.timetable .EventTimetable .EventTimetableContent h5, .timetable .EventTimetable .EventTimetableContent h6 {
+  color: rgba(var(--color2));
 }
 .timetable .EventTimetable a {
   border-radius: 0.8vw;
