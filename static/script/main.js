@@ -48,11 +48,24 @@ $( document ).ready(function() {
             $(this).attr('onclick','openticket("'+id+'","event")');
             console.log(id);
             $(this).removeAttr('href');
-        }else if($(this).attr('href').substr(0, 4) !== 'http'){
-                $(this).attr('href',baseURL+$(this).attr('href')+'/'+languageShort[languageParameter]);
-            }
+        }
+
+
+
         
     });
+
+    $( '.EventTimetableContent a').each(function( index ) {
+        $(this).attr('data-checked',1);
+
+        if($(this).attr('href').substr(0, 4) !== 'http'){
+            $(this).attr('href',baseURL+$(this).attr('href')+'/'+languageShort[languageParameter]);
+        }    
+    });
+    
+
+
+
 });
 
 //Trennungen
