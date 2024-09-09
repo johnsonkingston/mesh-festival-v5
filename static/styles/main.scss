@@ -1552,9 +1552,29 @@ nav{
             h1{
                 line-height: $fontSize2*2;
                 font-size: $fontSize2*2;
+                font-family: 'FreeSerif-JK';
                 @media (orientation: portrait) {
                     line-height: $fontSize2*2*$scaleFactor;
                     font-size: $fontSize2*2*$scaleFactor;                   
+                }
+            }
+            h2{
+                font-family: 'FreeSans-JK';
+                line-height: $fontSize2*2;
+                font-size: $fontSize2*2;
+                @media (orientation: portrait) {
+                    line-height: $fontSize2*2*$scaleFactor;
+                    font-size: $fontSize2*2*$scaleFactor;                   
+                }
+            }
+            h3{
+                font-family: 'FreeSans-JK';
+                font-size: $fontSize0;
+                line-height: $lineHeight0;
+                text-align: center;
+                @media (orientation: portrait) {
+                    line-height: $lineHeight0*$scaleFactor;
+                    font-size: $fontSize0*$scaleFactor;                   
                 }
             }
             p{

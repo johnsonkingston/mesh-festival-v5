@@ -1684,11 +1684,35 @@ nav .languages .smallpill:hover {
 .newscontent .newscontentInner .grid-item h1, .newscontent .newscontentInner .grid-sizer h1 {
   line-height: 4vw;
   font-size: 4vw;
+  font-family: "FreeSerif-JK";
 }
 @media (orientation: portrait) {
   .newscontent .newscontentInner .grid-item h1, .newscontent .newscontentInner .grid-sizer h1 {
     line-height: 10vw;
     font-size: 10vw;
+  }
+}
+.newscontent .newscontentInner .grid-item h2, .newscontent .newscontentInner .grid-sizer h2 {
+  font-family: "FreeSans-JK";
+  line-height: 4vw;
+  font-size: 4vw;
+}
+@media (orientation: portrait) {
+  .newscontent .newscontentInner .grid-item h2, .newscontent .newscontentInner .grid-sizer h2 {
+    line-height: 10vw;
+    font-size: 10vw;
+  }
+}
+.newscontent .newscontentInner .grid-item h3, .newscontent .newscontentInner .grid-sizer h3 {
+  font-family: "FreeSans-JK";
+  font-size: 1.1vw;
+  line-height: 1.4vw;
+  text-align: center;
+}
+@media (orientation: portrait) {
+  .newscontent .newscontentInner .grid-item h3, .newscontent .newscontentInner .grid-sizer h3 {
+    line-height: 3.5vw;
+    font-size: 2.75vw;
   }
 }
 .newscontent .newscontentInner .grid-item p, .newscontent .newscontentInner .grid-sizer p {
