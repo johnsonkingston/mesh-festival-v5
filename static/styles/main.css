@@ -30,11 +30,13 @@ body {
 }
 
 ::-moz-selection {
-  background: rgba(var(--color1));
+  color: rgba(var(--color1));
+  background: rgba(var(--color2));
 }
 
 ::selection {
-  background: rgba(var(--color1));
+  color: rgba(var(--color1));
+  background: rgba(var(--color2));
 }
 
 a {
