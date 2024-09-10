@@ -39,6 +39,8 @@ html(lang=language[0])
                                     .events
                                         .eventimg(style='background-image:url('+imgURL+val.Events_id.Main_Image+'?key=icon)')
                                             img(src=baseURL+'static/img/grid-square-'+gridId+'.png')
+                                            if val.Events_id.Label_Overview !== null
+                                                .label=val.Events_id.Label_Overview
                                         .caption &bull; #{caption}
             script.
                 $( document ).ready(function() {

@@ -198,6 +198,25 @@ main {
   -o-object-fit: cover;
      object-fit: cover;
 }
+.eventswrapper a .events .eventimg .label {
+  background: rgba(var(--color1));
+  color: rgba(var(--color2));
+  padding: 0.4vw 0.8vw;
+  font-size: 1.5vw;
+  border-radius: 1.6vw;
+  display: inline-block;
+  margin-top: -12vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+@media (orientation: portrait) {
+  .eventswrapper a .events .eventimg .label {
+    font-size: 3.75vw;
+    margin-top: -27vw;
+    border-radius: 4vw;
+    padding: 1vw 2vw;
+  }
+}
 .eventswrapper a .events .eventimg:hover {
   box-shadow: 0 0 5px rgba(var(--color2));
 }
@@ -1682,13 +1701,13 @@ nav .languages .smallpill:hover {
   }
 }
 .newscontent .newscontentInner .grid-item h1, .newscontent .newscontentInner .grid-sizer h1 {
-  line-height: 4vw;
+  line-height: 3.4vw;
   font-size: 4vw;
   font-family: "FreeSerif-JK";
 }
 @media (orientation: portrait) {
   .newscontent .newscontentInner .grid-item h1, .newscontent .newscontentInner .grid-sizer h1 {
-    line-height: 10vw;
+    line-height: 8.5vw;
     font-size: 10vw;
   }
 }
