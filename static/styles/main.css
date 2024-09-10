@@ -1659,7 +1659,7 @@ nav .languages .smallpill:hover {
 
 .marquee p {
   display: inline-block;
-  animation: marquee 7s linear infinite;
+  animation: marquee 20s linear infinite;
   line-height: 4.4vw;
   font-size: 4vw;
   margin-block-start: 0;
@@ -1678,7 +1678,7 @@ nav .languages .smallpill:hover {
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(-25%, 0);
+    transform: translate(-50%, 0);
   }
 }
 .newscontent {

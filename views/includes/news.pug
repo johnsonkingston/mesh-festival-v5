@@ -1,8 +1,13 @@
 .marquee 
-    - var newsCount = news.length-1;
+    - var newsCount = news.length-1
     p
-        each val in [0,1,2,3]
+        each val in [0,1,2]
             span= ' • '+news[newsCount].translations[languageParameter].Title
+            - newsCount--;
+        -newsCount = news.length-1
+        each val in [0,1,2]
+            span= ' • '+news[newsCount].translations[languageParameter].Title
+            - newsCount--;
     .newscontent
         .newscontentInner.grid
             .grid-sizer

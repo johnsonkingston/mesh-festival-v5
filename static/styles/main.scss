@@ -1538,7 +1538,7 @@ nav{
 }
 .marquee p {
     display: inline-block;
-    animation: marquee 7s linear infinite;
+    animation: marquee 20s linear infinite;
     line-height: $lineHeight2*2;
     font-size: $fontSize2*2;
     margin-block-start: 0;
@@ -1551,7 +1551,7 @@ nav{
 }
 @keyframes marquee {
     0%   { transform: translate(0, 0); }
-    100% { transform: translate(-25%, 0); }
+    100% { transform: translate(-50%, 0); }
 }
 .newscontent{
     height: calc(100vh - 4.4vw);
