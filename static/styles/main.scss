@@ -406,6 +406,13 @@ main{
             }
 
         }
+        .visit{
+            height: auto;
+            position: relative;
+            padding-top: 2vw;
+            padding-bottom: 2vw;
+            background: rgba(var(--color1));
+        }
     }
     .smallpill{
         background: rgba(var(--color2));

@@ -101,16 +101,17 @@ function openticket(ticketid,format){
                 }}
             });
     }else{
-
         new ticketpark.Auto("#ticketshop",{
             pid: ticketid,
+            showFields: ["start", "name", "button"],
             language: "de",
             customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
             displayInvitationCodeLink: true,
             texts: {
                 "de": { 
                     "invitation_prompt":"Haben Sie einen Einladungscode?",
-                    "invitation_link": "Bitte geben Sie ihren Code ein"
+                    "invitation_link": "Bitte geben Sie ihren Code ein",
+                    'title_event': 'Wählen Sie das gewünschte Ticket:'
                 }}
             });
     }

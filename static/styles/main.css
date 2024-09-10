@@ -432,6 +432,13 @@ main {
     line-height: 13.5vw;
   }
 }
+.startpage main .visit {
+  height: auto;
+  position: relative;
+  padding-top: 2vw;
+  padding-bottom: 2vw;
+  background: rgba(var(--color1));
+}
 .startpage .smallpill {
   background: rgba(var(--color2));
   color: rgba(var(--color3));
