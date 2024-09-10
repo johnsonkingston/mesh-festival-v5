@@ -37,9 +37,12 @@ html(lang=language[0])
                     p= data.translations[languageParameter].Audience
                     p= data.translations[languageParameter].Language
                     if data.Ticketlink !== null
-                        #ticketlink(onclick='openticket("'+data.Ticketlink+'","show");').smallpill Buy Day Pass
-                        a(href=baseURL+'pages/visit#festivalpass/')
-                            #ticketlink2.smallpill Buy Festival Pass
+                        if data.Format == 'konferenz'
+                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","show");').smallpill Buy Conference Ticket
+                        else
+                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","show");').smallpill Buy Day Pass
+                            a(href=baseURL+'pages/visit#festivalpass')
+                                #ticketlink2.smallpill Buy Festival Pass
 
 
 
@@ -56,10 +59,9 @@ html(lang=language[0])
 
                 isOverflown();
 
-                
-                setTimeout(() => {
-                    $("html, body").animate({ scrollTop: $(window).outerHeight()*0.4 },1000);
-                }, 200);
+                    setTimeout(() => {
+                        $("html, body").animate({ scrollTop: $(window).outerHeight()*0.4 },1000);
+                    }, 200);
 
             });
         include includes/footer.pug
