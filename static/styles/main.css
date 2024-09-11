@@ -920,6 +920,17 @@ main {
        object-position: center;
   }
 }
+.event main .lead {
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+  color: rgba(var(--color2));
+}
+@media (orientation: portrait) {
+  .event main .lead {
+    font-size: 3.75vw;
+    line-height: 4.25vw;
+  }
+}
 .event .eventHeader {
   color: rgba(var(--color1));
   margin: 3.2vw 0;

@@ -860,6 +860,15 @@ main{
                         object-position: center;
                     }
                 }
+                .lead{
+                    font-size: $fontSize1;
+                    line-height: $lineHeight1;    
+                    color: rgba(var(--color2));               
+                    @media (orientation: portrait) {
+                        font-size: $fontSize1*$scaleFactor;
+                        line-height: $lineHeight1*$scaleFactor;                           
+                    }
+                }
             }
             .eventHeader{
                 color: rgba(var(--color1));
