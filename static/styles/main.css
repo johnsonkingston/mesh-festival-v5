@@ -921,14 +921,14 @@ main {
   }
 }
 .event main .lead {
-  font-size: 1.5vw;
-  line-height: 1.7vw;
+  font-size: 2vw;
+  line-height: 2.2vw;
   color: rgba(var(--color2));
 }
 @media (orientation: portrait) {
   .event main .lead {
-    font-size: 3.75vw;
-    line-height: 4.25vw;
+    font-size: 5vw;
+    line-height: 5.5vw;
   }
 }
 .event .eventHeader {

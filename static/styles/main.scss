@@ -861,12 +861,12 @@ main{
                     }
                 }
                 .lead{
-                    font-size: $fontSize1;
-                    line-height: $lineHeight1;    
+                    font-size: $fontSize2;
+                    line-height: $lineHeight2;    
                     color: rgba(var(--color2));               
                     @media (orientation: portrait) {
-                        font-size: $fontSize1*$scaleFactor;
-                        line-height: $lineHeight1*$scaleFactor;                           
+                        font-size: $fontSize2*$scaleFactor;
+                        line-height: $lineHeight2*$scaleFactor;                           
                     }
                 }
             }
