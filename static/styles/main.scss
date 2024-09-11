@@ -1317,7 +1317,24 @@ main{
     .mediumpill:hover{
         box-shadow: 0 0 10px rgba(var(--color2));
     }
+    #filtermap{
+        float: right;
+        margin-right: $padding;
+    }
 
+}
+#map{
+    position: fixed;
+    top: 10vw;
+    left: 50vw;
+    width: 70vw;
+    z-index: 5;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px rgba(var(--color2));
+    display: none;
+    img{
+        width: 100%;
+    }
 }
 
 /*NAVIGATION */

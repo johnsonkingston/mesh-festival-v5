@@ -1412,6 +1412,24 @@ p, li {
 #filters .mediumpill:hover {
   box-shadow: 0 0 10px rgba(var(--color2));
 }
+#filters #filtermap {
+  float: right;
+  margin-right: 0.8vw;
+}
+
+#map {
+  position: fixed;
+  top: 10vw;
+  left: 50vw;
+  width: 70vw;
+  z-index: 5;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(var(--color2));
+  display: none;
+}
+#map img {
+  width: 100%;
+}
 
 /*NAVIGATION */
 nav {
