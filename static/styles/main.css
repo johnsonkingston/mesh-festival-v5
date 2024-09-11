@@ -1046,7 +1046,6 @@ p, li {
   z-index: 2;
   margin-left: 4vw;
   width: 96vw;
-  overflow: scroll;
   white-space: nowrap;
 }
 @media (orientation: portrait) {
@@ -1153,6 +1152,7 @@ p, li {
 .timetable .EventTimetableA {
   display: block;
   white-space: normal;
+  position: absolute;
 }
 .timetable .date {
   margin-bottom: 0;

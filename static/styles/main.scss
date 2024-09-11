@@ -978,7 +978,6 @@ main{
                 z-index: 2;
                 margin-left: 4vw;
                 width: 96vw;
-                overflow: scroll;
                 white-space: nowrap;
                 @media (orientation: portrait) {
                     margin-left: 6vw;     
@@ -1077,6 +1076,7 @@ main{
             .EventTimetableA{
                 display: block;
                 white-space: normal;
+                position: absolute;
             }
             .date{
                 margin-bottom: 0;

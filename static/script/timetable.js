@@ -161,39 +161,36 @@ function shrink(){
 
         for (const key in firstInRow) {
 
-            if($('#timetableHourline'+firstInRow[key].day+'-'+Math.floor(firstInRow[key].hour)).length){
                 var topMargin = $('#timetableHourline'+firstInRow[key].day+'-'+Math.floor(firstInRow[key].hour)).offset().top-$('#filters').height();
                 topMargin = topMargin/emHeight;
-                
-            }else{
-                console.log(firstInRow[key].id+' : not existant : '+firstInRow[key].day+'_'+firstInRow[key].hour);
-                var topMargin = 0;
-            }
 
-            //$('#Event-'+firstInRow[key].id).attr('data-topedit',topMargin);
-           
-           
-            if(firstInRow[key].day == day && !firstInRow[key].firstInRowElement){
-                topMargin = parseInt($('#Event-'+firstInRow[key].id).attr('data-topedit'))-totalShrink[day];
 
-                $('#Event-'+firstInRow[key].id).attr('data-topedit',topMargin);
-            }else if(firstInRow[key].day >= day && firstInRow[key].firstInRowElement){
-                //topMargin = parseInt($('#Event-'+firstInRow[key].id).attr('data-topedit'))-totalShrink[day];
-                $('#Event-'+firstInRow[key].id).attr('data-topedit',topMargin);
-            } 
+            $('#Event-'+firstInRow[key].id).attr('data-topedit',topMargin);
+            $('.timetableSpalte'+$('#Event-'+firstInRow[key].id).attr('data-venue')).width('13vw');
+
         }
     }
 
-    $( '.EventTimetableA').each(function( index ) {      
-        $(this).css('margin-top',$(this).attr('data-topedit')+'em');
+    $( '.EventTimetableA').each(function( index ) {   
+        var day = $(this).attr('data-day'); 
+        var hour =  $(this).attr('data-hour'); 
+        var topMargin =  $('#timetableHourline'+day+'-'+Math.floor(hour)).offset().top-$('#filters').height();
+        topMargin = topMargin/emHeight;  
+        $(this).attr('data-topedit',topMargin);
+        $(this).css('top',$(this).attr('data-topedit')+'em');
     });
+
+    $('.timetableSpalte').height($('main').height());
+
 }
 
 function getElements(){
     eventsJS.length = 0;
     $( '.EventTimetableA').each(function( index ) {
-        $(this).css('margin-top',$(this).attr('data-top'));
+        $(this).css('top',$(this).attr('data-top'));
         $(this).attr('data-topedit',$(this).attr('data-top'));
+
+        $('.timetableSpalte').css('width','0');
 
         if($(this).children('.EventTimetable').is(":visible")){
             var day = $(this).attr('data-day');
@@ -202,6 +199,7 @@ function getElements(){
             var id = $(this).attr('data-id');
             var hourEnd = $(this).attr('data-end');
             eventsJS.push({day,hour,hourEnd,venue,id});
+
         }
 
     });
