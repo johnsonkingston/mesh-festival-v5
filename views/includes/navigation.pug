@@ -5,17 +5,23 @@ nav
         each val in navigation[languageParameter].Menu
             li.navigation
                 a(href=baseURL+'pages/'+val.URL+'/'+language[0])= val.Title
+              
 
-    .navArtists 
         if(language[0] == 'de')
-            a(href=baseURL+'artists/de') A – Z 
-        else              
-            a(href=baseURL+'artists/en') A – Z 
-    .navTimetable 
-        if(language[0] == 'de')
-            a(href=baseURL+'timetable/de') Mi – So  
-        else              
-            a(href=baseURL+'timetable/en') Wed – Sun
+            li.navigation.navigationMobile
+                a(href=baseURL+'timetable/de') Program
+            li.navigation.navigationMobile
+                a(href=baseURL+'artists/de') Artists 
+        else 
+            li.navigation.navigationMobile
+                a(href=baseURL+'timetable/en') Programme
+            li.navigation.navigationMobile
+                a(href=baseURL+'artists/en') Artists   
+
+        li.navigation.navigationMobile
+            a(href=baseURL+'pages/visit/'+language[0]) Visit
+        li.navigation.navigationMobile
+            a(href=baseURL+'pages/about/'+language[0]) About
 
     .languages
         if(data.pathname == '' || data.pathname == '/' )
@@ -34,7 +40,16 @@ nav
                     EN    
     .navBottom 
         .left 
-            a(href=baseURL+'pages/visit/'+language[0]) Visit
+            if(language[0] == 'de')
+                .navSub
+                    a(href=baseURL+'timetable/de') Program
+                .navSub
+                    a(href=baseURL+'artists/de') Artists 
+            else 
+                .navSub
+                    a(href=baseURL+'timetable/en') Programme
+                .navSub
+                    a(href=baseURL+'artists/en') Artists             
         .middle 
             a(href='https://www.instagram.com/meshfestival/',target="_blank")
                 svg#Instagram(xmlns='http://www.w3.org/2000/svg' viewbox='0 0 1024 1024')
@@ -64,7 +79,10 @@ nav
                 
                         
         .right            
-            a(href=baseURL+'pages/about/'+language[0]) About
+            .navSub
+                a(href=baseURL+'pages/visit/'+language[0]) Visit
+            .navSub
+                a(href=baseURL+'pages/about/'+language[0]) About
 
 #navButtonClose(onclick="toggleNav()")
     //img(src=baseURL+"static/img/close.svg")

@@ -1491,6 +1491,16 @@ nav li.navigation {
     line-height: 13vw;
   }
 }
+nav .navigationMobile {
+  font-family: "FreeSerif-JK";
+  display: none;
+}
+@media (orientation: portrait) {
+  nav .navigationMobile {
+    width: 50%;
+    display: inline-block;
+  }
+}
 nav .logo {
   position: absolute;
   width: 27%;
@@ -1553,6 +1563,15 @@ nav .navBottom .middle {
 @media (orientation: portrait) {
   nav .navBottom .middle {
     margin-top: 5vw;
+    width: 90%;
+  }
+}
+nav .navBottom .left .navSub, nav .navBottom .right .navSub {
+  line-height: 10vh;
+}
+@media (orientation: portrait) {
+  nav .navBottom .left .navSub, nav .navBottom .right .navSub {
+    display: none;
   }
 }
 @media (orientation: portrait) {

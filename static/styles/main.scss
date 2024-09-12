@@ -1386,6 +1386,14 @@ nav{
             line-height: 13vw;
         }     
     }
+    .navigationMobile{
+        font-family: 'FreeSerif-JK';
+        display: none;
+        @media (orientation: portrait) {
+            width: 50%;
+            display: inline-block;
+        }
+    }
     .logo{
         position: absolute;
         width: 27%;
@@ -1437,9 +1445,16 @@ nav{
             width:34%;
             @media (orientation: portrait) {
                 margin-top: 5vw;
+                width:90%;
             }
         }
         .left, .right{
+            .navSub{
+                line-height: 10vh;
+                @media (orientation: portrait) {
+                    display: none;
+                }
+            }
             @media (orientation: portrait) {
                 margin-top: 18vw;
             }
