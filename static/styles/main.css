@@ -1653,7 +1653,7 @@ nav .languages .smallpill:hover {
   color: rgba(var(--color2));
   display: inline-block;
   vertical-align: middle;
-  margin-top: -105vh;
+  margin-top: calc(-96vh - 5vw);
 }
 @media (orientation: portrait) {
   #instaButton, #visitButton, #aboutButton, #ticketButton {
@@ -1676,12 +1676,13 @@ nav .languages .smallpill:hover {
     border-radius: 13vw;
     padding-top: 9.5vw;
     margin-top: -97vh;
+    margin-left: 2vw;
   }
 }
 
 @media (orientation: portrait) {
   #visitButton {
-    margin-top: 69vh;
+    margin-top: calc(90vh - 49vw);
   }
 }
 

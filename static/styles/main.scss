@@ -1528,7 +1528,7 @@ nav{
     color: rgba(var(--color2));
     display: inline-block;
     vertical-align: middle;
-    margin-top: -105vh;
+    margin-top: calc(-96vh - 5vw);
     @media (orientation: portrait) {
         margin-top: 1vh;
         display: block;
@@ -1545,13 +1545,14 @@ nav{
         border-radius: 13vw;
         padding-top: 9.5vw;
         margin-top: -97vh;
+        margin-left: 2vw;
 
     }
 
 }
 #visitButton{
     @media (orientation: portrait) {
-        margin-top: 69vh;
+        margin-top: calc(90vh - 49vw);
     }
 }
 
