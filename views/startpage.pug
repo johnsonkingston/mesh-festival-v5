@@ -215,45 +215,45 @@ html(lang=language[0])
                                             Mehr #{title}   
 
 
-            <!-- Section 5 -->    
-            .preview
-                .left
-                    h2=data.translations_five[languageParameter].Title
-                    .
-                        !{data.translations_five[languageParameter].Lead}
-                .right 
-                    .eventswrapper
-                        each val in [0,1,2]
-                            if(data.Events_5[val] !== undefined)
-                                if(data.Events_5[val].Events_id.status == 'preview')
-                                    a.eventLink
-                                        .events
-                                            if data.Events_5[val].Events_id.Main_Image == null
-                                                .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
-                                            else 
-                                                - var caption =data.Events_5[val].Events_id.Artist
-                                                .eventimg(style='background-image:url('+imgURL+data.Events_5[val].Events_id.Main_Image.filename_disk+'?key=icon)')
-                                                    img(src=baseURL+'static/img/grid.svg')
-                                                .caption &bull; #{caption}
-                                else 
-                                    a(href=baseURL+'events/'+data.Events_5[val].Events_id.slug+'/'+language[0]).eventLink
-                                        .events
-                                            if data.Events_5[val].Events_id.Main_Image == null
-                                                .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
-                                            else 
-                                                - var caption =data.Events_5[val].Events_id.Artist
-                                                .eventimg(style='background-image:url('+imgURL+data.Events_5[val].Events_id.Main_Image.filename_disk+'?key=icon)')
-                                                    img(src=baseURL+'static/img/grid.svg')
-                                                .caption &bull; #{caption}                                
-                        .previewItem 
-                            .smallpill
-                                - var title =data.translations_five[languageParameter].Title
-                                a(href=baseURL+'pages/'+data.Events_5_Link)
-                                    if(language[0] == 'en' )
-                                        .
-                                            More #{title}
-                                    else 
-                                        .
-                                            Mehr #{title} 
+            //- <!-- Section 5 -->    
+            //- .preview
+            //-     .left
+            //-         h2=data.translations_five[languageParameter].Title
+            //-         .
+            //-             !{data.translations_five[languageParameter].Lead}
+            //-     .right 
+            //-         .eventswrapper
+            //-             each val in [0,1,2]
+            //-                 if(data.Events_5[val] !== undefined)
+            //-                     if(data.Events_5[val].Events_id.status == 'preview')
+            //-                         a.eventLink
+            //-                             .events
+            //-                                 if data.Events_5[val].Events_id.Main_Image == null
+            //-                                     .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
+            //-                                 else 
+            //-                                     - var caption =data.Events_5[val].Events_id.Artist
+            //-                                     .eventimg(style='background-image:url('+imgURL+data.Events_5[val].Events_id.Main_Image.filename_disk+'?key=icon)')
+            //-                                         img(src=baseURL+'static/img/grid.svg')
+            //-                                     .caption &bull; #{caption}
+            //-                     else 
+            //-                         a(href=baseURL+'events/'+data.Events_5[val].Events_id.slug+'/'+language[0]).eventLink
+            //-                             .events
+            //-                                 if data.Events_5[val].Events_id.Main_Image == null
+            //-                                     .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
+            //-                                 else 
+            //-                                     - var caption =data.Events_5[val].Events_id.Artist
+            //-                                     .eventimg(style='background-image:url('+imgURL+data.Events_5[val].Events_id.Main_Image.filename_disk+'?key=icon)')
+            //-                                         img(src=baseURL+'static/img/grid.svg')
+            //-                                     .caption &bull; #{caption}                                
+            //-             .previewItem 
+            //-                 .smallpill
+            //-                     - var title =data.translations_five[languageParameter].Title
+            //-                     a(href=baseURL+'pages/'+data.Events_5_Link)
+            //-                         if(language[0] == 'en' )
+            //-                             .
+            //-                                 More #{title}
+            //-                         else 
+            //-                             .
+            //-                                 Mehr #{title} 
 
         include includes/footer.pug
