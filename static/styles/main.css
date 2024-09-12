@@ -1671,8 +1671,8 @@ nav .languages .smallpill:hover {
   background: rgba(var(--color1));
   color: rgba(var(--color2));
   display: inline-block;
-  vertical-align: middle;
-  margin-top: calc(-96vh - 5vw);
+  vertical-align: text-top;
+  margin-top: calc(-97vh - 2vw);
 }
 @media (orientation: portrait) {
   #instaButton, #visitButton, #aboutButton, #ticketButton {
@@ -1716,6 +1716,7 @@ nav .languages .smallpill:hover {
   box-shadow: 0 0 10px rgba(var(--color2));
   transform: translateY(0vw);
   animation: ticketButtonAnimation 4s ease-in-out infinite;
+  margin-top: calc(-97vh - 5vw);
 }
 @media (orientation: portrait) {
   #ticketButton {
