@@ -1664,11 +1664,39 @@ nav .languages .smallpill:hover {
   }
 }
 
+@keyframes ticketButtonAnimation {
+  0% {
+    box-shadow: 0 0 10px;
+    transform: translateY(0vw);
+  }
+  10% {
+    box-shadow: 0 0 20px;
+    transform: translateY(0.8vw);
+  }
+  20% {
+    box-shadow: 0 0 20px;
+    transform: translateY(-0.2vw);
+  }
+  30% {
+    box-shadow: 0 0 20px;
+    transform: translateY(0.2vw);
+  }
+  50% {
+    box-shadow: 0 0 20px;
+    transform: translateY(0vw);
+  }
+  100% {
+    box-shadow: 0 0 20px;
+    transform: translateY(0vw);
+  }
+}
 #ticketButton {
   height: 5.5vw;
   border-radius: 6vw;
   padding-top: 3.5vw;
   box-shadow: 0 0 10px rgba(var(--color2));
+  transform: translateY(0vw);
+  animation: ticketButtonAnimation 4s ease-in-out infinite;
 }
 @media (orientation: portrait) {
   #ticketButton {

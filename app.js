@@ -10,8 +10,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());     
 app.use(express.urlencoded());
 
-var force = require('express-force-domain');
-app.use( force('https://meshfestival.ch') );
+//var force = require('express-force-domain');
+//app.use( force('https://meshfestival.ch') );
 
 app.use('/static', express.static('static'));
 app.use('/static/lang', express.static('lang'));
