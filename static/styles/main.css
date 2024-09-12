@@ -1679,8 +1679,10 @@ nav .languages .smallpill:hover {
   }
 }
 
-#visitButton {
-  margin-top: 69vh;
+@media (orientation: portrait) {
+  #visitButton {
+    margin-top: 69vh;
+  }
 }
 
 /* NEWSBAR */

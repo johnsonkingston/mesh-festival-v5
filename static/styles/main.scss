@@ -1550,7 +1550,9 @@ nav{
 
 }
 #visitButton{
-    margin-top: 69vh;
+    @media (orientation: portrait) {
+        margin-top: 69vh;
+    }
 }
 
 
