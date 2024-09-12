@@ -478,7 +478,16 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
 
         //Format
         var formatSlug = result.data[0].Format;
-        const formatTranslation = {
+        const formatTranslationDE = {
+            ausstellungen: 'Ausstellung',
+            performances: 'Performance',
+            screenings: 'Screening',
+            konferenz: 'Konferenz',
+            workshops: 'Workshops',
+            clubnights: 'Club Nights',
+            diskurs: 'Talks & Panels'
+        };
+        const formatTranslationEN = {
             ausstellungen: 'Exhibitions',
             performances: 'Performances',
             screenings: 'Screenings',
@@ -487,7 +496,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
             clubnights: 'Club Nights',
             diskurs: 'Talks & Panels'
         };
-        result.data[0].formatTranslation = [result.data[0].Format, formatTranslation[formatSlug]];
+        result.data[0].formatTranslation = [formatTranslationDE[formatSlug], formatTranslationEN[formatSlug]];
 
         //Time Frontend
         console.log(result.data[0].translations[0].Time_frontend );
