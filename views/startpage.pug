@@ -43,6 +43,18 @@ html(lang=language[0])
                                 .bigpill= item.Title_En
                                 a(href=baseURL+item.Caption_Link)
                                     .mainimageCaption= item.Caption_Desktop
+
+                    if(n==1)
+
+                        #ticketButton.mediumpill
+                            a(href=baseURL+'pages/visit#tickets') Tickets
+                        #visitButton.mediumpill
+                            a(href=baseURL+'pages/visit/'+language[0]) Visit
+                        #aboutButton.mediumpill
+                            a(href=baseURL+'pages/about/'+language[0]) About
+                        #instaButton.mediumpill
+                            a(href="https://www.instagram.com/meshfestival/",target="_blank") @meshfestival
+
                     - n = n+1
                     - z = z+1
 

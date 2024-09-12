@@ -276,6 +276,7 @@ main{
                 }
             }
             .videoDesk{
+                z-index: -12;
                 @media (orientation: portrait) {
                     display: none;
                 }
@@ -1518,19 +1519,39 @@ nav{
 #newsClose,#navButtonClose{
     display: none;
 }
-#instaButton{
-    position: fixed;
+#instaButton, #visitButton, #aboutButton, #ticketButton{
+    position: relative;
     top: $lineHeight2*2 + $padding;
-    left: $padding;
-    z-index: 1;
+    margin-left: $padding;
+    z-index: 11;
     background: rgba(var(--color1));
     color: rgba(var(--color2));
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -105vh;
     @media (orientation: portrait) {
-        top: $lineHeight2*2*$scaleFactor + $padding;
-        bottom: auto;
+        margin-top: 1vh;
+        display: block;
+        width: fit-content;
     }
 }
+#ticketButton{
+    height: 5.5vw;
+    border-radius: 6vw;
+    padding-top: 3.5vw;
+    box-shadow: 0 0 10px rgba(var(--color2));
+    @media (orientation: portrait) {
+        height: 14.5vw;
+        border-radius: 13vw;
+        padding-top: 9.5vw;
+        margin-top: -97vh;
 
+    }
+
+}
+#visitButton{
+    margin-top: 69vh;
+}
 
 
 

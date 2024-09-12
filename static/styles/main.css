@@ -291,6 +291,9 @@ main {
     margin-top: -57vh;
   }
 }
+.startpage main section .videoDesk {
+  z-index: -12;
+}
 @media (orientation: portrait) {
   .startpage main section .videoDesk {
     display: none;
@@ -1641,19 +1644,43 @@ nav .languages .smallpill:hover {
   display: none;
 }
 
-#instaButton {
-  position: fixed;
+#instaButton, #visitButton, #aboutButton, #ticketButton {
+  position: relative;
   top: 5.2vw;
-  left: 0.8vw;
-  z-index: 1;
+  margin-left: 0.8vw;
+  z-index: 11;
   background: rgba(var(--color1));
   color: rgba(var(--color2));
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -105vh;
 }
 @media (orientation: portrait) {
-  #instaButton {
-    top: 11.8vw;
-    bottom: auto;
+  #instaButton, #visitButton, #aboutButton, #ticketButton {
+    margin-top: 1vh;
+    display: block;
+    width: -moz-fit-content;
+    width: fit-content;
   }
+}
+
+#ticketButton {
+  height: 5.5vw;
+  border-radius: 6vw;
+  padding-top: 3.5vw;
+  box-shadow: 0 0 10px rgba(var(--color2));
+}
+@media (orientation: portrait) {
+  #ticketButton {
+    height: 14.5vw;
+    border-radius: 13vw;
+    padding-top: 9.5vw;
+    margin-top: -97vh;
+  }
+}
+
+#visitButton {
+  margin-top: 69vh;
 }
 
 /* NEWSBAR */
