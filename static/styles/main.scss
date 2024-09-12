@@ -198,6 +198,8 @@ main{
                     margin-top: -12vw;
                     margin-left: 50%;
                     transform: translateX(-50%);
+                    text-align: center;
+                    white-space: nowrap;
                     @media (orientation: portrait) {
                         font-size: $fontSize1*$scaleFactor;
                         margin-top: -27vw;
