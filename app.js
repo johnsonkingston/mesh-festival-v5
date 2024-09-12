@@ -485,7 +485,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
             konferenz: 'Conference',
             workshops: 'Workshops',
             clubnights: 'Club Nights',
-            diskurs: 'Discourse'
+            diskurs: 'Talks & Panels'
         };
         result.data[0].formatTranslation = [result.data[0].Format, formatTranslation[formatSlug]];
 
