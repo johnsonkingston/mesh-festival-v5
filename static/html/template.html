@@ -62,18 +62,22 @@ Title of the Presentation
         </textarea>       
         <button onclick="render()">Get PNG</button>
         <script>
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            var artist = urlParams.get('a');
-            var title = urlParams.get('t');
-            if(queryString){
-                $('#top').val(decodeURI(artist));
-                $('#bottom').val(decodeURI(title));
-            }
+            $( document ).ready(function() {
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                var artist = urlParams.get('a');
+                var title = urlParams.get('t');
+                if(queryString){
+                    console.log(artist+' : '+title);
+                    $('#top').val(decodeURI(artist));
+                    $('#bottom').val(decodeURI(title));
+                }
+            });
+            
             function render(){
                 var artistURL = encodeURI($('#top').val());
                 var titleURL = encodeURI($('#bottom').val());
-
+                console.log('https://meshfestival.ch/static/html/template.html?a='+artistURL+'&t='+titleURL);
                 $('body').append('<img src="https://api.apiflash.com/v1/urltoimage?access_key=d44d4d209a494058b5fcb6a7b4196012&wait_until=page_loaded&url=https://meshfestival.ch/static/html/template.html?a='+artistURL+'&t='+titleURL+'">');
             }
 
