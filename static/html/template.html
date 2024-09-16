@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <style>
+            @font-face {
+                font-family: 'FreeSerif-JK';
+                src: url('../fonts/JK-MESH-Serif.woff2') format('woff2'),
+                    url('../fonts/JK-MESH-Serifwoff') format('woff');
+                font-weight: 500;
+                font-display: swap;
+            }
+
+            @font-face {
+                font-family: 'FreeSans-JK';
+                src: url('../fonts/JK-MESH-Sans.woff2') format('woff2'),
+                    url('../fonts/JK-MESH-Sans.woff') format('woff');
+                font-weight: bold;
+                font-style: normal;
+                font-display: swap;
+            }
+            body{
+                margin: 0;
+                font-family: 'FreeSans-JK';
+                text-align: center;
+                font-size: 10vw;
+                list-style: 11vw;
+            }
+           textarea
+                {
+                border:none;
+                font-family: 'FreeSans-JK';
+                font-size: 10vw;
+                line-height: 10vw;
+                text-align: center;
+                width: 100vw;
+                color: rgb(140, 110, 255);
+                height: calc(100vw/32*9);
+            }
+            #bottom{
+                font-family: 'FreeSerif-JK';
+                
+            }
+            .background{
+                width:100vw;
+                height: calc(100vw/16*9);
+                border-bottom: 1px solid black;
+                position: fixed;
+                top:0;
+                left: 0;
+                z-index: -1;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            function render(){
+                $('body').append('<img src="https://api.apiflash.com/v1/urltoimage?access_key=d44d4d209a494058b5fcb6a7b4196012&wait_until=page_loaded&url=https://meshfestival.ch/static/html/template.html">');
+            }
+
+        </script>
+        <div class="background"></div>
+        <textarea id="top">
+Artists name
+        </textarea>
+        <textarea id="bottom">
+Title of the Presentation
+        </textarea>       
+        <button onclick="render()">Get PNG</button>
+    </body>
+</html>
