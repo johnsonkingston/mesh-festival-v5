@@ -23,9 +23,7 @@
                 font-family: 'FreeSans-JK';
                 text-align: center;
                 font-size: 10vw;
-                list-style: 11vw;
                 background: transparent;
-                text-align: center;
             }
            textarea
                 {
@@ -37,8 +35,14 @@
                 color: rgb(140, 110, 255);
                 background: transparent;
                 width: 45vw;
-                display: inline-block;
+                display: block;
+                resize: none;
+                margin: 10px;
 
+            }
+            button{
+                display: block;
+                margin: 10px;
             }
             #input2{
                 font-family: 'FreeSerif-JK';
@@ -54,7 +58,8 @@
             img{
                 transform-origin: top left;
                 transform: scale(0.5);
-                border: 1px solid black
+                border: 1px solid black;
+                margin: 10px;
             }
             .backimage{
                 width: 960px;
@@ -62,6 +67,7 @@
                 position: absolute;
                 background-image: url('../img/template-back.jpg');
                 background-size: contain;
+                margin: 10px;
             }
         </style>
     </head>
@@ -84,12 +90,27 @@
             var line2 = $('#input2').val().trim();
             var separateLines1 = line1.split(/\r?\n|\r|\n/g);
             var separateLines2 = line2.split(/\r?\n|\r|\n/g);
+            var fontSize1 = 150;
+            var fontSize2 = 175;
             var lineHeight = 160;
+            var lineHeightSans = 140;
+            var scale = 1;
 
             var totalLines = separateLines1.length+separateLines2.length;
-            var center = 540;
-            console.log(separateLines1.length - separateLines2.length);
+            var center = 500;
+                console.log(totalLines);
 
+            if(totalLines > 9){
+                scale = 0.5;
+            }
+            else if(totalLines > 7){
+                scale = 0.6;
+            }else if(totalLines > 6){
+                scale = 0.7;
+            }
+
+            center = center*scale;
+            
             if(separateLines1.length - separateLines2.length == 3){
                 center = center + (lineHeight*1.5);
             }else if(separateLines1.length - separateLines2.length == 2){
@@ -119,7 +140,7 @@
 
 
 
-            ctx.font = '150px FreeSans-JK';
+            ctx.font = fontSize1*scale+'px FreeSans-JK';
             ctx.fillStyle = '#8C6EFF'
             ctx.textAlign = "center";
             ctx.textBaseline = 'bottom';
@@ -127,16 +148,16 @@
             y = center;
             for (let i = separateLines1.length-1; i > -1; i--) {
                 ctx.fillText(separateLines1[i], 960, y);
-                y = y - lineHeight;
+                y = y - lineHeightSans*scale;
             }
 
 
             ctx.textBaseline = 'top';
-            ctx.font = '175px FreeSerif-JK';
+            ctx.font = fontSize2*scale+'px FreeSerif-JK';
             y = center;
             for (let i = 0; i < separateLines2.length; i++) {
                 ctx.fillText(separateLines2[i], 960, y);
-                y = y + lineHeight;
+                y = y + lineHeight*scale;
             }
             
 
