@@ -522,6 +522,12 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
 
 });
 
+// robots.txt
+app.get("/robots.txt", async function (req, res) {
+    res.type('text/plain');
+    res.send("User-agent: *");
+});
+
 
 //Startpage
 async function getStartpage() {
@@ -584,11 +590,6 @@ function dateformat(dateIn){
 
 
 
-// robots.txt
-app.get('/robots.txt', function (req, res) {
-    res.type('text/plain');
-    res.send("User-agent: *");
-});
 
 
 

@@ -1,0 +1,120 @@
+:root {
+  --color1: 255, 255, 255, 1;
+  --color2: 255, 255, 255, 1;
+  --color3: 0,0,0,1;
+  --color4: 0,0,0,1;
+}
+
+video {
+  display: none !important;
+}
+
+img, .eventimg {
+  filter: grayscale(1);
+}
+
+:root {
+  --color1: 215, 255, 0, 1;
+  --color2: 140, 110, 255, 1;
+  --color3: 215,215,215,1;
+  --color4: 0,0,0,0;
+  --hourHeight: 7vw;
+}
+
+body {
+  font-family: "FreeSans-JK", sans-serif;
+  margin: 0;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  background: rgba(var(--color3));
+}
+
+::-moz-selection {
+  background: rgb(215, 255, 0);
+}
+
+::selection {
+  background: rgb(215, 255, 0);
+}
+
+/*EVENTS*/
+.startpage .smallpill, .bigpill, .timetable .date h1, .breadcrumb, .event .eventHeader .eventHeaderColumn #ticketlink, .event .eventHeader .eventHeaderColumn #ticketlink2, nav .languages .smallpill, h2, .pill {
+  color: rgba(var(--color1)) !important;
+  background: rgba(var(--color3)) !important;
+  border: 0.2vw solid rgba(var(--color1)) !important;
+}
+.startpage .smallpill a, .bigpill a, .timetable .date h1 a, .breadcrumb a, .event .eventHeader .eventHeaderColumn #ticketlink a, .event .eventHeader .eventHeaderColumn #ticketlink2 a, nav .languages .smallpill a, h2 a, .pill a {
+  color: blue !important;
+}
+
+footer .toplinks li a {
+  color: rgba(var(--color1)) !important;
+  background: rgba(var(--color3)) !important;
+}
+footer .toplinks li a a {
+  color: blue !important;
+}
+
+.active {
+  color: rgba(var(--color3)) !important;
+  background: rgba(var(--color1)) !important;
+}
+
+.event main, .page main {
+  margin-top: 0;
+  background: rgba(var(--color3)) !important;
+}
+
+.timetable .EventTimetable, .timetable .EventTimetable a, .timetable main, .marquee {
+  background: rgba(var(--color3)) !important;
+}
+
+nav {
+  background: rgba(var(--color3)) !important;
+}
+
+.timetable h2, .startpage h2 {
+  border: none !important;
+}
+
+a {
+  color: blue !important;
+}
+
+.startpage main section {
+  height: auto !important;
+  scroll-snap-align: none !important;
+  padding-top: 10vw !important;
+}
+
+.startpage main .preview {
+  scroll-snap-align: none;
+}
+
+.mainimageCaption {
+  display: none;
+}
+
+.panicMode {
+  display: block;
+  margin-bottom: 6vw !important;
+}
+
+.startpage main section .bigpill {
+  position: relative !important;
+  top: 0 !important;
+  margin-bottom: 10vh !important;
+}
+
+.preview {
+  height: auto !important;
+}
+
+.startpage main {
+  scroll-snap-type: none;
+}
+
+#instaButton, #visitButton, #aboutButton, #ticketButton {
+  display: none;
+}/*# sourceMappingURL=panicMode.css.map */

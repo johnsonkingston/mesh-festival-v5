@@ -31,6 +31,28 @@ function changeColors(){
 const intervalID = setInterval(changeColors, 10000);
 
 
+function panicMode(){
+    clearInterval(intervalID);
+    $(':root').css('--color1', '0,0,0');
+    $(':root').css('--color2', '0,0,0');
+    $(':root').css('--color3', '255,255,255');
+
+    var cssId = 'myCss'; 
+    if (!document.getElementById(cssId))
+    {
+        var head  = document.getElementsByTagName('head')[0];
+        var link  = document.createElement('link');
+        link.id   = cssId;
+        link.rel  = 'stylesheet';
+        link.type = 'text/css';
+        link.href = baseURL+'static/styles/panicMode.min.css';
+        link.media = 'all';
+        head.appendChild(link);
+    }
+}
+
+
+
 //Links
 $( document ).ready(function() {
     $( '.content a').each(function( index ) {
