@@ -24,6 +24,7 @@
                 text-align: center;
                 font-size: 10vw;
                 list-style: 11vw;
+                background: transparent;
             }
            textarea
                 {
@@ -78,8 +79,7 @@ Title of the Presentation
                 var artistURL = encodeURI($('#top').val());
                 var titleURL = encodeURI($('#bottom').val());
                 console.log(artistURL+' _ '+titleURL);
-                console.log('https://meshfestival.ch/static/html/template.html?ar='+artistURL+'&ti='+titleURL);
-                $('body').append('<img src="https://api.apiflash.com/v1/urltoimage?access_key=d44d4d209a494058b5fcb6a7b4196012&format=png&wait_until=network_idle&delay=1&url=https://meshfestival.ch/static/html/template.html?ar='+artistURL+'&ti='+titleURL+'">');
+                $('body').append('<img src="https://api.apiflash.com/v1/urltoimage?access_key=d44d4d209a494058b5fcb6a7b4196012&format=png&transparent=true&wait_until=network_idle&delay=1&url=https://meshfestival.ch/static/html/template.html?ar='+artistURL+'&ti='+titleURL+'">');
             }
 
         </script>
