@@ -25,63 +25,137 @@
                 font-size: 10vw;
                 list-style: 11vw;
                 background: transparent;
+                text-align: center;
             }
            textarea
                 {
-                border:none;
+                border:1px solid rgb(140, 110, 255);
                 font-family: 'FreeSans-JK';
-                font-size: 10vw;
-                line-height: 10vw;
+                font-size: 28px;
+                line-height: 28px;
                 text-align: center;
-                width: 100vw;
                 color: rgb(140, 110, 255);
-                height: calc(100vw/32*9);
                 background: transparent;
+                width: 45vw;
+                display: inline-block;
+
             }
-            #bottom{
+            #input2{
                 font-family: 'FreeSerif-JK';
                 
             }
-            .background{
-                width:100vw;
-                height: calc(100vw/16*9);
-                border-bottom: 1px solid black;
+
+            canvas{
                 position: fixed;
-                top:0;
-                left: 0;
-                z-index: -1;
-                background: transparent;
+                right: -2000px;
+                bottom: -2000px; 
+
+            }
+            img{
+                transform-origin: top left;
+                transform: scale(0.5);
+                border: 1px solid black
+            }
+            .backimage{
+                width: 960px;
+                height: 540px;
+                position: absolute;
+                background-image: url('../img/template-back.jpg');
+                background-size: contain;
             }
         </style>
     </head>
     <body>
+        <textarea rows="3" id="input1" placeholder="Artist Name"></textarea>
+        <textarea rows="3" id="input2" placeholder="Title of the Presentation"></textarea>
 
-        <div class="background"></div>
-        <textarea id="top">
-Artists name
-        </textarea>
-        <textarea id="bottom">
-Title of the Presentation
-        </textarea>       
-        <button onclick="render()">Get PNG</button>
+    
+        <button onclick="render()">Generate PNG</button>
+
+        <canvas id="canvas" width="1920" height="1080"></canvas>
+        <img>
+        <div class="backimage"></div>
         <script>
-            $( document ).ready(function() {
-                const queryString = window.location.search;
-                const urlParams = new URLSearchParams(queryString);
-                var artist = urlParams.get('ar');
-                var title = urlParams.get('ti');
-                if(queryString){
-                    console.log(artist+' : '+title);
-                    $('#top').val(decodeURI(artist));
-                    $('#bottom').val(decodeURI(title));
-                }
-            });
-
             function render(){
-                var artistURL = encodeURI($('#top').val());
-                var titleURL = encodeURI($('#bottom').val());
-                console.log(artistURL+' _ '+titleURL);
-                $('body').append('<img src="https://api.apiflash.com/v1/urltoimage?access_key=d44d4d209a494058b5fcb6a7b4196012&format=png&transparent=true&wait_until=network_idle&delay=1&url=https://meshfestival.ch/static/html/template.html?ar='+artistURL+'&ti='+titleURL+'">');
+    
+            $('#image').remove();
+
+            var line1 = $('#input1').val().trim();
+            var line2 = $('#input2').val().trim();
+            var separateLines1 = line1.split(/\r?\n|\r|\n/g);
+            var separateLines2 = line2.split(/\r?\n|\r|\n/g);
+            var lineHeight = 160;
+
+            var totalLines = separateLines1.length+separateLines2.length;
+            var center = 540;
+            console.log(separateLines1.length - separateLines2.length);
+
+            if(separateLines1.length - separateLines2.length == 3){
+                center = center + (lineHeight*1.5);
+            }else if(separateLines1.length - separateLines2.length == 2){
+                center = center + (lineHeight*1);
+            }else if(separateLines1.length - separateLines2.length == 1){
+                center = center + (lineHeight*0.5);
+            }else if(separateLines1.length - separateLines2.length == 0){
+                center = center;
+            }else if(separateLines1.length - separateLines2.length == -1){
+                center = center - (lineHeight*0.5);
+            }else if(separateLines1.length - separateLines2.length == -2){
+                center = center - (lineHeight*1);
+            }else if(separateLines1.length - separateLines2.length == -3){
+                center = center - (lineHeight*1.5);
+            }
+            
+            
+            //center += (lineHeight*(separateLines1.length - separateLines2.length));
+
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, 1920, 1080);
+
+            
+
+
+
+
+
+            ctx.font = '150px FreeSans-JK';
+            ctx.fillStyle = '#8C6EFF'
+            ctx.textAlign = "center";
+            ctx.textBaseline = 'bottom';
+
+            y = center;
+            for (let i = separateLines1.length-1; i > -1; i--) {
+                ctx.fillText(separateLines1[i], 960, y);
+                y = y - lineHeight;
+            }
+
+
+            ctx.textBaseline = 'top';
+            ctx.font = '175px FreeSerif-JK';
+            y = center;
+            for (let i = 0; i < separateLines2.length; i++) {
+                ctx.fillText(separateLines2[i], 960, y);
+                y = y + lineHeight;
+            }
+            
+
+            var dataURL = canvas.toDataURL("image/png");
+
+            $('body').append('<a id="image" href="'+dataURL+'" download="Mesh-Festival-Cover.png"><img src="'+dataURL+'"></>');
+
+            
+
+
+           // });
+
+
+
+
+
+
+
+
             }
 
         </script>
