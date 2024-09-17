@@ -46,6 +46,7 @@ let LastestEvent = {};
 var shrinkHeight = 1.3;
 var originalHeight = 7;
 var reductionHeight = originalHeight - shrinkHeight;
+var rowWidth = 13;
 
 function getFirstByColumn(){
     firstInRow.length = 0;
@@ -166,7 +167,7 @@ function shrink(){
 
 
             $('#Event-'+firstInRow[key].id).attr('data-topedit',topMargin);
-            $('.timetableSpalte'+$('#Event-'+firstInRow[key].id).attr('data-venue')).width('13vw');
+            $('.timetableSpalte'+$('#Event-'+firstInRow[key].id).attr('data-venue')).width(rowWidth+'vw');
 
         }
     }
@@ -224,6 +225,7 @@ $( document ).ready(function() {
 
     //Hover fix mobile
     if($(window).width() < $(window).outerHeight()){
+        rowWidth = 20;
         $('.timetableSpalte a').each(function( index ) {
             $(this).on( "click", function( event ) {
                 event.preventDefault();
