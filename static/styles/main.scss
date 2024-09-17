@@ -995,11 +995,15 @@ main{
                 margin-left: 4vw;
                 width: 96vw;
                 white-space: nowrap;
+                overflow: scroll;
                 @media (orientation: portrait) {
                     margin-left: 6vw;     
                     width: 94vw;
                     top:8.5vw;              
                 }
+            }
+            .timetableSpalteWrap::-webkit-scrollbar{
+                width: 0;
             }
             .timetableSpalte{
                 display: inline-block;
@@ -1016,7 +1020,7 @@ main{
                 margin-left: -25.6vw;
             }
             .timetableSpalte22{
-                margin-left: -25.6vw;
+                margin-left: -13.2vw;
             }
             .EventTimetable{
                 background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
@@ -1160,6 +1164,7 @@ main{
             }
             .timetableHourlineWrap{
                 width: 99vw;
+                overflow: hidden;
                 .timetableHourline{
                     color: rgba(var(--color2));
                     background-image: url('../img/timetableBackground.svg');
