@@ -234,7 +234,7 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
         
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error fetching events");
+        res.redirect('/');
     }
 });
 
@@ -307,7 +307,6 @@ app.get("/artists/:language?/", async function (req, res) {
         
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error fetching events");
     }
 });
 
@@ -367,7 +366,7 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error fetching page");
+        res.redirect('/');
     }
 });
 
@@ -529,7 +528,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error fetching page");
+        res.redirect('/');
     }
 
 });
@@ -584,7 +583,7 @@ app.get("/:language?", async function (req, res) {
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error fetching page");
+        res.redirect('/');
     }
 });
 

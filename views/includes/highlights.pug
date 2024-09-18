@@ -4,16 +4,28 @@
         ul.glide__slides
             each val in highlights
                 li.glide__slide
-                    if(val.Link !== undefined)
-                        a(href=baseURL+val.Link+'/'+language[0])
-                            .title=val.translations[languageParameter].Title
-                            .content !{val.translations[languageParameter].Content}
-                    else
-                        .title=val.translations[languageParameter].Title
-                        .content !{val.translations[languageParameter].Content}
+                    if(val.status == "published")
+                        if(val.Link !== undefined)
+                            if(val.translations[languageParameter] === undefined)
+                                a(href=baseURL+val.Link+'/'+language[0])
+                                    .title=val.translations[0].Title
+                                    .content !{val.translations[0].Content}
+                            else 
+                                a(href=baseURL+val.Link+'/'+language[0])
+                                    .title=val.translations[languageParameter].Title
+                                    .content !{val.translations[languageParameter].Content}                            
+                        else
+                            if(val.translations[languageParameter] === undefined)
+                                .title=val.translations[0].Title
+                                .content !{val.translations[0].Content}
+                            else
+                                .title=val.translations[languageParameter].Title
+                                .content !{val.translations[languageParameter].Content}
+                                
     .glide__bullets(data-glide-el='controls[nav]')
         - var n = 0
         each val in highlights
-            button.glide__bullet(data-glide-dir='='+n)
-            - n++
+            if(val.status == "published")
+                button.glide__bullet(data-glide-dir='='+n)
+                - n++
 .glideclose(onclick="$('.glide, .glideclose').fadeOut();")
