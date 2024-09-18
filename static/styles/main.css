@@ -852,6 +852,9 @@ main {
   -webkit-hyphens: none;
           hyphens: none;
 }
+.page main .content .table-boxes td a {
+  color: white;
+}
 @media (orientation: portrait) {
   .page main .content .table-boxes td {
     display: block;

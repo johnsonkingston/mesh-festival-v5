@@ -7,13 +7,16 @@
                     if(val.status == "published")
                         if(val.Link !== undefined)
                             if(val.translations[languageParameter] === undefined)
-                                a(href=baseURL+val.Link)
-                                    .title=val.translations[0].Title
-                                    .content !{val.translations[0].Content}
+                                .title
+                                    a(href=baseURL+val.Link)=val.translations[0].Title
+                                .content
+                                    a(href=baseURL+val.Link) !{val.translations[0].Content}
                             else 
                                 a(href=baseURL+val.Link)
-                                    .title=val.translations[languageParameter].Title
-                                    .content !{val.translations[languageParameter].Content}                            
+                                    .title
+                                        a(href=baseURL+val.Link)=val.translations[languageParameter].Title
+                                    .content
+                                        a(href=baseURL+val.Link) !{val.translations[languageParameter].Content}                        
                         else
                             if(val.translations[languageParameter] === undefined)
                                 .title=val.translations[0].Title
