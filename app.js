@@ -136,7 +136,7 @@ async function getFooter() {
 
 //Timetable
 async function getAllEvents() {
-    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*");
+    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*&limit=1000");
     if (!response.ok) {
         console.log('Response not okay');
         const data = '';
@@ -179,8 +179,8 @@ async function getAllEvents() {
                 events[key] = rewriteDate(events[key],0);
            }
         }
+        console.log(events[key].Artist);
     }
-
     events.sort((a, b) => (a.DateToOrder || "").localeCompare(b.DateToOrder || ""));
 
     return data;
