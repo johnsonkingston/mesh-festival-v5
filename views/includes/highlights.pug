@@ -7,11 +7,11 @@
                     if(val.status == "published")
                         if(val.Link !== undefined)
                             if(val.translations[languageParameter] === undefined)
-                                a(href=baseURL+val.Link+'/'+language[0])
+                                a(href=baseURL+val.Link)
                                     .title=val.translations[0].Title
                                     .content !{val.translations[0].Content}
                             else 
-                                a(href=baseURL+val.Link+'/'+language[0])
+                                a(href=baseURL+val.Link)
                                     .title=val.translations[languageParameter].Title
                                     .content !{val.translations[languageParameter].Content}                            
                         else

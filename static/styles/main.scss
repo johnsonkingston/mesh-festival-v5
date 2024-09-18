@@ -1613,6 +1613,9 @@ nav{
 }
 #accessibilityButton{
     top: 8vw;
+    @media (orientation: portrait) {
+        top: 17vw;
+    }
 }
 
 .startpage #navButton, #newsClose{

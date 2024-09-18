@@ -1752,6 +1752,11 @@ nav .languages .smallpill:hover {
 #accessibilityButton {
   top: 8vw;
 }
+@media (orientation: portrait) {
+  #accessibilityButton {
+    top: 17vw;
+  }
+}
 
 #newsClose, #navButtonClose {
   display: none;
