@@ -92,7 +92,7 @@ ul {
   background: rgba(var(--color2));
 }
 
-a, h1, h2, h3, h4, h5, h6, p, li, blockquote, div, section, main, footer, td, table, tbody, td p, button {
+a, h1, h2, h3, h4, h5, h6, p, li, blockquote, div, section, main, footer, td, table, tbody, td p {
   transition: color 2s linear, background-color 2s linear, box-shadow 2s linear, border 2s linear;
 }
 
@@ -1740,6 +1740,7 @@ nav .languages .smallpill:hover {
   left: 0.8vw;
   background: rgba(var(--color1));
   color: rgba(var(--color2));
+  z-index: 10;
 }
 
 @keyframes ticketButtonAnimation {

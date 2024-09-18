@@ -233,5 +233,7 @@ html(lang=language[0])
                                         .
                                             Mehr #{title}   
 
-
+        script(src='node_modules/@glidejs/glide/dist/glide.min.js')
+        link(rel='stylesheet', type='text/css', href=baseURL+'node_modules/@glidejs/glide/dist/css/glide.core.min.css')
+        script(src=baseURL+'static/script/highlights.js')
         include includes/footer.pug
