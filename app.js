@@ -10,8 +10,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());     
 app.use(express.urlencoded());
 
-var force = require('express-force-domain');
-app.use( force('https://meshfestival.ch') );
+//var force = require('express-force-domain');
+//app.use( force('https://meshfestival.ch') );
 
 app.use('/static', express.static('static'));
 app.use('/static/lang', express.static('lang'));
@@ -267,7 +267,7 @@ async function getAllArtists() {
                 artist.Format = value.Format;
                 artist.slug = value.slug;
                 artist.Venues = value.Venues;
-                console.log(value.Venues[0]);
+                //console.log(value.Venues[0]);
                 artists.push(structuredClone(artist));
             }
         }   
@@ -410,7 +410,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
             result.data[0].translations[0] = deData;
             result.data[0].translations[1] = engData;
         }
-        console.log('Code: '+result.data[0].translations[0].languages_code.code);
+        //console.log('Code: '+result.data[0].translations[0].languages_code.code);
 
 
         //Transformations
@@ -510,7 +510,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         result.data[0].formatTranslation = [formatTranslationDE[formatSlug], formatTranslationEN[formatSlug]];
 
         //Time Frontend
-        console.log(result.data[0].translations[0].Time_frontend );
+       // console.log(result.data[0].translations[0].Time_frontend );
         if(result.data[0].translations[0].Time_frontend !== null){
             result.data[0].translations[0].Time_frontend = result.data[0].translations[0].Time_frontend.replace('\n','<br>');
         }
