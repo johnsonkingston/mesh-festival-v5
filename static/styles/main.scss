@@ -482,6 +482,7 @@ main{
             background: rgba(var(--color1));
             border: 1px solid rgba(var(--color2));
             margin: $padding*3 $padding $padding $padding;
+            padding:0;
             @media (orientation: portrait) {
                 width: $padding*2*$scaleFactor;
                 height: $padding*2*$scaleFactor;      

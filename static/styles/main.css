@@ -520,6 +520,7 @@ main {
   background: rgba(var(--color1));
   border: 1px solid rgba(var(--color2));
   margin: 2.4vw 0.8vw 0.8vw 0.8vw;
+  padding: 0;
 }
 @media (orientation: portrait) {
   .startpage .glide .glide__bullet {
