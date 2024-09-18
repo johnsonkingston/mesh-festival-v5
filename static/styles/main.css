@@ -257,6 +257,8 @@ main {
 /*STARTPAGE */
 .startpage {
   scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow: hidden;
 }
 .startpage main {
   min-height: 100vh;
@@ -1343,16 +1345,24 @@ p, li {
     width: 5vw;
   }
 }
-.timetable #navButton {
+.timetable #navButton, .timetable #accessibilityButton {
   top: 5.6vw;
 }
 @media (orientation: portrait) {
-  .timetable #navButton {
+  .timetable #navButton, .timetable #accessibilityButton {
     top: 9.75vw;
   }
 }
-.timetable #navButton .st1 {
+.timetable #navButton .st1, .timetable #accessibilityButton .st1 {
   fill: rgba(var(--color2));
+}
+.timetable #accessibilityButton {
+  top: 16vw;
+}
+@media (orientation: portrait) {
+  .timetable #accessibilityButton {
+    top: 24vw;
+  }
 }
 .timetable .venueLabel {
   white-space: nowrap;
@@ -1458,12 +1468,20 @@ p, li {
     padding: 0;
   }
 }
-.artists #navButton {
+.artists #navButton, .artists #accessibilityButton {
   top: 5.6vw;
 }
 @media (orientation: portrait) {
-  .artists #navButton {
+  .artists #navButton, .artists #accessibilityButton {
     top: 9.75vw;
+  }
+}
+.artists #accessibilityButton {
+  top: 16vw;
+}
+@media (orientation: portrait) {
+  .artists #accessibilityButton {
+    top: 22vw;
   }
 }
 
@@ -1703,7 +1721,7 @@ nav .languages .smallpill:hover {
   top: 0;
 }
 
-#navButton, #newsClose, #navButtonClose {
+#navButton, #newsClose, #navButtonClose, #accessibilityButton {
   position: fixed;
   top: 1.1vw;
   right: 1.1vw;
@@ -1711,24 +1729,28 @@ nav .languages .smallpill:hover {
   cursor: pointer;
 }
 @media (orientation: portrait) {
-  #navButton, #newsClose, #navButtonClose {
+  #navButton, #newsClose, #navButtonClose, #accessibilityButton {
     top: 2.75vw;
     right: 2.75vw;
   }
 }
-#navButton img, #navButton svg, #newsClose img, #newsClose svg, #navButtonClose img, #navButtonClose svg {
+#navButton img, #navButton svg, #newsClose img, #newsClose svg, #navButtonClose img, #navButtonClose svg, #accessibilityButton img, #accessibilityButton svg {
   width: 4.7vw;
 }
 @media (orientation: portrait) {
-  #navButton img, #navButton svg, #newsClose img, #newsClose svg, #navButtonClose img, #navButtonClose svg {
+  #navButton img, #navButton svg, #newsClose img, #newsClose svg, #navButtonClose img, #navButtonClose svg, #accessibilityButton img, #accessibilityButton svg {
     width: 11.75vw;
   }
 }
-#navButton .st0, #newsClose .st0, #navButtonClose .st0 {
+#navButton .st0, #newsClose .st0, #navButtonClose .st0, #accessibilityButton .st0 {
   fill: rgba(var(--color2));
 }
-#navButton .st1, #newsClose .st1, #navButtonClose .st1 {
+#navButton .st1, #newsClose .st1, #navButtonClose .st1, #accessibilityButton .st1 {
   fill: rgba(var(--color1));
+}
+
+#accessibilityButton {
+  top: 18vw;
 }
 
 #newsClose, #navButtonClose {

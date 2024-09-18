@@ -77,6 +77,10 @@ a{
     height: auto !important;
     scroll-snap-align: none !important;
     padding-top: 10vw !important;
+    @media (orientation: portrait) {
+        height: 100vh !important; 
+    }
+
 }
 .startpage main .preview{
     scroll-snap-align: none; 
@@ -86,12 +90,15 @@ a{
 }
 .panicMode{
     display: block;
-    margin-bottom: 6vw !important;
+    margin-bottom: 2vw !important;
 }
 .startpage main section .bigpill{
     position: relative !important;
     top: 0 !important;
     margin-bottom: 10vh !important;
+    @media (orientation: portrait) {
+        margin-top: 0;
+    }
 }
 .preview{
     height: auto !important;
@@ -101,4 +108,79 @@ a{
 }
 #instaButton, #visitButton, #aboutButton, #ticketButton{
     display: none;
+}
+.startimage{
+    position: fixed;
+    z-index: -1;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+section{
+    .mediumpill{
+        margin-left: 50vw;
+        transform: translate(-50%, -50%);
+        border: 1px solid black;
+        background: white;
+        border-radius: 3vw;
+        width: fit-content;
+        text-align: center;
+        white-space: nowrap;
+        @media (orientation: portrait) {
+            border-radius: 3vw;
+        }
+    }
+    .startspacer{
+        margin-bottom: 40vh !important;
+    }
+}
+.glide{
+    p,li{
+        color: blue;
+    }
+}
+.glide__bullet{
+    background: black !important;
+    border-color: white !important;
+}
+.glide__bullet--active{
+    background: white !important;
+
+}
+#navButton img, #navButton svg, #newsClose img, #newsClose svg, #navButtonClose img, #navButtonClose svg{
+    width: 8.7vw;
+    @media (orientation: portrait) {
+        width: 15vw;
+    }
+}
+a,h1,h2,h3,h4,h5,h6,p,li,blockquote,div,section,main,footer,td,table,tbody, td p{
+    transition: none !important;
+}
+
+footer .toplinks li .mediumpill{
+    color: blue !important;
+}
+.st1{
+    fill:blue !important;
+}
+.EventTimetable{
+    color: blue !important;
+    h2, h3, a, p{
+        color: blue !important;
+    }
+}
+#accessibilityButton {
+    right: 1vw;
+    top: 12vw;
+    @media (orientation: portrait) {
+        top: 20vw;
+    }
+}
+.timetable #accessibilityButton, .artists #accessibilityButton{
+    top: 16vw;
+    @media (orientation: portrait) {
+        top: 28vw;
+    }  
 }

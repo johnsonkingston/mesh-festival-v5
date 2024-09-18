@@ -18,7 +18,7 @@ footer
         ul 
             each val in footer[languageParameter].Top_Links
                 li
-                    a.mediumpill(href=baseURL+val.URL)= val.Title
+                    a.mediumpill(href=baseURL+val.URL, title=val.Title)= val.Title
     div.left
         div.smicons
             a(href="https://www.instagram.com/meshfestival/",target="_blank").nohover
@@ -31,15 +31,15 @@ footer
             ul 
                 each val in footer[languageParameter].Second_Links
                     li
-                        a.mediumpill(href=baseURL+val.URL+'/'+language[0])= val.Title
+                        a.mediumpill(href=baseURL+val.URL+'/'+language[0], title=val.Title)= val.Title
                 li
-                    a.mediumpill(href="#",onclick="showNewsletter()").nohover Newsletter
+                    a.mediumpill(href="#",onclick="showNewsletter()", title="Newsletter").nohover Newsletter
 
         div 
             ul.smalllinks
                 each val in footer[languageParameter].Small_Links
                     li
-                        a(href=baseURL+val.URL+'/'+language[0]).nohover= val.Title
+                        a(href=baseURL+val.URL+'/'+language[0], title=val.Title).nohover= val.Title
 
     div.adresse 
         p !{footer[languageParameter].Adress}

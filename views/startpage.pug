@@ -5,7 +5,7 @@ html(lang=language[0])
         //include includes/news.pug
         include includes/highlights.pug
         #instaButton.mediumpill
-            a(href="https://www.instagram.com/meshfestival/",target="_blank") @meshfestival
+            a(href="https://www.instagram.com/meshfestival/",target="_blank",title="Mesh on Instagram") @meshfestival
         main
             - var n = 1
             - var z = -10
@@ -36,20 +36,21 @@ html(lang=language[0])
                    
 
                     if(item.Show_Title)
-                        a(href=baseURL+'pages/'+item.Title_Link+'/'+language[0])
+                        a(href=baseURL+'pages/'+item.Title_Link+'/'+language[0],title=item.Title_De)
                             if(languageParameter == 0)
                                 .bigpill= item.Title_De
                                 a(href=baseURL+item.Caption_Link)
                                     .mainimageCaption= item.Caption_Desktop
                             else
                                 .bigpill= item.Title_En
-                                a(href=baseURL+item.Caption_Link)
+                                a(href=baseURL+item.Caption_Link,title=item.Title_En)
                                     .mainimageCaption= item.Caption_Desktop
                     else 
+                        img.startimage.panicMode(src=imgURL+item.Video_Cover+'?key=fullscreen')
                         .bigpill.panicMode= 'Mesh'
-                        .bigpill.panicMode= 'Festival für Kunst und Technologie'
-                        .bigpill.panicMode= '16.–20. Oktober 2024'
-                        .bigpill.panicMode= 'Freilager-Platz, Müchenstein / Basel'
+                        .mediumpill.panicMode= 'Festival für Kunst und Technologie'
+                        .mediumpill.panicMode= '16.–20. Oktober 2024'
+                        .mediumpill.startspacer.panicMode= 'Freilager-Platz, Müchenstein / Basel'
 
                     //- if(n==1)
 
@@ -83,7 +84,7 @@ html(lang=language[0])
                                                 img(src=baseURL+'static/img/grid.svg',alt="Mesh Festival für Kunst und Technologie")
                                             .caption &bull; #{caption}
                                 else 
-                                    a(href=baseURL+'events/'+data.Events_1[val].Events_id.slug+'/'+language[0]).eventLink
+                                    a(href=baseURL+'events/'+data.Events_1[val].Events_id.slug+'/'+language[0], title=data.Events_1[val].Events_id.Artist).eventLink
                                         .events
                                             - var caption =data.Events_1[val].Events_id.Artist
                                             .eventimg(style='background-image:url('+imgURL+data.Events_1[val].Events_id.Main_Image.filename_disk+'?key=icon)')
@@ -93,7 +94,7 @@ html(lang=language[0])
                         .previewItem 
                             .smallpill
                                 - var title =data.translations[languageParameter].Title
-                                a(href=baseURL+'pages/'+data.Events_1_Link)
+                                a(href=baseURL+'pages/'+data.Events_1_Link, title=title)
                                     if(language[0] == 'en' )
                                         .
                                             More #{title}
@@ -124,7 +125,7 @@ html(lang=language[0])
                                                     img(src=baseURL+'static/img/grid.svg',alt="Mesh Festival für Kunst und Technologie")
                                                 .caption &bull; #{caption}
                                 else
-                                    a(href=baseURL+'events/'+data.Events_2[val].Events_id.slug+'/'+language[0]).eventLink
+                                    a(href=baseURL+'events/'+data.Events_2[val].Events_id.slug+'/'+language[0], title=data.Events_2[val].Events_id.Artist).eventLink
                                         .events
                                             if data.Events_2[val].Events_id.Main_Image == null
                                                 .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
@@ -137,7 +138,7 @@ html(lang=language[0])
                         .previewItem 
                             .smallpill
                                 - var title =data.translations_performances[languageParameter].Title
-                                a(href=baseURL+'pages/'+data.Events_2_Link)
+                                a(href=baseURL+'pages/'+data.Events_2_Link, title=title)
                                     if(language[0] == 'en' )
                                         .
                                             More #{title}
@@ -169,7 +170,7 @@ html(lang=language[0])
                                                     img(src=baseURL+'static/img/grid.svg',alt="Mesh Festival für Kunst und Technologie")
                                                 .caption &bull; #{caption}
                                 else 
-                                    a(href=baseURL+'events/'+data.Events_3[val].Events_id.slug+'/'+language[0]).eventLink
+                                    a(href=baseURL+'events/'+data.Events_3[val].Events_id.slug+'/'+language[0], title=data.Events_2[val].Events_id.Artist).eventLink
                                         .events
                                             if data.Events_3[val].Events_id.Main_Image == null
                                                 .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
@@ -181,7 +182,7 @@ html(lang=language[0])
                         .previewItem 
                             .smallpill
                                 - var title =data.translations_screenings[languageParameter].Title
-                                a(href=baseURL+'pages/'+data.Events_3_Link)
+                                a(href=baseURL+'pages/'+data.Events_3_Link, title=title)
                                     if(language[0] == 'en' )
                                         .
                                             More #{title}
@@ -213,7 +214,7 @@ html(lang=language[0])
                                                     img(src=baseURL+'static/img/grid.svg',alt="Mesh Festival für Kunst und Technologie")
                                                 .caption &bull; #{caption}
                                 else 
-                                    a(href=baseURL+'events/'+data.Events_4[val].Events_id.slug+'/'+language[0]).eventLink
+                                    a(href=baseURL+'events/'+data.Events_4[val].Events_id.slug+'/'+language[0], title=data.Events_2[val].Events_id.Artist).eventLink
                                         .events
                                             if data.Events_4[val].Events_id.Main_Image == null
                                                 .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
@@ -225,7 +226,7 @@ html(lang=language[0])
                         .previewItem 
                             .smallpill
                                 - var title =data.translations_conference[languageParameter].Title
-                                a(href=baseURL+'pages/'+data.Events_4_Link)
+                                a(href=baseURL+'pages/'+data.Events_4_Link, title=title)
                                     if(language[0] == 'en' )
                                         .
                                             More #{title}

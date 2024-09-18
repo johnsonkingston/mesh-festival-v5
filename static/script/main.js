@@ -31,30 +31,12 @@ function changeColors(){
 const intervalID = setInterval(changeColors, 10000);
 
 
-function panicMode(){
-    clearInterval(intervalID);
-    $(':root').css('--color1', '0,0,0');
-    $(':root').css('--color2', '0,0,0');
-    $(':root').css('--color3', '255,255,255');
-
-    var cssId = 'myCss'; 
-    if (!document.getElementById(cssId))
-    {
-        var head  = document.getElementsByTagName('head')[0];
-        var link  = document.createElement('link');
-        link.id   = cssId;
-        link.rel  = 'stylesheet';
-        link.type = 'text/css';
-        link.href = baseURL+'static/styles/panicMode.min.css';
-        link.media = 'all';
-        head.appendChild(link);
-    }
-}
 
 
 
 //Links
 $( document ).ready(function() {
+
     $( '.content a').each(function( index ) {
 
         //Ticketlinks
@@ -151,5 +133,76 @@ $(window).keydown(function(){
 });
 
 
+
+//Cookies
+
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+function eraseCookie(name) {   
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+
+//Panic Mode
+function toggleAccess(){
+    var panicCookie = getCookie('panic');
+    if (panicCookie) {
+        panicModeOff();
+    }else
+    {
+        panicMode();
+    }
+
+}
+
+
+function panicMode(){
+    clearInterval(intervalID);
+    $(':root').css('--color1', '0,0,0');
+    $(':root').css('--color2', '0,0,0');
+    $(':root').css('--color3', '255,255,255');
+
+    var cssId = 'myCss'; 
+    if (!document.getElementById(cssId))
+    {
+        var head  = document.getElementsByTagName('head')[0];
+        var link  = document.createElement('link');
+        link.id   = cssId;
+        link.rel  = 'stylesheet';
+        link.type = 'text/css';
+        link.href = baseURL+'static/styles/panicMode.min.css';
+        link.media = 'all';
+        head.appendChild(link);
+    }
+    setCookie('panic','yes',30);
+}
+
+function panicModeOff(){
+    eraseCookie('panic');
+    location.reload();
+}
+
+var panicCookie = getCookie('panic');
+if (panicCookie) {
+    panicMode();
+    console.log('Panic Mode enabled!');
+}
 
 
