@@ -17,7 +17,6 @@
                     url('../fonts/JK-MESH-Sans.woff') format('woff');
                 font-weight: bold;
                 font-style: normal;
-                font-display: swap;
             }
             body{
                 margin: 0;
@@ -116,32 +115,22 @@
 
             var totalLines = separateLines1.length+separateLines2.length;
             var center = 500;
-            console.log(totalLines);
-            console.log(separateLines1.length - separateLines2.length);
+            //console.log(totalLines);
+            //console.log(separateLines1.length - separateLines2.length);
 
             if(totalLines > 9){
                 scale = 0.5;
             }else if(totalLines > 7){
                 scale = 0.6;
-            }else if(totalLines > 6){
+            }else if(totalLines > 5){
                 scale = 0.7;
             }
 
-            
-
             center = center + (lineHeight*(separateLines1.length - separateLines2.length)*0.5*scale);
 
-
-            
             const canvas = document.getElementById('canvas');
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, 1920, 1080);
-
-            
-
-
-
-
 
             ctx.font = fontSize1*scale+'px FreeSans-JK';
             ctx.fillStyle = '#8C6EFF'
