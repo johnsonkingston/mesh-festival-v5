@@ -1,0 +1,19 @@
+
+.glide
+    .glide__track(data-glide-el='track')
+        ul.glide__slides
+            each val in highlights
+                li.glide__slide
+                    if(val.Link !== undefined)
+                        a(href=baseURL+val.Link+'/'+language[0])
+                            .title=val.translations[languageParameter].Title
+                            .content !{val.translations[languageParameter].Content}
+                    else
+                        .title=val.translations[languageParameter].Title
+                        .content !{val.translations[languageParameter].Content}
+    .glide__bullets(data-glide-el='controls[nav]')
+        - var n = 0
+        each val in highlights
+            button.glide__bullet(data-glide-dir='='+n)
+            - n++
+.glideclose(onclick="$('.glide, .glideclose').fadeOut();")

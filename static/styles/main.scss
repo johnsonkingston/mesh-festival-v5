@@ -98,8 +98,8 @@ ul{
     background: rgba(var(--color2));
 }
 
-a,h1,h2,h3,h4,h5,h6,p,li,blockquote,div,section,main,footer,td,table,tbody, td p{
-    transition: color 1s linear, background-color 2s linear;
+a,h1,h2,h3,h4,h5,h6,p,li,blockquote,div,section,main,footer,td,table,tbody, td p, button{
+    transition: color 2s linear, background-color 2s linear, box-shadow 2s linear, border 2s linear;
 }
 main{
     transition: all 1s linear
@@ -246,7 +246,6 @@ main{
     main{
         min-height: 100vh;
         height: calc(100vh - $lineHeight0);
-        padding-top: $lineHeight0;
 
         overflow: scroll;
         scroll-snap-type: y mandatory;
@@ -439,7 +438,73 @@ main{
         }
     }
 
+    .glide{
+        position: fixed;
+        width: 50vw;
+        height: auto;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        background: rgba(var(--color1));
+        padding: $padding;
+        padding-top: $padding*4;
+        top: 25vh;
+        text-align: center;
+        border-radius: $padding;
+        box-shadow: 0 0 20px rgba(var(--color1));
+        z-index: 10;
+        @media (orientation: portrait) {
+            width: 80vw;
+            padding: $padding*4;
+        }
+        .title, .content{
+            font-size: $fontSize2*2;
+            line-height: $lineHeight2*2;
+            @media (orientation: portrait) {
+                font-size: $fontSize2*2*$scaleFactor;
+                line-height: $lineHeight2*2*$scaleFactor;               
+            }
+        }
+        .content, .content p{
+            font-family: 'FreeSerif-JK';
+            font-size: $fontSize2*2.3;
+            line-height: $lineHeight2*2; 
+            margin-block-start: 0;
+            margin-block-end: 0;  
+            @media (orientation: portrait) {
+                font-size: $fontSize2*2.3*$scaleFactor;
+                line-height: $lineHeight2*2*$scaleFactor;               
+            }         
+        }
+        .glide__bullet{
+            width: $padding*2;
+            height: $padding*2;
+            border-radius: $padding;
+            background: rgba(var(--color1));
+            border: 1px solid rgba(var(--color2));
+            margin: $padding*3 $padding $padding $padding;
+            @media (orientation: portrait) {
+                width: $padding*2*$scaleFactor;
+                height: $padding*2*$scaleFactor;      
+                border-radius: $padding*$scaleFactor;     
+                margin: $padding*3*$scaleFactor $padding*$scaleFactor $padding*$scaleFactor $padding*$scaleFactor;  
+            }
 
+        }
+        .glide__bullet--active{
+            background: rgba(var(--color2));
+           
+        }
+
+    }
+    .glideclose{
+        position: fixed;
+        top:0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 8;
+        cursor: pointer;
+    }
 }
 
 /*PAGE */
@@ -1533,29 +1598,36 @@ nav{
     }
 }
 .startpage #navButton, #newsClose{
-    top:$fontSize2*2 + $padding*2;
+    //top:$fontSize2*2 + $padding*2;
     @media (orientation: portrait) {
-        top:$fontSize2*2*$scaleFactor + $padding*2*$scaleFactor;  
+       // top:$fontSize2*2*$scaleFactor + $padding*2*$scaleFactor;  
     }
 }
 #newsClose,#navButtonClose{
     display: none;
 }
-#instaButton, #visitButton, #aboutButton, #ticketButton{
-    position: relative;
-    top: $lineHeight2*2 + $padding;
-    margin-left: $padding;
-    z-index: 11;
+// #instaButton, #visitButton, #aboutButton, #ticketButton{
+//     position: relative;
+//     top: $lineHeight2*2 + $padding;
+//     margin-left: $padding;
+//     z-index: 11;
+//     background: rgba(var(--color1));
+//     color: rgba(var(--color2));
+//     display: inline-block;
+//     vertical-align: text-top;
+//     margin-top: calc(-97vh - 2vw);
+//     @media (orientation: portrait) {
+//         margin-top: 1vh;
+//         display: block;
+//         width: fit-content;
+//     }
+// }
+#instaButton{
+    position: fixed;
+    top: $padding;
+    left: $padding;
     background: rgba(var(--color1));
     color: rgba(var(--color2));
-    display: inline-block;
-    vertical-align: text-top;
-    margin-top: calc(-97vh - 2vw);
-    @media (orientation: portrait) {
-        margin-top: 1vh;
-        display: block;
-        width: fit-content;
-    }
 }
 @keyframes ticketButtonAnimation {
     0%   { 

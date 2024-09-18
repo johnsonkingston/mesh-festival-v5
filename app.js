@@ -16,6 +16,8 @@ app.use( force('https://meshfestival.ch') );
 app.use('/static', express.static('static'));
 app.use('/static/lang', express.static('lang'));
 app.use('/static/includes', express.static('includes'));
+app.use('/node_modules', express.static('node_modules'));
+
 
 const fs = require('fs');
 var path = require('path');
@@ -41,7 +43,6 @@ function languageTransform(string){
         return 0;
     }
 }
-
 function langRemove(pathname){
     if(pathname.substr(pathname.length - 3) == '/en' || pathname.substr(pathname.length - 3) == '/de' ){
         pathname = pathname.substring(1,pathname.length - 3);
@@ -52,7 +53,6 @@ function langRemove(pathname){
         pathname = '';
     }
     return pathname;
-
 }
 
 //Venues
@@ -84,9 +84,9 @@ async function getNavigation() {
     }
 }
 
-//News
-async function getNews() {
-    const response = await fetch("https://env-9468449.appengine.flow.ch/items/News?fields[]=*.*");
+//Hightlights
+async function getHighlights() {
+    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Highlights?fields[]=*.*");
     if (!response.ok) {
         console.log('Response not okay');
         const data = '';
@@ -97,6 +97,21 @@ async function getNews() {
         return data;
     }
 }
+
+
+//News
+// async function getNews() {
+//     const response = await fetch("https://env-9468449.appengine.flow.ch/items/News?fields[]=*.*");
+//     if (!response.ok) {
+//         console.log('Response not okay');
+//         const data = '';
+//         return data;
+//     }else
+//     {
+//         const data = await response.json();
+//         return data;
+//     }
+// }
 
 //Footer
 async function getFooter() {
@@ -111,6 +126,7 @@ async function getFooter() {
         return data;
     }
 }
+
 
 
 
@@ -173,7 +189,6 @@ async function getAllEvents() {
 
 
 function rewriteDate(event,subkey){
-
     event.Day = event.Time[subkey].Start.split('-')[2].substring(0,2);
     event.Hour = event.Time[subkey].Start.split('-')[2].substring(3,5);
     event.Minute = event.Time[subkey].Start.split(':')[1];
@@ -203,7 +218,7 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
         result = await getAllEvents();
         navigation = await getNavigation();
         footer = await getFooter();
-        news = await getNews();
+        //news = await getNews();
         venues = await getVenues();
 
         language = req.params.language  || 'de';
@@ -214,7 +229,7 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
 
 
         if(result.data[0]){
-            res.render('timetable', {data:result.data[0],events:events,navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,venues:venues.data,format:format});
+            res.render('timetable', {data:result.data[0],events:events,navigation:navigation.data,footer:footer.data,language:languageObject,highlights:[],venues:venues.data,format:format});
         }
         
     } catch (err) {
@@ -224,7 +239,6 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
 });
 
 //Artists
-
 async function getAllArtists() {
     const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*");
     if (!response.ok) {
@@ -279,7 +293,7 @@ app.get("/artists/:language?/", async function (req, res) {
         result = await getAllArtists();
         navigation = await getNavigation();
         footer = await getFooter();
-        news = await getNews();
+        // = await getNews();
         venues = await getVenues();
 
         language = req.params.language  || 'de';
@@ -288,7 +302,7 @@ app.get("/artists/:language?/", async function (req, res) {
 
 
         if(result.data[0]){
-            res.render('artists', {data:result.data[0],events:events,navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,venues:venues.data,format:[]});
+            res.render('artists', {data:result.data[0],events:events,navigation:navigation.data,footer:footer.data,language:languageObject,highlights:[],venues:venues.data,format:[]});
         }
         
     } catch (err) {
@@ -324,7 +338,7 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         result = await getPage(pageSlug);
         navigation = await getNavigation();
         footer = await getFooter();
-        news = await getNews();
+        //news = await getNews();
 
         //if(result.length !== undefined){
 
@@ -343,7 +357,7 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         languageObject = [language,languageTransform(language)];
         if(result.data[0]){
             //console.log(languageObject);
-            res.render('page',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,events:[],venues:[],format:[]});
+            res.render('page',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,highlights:[],events:[],venues:[],format:[]});
         }
     //}else{
         //console.log('404');
@@ -355,8 +369,6 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         console.error(err);
         res.status(500).send("Error fetching page");
     }
-
-
 });
 
 
@@ -387,7 +399,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         result = await getEvent(eventSlug);
         navigation = await getNavigation();
         footer = await getFooter();
-        news = await getNews();
+        //news = await getNews();
         //console.log(result.data[0]);
 
         result.data[0].pathname = langRemove(pathname);
@@ -512,7 +524,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         languageObject = [language,languageTransform(language)];
         if(result.data[0]){
             //console.log(languageObject);
-            res.render('event',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,news:news.data,events:[],venues:[],format:[]});
+            res.render('event',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,highlights:[],events:[],venues:[],format:[]});
         }
 
     } catch (err) {
@@ -558,7 +570,7 @@ app.get("/:language?", async function (req, res) {
         result = await getStartpage();
         navigation = await getNavigation();
         footer = await getFooter();
-        news = await getNews();
+        highlights = await getHighlights();
 
         languageObject = [language,languageTransform(language)];
 
@@ -567,7 +579,7 @@ app.get("/:language?", async function (req, res) {
         result.data.pathname = langRemove(pathname);
 
         if(result){
-             res.render('startpage',{data:result.data,navigation:navigation.data,footer:footer.data,news:news.data,language:languageObject,events:[],venues:[],format:[]});
+             res.render('startpage',{data:result.data,navigation:navigation.data,footer:footer.data,highlights:highlights.data,language:languageObject,events:[],venues:[],format:[]});
         }
 
     } catch (err) {
@@ -586,8 +598,10 @@ function dateformat(dateIn){
 }
 
 
-
-
+//404
+app.all('*', (req, res) => {
+    res.redirect('/');
+})
 
 
 

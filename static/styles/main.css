@@ -92,8 +92,8 @@ ul {
   background: rgba(var(--color2));
 }
 
-a, h1, h2, h3, h4, h5, h6, p, li, blockquote, div, section, main, footer, td, table, tbody, td p {
-  transition: color 1s linear, background-color 2s linear;
+a, h1, h2, h3, h4, h5, h6, p, li, blockquote, div, section, main, footer, td, table, tbody, td p, button {
+  transition: color 2s linear, background-color 2s linear, box-shadow 2s linear, border 2s linear;
 }
 
 main {
@@ -261,7 +261,6 @@ main {
 .startpage main {
   min-height: 100vh;
   height: calc(100vh - 1.4vw);
-  padding-top: 1.4vw;
   overflow: scroll;
   scroll-snap-type: y mandatory;
   scrollbar-width: none;
@@ -469,6 +468,78 @@ main {
     font-size: 3.75vw;
     max-width: 90vw;
   }
+}
+.startpage .glide {
+  position: fixed;
+  width: 50vw;
+  height: auto;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  background: rgba(var(--color1));
+  padding: 0.8vw;
+  padding-top: 3.2vw;
+  top: 25vh;
+  text-align: center;
+  border-radius: 0.8vw;
+  box-shadow: 0 0 20px rgba(var(--color1));
+  z-index: 10;
+}
+@media (orientation: portrait) {
+  .startpage .glide {
+    width: 80vw;
+    padding: 3.2vw;
+  }
+}
+.startpage .glide .title, .startpage .glide .content {
+  font-size: 4vw;
+  line-height: 4.4vw;
+}
+@media (orientation: portrait) {
+  .startpage .glide .title, .startpage .glide .content {
+    font-size: 10vw;
+    line-height: 11vw;
+  }
+}
+.startpage .glide .content, .startpage .glide .content p {
+  font-family: "FreeSerif-JK";
+  font-size: 4.6vw;
+  line-height: 4.4vw;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+@media (orientation: portrait) {
+  .startpage .glide .content, .startpage .glide .content p {
+    font-size: 11.5vw;
+    line-height: 11vw;
+  }
+}
+.startpage .glide .glide__bullet {
+  width: 1.6vw;
+  height: 1.6vw;
+  border-radius: 0.8vw;
+  background: rgba(var(--color1));
+  border: 1px solid rgba(var(--color2));
+  margin: 2.4vw 0.8vw 0.8vw 0.8vw;
+}
+@media (orientation: portrait) {
+  .startpage .glide .glide__bullet {
+    width: 4vw;
+    height: 4vw;
+    border-radius: 2vw;
+    margin: 6vw 2vw 2vw 2vw;
+  }
+}
+.startpage .glide .glide__bullet--active {
+  background: rgba(var(--color2));
+}
+.startpage .glideclose {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 8;
+  cursor: pointer;
 }
 
 /*PAGE */
@@ -1659,37 +1730,16 @@ nav .languages .smallpill:hover {
   fill: rgba(var(--color1));
 }
 
-.startpage #navButton, #newsClose {
-  top: 5.6vw;
-}
-@media (orientation: portrait) {
-  .startpage #navButton, #newsClose {
-    top: 14vw;
-  }
-}
-
 #newsClose, #navButtonClose {
   display: none;
 }
 
-#instaButton, #visitButton, #aboutButton, #ticketButton {
-  position: relative;
-  top: 5.2vw;
-  margin-left: 0.8vw;
-  z-index: 11;
+#instaButton {
+  position: fixed;
+  top: 0.8vw;
+  left: 0.8vw;
   background: rgba(var(--color1));
   color: rgba(var(--color2));
-  display: inline-block;
-  vertical-align: text-top;
-  margin-top: calc(-97vh - 2vw);
-}
-@media (orientation: portrait) {
-  #instaButton, #visitButton, #aboutButton, #ticketButton {
-    margin-top: 1vh;
-    display: block;
-    width: -moz-fit-content;
-    width: fit-content;
-  }
 }
 
 @keyframes ticketButtonAnimation {

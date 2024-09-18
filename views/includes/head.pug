@@ -1,7 +1,7 @@
 head 
 - var languageParameter = language[1];
-//- var baseURL = 'http://localhost:8080/';
-- var baseURL = 'https://meshfestival.ch/';
+- var baseURL = 'http://localhost:8080/';
+//- var baseURL = 'https://meshfestival.ch/';
 
 - var imgURL = 'https://env-9468449.appengine.flow.ch/assets/';
     link(rel='stylesheet', type='text/css', href=baseURL+'static/styles/main.min.css')
@@ -62,8 +62,8 @@ head
         //console.log('footer object', footer);
         language = !{JSON.stringify(language).replace(/<\//g, "<\\/")};
         //console.log('language object', language);
-        news = !{JSON.stringify(news).replace(/<\//g, "<\\/")};
-        //console.log('news object', news);
+        highlights = !{JSON.stringify(highlights).replace(/<\//g, "<\\/")};
+        console.log('highlights object', highlights);
         events = !{JSON.stringify(events).replace(/<\//g, "<\\/")};
         //console.log('events object', events);
         venues = !{JSON.stringify(venues).replace(/<\//g, "<\\/")};

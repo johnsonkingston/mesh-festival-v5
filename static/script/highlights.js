@@ -1,0 +1,1 @@
+new Glide('.glide', { autoplay: 2500 }).mount();
