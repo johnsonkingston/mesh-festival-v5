@@ -89,6 +89,8 @@ function openticket(ticketid,format){
     $('main').toggleClass('blur');
     $('footer').toggleClass('blur');
     $('#navButton').toggle();
+    $('#accessibilityButton').toggle();
+    $('body').toggleClass('block');
 
     console.log(ticketid);
 

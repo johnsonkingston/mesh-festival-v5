@@ -50,6 +50,10 @@ body{
     background: rgba(var(--color3));
 
 }
+.block{
+    height: 100vh;
+    overflow: hidden;
+}
 ::selection {
     color: rgba(var(--color1));
     background: rgba(var(--color2));
@@ -1023,6 +1027,7 @@ main{
             box-shadow: 0 0 20px rgba(var(--color2));
             @media (orientation: portrait) {
                 width: 90vw;
+                overflow: scroll;
             }
         }
         #ticketclose{

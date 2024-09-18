@@ -29,6 +29,11 @@ body {
   background: rgba(var(--color3));
 }
 
+.block {
+  height: 100vh;
+  overflow: hidden;
+}
+
 ::-moz-selection {
   color: rgba(var(--color1));
   background: rgba(var(--color2));
@@ -1104,6 +1109,7 @@ p, li {
 @media (orientation: portrait) {
   #ticketshop {
     width: 90vw;
+    overflow: scroll;
   }
 }
 
