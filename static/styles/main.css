@@ -968,6 +968,9 @@ main {
     width: 66%;
   }
 }
+.page main .content .image-link-fullsize {
+  width: 100%;
+}
 .page main .content .image-caption {
   font-size: 1.5vw;
   line-height: 1.7vw;
