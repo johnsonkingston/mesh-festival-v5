@@ -14,19 +14,19 @@
 footer 
     div.toplinks 
         a(href=baseURL)
-            img#footerlogo.logo(src=baseURL+"static/img/mesh-festival1.png",loading="lazy")
+            img#footerlogo.logo(src=baseURL+"static/img/mesh-festival1.png",loading="lazy", alt="Mesh Festival Logo")
         ul 
             each val in footer[languageParameter].Top_Links
                 li
                     a.mediumpill(href=baseURL+val.URL, title=val.Title)= val.Title
     div.left
         div.smicons
-            a(href="https://www.instagram.com/meshfestival/",target="_blank").nohover
-                img(src=baseURL+"static/img/icons/sm-icon-02.svg")
-            a(href="https://www.linkedin.com/company/meshfestival/",target="_blank").nohover
-                img(src=baseURL+"static/img/icons/sm-icon-01.svg")
-            a(href="https://www.facebook.com/meshfestival/",target="_blank").nohover
-                img(src=baseURL+"static/img/icons/sm-icon-03.svg")
+            a(href="https://www.instagram.com/meshfestival/",target="_blank", title="Instagram").nohover
+                img(src=baseURL+"static/img/icons/sm-icon-02.svg", alt="Instagram")
+            a(href="https://www.linkedin.com/company/meshfestival/",target="_blank", title="LinkedIn").nohover
+                img(src=baseURL+"static/img/icons/sm-icon-01.svg", alt="LinkedIn")
+            a(href="https://www.facebook.com/meshfestival/",target="_blank", title="Facebook").nohover
+                img(src=baseURL+"static/img/icons/sm-icon-03.svg", alt="Facebook")
         div 
             ul 
                 each val in footer[languageParameter].Second_Links
@@ -47,51 +47,51 @@ footer
     div.middle
         div
             p !{footer[languageParameter].Title_Logo_Line_1}
-            a(href='https://hek.ch/',target='_blank')
-                img(src=baseURL+'static/img/hek.svg').logofooter
-            a(href='https://iart.ch/',target='_blank')
-                img(src=baseURL+'static/img/iart.svg').logofooter
-            a(href='https://www.fhnw.ch/de/die-fhnw/hochschulen/hgk',target='_blank')
-                img(src=baseURL+'static/img/FHNW_HGK_DE.svg').logofooter                
+            a(href='https://hek.ch/',target='_blank', title="HEK")
+                img(src=baseURL+'static/img/hek.svg', alt="Logo HEK").logofooter
+            a(href='https://iart.ch/',target='_blank', title="iArt")
+                img(src=baseURL+'static/img/iart.svg', alt="Logo iArt").logofooter
+            a(href='https://www.fhnw.ch/de/die-fhnw/hochschulen/hgk',target='_blank',title="HGK FHNW")
+                img(src=baseURL+'static/img/FHNW_HGK_DE.svg', alt="Logo HGK FHNW").logofooter                
         div 
             p !{footer[languageParameter].Title_Logo_Line_2}
-            a(href="http://www.swisslosfonds.bs.ch/",target="_blank")
-                img(src=baseURL+"static/img/swisslos-bs.svg").logofooter  
-            a(href="https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/swisslos-fonds",target="_blank")
-                img(src=baseURL+"static/img/swisslos-bl.svg").logofooter  
-            a(href="https://www.cms-basel.ch/",target="_blank")
-                img(src=baseURL+"static/img/cms.svg").logofooter  
-            a(href="https://www.ernst-goehner-stiftung.ch",target="_blank")
-                img(src=baseURL+"static/img/EGS_Schriftzug_2_weiss.svg").logofooter  
-            a(href="https://prohelvetia.ch/",target="_blank")
-                img(src=baseURL+"static/img/PRH_CD_RGB_white_DE_LOGO.svg").logofooter     
-            a(href="https://www.mobiliar.ch/",target="_blank")
-                img(src=baseURL+"static/img/MOB_d_RGB_weiss.svg").logofooter  
-            a(href="https://www.kbhg.ch/",target="_blank")
-                img(src=baseURL+"static/img/kbhg.svg").logofooter  
+            a(href="http://www.swisslosfonds.bs.ch/",target="_blank",title="Swisslos BS")
+                img(src=baseURL+"static/img/swisslos-bs.svg", alt="Logo Swisslos").logofooter  
+            a(href="https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/swisslos-fonds",target="_blank",title="Swisslos BL")
+                img(src=baseURL+"static/img/swisslos-bl.svg", alt="Logo Swisslos BL").logofooter  
+            a(href="https://www.cms-basel.ch/",target="_blank",title="CMS")
+                img(src=baseURL+"static/img/cms.svg", alt="Logo CMS").logofooter  
+            a(href="https://www.ernst-goehner-stiftung.ch",target="_blank",title="Ernst Göhner Stiftung")
+                img(src=baseURL+"static/img/EGS_Schriftzug_2_weiss.svg", alt="Logo EGS").logofooter  
+            a(href="https://prohelvetia.ch/",target="_blank",title="ProHelvetia")
+                img(src=baseURL+"static/img/PRH_CD_RGB_white_DE_LOGO.svg", alt="Logo Prohelvetia").logofooter     
+            a(href="https://www.mobiliar.ch/",target="_blank",title="Mobiliar")
+                img(src=baseURL+"static/img/MOB_d_RGB_weiss.svg", alt="Logo Mobiliar").logofooter  
+            a(href="https://www.kbhg.ch/",target="_blank",title="KBHG")
+                img(src=baseURL+"static/img/kbhg.svg", alt="Logo KBHG").logofooter  
         div 
             p !{footer[languageParameter].Title_Logo_Line_3}
-            a(href="https://www.musik-akademie.ch/klassik/de/projekte-und-ensembles/elektronisches-studio-basel.html",target="_blank")
-                img(src=baseURL+"static/img/elektronisches-studio-basel.svg").logofooter.logofooterlang
-            a(href="https://radiox.ch/",target="_blank")
-                img(src=baseURL+"static/img/radio-x.svg").logofooter  
-            a(href="https://derivative.ca/",target="_blank")
-                img(src=baseURL+"static/img/touchdesigner.svg").logofooter  
+            a(href="https://www.musik-akademie.ch/klassik/de/projekte-und-ensembles/elektronisches-studio-basel.html",target="_blank",title="Elektronisches Studio Basel")
+                img(src=baseURL+"static/img/elektronisches-studio-basel.svg", alt="Logo Elektronisches Studio Basel").logofooter.logofooterlang
+            a(href="https://radiox.ch/",target="_blank",title="Radio X")
+                img(src=baseURL+"static/img/radio-x.svg", alt="Logo Radio X").logofooter  
+            a(href="https://derivative.ca/",target="_blank",title="Touchdesigner")
+                img(src=baseURL+"static/img/touchdesigner.svg", alt="Logo Touchdesigner").logofooter  
         div 
             p !{footer[languageParameter].Title_Logo_Line_4}            
-            a(href="https://kunsthausbaselland.ch/",target="_blank")
-                img(src=baseURL+"static/img/kunsthaus-baselland.svg").logofooter.logofooterlang  
+            a(href="https://kunsthausbaselland.ch/",target="_blank",title="Kunsthaus Baselland")
+                img(src=baseURL+"static/img/kunsthaus-baselland.svg", alt="Logo Kunsthaus Baselland").logofooter.logofooterlang  
  
-            a(href="https://ateliermondial.com/",target="_blank")
-                img(src=baseURL+"static/img/AMLOGO_Size0_BLACK_Outline.svg",loading="lazy").logofooter.logofootersquare 
-            a(href="https://kabinett.com/",target="_blank")
-                img(src=baseURL+"static/img/KABINETT_LOGO_V-1.svg",loading="lazy").logofooter.logofootersquare 
-            a(href="https://www.herzogdemeuron.com/",target="_blank")
-                img(src=baseURL+"static/img/herzogdemeuron.svg").logofooter.logofooterlang
-            a(href="https://www.sfgbasel.ch/",target="_blank")
-                img(src=baseURL+"static/img/sfg_zentriert.svg",loading="lazy").logofooter.logofootersquare                                 
-            a(href="https://civic.hgk.fhnw.ch/",target="_blank")
-                img(src=baseURL+"static/img/CIVIC-LOGO-WHITE.png",loading="lazy").logofooter
+            a(href="https://ateliermondial.com/",target="_blank",title="Atelier Mondial")
+                img(src=baseURL+"static/img/AMLOGO_Size0_BLACK_Outline.svg",loading="lazy", alt="Logo Atelier Mondial").logofooter.logofootersquare 
+            a(href="https://kabinett.com/",target="_blank", title="Kabinett")
+                img(src=baseURL+"static/img/KABINETT_LOGO_V-1.svg",loading="lazy", alt="Logo Kabinett").logofooter.logofootersquare 
+            a(href="https://www.herzogdemeuron.com/",target="_blank",title="Herzog&DeMeuron")
+                img(src=baseURL+"static/img/herzogdemeuron.svg", alt="Logo Herzog&DeMeuron").logofooter.logofooterlang
+            a(href="https://www.sfgbasel.ch/",target="_blank",title="SFG")
+                img(src=baseURL+"static/img/sfg_zentriert.svg",loading="lazy", alt="Logo SFG").logofooter.logofootersquare                                 
+            a(href="https://civic.hgk.fhnw.ch/",target="_blank",title="Civic")
+                img(src=baseURL+"static/img/CIVIC-LOGO-WHITE.png",loading="lazy", alt="Logo Civic").logofooter
 
     script(src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" crossorigin="anonymous")
     script(src="https://embed.ticketpark.ch/v1/")                

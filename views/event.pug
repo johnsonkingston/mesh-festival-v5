@@ -12,11 +12,11 @@ html(lang=language[0])
             else 
                 picture
                     source(media="min-width:650px",srcset=imgURL+data.Main_Image.filename_disk+'?key=content')
-                    img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen')
+                    img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen', alt=+data.Main_Image.title)
                 .mainimageCaption !{data.Main_Image.description}
                 
-            img.grid(src=baseURL+'static/img/grid1.png')
-            img.grid#gridRight(src=baseURL+'static/img/grid.png')
+            img.grid(src=baseURL+'static/img/grid1.png', alt='Mesh Festival')
+            img.grid#gridRight(src=baseURL+'static/img/grid.png', alt='Mesh Festival')
             h1= data.Artist
             h3= data.translations[languageParameter].Title
 

@@ -10,10 +10,10 @@ html(lang=language[0])
                 //img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen')
                 picture
                     source(media="min-width:650px",srcset=imgURL+data.Main_Image.filename_disk+'?key=content')
-                    img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen')
+                    img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen', alt=data.Main_Image.title)
                 .mainimageCaption !{data.Main_Image.description}
                 
-            img.grid(src=baseURL+'static/img/grid.png')
+            img.grid(src=baseURL+'static/img/grid.png', alt="Mesh Festival")
             if data.translations.length > 0
                 if(data.translations[languageParameter] === undefined)
                     h1= data.translations[0].Title
@@ -32,13 +32,13 @@ html(lang=language[0])
                                 a
                                     .events
                                         .eventimg(style='background-image:url('+imgURL+val.Events_id.Main_Image+'?key=icon)')
-                                            img(src=baseURL+'static/img/grid-square-'+gridId+'.png')
+                                            img(src=baseURL+'static/img/grid-square-'+gridId+'.png', alt=val.Events_id.Artist)
                                         .caption &bull; #{caption} 
                             else
                                 a(href=baseURL+'events/'+val.Events_id.slug+'/'+language[0])
                                     .events
                                         .eventimg(style='background-image:url('+imgURL+val.Events_id.Main_Image+'?key=icon)')
-                                            img(src=baseURL+'static/img/grid-square-'+gridId+'.png')
+                                            img(src=baseURL+'static/img/grid-square-'+gridId+'.png', alt=val.Events_id.Artist)
                                             if val.Events_id.Label_Overview !== null
                                                 .label=val.Events_id.Label_Overview
                                         .caption &bull; #{caption}

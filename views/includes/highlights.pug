@@ -8,15 +8,14 @@
                         if(val.Link !== undefined)
                             if(val.translations[languageParameter] === undefined)
                                 .title
-                                    a(href=baseURL+val.Link)=val.translations[0].Title
+                                    a(href=baseURL+val.Link, title=val.translations[0].Title)=val.translations[0].Title
                                 .content
-                                    a(href=baseURL+val.Link) !{val.translations[0].Content}
+                                    a(href=baseURL+val.Link, title=val.translations[0].Title) !{val.translations[0].Content}
                             else 
-                                a(href=baseURL+val.Link)
-                                    .title
-                                        a(href=baseURL+val.Link)=val.translations[languageParameter].Title
-                                    .content
-                                        a(href=baseURL+val.Link) !{val.translations[languageParameter].Content}                        
+                                .title
+                                    a(href=baseURL+val.Link, title=val.translations[languageParameter].Title)=val.translations[languageParameter].Title
+                                .content
+                                    a(href=baseURL+val.Link, title=val.translations[languageParameter].Title) !{val.translations[languageParameter].Content}                        
                         else
                             if(val.translations[languageParameter] === undefined)
                                 .title=val.translations[0].Title

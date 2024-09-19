@@ -1,6 +1,6 @@
 nav
     a(href=baseURL)
-        img#headerlogo.logo(src=baseURL+'static/img/mesh-festival1_top.png',loading="lazy")
+        img#headerlogo.logo(src=baseURL+'static/img/mesh-festival1_top.png',loading="lazy", alt="Mesh Festival Münchenstein Basel")
     ul
         each val in navigation[languageParameter].Menu
             li.navigation
@@ -25,7 +25,7 @@ nav
         li.navigation.navigationMobile
             a(href=baseURL+'pages/about/'+language[0], title='About') About
 
-    .languages
+    ul.languages
         if(data.pathname == '' || data.pathname == '/' )
             li.smallpill
                 a(href=baseURL+data.pathname+'de', title='Deutsch').
