@@ -40,7 +40,7 @@ html(lang=language[0])
                         if data.Format == 'konferenz'
                             #ticketlink(onclick='openticket("'+data.Ticketlink+'","show");').smallpill Buy Conference Ticket
                         else if data.Format == 'ausstellungen'
-                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","show");').smallpill Get Ticket
+                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","auto");').smallpill Get Ticket
                         else
                             #ticketlink(onclick='openticket("'+data.Ticketlink+'","show");').smallpill Buy Day Pass
                             a(href=baseURL+'pages/visit#festivalpass')
