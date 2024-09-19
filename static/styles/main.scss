@@ -1130,6 +1130,10 @@ main{
                     h5, h6{
                         color: rgba(var(--color2));
                     }
+                    h5{
+                        font-size: $fontSizeMicro;
+                        line-height: $lineHeightMicro;
+                    }
 
                 }
                 a{

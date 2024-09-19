@@ -1220,6 +1220,10 @@ p, li {
 .timetable .EventTimetable .EventTimetableContent h5, .timetable .EventTimetable .EventTimetableContent h6 {
   color: rgba(var(--color2));
 }
+.timetable .EventTimetable .EventTimetableContent h5 {
+  font-size: 0.8vw;
+  line-height: 1vw;
+}
 .timetable .EventTimetable a {
   border-radius: 0.8vw;
   padding: 0.4vw;
