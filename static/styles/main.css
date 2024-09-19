@@ -1366,7 +1366,7 @@ p, li {
   fill: rgba(var(--color2));
 }
 .timetable #accessibilityButton {
-  top: 16vw;
+  top: 12vw;
 }
 @media (orientation: portrait) {
   .timetable #accessibilityButton {
@@ -1486,7 +1486,7 @@ p, li {
   }
 }
 .artists #accessibilityButton {
-  top: 16vw;
+  top: 12vw;
 }
 @media (orientation: portrait) {
   .artists #accessibilityButton {

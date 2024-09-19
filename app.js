@@ -240,7 +240,7 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
 
 //Artists
 async function getAllArtists() {
-    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*");
+    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*&limit=1000");
     if (!response.ok) {
         console.log('Response not okay');
         const data = '';
