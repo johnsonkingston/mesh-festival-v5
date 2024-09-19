@@ -1542,14 +1542,15 @@ nav{
             }
         }
         .left, .right{
+            margin-top: -5vh;
+            @media (orientation: portrait) {
+                margin-top: 18vw;
+            }
             .navSub{
                 line-height: 10vh;
                 @media (orientation: portrait) {
                     display: none;
                 }
-            }
-            @media (orientation: portrait) {
-                margin-top: 18vw;
             }
         }
         img,svg{

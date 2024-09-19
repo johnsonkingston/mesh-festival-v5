@@ -1674,17 +1674,20 @@ nav .navBottom .middle {
     width: 90%;
   }
 }
+nav .navBottom .left, nav .navBottom .right {
+  margin-top: -5vh;
+}
+@media (orientation: portrait) {
+  nav .navBottom .left, nav .navBottom .right {
+    margin-top: 18vw;
+  }
+}
 nav .navBottom .left .navSub, nav .navBottom .right .navSub {
   line-height: 10vh;
 }
 @media (orientation: portrait) {
   nav .navBottom .left .navSub, nav .navBottom .right .navSub {
     display: none;
-  }
-}
-@media (orientation: portrait) {
-  nav .navBottom .left, nav .navBottom .right {
-    margin-top: 18vw;
   }
 }
 nav .navBottom img, nav .navBottom svg {
