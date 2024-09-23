@@ -162,8 +162,8 @@ function shrink(){
 
         for (const key in firstInRow) {
 
-                console.log('#timetableHourline'+firstInRow[key].day+'-'+Math.floor(firstInRow[key].hour));
-                console.log(firstInRow[key].id);
+                //console.log('#timetableHourline'+firstInRow[key].day+'-'+Math.floor(firstInRow[key].hour));
+                //console.log(firstInRow[key].id);
 
                 var topMargin = $('#timetableHourline'+firstInRow[key].day+'-'+Math.floor(firstInRow[key].hour)).offset().top-$('#filters').height();
                 topMargin = topMargin/emHeight;
