@@ -29,7 +29,8 @@ html(lang=language[0])
                         .right 
                             h4.format=formatsTranslation[event.Format][languageParameter]
                             if(event.Venues.length > 0)
-                                h4.venue=venues[event.Venues[0].Venues_id-1].Name
+                                if(venues[event.Venues[0].Venues_id-1] !== undefined)
+                                    h4.venue=venues[event.Venues[0].Venues_id-1].Name
                 - char = event.Name.substr(0,1).toUpperCase()
 
         include includes/footer.pug
