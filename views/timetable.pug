@@ -66,9 +66,8 @@ html(lang=language[0])
                                                 else
                                                     h2.artist='• '+event.Artist
                                                     h3.format=formatsTranslation[event.Format][languageParameter]
-                                                    //if(event.translations[0] !== undefined)
-                                                        h3.title=event.translations[0].Title
-                                                    h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id-1].Name
+                                                    if(venues[event.Venues[0].Venues_id-1] !== undefined)
+                                                        h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id-1].Name
                                             - currentDay = event.Day
                                             - hourBefore = event.HourEnd
                                             - firstEvent = false
