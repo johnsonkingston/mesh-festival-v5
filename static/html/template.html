@@ -139,35 +139,49 @@
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, 1920, 1080);
 
-            ctx.font = fontSize1*scale+'px FreeSans-JK';
-            ctx.fillStyle = '#8C6EFF'
-            ctx.textAlign = "center";
-            ctx.textBaseline = 'bottom';
+            var background = new Image();
+            background.src = "template1.png";
 
-            y = center;
-            for (let i = separateLines1.length-1; i > -1; i--) {
-                ctx.fillText(separateLines1[i], 960, y);
-                y = y - lineHeightSans*scale;
+            background.onload = function(){
+                ctx.drawImage(background,0,0);   
+
+                ctx.font = fontSize1*scale+'px FreeSans-JK';
+                ctx.fillStyle = '#8C6EFF'
+                ctx.textAlign = "center";
+                ctx.textBaseline = 'bottom';
+
+                y = center;
+                for (let i = separateLines1.length-1; i > -1; i--) {
+                    ctx.fillText(separateLines1[i], 960, y);
+                    y = y - lineHeightSans*scale;
+                }
+
+
+                ctx.textBaseline = 'top';
+                ctx.font = fontSize2*scale+'px FreeSerif-JK';
+                y = center;
+                for (let i = 0; i < separateLines2.length; i++) {
+                    ctx.fillText(separateLines2[i], 960, y);
+                    y = y + lineHeight*scale;
+                }
+                
+                var foreground = new Image();
+                foreground.src = "template2.png";
+
+                foreground.onload = function(){
+                    ctx.drawImage(foreground,0,0);   
+
+                    var dataURL = canvas.toDataURL("image/png");
+
+                    $('body').append('<a id="image" href="'+dataURL+'" download="Mesh-Festival-Cover.png"><img src="'+dataURL+'"></>');
+
+                }
+
+
             }
 
 
-            ctx.textBaseline = 'top';
-            ctx.font = fontSize2*scale+'px FreeSerif-JK';
-            y = center;
-            for (let i = 0; i < separateLines2.length; i++) {
-                ctx.fillText(separateLines2[i], 960, y);
-                y = y + lineHeight*scale;
-            }
-            
 
-            var dataURL = canvas.toDataURL("image/png");
-
-            $('body').append('<a id="image" href="'+dataURL+'" download="Mesh-Festival-Cover.png"><img src="'+dataURL+'"></>');
-
-            
-
-
-           // });
 
 
 
