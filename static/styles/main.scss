@@ -201,16 +201,17 @@ main{
                     font-size: $fontSize1;
                     border-radius: $padding*2;
                     display: inline-block;
-                    margin-top: -12vw;
-                    margin-left: 50%;
-                    transform: translateX(-50%);
-                    text-align: center;
-                    white-space: nowrap;
+                    position: absolute;
+                    margin-top: $padding;
+                    margin-left: -20.2vw;
+                    max-width: 18vw;
                     @media (orientation: portrait) {
-                        font-size: $fontSize1*$scaleFactor;
-                        margin-top: -27vw;
-                        border-radius: $padding*2*$scaleFactor;
-                        padding: $padding*0.5*$scaleFactor $padding*$scaleFactor;
+                        font-size: 3.75vw;
+                        margin-top: 1.8vw;
+                        border-radius: 4vw;
+                        padding: 1vw 2vw;
+                        max-width: 40vw;
+                        margin-left: -45vw;
                     }
                 }
             }

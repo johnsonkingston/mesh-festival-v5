@@ -216,18 +216,19 @@ main {
   font-size: 1.5vw;
   border-radius: 1.6vw;
   display: inline-block;
-  margin-top: -12vw;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  white-space: nowrap;
+  position: absolute;
+  margin-top: 0.8vw;
+  margin-left: -20.2vw;
+  max-width: 18vw;
 }
 @media (orientation: portrait) {
   .eventswrapper a .events .eventimg .label {
     font-size: 3.75vw;
-    margin-top: -27vw;
+    margin-top: 1.8vw;
     border-radius: 4vw;
     padding: 1vw 2vw;
+    max-width: 40vw;
+    margin-left: -45vw;
   }
 }
 .eventswrapper a .events .eventimg:hover {
