@@ -65,6 +65,17 @@ async function getVenues() {
     }else
     {
         const data = await response.json();
+        //console.log(data.data);
+        let dataArray = new Array();
+        for (const [key, value] of Object.entries(data.data)) {
+            //console.log(value);
+            //console.log(value.id);
+            dataArray[value.id] = {id:value.id,Name:value.Name};
+        
+        
+        }
+        //console.log('dataArray');
+        data.data = dataArray;
         return data;
     }
 }
