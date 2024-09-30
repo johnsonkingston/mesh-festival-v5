@@ -62,7 +62,10 @@ html(lang=language[0])
                                         .EventTimetableA(class='A'+event.Format,style="height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;margin-top:"+(parseInt(event.Minute)/60)*hourHeight+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=parseInt(event.Hour)+((parseInt(event.Minute)/60)),data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-venue=event.Venues[0].Venues_id,data-id=id,id="Event-"+id)
                                             .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
                                                 if(event.Timetable_only == '1')
-                                                    .EventTimetableContent !{event.translations[languageParameter].Content}
+                                                    if(event.translations[languageParameter] !== undefined)
+                                                        .EventTimetableContent !{event.translations[languageParameter].Content}
+                                                    else
+                                                        .EventTimetableContent !{event.translations[0].Content}
                                                 else
                                                     h2.artist='• '+event.Artist
                                                     if(formatsTranslation[event.Format] !== undefined)

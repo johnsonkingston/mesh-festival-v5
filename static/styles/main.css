@@ -2171,9 +2171,13 @@ footer .middle {
     margin-top: 0;
   }
 }
+footer .middle div {
+  display: block;
+}
 footer .middle p {
   font-size: 1.1vw;
   line-height: 1.4vw;
+  margin-block-end: 0;
 }
 @media (orientation: portrait) {
   footer .middle p {

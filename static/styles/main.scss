@@ -2008,9 +2008,13 @@ footer{
             width: 100%;
             margin-top: 0;
         }
+        div{
+            display: block;
+        }
         p{
             font-size: $fontSize0;
             line-height: $lineHeight0;
+            margin-block-end: 0;
             @media (orientation: portrait) {
                 font-size: $fontSize0*$scaleFactor;
                 line-height: $lineHeight0*$scaleFactor;               

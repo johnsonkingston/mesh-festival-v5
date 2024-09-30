@@ -491,7 +491,11 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         if(result.data[0].Time !== null){
             result.data[0].time_transformed = new Object;
             result.data[0].time_transformed.start = dateformat(result.data[0].Time[0].Start);
-            result.data[0].time_transformed.end = dateformat(result.data[0].Time[0].End);
+            if(result.data[0].Time[0].End !== null){
+                result.data[0].time_transformed.end = dateformat(result.data[0].Time[0].End);
+            }else{
+                result.data[0].time_transformed.end = result.data[0].time_transformed.start;
+            }
         }else{
             result.data[0].time_transformed = new Object;
             result.data[0].time_transformed.start = '';
