@@ -346,34 +346,28 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
 
         console.log(language);
         result = await getPage(pageSlug);
+
+
+        
+
+
         navigation = await getNavigation();
         footer = await getFooter();
-        //news = await getNews();
-
-        //if(result.length !== undefined){
-
 
         result.data[0].pathname = langRemove(pathname);
-
 
         if(result.data[0].translations[0].languages_code.code !== 'de'){
             var deContent = result.data[0].translations[1];
             result.data[0].translations[1] = result.data[0].translations[0];
             result.data[0].translations[0] = deContent;
-
         }
 
-        //console.log(result.data[0]);
         languageObject = [language,languageTransform(language)];
         if(result.data[0]){
             //console.log(languageObject);
             res.render('page',{data:result.data[0],navigation:navigation.data,footer:footer.data,language:languageObject,highlights:[],events:[],venues:[],format:[]});
         }
-    //}else{
-        //console.log('404');
-        //res.status(500).send("<script>window.location.href = 'http://www.meshfestival.ch'</a>");
 
-    //}
 
     } catch (err) {
         console.error(err);
@@ -491,7 +485,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         if(result.data[0].Time !== null){
             result.data[0].time_transformed = new Object;
             result.data[0].time_transformed.start = dateformat(result.data[0].Time[0].Start);
-            if(result.data[0].Time[0].End !== null){
+            if(result.data[0].Time[0].End !== undefined){
                 result.data[0].time_transformed.end = dateformat(result.data[0].Time[0].End);
             }else{
                 result.data[0].time_transformed.end = result.data[0].time_transformed.start;
