@@ -42,17 +42,44 @@ html(lang=language[0])
                                 .hourlineChar= timePrint+':00'
                                 - n++
             .timetableSpalteWrap
-                each val in [23,21,12,19,1,3,4,5,6,7,8,9,13,14,15,16,17,18,20,22,24,25,26,10,2,11,27]
+                each val in [23,21,12,19,1,3,4,5,6,7,8,9,13,14,15,16,17,18,20,22,24,25,26,2,11,27,10]
                     - var hourBefore = totalEnd
                     - currentDay = 14
                     - firstEvent = true
-                    .timetableSpalte(class="timetableSpalte"+val)
-                        //if(venues[val-1] !== undefined)
-                            .venueLabel=venues[val-1].Name
+                    if(val !== 10)
+                        .timetableSpalte(class="timetableSpalte"+val)
+                            each event in events 
+                                if(event.Venues[0] !== undefined)
+                                    if(event.status == 'published' && event.In_Timetable && event.Venues[0].Venues_id == val && event.Hour !== '' && event.Day !== undefined)
+                                    
+                                        - if(currentDay !== event.Day) var hourMargin = totalEnd - hourBefore + parseInt(event.Hour) + (parseInt(event.Minute)/60) - hourStart
+                                        - else var hourMargin = parseInt(event.Hour) + (parseInt(event.Minute)/60) - hourBefore
+                                        - if(firstEvent) hourMargin = hourMargin + ((parseInt(event.Day) - 16) * (hoursPerDay+1))                                    
+                                        - if(event.Timetable_only !== '1') var Timetable_only = true
+
+                                        #{event.Timetable_only == '1' ? 'div' : 'a'}(href=baseURL+'events/'+event.slug+'/'+language[0])
+                                            .EventTimetableA(class='A'+event.Format,style="height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;margin-top:"+(parseInt(event.Minute)/60)*hourHeight+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=parseInt(event.Hour)+((parseInt(event.Minute)/60)),data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-venue=event.Venues[0].Venues_id,data-id=id,id="Event-"+id)
+                                                .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
+                                                    if(event.Timetable_only == '1')
+                                                        if(event.translations[languageParameter] !== undefined)
+                                                            .EventTimetableContent !{event.translations[languageParameter].Content}
+                                                        else
+                                                            .EventTimetableContent !{event.translations[0].Content}
+                                                    else
+                                                        h2.artist='• '+event.Artist
+                                                        if(formatsTranslation[event.Format] !== undefined)
+                                                            h3.format=formatsTranslation[event.Format][languageParameter]
+                                                        if(venues[event.Venues[0].Venues_id] !== undefined)
+                                                            h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id].Name
+                                                - currentDay = event.Day
+                                                - hourBefore = event.HourEnd
+                                                - firstEvent = false
+                                                - id++
+                    else 
                         each event in events 
                             if(event.Venues[0] !== undefined)
                                 if(event.status == 'published' && event.In_Timetable && event.Venues[0].Venues_id == val && event.Hour !== '' && event.Day !== undefined)
-                                   
+                                
                                     - if(currentDay !== event.Day) var hourMargin = totalEnd - hourBefore + parseInt(event.Hour) + (parseInt(event.Minute)/60) - hourStart
                                     - else var hourMargin = parseInt(event.Hour) + (parseInt(event.Minute)/60) - hourBefore
                                     - if(firstEvent) hourMargin = hourMargin + ((parseInt(event.Day) - 16) * (hoursPerDay+1))                                    
@@ -76,5 +103,5 @@ html(lang=language[0])
                                             - hourBefore = event.HourEnd
                                             - firstEvent = false
                                             - id++
-        
+
         include includes/footer.pug
