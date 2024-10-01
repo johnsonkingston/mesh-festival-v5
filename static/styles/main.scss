@@ -1099,9 +1099,6 @@ main{
             .timetableSpalte11{
                 margin-left: -25.6vw;
             }
-            .timetableSpalte22{
-                margin-left: -13.2vw;
-            }
             #Event-73{
                 left: 13vw;
             }
@@ -1313,6 +1310,7 @@ main{
             margin-bottom: calc(-6vw - $padding);
             width: 10vw;
             z-index: -1;
+            text-transform: uppercase;
             @media (orientation: portrait) {
                 margin-bottom: -17.7vw;
                 top: 9vw;

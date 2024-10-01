@@ -1184,9 +1184,6 @@ p, li {
 .timetable .timetableSpalte11 {
   margin-left: -25.6vw;
 }
-.timetable .timetableSpalte22 {
-  margin-left: -13.2vw;
-}
 .timetable #Event-73 {
   left: 13vw;
 }
@@ -1414,6 +1411,7 @@ p, li {
   margin-bottom: -6.8vw;
   width: 10vw;
   z-index: -1;
+  text-transform: uppercase;
 }
 @media (orientation: portrait) {
   .artists main .char {
