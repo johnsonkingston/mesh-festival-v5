@@ -1178,6 +1178,9 @@ p, li {
   left: 0;
   z-index: -1;
 }
+.timetable .timetableSpalte20 {
+  margin-left: -13vw;
+}
 .timetable .timetableSpalte11 {
   margin-left: -25.6vw;
 }
@@ -1185,7 +1188,7 @@ p, li {
   margin-left: -13.2vw;
 }
 .timetable #Event-73 {
-  left: 13.2vw;
+  left: 13vw;
 }
 .timetable .EventTimetable {
   background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
