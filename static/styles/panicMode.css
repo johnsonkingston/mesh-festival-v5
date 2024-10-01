@@ -218,4 +218,8 @@ footer .toplinks li .mediumpill {
   .timetable #accessibilityButton, .artists #accessibilityButton {
     top: 28vw;
   }
+}
+
+.eventswrapper a .events .eventimg .label {
+  color: white !important;
 }/*# sourceMappingURL=panicMode.css.map */
