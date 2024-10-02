@@ -15,7 +15,7 @@ html(lang=language[0])
 
                     if(language[0] == 'en' && item.Video_Id_Mobile_En !== undefined)
                         if(item.Video_Id_Mobile !== undefined)
-                            video.videoMobile(muted='true',poster=imgURL+item.Video_Cover_Mobile+'?key=icon',autoplay='true',loop='true',playsinline='true')
+                            video.videoMobile(muted='true',poster=imgURL+item.Video_Cover_Mobile+'?key=icon',autoplay='true',loop='true',playsinline='true',onclick="closeHighlight();")
                                 source(src=imgURL+item.Video_Id_Mobile_En,type="video/mp4") 
                         else
                             video.videoMobile(muted='true',poster=imgURL+item.Video_Cover+'?key=icon',autoplay='true',loop='true',playsinline='true')
@@ -283,5 +283,6 @@ html(lang=language[0])
 
         script(src='node_modules/@glidejs/glide/dist/glide.min.js')
         link(rel='stylesheet', type='text/css', href=baseURL+'node_modules/@glidejs/glide/dist/css/glide.core.min.css')
+        script(src=baseURL+'static/script/startpage-scroll.js')
         script(src=baseURL+'static/script/highlights.js')
         include includes/footer.pug

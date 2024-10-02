@@ -259,7 +259,7 @@ main{
 
         section{
             width: 100vw;
-            height: calc(200vh - $fontSize2*4);
+            height: calc(160vh - $fontSize2*4);
             scroll-snap-align: start;
             @media (orientation: portrait) {
                 height: 100vh;
@@ -267,9 +267,9 @@ main{
 
             .bigpill{
                 position: sticky;
-                top: 50vh;
+                top: 40vh;
                 left: 50vw;
-                margin-bottom: 40vh;
+                margin-bottom: 31vh;
                 transform: translate(-50%, -50%);
                 @media (orientation: portrait) {
                     left: 0;

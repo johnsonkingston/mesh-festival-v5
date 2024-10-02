@@ -1,7 +1,11 @@
 $( document ).ready(function() {
 $('#section1').on( "click", function() {
-    console.log('scroll');
     $("main").animate({ scrollTop: $(window).outerHeight()*2},2000);
+});
+$("main").on( "scroll", function() {
+    if($('main').scrollTop() > $(window).outerHeight()){
+        closeHighlight();
+    }
 });
 });
 /*                 var positions = [];
