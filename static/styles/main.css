@@ -1231,6 +1231,12 @@ p, li {
   font-size: 0.8vw;
   line-height: 1vw;
 }
+@media (orientation: portrait) {
+  .timetable .EventTimetable .EventTimetableContent h5 {
+    font-size: 2vw;
+    line-height: 2.5vw;
+  }
+}
 .timetable .EventTimetable a {
   border-radius: 0.8vw;
   padding: 0.4vw;

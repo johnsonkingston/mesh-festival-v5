@@ -1139,6 +1139,10 @@ main{
                     h5{
                         font-size: $fontSizeMicro;
                         line-height: $lineHeightMicro;
+                        @media (orientation: portrait) {
+                            font-size: $fontSizeMicro*$scaleFactor;
+                            line-height: $lineHeightMicro*$scaleFactor;                           
+                        }
                     }
 
                 }
