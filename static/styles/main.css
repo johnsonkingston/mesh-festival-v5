@@ -1163,8 +1163,8 @@ p, li {
 }
 @media (orientation: portrait) {
   .timetable .timetableSpalteWrap {
-    margin-left: 6vw;
-    width: 94vw;
+    margin-left: 7vw;
+    width: 93vw;
     top: 8.5vw;
   }
 }
