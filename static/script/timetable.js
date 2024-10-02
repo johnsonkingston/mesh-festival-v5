@@ -230,6 +230,7 @@ $( document ).ready(function() {
     if($(window).width() < $(window).outerHeight()){
         rowWidth = 20;
         $('.timetableSpalte a').each(function( index ) {
+
             $(this).on( "click", function( event ) {
                 event.preventDefault();
                 if($(this).hasClass('clicked')){
@@ -251,5 +252,15 @@ $( document ).ready(function() {
                 }
             });
         });
+        $('.EventTimetable').each(function( index ) {
+            if($(this).children('.EventTimetableContent').length == 1){
+                $(this).on( "click", function( event ) {
+                    $('.clicked').removeClass('clicked');
+                    $(this).children('.EventTimetableContent').children('p').children('a').addClass('clicked');
+                });
+            }
+        });
+
+
     }
 });
