@@ -47,6 +47,9 @@ var shrinkHeight = 1.3;
 var originalHeight = 7;
 var reductionHeight = originalHeight - shrinkHeight;
 var rowWidth = 13;
+if($(window).width() < $(window).outerHeight()){
+    var rowWidth = 20;
+}
 
 function getFirstByColumn(){
     firstInRow.length = 0;
@@ -226,6 +229,10 @@ $( document ).ready(function() {
         filterTimetable(format,$('#filter-'+format));
     }
 
+    $('div').each(function( index ) {
+        $(this).removeAttr('href');
+    })
+
     //Hover fix mobile
     if($(window).width() < $(window).outerHeight()){
         rowWidth = 20;
@@ -257,6 +264,7 @@ $( document ).ready(function() {
                 $(this).on( "click", function( event ) {
                     $('.clicked').removeClass('clicked');
                     $(this).children('.EventTimetableContent').children('p').children('a').addClass('clicked');
+                    $(this).children('.EventTimetableContent').children('p').children('span').children('a').addClass('clicked');
                 });
             }
         });
