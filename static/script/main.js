@@ -97,7 +97,7 @@ function openticket(ticketid,format){
     if(format == 'show'){
         new ticketpark.Show("#ticketshop",{
             pid: ticketid,
-            language: "de",
+            language: language[0],
             customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
             displayInvitationCodeLink: true,
             texts: {
@@ -110,7 +110,7 @@ function openticket(ticketid,format){
         new ticketpark.Auto("#ticketshop",{
             pid: ticketid,
             showFields: ["start", "name", "button"],
-            language: "de",
+            language: language[0],
             customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
             displayInvitationCodeLink: true,
             texts: {

@@ -1145,6 +1145,9 @@ p, li {
     margin-top: 8.5vw;
   }
 }
+.timetable main::-webkit-scrollbar {
+  height: 14px;
+}
 .timetable .timetableDay {
   width: 94vw;
   margin-left: 1vw;

@@ -1062,6 +1062,9 @@ main{
                     margin-top: 8.5vw;
                 }
             }
+            main::-webkit-scrollbar {
+                height: 14px;
+            }
             .timetableDay{
                 width: 94vw;
                 margin-left: 1vw;
