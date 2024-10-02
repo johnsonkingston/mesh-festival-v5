@@ -240,7 +240,14 @@ $( document ).ready(function() {
                     location.href = urlLink;
                 }else{
                     $('.clicked').removeClass('clicked');
-                    $(this).addClass('clicked');
+                    if($(this).parent('.timetableSpalte').length == 1){
+                        $(this).addClass('clicked');
+                    }else{
+                        $(this).parent('p').siblings().children('a').addClass('clicked');
+                        $(this).addClass('clicked');
+                    }
+                    
+                    
                 }
             });
         });

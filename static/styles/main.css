@@ -1557,6 +1557,11 @@ p, li {
   float: right;
   margin-right: 0.8vw;
 }
+@media (orientation: portrait) {
+  #filters #filtermap {
+    float: none;
+  }
+}
 
 #map {
   position: fixed;

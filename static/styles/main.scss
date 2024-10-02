@@ -1441,6 +1441,9 @@ main{
     #filtermap{
         float: right;
         margin-right: $padding;
+        @media (orientation: portrait) {
+            float: none;
+        }
     }
 
 }
