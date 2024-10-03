@@ -50,11 +50,6 @@ var rowWidth = 13;
 if($(window).width() < $(window).outerHeight()){
     var rowWidth = 20;
 }
-var shrinkHeight = 1.3;
-var originalHeight = 5;
-var reductionHeight = originalHeight - shrinkHeight;
-var rowWidth = 17;
-
 
 
 
