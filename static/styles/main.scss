@@ -156,7 +156,7 @@ main{
     }
 }
 .blur{
-    filter:blur(20px);
+    //filter:blur(20px);
 }
 .eventswrapper{
     display: block;
@@ -1101,6 +1101,9 @@ main{
             }
             .timetableSpalte11{
                 margin-left: -25.6vw;
+            }
+            .timetableSpalte7{
+                margin-left: -13vw;               
             }
             #Event-73{
                 left: 13vw;
