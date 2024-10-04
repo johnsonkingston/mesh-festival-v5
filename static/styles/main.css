@@ -1432,6 +1432,8 @@ p, li {
     margin-bottom: -17.7vw;
     top: 9vw;
     width: 13vw;
+    font-size: 14.5vw;
+    line-height: 17vw;
   }
 }
 .artists main .artist {
