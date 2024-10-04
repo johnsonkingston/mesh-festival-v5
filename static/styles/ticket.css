@@ -21,8 +21,8 @@
 body {
   font-family: "FreeSans-JK";
   color: rgba(var(--color2));
-  font-size: 3vw;
-  line-height: 3.4vw;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -30,10 +30,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 li, .embed, .public, h4, h5, h6 {
-  font-size: 3vw;
-  line-height: 3.4vw;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 #show-invitation-prompt {
-  margin-top: 3vw;
+  margin-top: 18px;
 }/*# sourceMappingURL=ticket.css.map */

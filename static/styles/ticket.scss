@@ -18,8 +18,8 @@ $padding: 0.8vw;
 
 $fontSize0: 2.2vw;
 $lineHeight0: 2.8vw;
-$fontSize1: 3vw;
-$lineHeight1: 3.4vw;
+$fontSize1: 18px;
+$lineHeight1: 22px;
 $fontSize2: 4vw;
 $lineHeight2: 4.4vw;
 $fontSize3: 7vw;
@@ -51,7 +51,7 @@ li, .embed, .public,h4,h5,h6{
     line-height: $lineHeight1;    
 }
 #show-invitation-prompt{
-    margin-top: 3vw;
+    margin-top: $fontSize1;
 }
 .hidden-desktop.normal-font-weight.show-date{
     //display: none !important;

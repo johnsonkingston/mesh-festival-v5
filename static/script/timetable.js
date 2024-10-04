@@ -18,6 +18,7 @@ function filterTimetable(format,el){
         el.removeClass('active');
         el.attr('data-visible',1);
     }
+    $('.timetableSpalte').addClass('timetableSpalteFilter');
 
     runShrink();
 
@@ -33,6 +34,7 @@ function filterTimetableAll(){
         $('.EventTimetableA').show();
         $('.filterpill').removeClass('active');
         $('.filterpill').attr('data-visible',1);
+        $('.timetableSpalteFilter').removeClass('timetableSpalteFilter');
     }
     runShrink();
 }

@@ -1074,7 +1074,7 @@ main{
                 top:4.5vw;
                 z-index: 2;
                 margin-left: 4vw;
-                width: 96vw;
+                width: 95vw;
                 white-space: nowrap;
                 overflow: scroll;
                 @media (orientation: portrait) {
@@ -1100,13 +1100,20 @@ main{
                 margin-left: -13vw;
             }
             .timetableSpalte11{
-                margin-left: -25.6vw;
+                margin-left: -13vw;               
+
             }
             .timetableSpalte7{
                 margin-left: -13vw;               
             }
+            .timetableSpalte25{
+                margin-left: -13vw;               
+            }            
             #Event-73{
                 left: 13vw;
+            }
+            .timetableSpalteFilter{
+                margin-left: 0 !important;
             }
             .EventTimetable{
                 background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
@@ -1257,7 +1264,7 @@ main{
                 padding: 0 $padding 0 0;
             }
             .timetableHourlineWrap{
-                width: 99vw;
+                width: 98vw;
                 overflow: hidden;
                 .timetableHourline{
                     color: rgba(var(--color2));
@@ -1335,6 +1342,7 @@ main{
             @media (orientation: portrait) {
                 display: block;
             }
+
             .left, .middle, .right{
                 padding: $padding;
                 h3{
@@ -1356,10 +1364,14 @@ main{
                 }
             }
             .left{
-                width: 14vw;
+                width: 6vw;
                 h3{
                     text-align: left;
 
+                }
+                @media (orientation: portrait) {
+                    width: 0;
+                    padding: 0;
                 }
             }
             .middle{
@@ -1373,6 +1385,7 @@ main{
                     @media (orientation: portrait) {
                         max-width: 80vw;
                         margin-left: 10vw;
+                        hyphens: auto;
                     }
                 }
                 @media (orientation: portrait) {
@@ -1383,7 +1396,7 @@ main{
                 }
             }
             .right{
-                width: 14vw;
+                width: 20vw;
                 @media (orientation: portrait) {
                     width: 100%;
                     padding: 0;
@@ -1391,6 +1404,9 @@ main{
             }
 
         }   
+        .artistVertical{
+            margin-top: -2vw;
+        }
     }
     #navButton, #accessibilityButton{
         top: 5.6vw;

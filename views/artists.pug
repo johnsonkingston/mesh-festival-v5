@@ -6,6 +6,8 @@ html(lang=language[0])
     body.artists
         include includes/navigation.pug
         - var char = ''
+        - var nameBefore = ''
+        - var n = 0
         - var formats = ['konferenz','diskurs','ausstellungen','performances','screenings','clubnights'];
         - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights']};
         #filters 
@@ -18,20 +20,36 @@ html(lang=language[0])
             img(src=imgURL+"5850ee5c-5b08-4fe4-ad9b-186dcf9044ab.png",onclick="$('#map').hide();")
             
         main
+
             each event in events 
                 if(char !== event.Name.substr(0,1).toUpperCase())
                     h3.char=event.Name.substr(0,1)
-                a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format).artistLine
+                // a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format).artistLine
+                if(nameBefore !== (event.First_Name+event.Name))
                     .artist
                         .left
                         .middle
-                            h3=event.First_Name+' '+event.Name
+                            a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format)
+                                h3=event.First_Name+' '+event.Name
                         .right 
-                            if(formatsTranslation[event.Format] !== undefined)
-                                h4.format=formatsTranslation[event.Format][languageParameter]
-                            if(event.Venues.length > 0)
-                                if(venues[event.Venues[0].Venues_id] !== undefined)
-                                    h4.venue=venues[event.Venues[0].Venues_id].Name
+                            a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format)
+                                if(formatsTranslation[event.Format] !== undefined)
+                                    h4.format=formatsTranslation[event.Format][languageParameter]
+                                    if(event.Venues.length > 0)
+                                        if(venues[event.Venues[0].Venues_id] !== undefined)
+                                            h4.venue=venues[event.Venues[0].Venues_id].Name
+                            if(events[n+1] !== undefined)        
+                                a(href=baseURL+'events/'+events[n+1].slug+'/'+language[0],class=events[n+1].Format)    
+                                    if(events[n+1].First_Name+events[n+1].Name == event.First_Name+event.Name)
+                                        if(formatsTranslation[events[n+1].Format] !== undefined)
+                                            h4.format=formatsTranslation[events[n+1].Format][languageParameter]
+                                        if(events[n+1].Venues.length > 0)
+                                            if(venues[events[n+1].Venues[0].Venues_id] !== undefined)
+                                                h4.venue=venues[events[n+1].Venues[0].Venues_id].Name                                    
+
+                                
                 - char = event.Name.substr(0,1).toUpperCase()
+                - nameBefore = (event.First_Name+event.Name)
+                -n++
 
         include includes/footer.pug
