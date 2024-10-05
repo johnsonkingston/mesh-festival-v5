@@ -41,14 +41,28 @@ $( document ).ready(function() {
 
         //Ticketlinks
         if($(this).attr('href').indexOf('ticketshow') !== -1){
-            var id = $(this).attr('href').split("ticketshow:")[1];
-            id = id.split("/")[0];
-            $(this).attr('onclick','openticket("'+id+'","show")');
+            var code = $(this).attr('href').split("ticketshow:")[1];
+            code = code.split("/")[0];
+            var id = code.split(",")[0];
+            if(code.split(",").length > 1){
+                var invitation = code.split(",")[1];
+            }else{
+                var invitation = true;
+            }
+
+            $(this).attr('onclick','openticket("'+id+'","show",'+invitation+')');
             console.log(id);
             $(this).removeAttr('href');
         }else if($(this).attr('href').indexOf('ticketid') !== -1){
-            var id = $(this).attr('href').split("ticketid:")[1];
-            id = id.split("/")[0];
+            var code = $(this).attr('href').split("ticketid:")[1];
+            code = code.split("/")[0];
+            var id = code.split(",")[0];
+            if(code.split(",").length > 1){
+                var invitation = code.split(",")[1];
+            }else{
+                var invitation = true;
+            }
+
             $(this).attr('onclick','openticket("'+id+'","event")');
             console.log(id);
             $(this).removeAttr('href');
@@ -90,7 +104,7 @@ function isOverflown() {
 }
 
 //Ticketopen
-function openticket(ticketid,format){
+function openticket(ticketid,format,invitation){
     $('#ticketshop').fadeToggle();
     $('#ticketclose').fadeToggle();
     $('main').toggleClass('blur');
@@ -101,12 +115,23 @@ function openticket(ticketid,format){
 
     console.log(ticketid);
 
-    if(format == 'show'){
+    if(format == 'show' && !invitation){
+        console.log(invitation+' : '+format);
         new ticketpark.Show("#ticketshop",{
             pid: ticketid,
             language: language[0],
             customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
-            displayInvitationCodeLink: true,
+            texts: {
+                "de": { 
+                    "invitation_prompt":"Haben Sie einen Einladungscode?",
+                    "invitation_link": "Bitte geben Sie ihren Code ein"
+                }}
+            });
+    }else if(format == 'show'){
+        new ticketpark.Show("#ticketshop",{
+            pid: ticketid,
+            language: language[0],
+            customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
             texts: {
                 "de": { 
                     "invitation_prompt":"Haben Sie einen Einladungscode?",

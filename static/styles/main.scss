@@ -1324,7 +1324,7 @@ main{
             text-align: left;
             background: rgba(var(--color3));
             padding: $padding;
-            margin-bottom: calc(-6vw - $padding);
+            margin-bottom: -8vw;
             width: 10vw;
             z-index: -1;
             text-transform: uppercase;
