@@ -115,29 +115,33 @@ function openticket(ticketid,format,invitation){
 
     console.log(ticketid);
 
-    if(format == 'show' && !invitation){
-        console.log(invitation+' : '+format);
-        new ticketpark.Show("#ticketshop",{
-            pid: ticketid,
-            language: language[0],
-            customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
-            texts: {
-                "de": { 
-                    "invitation_prompt":"Haben Sie einen Einladungscode?",
-                    "invitation_link": "Bitte geben Sie ihren Code ein"
-                }}
-            });
-    }else if(format == 'show'){
-        new ticketpark.Show("#ticketshop",{
-            pid: ticketid,
-            language: language[0],
-            customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
-            texts: {
-                "de": { 
-                    "invitation_prompt":"Haben Sie einen Einladungscode?",
-                    "invitation_link": "Bitte geben Sie ihren Code ein"
-                }}
-            });
+    if(format == 'show'){
+        if(invitation === false){
+            new ticketpark.Show("#ticketshop",{
+                pid: ticketid,
+                language: language[0],
+                customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
+                texts: {
+                    "de": { 
+                        "invitation_prompt":"Haben Sie einen Einladungscode?",
+                        "invitation_link": "Bitte geben Sie ihren Code ein"
+                    }}
+                });
+        }else{
+            console.log(invitation+' : '+format);
+            new ticketpark.Show("#ticketshop",{
+                pid: ticketid,
+                language: language[0],
+                customCssFiles: 'https://meshfestival.ch/static/styles/ticket.min.css',
+                displayInvitationCodeLink: true,
+                texts: {
+                    "de": { 
+                        "invitation_prompt":"Haben Sie einen Einladungscode?",
+                        "invitation_link": "Bitte geben Sie ihren Code ein"
+                    }}
+                });
+        }
+
     }else{
         new ticketpark.Auto("#ticketshop",{
             pid: ticketid,

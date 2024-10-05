@@ -39,11 +39,11 @@ html(lang=language[0])
                     p= data.translations[languageParameter].Language
                     if data.Ticketlink !== null
                         if data.Format == 'konferenz'
-                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","show");').smallpill Buy Conference Ticket
+                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","show",false);').smallpill Buy Conference Ticket
                         else if data.Format == 'ausstellungen'
-                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","auto");').smallpill Get Ticket
+                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","auto",true);').smallpill Get Ticket
                         else
-                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","show");').smallpill Buy Day Pass
+                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","show",true);').smallpill Buy Day Pass
                             a(href=baseURL+'pages/visit#festivalpass')
                                 #ticketlink2.smallpill Buy Festival Pass
 
