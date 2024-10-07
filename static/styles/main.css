@@ -2056,6 +2056,15 @@ nav .languages .smallpill:hover {
   color: rgba(var(--color2));
 }
 
+.list p, .list a, .list h5 {
+  color: black;
+  font-size: 1.5vw;
+  line-height: 1.7vw;
+}
+.list em {
+  font-style: normal;
+}
+
 /* FOOTER */
 footer {
   background-color: rgba(var(--color2));

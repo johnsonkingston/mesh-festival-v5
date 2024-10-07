@@ -249,6 +249,11 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
     }
 });
 
+
+
+
+
+
 //Artists
 async function getAllArtists() {
     const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*&limit=1000");
@@ -320,6 +325,101 @@ app.get("/artists/:language?/", async function (req, res) {
         console.error(err);
     }
 });
+
+
+
+
+
+
+
+//List
+async function getAllEventsList() {
+    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*&limit=1000");
+    if (!response.ok) {
+        console.log('Response not okay');
+        const data = '';
+        return data;
+    }else
+    {
+    const data = await response.json();
+
+    events = data.data;
+    let corrEvents;
+    let eventsTemp = [];
+    let eventsTemp2 = [];
+
+    for (const [key, value] of Object.entries(events)) {
+        if(value.Time == undefined){
+            events[key].Time = [{}];
+            events[key].Time[0].Start = '';
+            events[key].Time[0].End = '';
+            events[key].DateToOrder = 'zzz';
+            events[key].Day = '';
+            events[key].Hour = '';
+            events[key].Minute = '';
+            events[key].HourEnd = '';
+        }else{
+            if(value.Time.length > 1){
+                corrEvents = [];
+                for (let i = 0; i < value.Time.length; i++) {
+                    var corrEvent = {};
+                    corrEvent = structuredClone(events[key]);
+                    corrEvent.Time[0] = structuredClone(corrEvent.Time[i]);
+                    corrEvent = rewriteDate(corrEvent,0);
+                    corrEvents.push(corrEvent);                   
+                }
+
+                for (let j = 0; j < corrEvents.length; j++) {
+                    events.push(structuredClone(corrEvents[j]));
+                }
+
+            }else{
+                events[key] = rewriteDate(events[key],0);
+           }
+        }
+        console.log(events[key].Artist);
+    }
+    events.sort((a, b) => (a.DateToOrder || "").localeCompare(b.DateToOrder || ""));
+
+    return data;
+    }
+}
+
+
+
+app.get("/list/:language?/:format?", async function (req, res) {
+    var pathname = req.originalUrl;
+    language = req.params.language  || 'de';
+    languageObject = [language,languageTransform(language)];
+    format = req.params.format  || 'none';
+
+    try { 
+        result = await getAllEvents();
+        navigation = await getNavigation();
+        footer = await getFooter();
+        //news = await getNews();
+        venues = await getVenues();
+
+        language = req.params.language  || 'de';
+        
+        result.data[0].pathname = langRemove(pathname);
+
+
+        if(result.data[0]){
+            res.render('list', {data:result.data[0],events:events,navigation:navigation.data,footer:footer.data,language:languageObject,highlights:[],venues:venues.data,format:format});
+        }
+        
+    } catch (err) {
+        console.error(err);
+        res.redirect('/');
+    }
+});
+
+
+
+
+
+
 
 
 //Page

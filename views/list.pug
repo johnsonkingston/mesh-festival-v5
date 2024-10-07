@@ -1,0 +1,27 @@
+html(lang=language[0])
+    include includes/head.pug
+
+    body.list(data-size='1')
+        include includes/navigation.pug
+        - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights']};
+
+        main
+            each currentDay in [16,17,18,19,20]
+                h1=currentDay
+                each val in ['ausstellungen', 'konferenz', 'performances',  'diskurs', 'screenings', 'clubnights']
+                    h2=formatsTranslation[val][0]
+                    hr
+                    each event in events 
+                        if(event.Venues[0] !== undefined)
+                            if(event.status == 'published' && event.Format == val && event.Day == currentDay)
+                                    if(event.Timetable_only !== '1')
+                                        if(formatsTranslation[event.Format] !== undefined)
+                                            h6.format=formatsTranslation[event.Format][languageParameter]
+                                        h5.artist=event.Artist
+                                        if(venues[event.Venues[0].Venues_id] !== undefined)
+                                            h6.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id].Name
+                                    else 
+                                        h5 !{event.translations[0].Content}          
+                                        h6.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id].Name      
+                                    hr          
+        include includes/footer.pug
