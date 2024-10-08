@@ -958,7 +958,8 @@ main{
                 color: rgba(var(--color1));
                 margin: $padding*4 0;
                 .eventHeaderColumn{
-                    width: 50%;
+                    width: 47%;
+                    margin-right: 3%;
                     display: inline-block;
                     vertical-align: top;                    
                     p{

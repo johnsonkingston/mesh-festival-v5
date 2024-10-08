@@ -200,9 +200,13 @@ async function getAllEvents() {
 
 
 function rewriteDate(event,subkey){
-    event.Day = event.Time[subkey].Start.split('-')[2].substring(0,2);
-    event.Hour = event.Time[subkey].Start.split('-')[2].substring(3,5);
-    event.Minute = event.Time[subkey].Start.split(':')[1];
+    console.log(event.Time[subkey].Start);
+    if(event.Time[subkey].Start !== undefined){
+        event.Day = event.Time[subkey].Start.split('-')[2].substring(0,2);
+        event.Hour = event.Time[subkey].Start.split('-')[2].substring(3,5);
+        event.Minute = event.Time[subkey].Start.split(':')[1];
+    }
+
     
     if(event.Time[subkey].End !== undefined){
         event.HourEnd = parseInt(event.Time[subkey].End.split('-')[2].substring(3,5)) + (parseInt(event.Time[subkey].End.split(':')[1])/60);

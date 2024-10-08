@@ -1029,7 +1029,8 @@ main {
   margin: 3.2vw 0;
 }
 .event .eventHeader .eventHeaderColumn {
-  width: 50%;
+  width: 47%;
+  margin-right: 3%;
   display: inline-block;
   vertical-align: top;
 }
