@@ -1189,9 +1189,6 @@ p, li {
 .timetable .timetableSpalte25 {
   margin-left: -13vw;
 }
-.timetable #Event-73 {
-  left: 13vw;
-}
 .timetable .timetableSpalteFilter {
   margin-left: 0 !important;
 }
@@ -1286,6 +1283,19 @@ p, li {
   display: block;
   white-space: normal;
   position: absolute;
+}
+.timetable .EventTimetablePaid .EventTimetable {
+  background: linear-gradient(180deg, rgba(var(--color2)) 65%, rgba(var(--color3)) 100%);
+  color: rgba(var(--color3));
+}
+.timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h1, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h2, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h3, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h4, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h5, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h6, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent p, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent a {
+  color: rgba(var(--color3));
+}
+.timetable .EventTimetablePaid .EventTimetable a {
+  background: rgba(var(--color2));
+}
+.timetable .EventTimetablePaid h1, .timetable .EventTimetablePaid h2, .timetable .EventTimetablePaid h3, .timetable .EventTimetablePaid h4, .timetable .EventTimetablePaid h5, .timetable .EventTimetablePaid h6, .timetable .EventTimetablePaid p, .timetable .EventTimetablePaid a {
+  color: rgba(var(--color3));
 }
 .timetable .date {
   margin-bottom: 0;
@@ -1403,6 +1413,43 @@ p, li {
   width: 0;
   position: sticky;
   bottom: 2vw;
+}
+.timetable .caption {
+  position: fixed;
+  top: 5.8vw;
+  left: 4vw;
+  z-index: 10;
+}
+@media (orientation: portrait) {
+  .timetable .caption {
+    top: auto;
+    bottom: 1.6vw;
+    left: 9vw;
+  }
+}
+.timetable .caption .paid, .timetable .caption .free {
+  display: inline-block;
+  background: rgba(var(--color2));
+  border-radius: 0.8vw;
+  margin-right: 0.8vw;
+  padding-bottom: 0.4vw;
+  width: 13vw;
+  box-shadow: 0 0 5px rgba(var(--color2));
+}
+.timetable .caption .paid h2, .timetable .caption .free h2 {
+  color: rgba(var(--color3));
+}
+@media (orientation: portrait) {
+  .timetable .caption .paid, .timetable .caption .free {
+    width: 27vw;
+    border-radius: 1.6vw;
+  }
+}
+.timetable .caption .free {
+  background: rgba(var(--color3));
+}
+.timetable .caption .free h2 {
+  color: rgba(var(--color2));
 }
 
 /*ARTISTS */
@@ -2446,7 +2493,7 @@ footer .middle .logofootersquare {
 
 .meetingPoint {
   position: fixed;
-  z-index: 4;
+  z-index: 20;
 }
 
 @keyframes emojiFly {

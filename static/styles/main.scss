@@ -1109,9 +1109,6 @@ main{
             .timetableSpalte25{
                 margin-left: -13vw;               
             }            
-            #Event-73{
-                left: 13vw;
-            }
             .timetableSpalteFilter{
                 margin-left: 0 !important;
             }
@@ -1196,6 +1193,24 @@ main{
                 display: block;
                 white-space: normal;
                 position: absolute;
+            }
+            .EventTimetablePaid{
+                .EventTimetable{
+                    background: linear-gradient(180deg, rgba(var(--color2)) 65%, rgba(var(--color3)) 100%);
+                    color: rgba(var(--color3));
+                    .EventTimetableContent{
+                        h1,h2,h3,h4,h5,h6,p,a{
+                            color: rgba(var(--color3));
+                        }                        
+                    }
+                }
+                .EventTimetable a{
+                    background: rgba(var(--color2));
+                   
+                }
+                h1,h2,h3,h4,h5,h6,p,a{
+                    color: rgba(var(--color3));
+                }
             }
             .date{
                 margin-bottom: 0;
@@ -1306,6 +1321,39 @@ main{
                 bottom: 2vw;
             }
 
+        .caption{
+            position: fixed;
+            top: 5.8vw;
+            left: 4vw;
+            z-index: 10;
+            @media (orientation: portrait) {
+                top: auto;
+                bottom: $padding*2;
+                left: 9vw;
+            }
+            .paid, .free{
+                display: inline-block;
+                background: rgba(var(--color2));
+                border-radius: $padding;
+                margin-right: $padding;
+                padding-bottom: $padding*0.5;
+                width: 13vw;
+                box-shadow: 0 0 5px rgba(var(--color2));
+                h2{
+                    color: rgba(var(--color3));                    
+                }
+                @media (orientation: portrait) {
+                    width: 27vw;
+                    border-radius: $padding*2;
+                }
+            }
+            .free{
+                background: rgba(var(--color3));
+                h2{
+                    color: rgba(var(--color2));
+                }
+            }
+        }
         }
 
 
@@ -2267,7 +2315,7 @@ footer{
 }
 .meetingPoint{
     position: fixed;
-    z-index: 4;
+    z-index: 20;
 }
 @keyframes emojiFly {
     0% {

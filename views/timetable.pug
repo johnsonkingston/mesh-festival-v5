@@ -11,7 +11,7 @@ html(lang=language[0])
         - var totalEnd = hourStart + hoursPerDay + 1;
         - var firstEvent = true;
         - var dayOutput = {16: ['Mittwoch, 16. Oktober', 'Thursday'], 17: ['Donnerstag, 17. Oktober', 'Thursday'], 18: ['Freitag, 18. Oktober', 'Thursday'], 19: ['Samstag, 19. Oktober', 'Thursday'], 20: ['Sonntag, 20. Oktober', 'Thursday']}
-        - var formats = ['konferenz','diskurs','ausstellungen','performances','screenings','clubnights'];
+        - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights'];
         - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights']};
 
         - var id = 1;
@@ -41,6 +41,11 @@ html(lang=language[0])
                                     - var timePrint = n-24
                                 .hourlineChar= timePrint+':00'
                                 - n++
+                    .caption 
+                        .paid
+                            h2 • Ticket required 
+                        .free 
+                            h2 • Free
             .timetableSpalteWrap
                 each val in [23,21,12,19,3,4,5,6,8,11,1,9,13,7,14,15,16,17,18,20,22,24,25,26,2,27,10]
                     - var hourBefore = totalEnd
@@ -56,9 +61,11 @@ html(lang=language[0])
                                         - else var hourMargin = parseInt(event.Hour) + (parseInt(event.Minute)/60) - hourBefore
                                         - if(firstEvent) hourMargin = hourMargin + ((parseInt(event.Day) - 16) * (hoursPerDay+1))                                    
                                         - if(event.Timetable_only !== '1') var Timetable_only = true
+                                        - if(event.Ticketlink !== null) var freeClass = 'EventTimetablePaid'
+                                        - else var freeClass = ''
 
                                         #{event.Timetable_only == '1' ? 'div' : 'a'}(href=baseURL+'events/'+event.slug+'/'+language[0])
-                                            .EventTimetableA(class='A'+event.Format,style="height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;margin-top:"+(parseInt(event.Minute)/60)*hourHeight+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=parseInt(event.Hour)+((parseInt(event.Minute)/60)),data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-venue=event.Venues[0].Venues_id,data-id=id,id="Event-"+id)
+                                            .EventTimetableA(class='A'+event.Format+' '+freeClass,style="height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;margin-top:"+(parseInt(event.Minute)/60)*hourHeight+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=parseInt(event.Hour)+((parseInt(event.Minute)/60)),data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-venue=event.Venues[0].Venues_id,data-id=id,id="Event-"+id)
                                                 .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
                                                     if(event.Timetable_only == '1')
                                                         if(event.translations[languageParameter] !== undefined)
