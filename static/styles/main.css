@@ -2484,7 +2484,7 @@ footer .middle .logofootersquare {
   z-index: 1000;
   left: -10vw;
   top: -10vw;
-  font-size: 3vw;
+  font-size: 2vw;
 }
 @media (orientation: portrait) {
   .cursor {
