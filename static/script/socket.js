@@ -108,11 +108,11 @@ socket.on('meetingSend', function(data){
     var meetingID = new Date().getTime();
     $('body').append('<div class="meetingPoint" id="meet_'+meetingID+'" style="left:'+data.x*100+'vw;top:'+data.y*100+'vh;"></div>');
     
-    const intervalID = setInterval(emojiFly, 200, 'meet_'+meetingID,emojiIdGuest, emojiIdSelf);
+    const intervalID = setInterval(emojiFly, 250, 'meet_'+meetingID,emojiIdGuest, emojiIdSelf);
 
     setTimeout(() => {
         clearTimeout(intervalID);
-    }, "1500");
+    }, "1000");
 
     // setTimeout(() => {
     //     $('#meet_'+meetingID).fadeOut( "slow", function() {
