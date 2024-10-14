@@ -41,11 +41,11 @@ html(lang=language[0])
                             if(languageParameter == 0)
                                 .bigpill= item.Title_De
                                 a(href=baseURL+item.Caption_Link)
-                                    .mainimageCaption= item.Caption_Desktop
+                                    //.mainimageCaption= item.Caption_Desktop
                             else
                                 .bigpill= item.Title_En
                                 a(href=baseURL+item.Caption_Link,title=item.Title_En)
-                                    .mainimageCaption= item.Caption_Desktop
+                                    //.mainimageCaption= item.Caption_Desktop
                     else 
                         img.startimage.panicMode(src=imgURL+item.Video_Cover+'?key=fullscreen')
                         .bigpill.panicMode= 'Mesh'
@@ -246,38 +246,16 @@ html(lang=language[0])
                         !{data.translations_five[languageParameter].Lead}
                 .right 
                     .eventswrapper
-                        each val in [0,1,2]
-                            if(data.Events_5[val] !== undefined)
-                                if(data.Events_5[val].Events_id.status == 'preview')
-                                    a.eventLink
-                                        .events
-                                            if data.Events_5[val].Events_id.Main_Image == null
-                                                .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
-                                            else 
-                                                - var caption =data.Events_5[val].Events_id.Artist
-                                                .eventimg(style='background-image:url('+imgURL+data.Events_5[val].Events_id.Main_Image.filename_disk+'?key=icon)')
-                                                    img(src=baseURL+'static/img/grid.svg',alt="Mesh Festival für Kunst und Technologie")
-                                                .caption &bull; #{caption}
-                                else 
-                                    a(href=baseURL+'events/'+data.Events_5[val].Events_id.slug+'/'+language[0], title=data.Events_5[val].Events_id.Artist).eventLink
-                                        .events
-                                            if data.Events_5[val].Events_id.Main_Image == null
-                                                .eventimg(style='background-image:url('+imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png)')
-                                            else 
-                                                - var caption =data.Events_5[val].Events_id.Artist
-                                                .eventimg(style='background-image:url('+imgURL+data.Events_5[val].Events_id.Main_Image.filename_disk+'?key=icon)')
-                                                    img(src=baseURL+'static/img/grid.svg',alt="Mesh Festival für Kunst und Technologie")
-                                                .caption &bull; #{caption}                                
                         .previewItem 
                             .smallpill
-                                - var title =data.translations_conference[languageParameter].Title
-                                a(href=baseURL+'pages/'+data.Events_5_Link, title=title)
+                                - var title =data.translations_five[languageParameter].Title
+                                a(href=baseURL+'pages/guided-tours/', title=title)
                                     if(language[0] == 'en' )
                                         .
-                                            More #{title}
+                                            More Information
                                     else 
                                         .
-                                            Mehr #{title}   
+                                            Mehr Informationen 
 
 
 
