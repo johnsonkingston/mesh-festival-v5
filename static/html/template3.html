@@ -139,7 +139,11 @@
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, 1920, 1080);
 
+            var background = new Image();
+            background.src = "template1.png";
 
+            background.onload = function(){
+                ctx.drawImage(background,0,0);   
 
                 ctx.font = fontSize1*scale+'px FreeSans-JK';
                 ctx.fillStyle = '#8C6EFF'
@@ -162,7 +166,7 @@
                 }
                 
                 var foreground = new Image();
-                foreground.src = "template3.png";
+                foreground.src = "template2.png";
 
                 foreground.onload = function(){
                     ctx.drawImage(foreground,0,0);   
@@ -174,6 +178,7 @@
                 }
 
 
+            }
 
 
 

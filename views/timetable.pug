@@ -46,6 +46,8 @@ html(lang=language[0])
                             h2 • Ticket required 
                         .free 
                             h2 • Free
+                    #time
+
             .timetableSpalteWrap
                 each val in [23,21,12,19,3,4,5,6,8,11,1,9,13,7,14,15,16,17,18,20,22,24,25,26,2,27,10]
                     - var hourBefore = totalEnd
@@ -112,5 +114,4 @@ html(lang=language[0])
                                             - hourBefore = event.HourEnd
                                             - firstEvent = false
                                             - id++
-
         include includes/footer.pug

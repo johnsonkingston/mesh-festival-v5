@@ -1465,6 +1465,17 @@ p, li {
 .timetable .caption .free h2 {
   color: rgba(var(--color2));
 }
+.timetable #time {
+  position: absolute;
+  width: 98vw;
+  height: 1px;
+  background: rgba(var(--color1));
+  z-index: 1000;
+  left: 1vw;
+  top: 0;
+  box-shadow: 0 0 5px rgba(var(--color1));
+  display: none;
+}
 
 /*ARTISTS */
 .artists main {

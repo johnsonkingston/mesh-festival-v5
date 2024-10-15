@@ -40,6 +40,32 @@ function filterTimetableAll(){
 }
 
 
+//Timeline
+function setTimeline(){
+    let d = new Date();
+    let month = d.getMonth();
+    let day = d.getDate();
+    let hour = d.getHours();
+    let minutes = d.getMinutes();
+
+    day++;
+    day++;
+    let emHeight = $('.timetableHourline').height()/7;
+
+    if(month == 9 && day > 15 && day < 21){
+        console.log(month);
+        console.log(day);
+        $('#time').show();
+        let topSet = $('#timetableHourline'+day+'-'+hour).offset().top-$('#filters').height();
+        topSet = topSet/emHeight;
+        console.log($('#time'));
+        //$('#time').css('top',topSet+'em');
+    }
+}
+
+
+
+
 //Layout Operations
 let eventsJS = [];
 let firstInRow = [];
@@ -222,6 +248,7 @@ function runShrink(){
     getEarliestEvent();
     getLastestEvent();
     shrink();
+    //setTimeline();
 }
 
 
