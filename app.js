@@ -451,10 +451,6 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         console.log(language);
         result = await getPage(pageSlug);
 
-
-        
-
-
         navigation = await getNavigation();
         footer = await getFooter();
 
@@ -594,6 +590,14 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
             }else{
                 result.data[0].time_transformed.end = result.data[0].time_transformed.start;
             }
+            result.data[0].time_transformed_de = new Object;
+            result.data[0].time_transformed_de.start = dateformat_de(result.data[0].Time[0].Start);
+            if(result.data[0].Time[0].End !== undefined){
+                result.data[0].time_transformed_de.end = dateformat_de(result.data[0].Time[0].End);
+            }else{
+                result.data[0].time_transformed_de.end = result.data[0].time_transformed.start;
+            }
+
         }else{
             result.data[0].time_transformed = new Object;
             result.data[0].time_transformed.start = '';
@@ -708,6 +712,13 @@ function dateformat(dateIn){
 
     return new Date(dateUnix).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})+' / '+time;
 }
+function dateformat_de(dateIn){
+    var dateUnix = Date.parse(dateIn);
+    var time = dateIn.split('-')[2].substring(3,5)+':'+dateIn.split(':')[1];
+
+    return new Date(dateUnix).toLocaleDateString('de-DE', { weekday:"long", year:"numeric", month:"short", day:"numeric"})+' / '+time;
+}
+
 
 
 //404

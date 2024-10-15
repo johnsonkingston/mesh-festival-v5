@@ -952,17 +952,22 @@ main {
   width: auto;
 }
 .page main .content .image-half, .page main .content .image-bio {
-  width: calc(50% - 0.8vw);
+  width: 25vw;
   margin-right: 0.8vw;
   display: inline-block;
   vertical-align: top;
 }
+@media (orientation: portrait) {
+  .page main .content .image-half, .page main .content .image-bio {
+    width: 60vw;
+  }
+}
 .page main .content .image-bio {
-  width: 30%;
+  width: 25vw;
 }
 @media (orientation: portrait) {
   .page main .content .image-bio {
-    width: 66%;
+    width: 60vw;
   }
 }
 .page main .content .image-link-fullsize {
@@ -1181,14 +1186,34 @@ p, li {
 .timetable .timetableSpalte20 {
   margin-left: -13vw;
 }
+@media (orientation: portrait) {
+  .timetable .timetableSpalte20 {
+    margin-left: -20vw;
+  }
+}
 .timetable .timetableSpalte11 {
   margin-left: -13vw;
+}
+@media (orientation: portrait) {
+  .timetable .timetableSpalte11 {
+    margin-left: -20vw;
+  }
 }
 .timetable .timetableSpalte14 {
   margin-left: -13vw;
 }
+@media (orientation: portrait) {
+  .timetable .timetableSpalte14 {
+    margin-left: -20vw;
+  }
+}
 .timetable .timetableSpalte25 {
   margin-left: -13vw;
+}
+@media (orientation: portrait) {
+  .timetable .timetableSpalte25 {
+    margin-left: -20vw;
+  }
 }
 .timetable .timetableSpalteFilter {
   margin-left: 0 !important;
@@ -1292,8 +1317,19 @@ p, li {
 .timetable .EventTimetableASingle.Aperformances {
   left: 39vw;
 }
+@media (orientation: portrait) {
+  .timetable .EventTimetableASingle.Aperformances {
+    left: 60vw;
+  }
+}
 .timetable .EventTimetableASingle.Aausstellungen {
   left: 52vw;
+}
+@media (orientation: portrait) {
+  .timetable .EventTimetableASingle.Aausstellungen {
+    left: 80vw;
+    z-index: -1;
+  }
 }
 .timetable .Aclubnights {
   height: 11em !important;

@@ -886,15 +886,18 @@ main{
                         width: auto;
                     }
                     .image-half, .image-bio{
-                        width: calc(50% - $padding);
+                        width: 25vw;
                         margin-right: $padding;
                         display: inline-block;
                         vertical-align: top;
+                        @media (orientation: portrait) {
+                            width: 60vw;
+                        }
                     }
                     .image-bio{
-                        width: 30%;
+                        width: 25vw;
                         @media (orientation: portrait) {
-                            width: 66%;
+                            width: 60vw;
                         }
                     }
                     .image-link-fullsize{
@@ -1099,16 +1102,27 @@ main{
             }
             .timetableSpalte20{
                 margin-left: -13vw;
+                @media (orientation: portrait) {
+                    margin-left: -20vw;   
+                }
             }
             .timetableSpalte11{
                 margin-left: -13vw;               
-
+                @media (orientation: portrait) {
+                    margin-left: -20vw;   
+                }
             }
             .timetableSpalte14{
-                margin-left: -13vw;               
+                margin-left: -13vw;    
+                @media (orientation: portrait) {
+                    margin-left: -20vw;   
+                }                           
             }
             .timetableSpalte25{
-                margin-left: -13vw;               
+                margin-left: -13vw;   
+                @media (orientation: portrait) {
+                    margin-left: -20vw;   
+                }                            
             }            
             .timetableSpalteFilter{
                 margin-left: 0 !important;
@@ -1199,9 +1213,16 @@ main{
             }
             .EventTimetableASingle.Aperformances{
                 left:39vw;
+                @media (orientation: portrait) {
+                    left:60vw; 
+                }
             }
             .EventTimetableASingle.Aausstellungen{
                 left:52vw;
+                @media (orientation: portrait) {
+                    left:80vw; 
+                    z-index: -1;
+                }
             }
             .Aclubnights{
                 height: 11em !important;

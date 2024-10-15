@@ -173,7 +173,7 @@ function shrink(){
     for (const keyDay in days) {
         var day = days[keyDay];
         
-        var i = 9; 
+        var i = 8; 
         while (i < EarliestEvent[day].hour) {
             $('#timetableHourline'+day+'-'+i).height(shrinkHeight+'em');
             totalShrink[day] += reductionHeight;
