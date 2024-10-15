@@ -1195,6 +1195,15 @@ main{
                 white-space: normal;
                 position: absolute;
             }
+            .EventTimetableASingle.Aperformances{
+                left:39vw;
+            }
+            .EventTimetableASingle.Aausstellungen{
+                left:52vw;
+            }
+            .Aclubnights{
+                height: 11em !important;
+            }
             .EventTimetablePaid{
                 .EventTimetable{
                     background: linear-gradient(180deg, rgba(var(--color2)) 65%, rgba(var(--color3)) 100%);
@@ -1256,7 +1265,7 @@ main{
                 }
 
             }
-            h3{
+            h3,h6{
                 font-size: $fontSizeMicro;
                 line-height: 0.8vw;
                 margin-top: 0;

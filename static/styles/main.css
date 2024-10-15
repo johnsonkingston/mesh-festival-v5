@@ -1285,6 +1285,15 @@ p, li {
   white-space: normal;
   position: absolute;
 }
+.timetable .EventTimetableASingle.Aperformances {
+  left: 39vw;
+}
+.timetable .EventTimetableASingle.Aausstellungen {
+  left: 52vw;
+}
+.timetable .Aclubnights {
+  height: 11em !important;
+}
 .timetable .EventTimetablePaid .EventTimetable {
   background: linear-gradient(180deg, rgba(var(--color2)) 65%, rgba(var(--color3)) 100%);
   color: rgba(var(--color3));
@@ -1345,13 +1354,13 @@ p, li {
     line-height: 3vw;
   }
 }
-.timetable h3 {
+.timetable h3, .timetable h6 {
   font-size: 0.8vw;
   line-height: 0.8vw;
   margin-top: 0;
 }
 @media (orientation: portrait) {
-  .timetable h3 {
+  .timetable h3, .timetable h6 {
     font-size: 2vw;
     line-height: 2vw;
   }
