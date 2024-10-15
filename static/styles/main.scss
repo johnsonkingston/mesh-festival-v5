@@ -1161,6 +1161,7 @@ main{
                     margin-bottom: $padding*0.5;
                     box-shadow: 0 0 10px;
                     background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
+                    hyphens: none;
                     @media (orientation: portrait) {
                         margin-bottom: $padding*0.5*$scaleFactor;
                     
@@ -1171,6 +1172,7 @@ main{
                     line-height: 1.2vw;
                     margin-block-start: 0;
                     margin-block-end: 0;
+                    hyphens: none;
                     @media (orientation: portrait) {
                         font-size: $fontSize0*$scaleFactor;
                         line-height: 1.2vw*$scaleFactor;                        
