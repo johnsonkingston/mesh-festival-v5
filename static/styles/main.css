@@ -2203,6 +2203,17 @@ footer .adresse {
     margin-top: 10vw;
   }
 }
+footer .adresse h6 {
+  font-size: 1.1vw;
+  line-height: 1.4vw;
+  color: white;
+}
+@media (orientation: portrait) {
+  footer .adresse h6 {
+    font-size: 2.75vw;
+    line-height: 3.5vw;
+  }
+}
 footer .left {
   width: 20%;
   height: 100px;

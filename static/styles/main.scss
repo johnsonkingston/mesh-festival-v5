@@ -2047,6 +2047,16 @@ footer{
             width: 100%;
             margin-top: 10vw;
         }
+        h6{
+            font-size: $fontSize0;
+            line-height: $lineHeight0;
+            color:white;
+            @media (orientation: portrait) {
+                font-size: $fontSize0*$scaleFactor;
+                line-height: $lineHeight0*$scaleFactor;                
+            }
+
+        }
     }
     .left{
         width: 20%;
