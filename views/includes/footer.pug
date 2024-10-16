@@ -31,7 +31,10 @@ footer
             ul 
                 each val in footer[languageParameter].Second_Links
                     li
-                        a.mediumpill(href=baseURL+val.URL+'/'+language[0], title=val.Title)= val.Title
+                        if(val.URL.indexOf('http') !== -1)
+                            a.mediumpill(href=val.URL, title=val.Title, target='_blank')= val.Title
+                        else
+                            a.mediumpill(href=baseURL+val.URL+'/'+language[0], title=val.Title)= val.Title
                 li
                     a.mediumpill(href="#",onclick="showNewsletter()", title="Newsletter").nohover Newsletter
 
