@@ -537,6 +537,10 @@ main {
 .startpage .glide .glide__bullet--active {
   background: rgba(var(--color2));
 }
+.startpage .glide p {
+  -webkit-hyphens: none;
+          hyphens: none;
+}
 .startpage .glideclose {
   position: fixed;
   top: 0;

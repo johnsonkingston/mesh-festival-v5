@@ -501,6 +501,9 @@ main{
             background: rgba(var(--color2));
            
         }
+        p{
+            hyphens: none;
+        }
 
     }
     .glideclose{
