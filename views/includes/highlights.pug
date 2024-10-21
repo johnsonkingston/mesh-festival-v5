@@ -3,23 +3,29 @@
     .glide__track(data-glide-el='track')
         ul.glide__slides
             each val in highlights
-                if(val.Link.indexOf('http') !== -1)
-                    - var link = val.Link
+                if(val.translations[languageParameter].Link !== null)
+                    if(val.translations[languageParameter].Link.indexOf('http') !== -1)
+                        - var link = val.translations[languageParameter].Link
+                        - var target = '_blank'
+                    else
+                        - var link = baseURL+val.translations[languageParameter].Link
+                        - var target = '_self'
                 else
-                    - var link = aseURL+val.Link
+                    - var link = ''
+                    - var target = '_self'
                 li.glide__slide
                     if(val.status == "published")
                         if(val.Link !== undefined)
                             if(val.translations[languageParameter] === undefined)
                                 .title
-                                    a(href=baseURL+val.Link, title=val.translations[0].Title)=val.translations[0].Title
+                                    a(href=link, target=target, title=val.translations[0].Title)=val.translations[0].Title
                                 .content
-                                    a(href=baseURL+val.Link, title=val.translations[0].Title) !{val.translations[0].Content}
+                                    a(href=link, target=target, title=val.translations[0].Title) !{val.translations[0].Content}
                             else 
                                 .title
-                                    a(href=baseURL+val.Link, title=val.translations[languageParameter].Title)=val.translations[languageParameter].Title
+                                    a(href=link, target=target, title=val.translations[languageParameter].Title)=val.translations[languageParameter].Title
                                 .content
-                                    a(href=baseURL+val.Link, title=val.translations[languageParameter].Title) !{val.translations[languageParameter].Content}                        
+                                    a(href=link, target=target, title=val.translations[languageParameter].Title) !{val.translations[languageParameter].Content}                        
                         else
                             if(val.translations[languageParameter] === undefined)
                                 .title=val.translations[0].Title
