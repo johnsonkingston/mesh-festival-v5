@@ -3,6 +3,10 @@
     .glide__track(data-glide-el='track')
         ul.glide__slides
             each val in highlights
+                if(val.Link.indexOf('http') !== -1)
+                    - var link = val.Link
+                else
+                    - var link = aseURL+val.Link
                 li.glide__slide
                     if(val.status == "published")
                         if(val.Link !== undefined)
