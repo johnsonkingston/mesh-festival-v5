@@ -474,6 +474,7 @@ main {
   }
 }
 .startpage .glide {
+  display: none;
   position: fixed;
   width: 50vw;
   height: auto;
@@ -549,6 +550,7 @@ main {
   height: 100vh;
   z-index: 8;
   cursor: pointer;
+  display: none;
 }
 
 /*PAGE */
