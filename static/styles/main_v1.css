@@ -53,8 +53,7 @@ h1, h2, h3, h4 {
 p {
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
-  -webkit-hyphens: auto;
-          hyphens: auto;
+  hyphens: auto;
 }
 
 ::-webkit-scrollbar {
@@ -294,11 +293,6 @@ h2 {
 
 .mobileH2 {
   display: none;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-  margin-left: 50% !important;
-  transform: translateX(-50%);
 }
 @media (orientation: portrait) {
   .mobileH2 {
@@ -307,6 +301,13 @@ h2 {
 }
 .mobileH2 a {
   color: rgba(var(--color1));
+}
+.mobileH2 {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  margin-left: 50% !important;
+  transform: translateX(-50%);
 }
 
 .stickyNavItem {

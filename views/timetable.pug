@@ -3,7 +3,7 @@ html(lang=language[0])
     script(src=baseURL+"static/script/timetable.js")
 
     body.timetable(data-size='1')
-        include includes/navigation.pug
+        include includes/sitenav.pug
 
         - var hourHeight = 7;
         - var hourStart = 8;
@@ -16,11 +16,11 @@ html(lang=language[0])
 
         - var id = 1;
         #filters 
-            .mediumpill.active#filterAll(onclick="filterTimetableAll()",data-all='1')='All'
+            .mediumpill.bubble.active#filterAll(onclick="filterTimetableAll()",data-all='1')='All'
             each format in formats
-                .mediumpill.filterpill(onclick="filterTimetable('"+format+"',$(this))",data-visible=1,id="filter-"+format)=formatsTranslation[format][languageParameter]
-            
-            .mediumpill.active#filtermap(onclick="$('#map').toggle();")='Map'
+                .mediumpill.bubble.filterpill(onclick="filterTimetable('"+format+"',$(this))",data-visible=1,id="filter-"+format)=formatsTranslation[format][languageParameter]
+
+            .mediumpill.bubble.active#filtermap(onclick="$('#map').toggle();")='Map'
         #map 
             img(src=imgURL+"5850ee5c-5b08-4fe4-ad9b-186dcf9044ab.png",onclick="$('#map').hide();")
 
@@ -29,8 +29,8 @@ html(lang=language[0])
             each day in [16,17,18,19,20]
                 //venue
                 div(class="timetableDay")
-                    .date 
-                        h1=dayOutput[day][0]
+                    .date
+                        h1.bubble=dayOutput[day][0]
                     - var n = hourStart;
                     .timetableHourlineWrap(data-hour=n)
                         while n < hoursPerDay+hourStart+1
@@ -41,11 +41,6 @@ html(lang=language[0])
                                     - var timePrint = n-24
                                 .hourlineChar= timePrint+':00'
                                 - n++
-                    .caption 
-                        .paid
-                            h2 • Ticket required 
-                        .free 
-                            h2 • Free
                     #time
 
             .timetableSpalteWrap

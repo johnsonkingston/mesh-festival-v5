@@ -15,39 +15,43 @@
     font-display: swap;
 }
 
-$padding: 0.8vw;
+$padding: 0.5vw;
 
 $fontSizeMicro: 0.8vw;
 $lineHeightMicro: 1vw;
 
-$fontSize0: 1.1vw;
-$lineHeight0: 1.4vw;
-$fontSize1: 1.5vw;
-$lineHeight1: 1.7vw;
+$fontSize1: 1.2vw;
+$lineHeight1: 1.4vw;
+$fontSize1: 1.2vw;
+$lineHeight1: 1.3vw;
 $fontSize2: 2vw;
 $lineHeight2: 2.2vw;
 $fontSize3: 7vw;
 $lineHeight3: 6vw;
+$fontSize4: 9vw;
+$lineHeight4: 9vw;
 $fontSize3VH: 10vh;
 $lineHeight3VH: 8vh;
 
 $scaleFactor: 2.5;
+$serifFactor: 1.1;
 
 :root {
-    --color1:   215, 255, 0, 1;
-    --color2:   140, 110, 255, 1;
-    --color3:   215,215,215,1;
-    --color4:   0,0,0,0;
+    --color1:   250, 250, 250, 1;
+    --color2:   51, 51, 51, 1;
+    --color3:   235,235,235,1;
+    --color4:   255,88,0,1;
     --hourHeight: 7vw; 
 }
 
 body{
     font-family: 'FreeSans-JK', sans-serif;
     margin:0;
+    overflow-x: hidden;
+    width: 100vw;
     overscroll-behavior: none;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    background: rgba(var(--color3));
+    background: rgba(var(--color1));
 
 }
 .block{
@@ -60,10 +64,10 @@ body{
 }
 a{
     text-decoration: none; 
-    color: rgba(var(--color2));
 }
 a:hover{
-    text-shadow: 0 0 10px;
+    color: rgba(var(--color4));
+    text-shadow: rgba(var(--color4)) 0 0 10px;
 }
 .panicMode{
     display: none;
@@ -100,13 +104,6 @@ ul{
 }
 ::-webkit-scrollbar-track {
     background: rgba(var(--color2));
-}
-
-a,h1,h2,h3,h4,h5,h6,p,li,blockquote,div,section,main,footer,td,table,tbody, td p{
-    transition: color 2s linear, background-color 2s linear, box-shadow 2s linear, border 2s linear;
-}
-main{
-    transition: all 1s linear
 }
 
 /*GENERAL*/
@@ -155,9 +152,31 @@ main{
         padding-right: $padding*6;
     }
 }
-.blur{
-    //filter:blur(20px);
+a.bubble,div.bubble{
+    font-size: $fontSize1;
+    line-height: $lineHeight1;
+    padding: $padding*0.7 $padding*2;
+    border-radius: $lineHeight1;
+    background-color: rgba(var(--color2)); 
+    color: rgba(var(--color1));
+    transition: all 0.1s linear;
+    border: 1px solid rgba(var(--color2));     
+    @media (orientation: portrait) {
+        font-size: $fontSize4;
+        line-height: $lineHeight4;
+        padding: $padding*0.7*$scaleFactor $padding*4*$scaleFactor;
+        border-radius: $fontSize4;
+    }
 }
+.bubble:hover{
+    background: rgba(var(--color4));
+    box-shadow: 0 0 0.5vw rgba(var(--color4));
+    border: 1px solid rgba(var(--color4));   
+}
+main.blur {
+    filter: blur(10px);
+}
+
 .eventswrapper{
     display: block;
     width: 100%;
@@ -243,281 +262,7 @@ main{
     }
 }
 
-/*STARTPAGE */
-.startpage
-{
-    scroll-snap-type: y mandatory;
-    height: 100vh;
-    overflow: hidden;
-    main{
-        min-height: 100vh;
-        height: calc(100vh - $lineHeight0);
 
-        overflow: scroll;
-        scroll-snap-type: y mandatory;
-        scrollbar-width: none;
-
-        section{
-            width: 100vw;
-            height: calc(160vh - $fontSize2*4);
-            scroll-snap-align: start;
-            @media (orientation: portrait) {
-                height: 100vh;
-            }
-
-            .bigpill{
-                position: sticky;
-                top: 40vh;
-                left: 50vw;
-                margin-bottom: 31vh;
-                transform: translate(-50%, -50%);
-                @media (orientation: portrait) {
-                    left: 0;
-                    transform: none;
-                    margin-left: auto;
-                    margin-right: auto;
-                    position: sticky;
-                    top:auto;
-                    position: relative;
-                    margin-top: -57vh;
-                }
-            }
-            .videoDesk{
-                z-index: -12;
-                @media (orientation: portrait) {
-                    display: none;
-                }
-            }
-            .videoMobile{
-                display: none;
-                @media (orientation: portrait) {
-                    display: block;
-                }
-            }
-            .grid{
-                position: absolute;
-                height: 100%;
-                top:0;
-                left: 0;
-                mix-blend-mode: overlay;
-            }
-            #gridRight{
-                left: auto;
-                right: 0;
-            }
-        }
-        video{
-            position: sticky;
-            top:0;
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            object-position: center bottom;
-            //position: fixed;
-            top:0;
-            left: 0;
-        }
-
-        .bubbles{
-            position: absolute;
-            top:0;
-        }
-        .bubblesRight{
-            margin-left: 50%;
-        }
-        #bubbleLeftVideo, #bubbleRightVideo{
-            height: 100vh;
-            width: 50vw;
-            display: block;
-            mix-blend-mode: lighten;
-            z-index: 1;
-            object-fit: contain;
-            object-position: center;
-        }
-        #bubbleRightVideo{
-            float: right;
-        }
-
-        .preview{
-            height: calc(100vh - $fontSize2*2);
-            padding-top: $fontSize2*2;
-            width: 100vw;
-            background: linear-gradient(0deg, rgba(255,255,255) 0%, rgba(var(--color3)) 100%);
-            scroll-snap-align: start;
-            @media (orientation: portrait) {
-                padding-top: $fontSize2*2*$scaleFactor;
-                height: calc(100vh - $fontSize2*2*$scaleFactor);
-                overflow: hidden;
-            }
-            .left, .right{
-                width:47%;
-                display: inline-block;
-                vertical-align: top;
-                @media (orientation: portrait) {
-                    width: calc(100% - $padding*4);
-                    display: block;
-                }
-            }
-            .left{
-                @media (orientation: portrait) {
-                    margin-top: 2vw;
-                }
-                h2{
-                     padding-top: $padding*2; 
-                }
-                p{
-                    font-size: $fontSize2;
-                    line-height: $lineHeight2;
-                    padding: 0 $padding*2;
-                    text-align: center;
-                    @media (orientation: portrait) {
-                        font-size: $fontSize2*$scaleFactor;
-                        line-height: $lineHeight2*$scaleFactor;
-                        padding: 0 $padding*2*$scaleFactor;                   
-                    }
-                }
-                p.bio-wrapper {
-                    font-size: $fontSize1;
-                    line-height: $lineHeight1;
-                    @media (orientation: portrait) {
-                        font-size: $fontSize1*$scaleFactor;
-                        line-height: $lineHeight1*$scaleFactor;                        
-                    }
-                }
-            }
-            .right{
-                margin-top: $padding*2; 
-                .previewItem{
-                    margin-top: $padding*10;
-                    display: inline-block;
-                    a{
-                        color:rgba(var(--color3));
-                    }
-                    @media (orientation: portrait) {
-                        margin-top: 4vw;
-                        width: 100%;
-                        text-align: center;
-                    }
-                    .smallpill{
-                        text-align: left;
-                    }
-                }
-                padding: $padding*2;
-
-            }
-            h2{
-                font-size: $fontSize3;
-                line-height: $lineHeight3;
-                font-family: 'FreeSans-JK';
-                @media (orientation: portrait) {
-                    font-size: $fontSize3*1.5;
-                    line-height: $lineHeight3*1.5*1.5;                   
-                }
-
-            }
-
-        }
-        .visit{
-            height: auto;
-            position: relative;
-            padding-top: 2vw;
-            padding-bottom: 2vw;
-            background: rgba(var(--color1));
-        }
-    }
-    .smallpill{
-        background: rgba(var(--color2));
-        color: rgba(var(--color3));
-        display: inline-block;
-    }
-    .mainimageCaption{
-        margin-left: .8vw;
-        top: calc(100vh - 4vw);
-        font-size: 1.5vw;
-        color: rgba(var(--color2));
-        z-index: 1;
-        position: sticky;
-        max-width: 46vw;
-        @media (orientation: portrait) {
-            font-size: $fontSize1*$scaleFactor;
-            max-width: 90vw;
-        }
-    }
-
-    .glide{
-        display: none;
-        position: fixed;
-        width: 50vw;
-        height: auto;
-        margin-left: 50%;
-        transform: translateX(-50%);
-        background: rgba(var(--color1));
-        padding: $padding;
-        padding-top: $padding*4;
-        top: 21vh;
-        text-align: center;
-        border-radius: $padding;
-        box-shadow: 0 0 20px rgba(var(--color1));
-        z-index: 10;
-        @media (orientation: portrait) {
-            width: 80vw;
-            padding: $padding*4;
-        }
-        .title, .content{
-            font-size: $fontSize2*2;
-            line-height: $lineHeight2*2;
-            @media (orientation: portrait) {
-                font-size: $fontSize2*2*$scaleFactor;
-                line-height: $lineHeight2*2*$scaleFactor;               
-            }
-        }
-        .content, .content p{
-            font-family: 'FreeSerif-JK';
-            font-size: $fontSize2*2.3;
-            line-height: $lineHeight2*2; 
-            margin-block-start: 0;
-            margin-block-end: 0;  
-            @media (orientation: portrait) {
-                font-size: $fontSize2*2.3*$scaleFactor;
-                line-height: $lineHeight2*2*$scaleFactor;               
-            }         
-        }
-        .glide__bullet{
-            width: $padding*2;
-            height: $padding*2;
-            border-radius: $padding;
-            background: rgba(var(--color1));
-            border: 1px solid rgba(var(--color2));
-            margin: $padding*3 $padding $padding $padding;
-            padding:0;
-            @media (orientation: portrait) {
-                width: $padding*2*$scaleFactor;
-                height: $padding*2*$scaleFactor;      
-                border-radius: $padding*$scaleFactor;     
-                margin: $padding*3*$scaleFactor $padding*$scaleFactor $padding*$scaleFactor $padding*$scaleFactor;  
-            }
-
-        }
-        .glide__bullet--active{
-            background: rgba(var(--color2));
-           
-        }
-        p{
-            hyphens: none;
-        }
-
-    }
-    .glideclose{
-        position: fixed;
-        top:0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 8;
-        cursor: pointer;
-        display: none;
-    }
-}
 
 /*PAGE */
         .page
@@ -532,6 +277,7 @@ main{
                 margin-left: calc(50% - ($padding*2));
                 min-height: 100vh;
                 padding-bottom: 10vh;
+                padding-top: 5vw;
                 @media (orientation: portrait) {
                     margin-left: 0;
                     padding: $padding*$scaleFactor;
@@ -657,13 +403,13 @@ main{
                         margin-block-end: 0.5em;
                     }
                     h6{
-                        font-size: $fontSize0;
-                        line-height: $lineHeight0;
+                        font-size: $fontSize1;
+                        line-height: $lineHeight1;
                         color:  rgba(var(--color2));
-                        margin-bottom: $lineHeight0;
+                        margin-bottom: $lineHeight1;
                         @media (orientation: portrait) {
-                            font-size: $fontSize0*$scaleFactor;
-                            line-height: $lineHeight0*$scaleFactor;
+                            font-size: $fontSize1*$scaleFactor;
+                            line-height: $lineHeight1*$scaleFactor;
                         }
                     }
                     p, li{
@@ -741,8 +487,8 @@ main{
                             line-height: $fontSize2*2*$scaleFactor; 
                         }
                         em{
-                            font-size: $fontSize0;
-                            line-height: $lineHeight0;
+                            font-size: $fontSize1;
+                            line-height: $lineHeight1;
                             font-style: normal;
                             font-family: 'FreeSans-JK';
                             text-align: left;
@@ -811,8 +557,8 @@ main{
                         em{
                             display: block;
                             font-family: 'FreeSans-JK';
-                            font-size: $fontSize0;
-                            line-height: $fontSize0;
+                            font-size: $fontSize1;
+                            line-height: $fontSize1;
                             text-align: center;
                             @media (orientation: portrait) {
                                 font-size: $fontSize2*$scaleFactor;
@@ -845,8 +591,8 @@ main{
                             em{
                                 display: block;
                                 font-family: 'FreeSans-JK';
-                                font-size: $fontSize0;
-                                line-height: $fontSize0;
+                                font-size: $fontSize1;
+                                line-height: $fontSize1;
                                 text-align: center;
                                 @media (orientation: portrait) {
                                     font-size: $fontSize2*$scaleFactor;
@@ -939,7 +685,7 @@ main{
                 }
             }
             main{
-                background: linear-gradient(180deg, rgba(var(--color4)) 0%, rgba(var(--color3)) 4%);
+                background: rgba(var(--color1));
                 margin-top: 95vh;
                 padding-top:10vw;
                 @media (orientation: portrait) {
@@ -996,10 +742,9 @@ main{
             }
         }
 
-        h1,h2,h3{
+        h1,h2,h3,h4{
             font-family: 'FreeSerif-JK';
             text-align: center;
-            color: rgba(var(--color2));
         }
         h3{
             font-size: $fontSize3;
@@ -1066,9 +811,9 @@ main{
 
             main{
                 min-height: 200vh;
-                margin-top: 4.5vw;
+                margin-top: 10.5vw;
                 @media (orientation: portrait) {
-                    margin-top: 8.5vw;
+                    margin-top: 19.5vw;
                 }
             }
             main::-webkit-scrollbar {
@@ -1187,13 +932,13 @@ main{
                     }
                 }
                 p{
-                    font-size: $fontSize0;
+                    font-size: $fontSize1;
                     line-height: 1.2vw;
                     margin-block-start: 0;
                     margin-block-end: 0;
                     hyphens: none;
                     @media (orientation: portrait) {
-                        font-size: $fontSize0*$scaleFactor;
+                        font-size: $fontSize1*$scaleFactor;
                         line-height: 1.2vw*$scaleFactor;                        
                     }
                     i,em{
@@ -1281,14 +1026,14 @@ main{
             }
             h2,h3{
                 font-family: 'FreeSans-JK';  
-                font-size: $fontSize0;
+                font-size: $fontSize1;
                 line-height: 1.2vw;
                 text-align: left;
                 margin-left: $padding;
                 margin-top: $padding/2;
                 margin-right: $padding;
                 @media (orientation: portrait) {
-                    font-size: $fontSize0*$scaleFactor;
+                    font-size: $fontSize1*$scaleFactor;
                     line-height: 1.2vw*$scaleFactor;                    
                 }
 
@@ -1337,21 +1082,6 @@ main{
                 }
             }
             
-            #navButton, #accessibilityButton{
-                top: 5.6vw;
-                @media (orientation: portrait) {
-                    top: 9.75vw;
-                }
-                .st1{
-                    fill:rgba(var(--color2));
-                }
-            }
-            #accessibilityButton{
-                top: 12vw;
-                    @media (orientation: portrait) {
-                        top: 24vw;
-                    }
-                }
             .venueLabel{
                 white-space: nowrap;
                 width: 0;
@@ -1409,58 +1139,51 @@ main{
 /*ARTISTS */
 .artists{
     main{
-        margin-top: 4.5vw;
+        margin-top: 8vw;
         margin-bottom: 4.5vw;
-        min-height: 80vh;
         @media (orientation: portrait) {
-            margin-top: 8.5vw;
+            margin-top: 16.5vw;
         }
-        .char{
-            position: sticky;
-            top: 5vw;
-            text-align: left;
-            background: rgba(var(--color3));
-            padding: $padding;
-            margin-bottom: -8vw;
-            width: 10vw;
-            z-index: -1;
-            text-transform: uppercase;
-            @media (orientation: portrait) {
-                margin-bottom: -17.7vw;
-                top: 9vw;
-                width: 13vw;
-                font-size: 14.5vw;
-                line-height: 17vw;
-            }
 
-        }
         .artist{
-            display: flex;
-            justify-content: space-between;
+            display: inline-flex;
+            justify-content: center;
             align-items: center;
+            width: 25%;
+            text-align: center;
             @media (orientation: portrait) {
-                display: block;
+                width: 50%;
             }
 
             .left, .middle, .right{
-                padding: $padding;
-                h3{
-                    @media (orientation: portrait) {
-                        font-size: 13vw;
-                        line-height: 13vw;
+                padding: $padding $padding*3; 
+                color: rgba(var(--color2));
+                @media (orientation: portrait) {
+                    padding: $padding*3*$scaleFactor $padding*3*$scaleFactor;
+                }
+                h3,h4{
+                    font-family: 'FreeSans-JK';
+                    font-size: $fontSize1;
+                    line-height: $lineHeight1;
+                    text-align: center;
+                        @media (orientation: portrait) {
+                        font-size: $fontSize2*$scaleFactor;
+                        line-height: $fontSize2*$scaleFactor; 
                     }                   
                 }
                 h4{
-                    font-size: $fontSize1;
-                    line-height: $lineHeight1;
-                    color: rgba(var(--color2));
+                    font-family: 'FreeSerif-JK';
+                    font-size: $fontSize1*$serifFactor;
+                    line-height: $lineHeight1*$serifFactor;
                     @media (orientation: portrait) {
-                        font-size: $fontSize1*$scaleFactor;
-                        line-height: $fontSize1*$scaleFactor; 
-                        text-align: center;
+                        font-size: $fontSize2*$serifFactor*$scaleFactor;
+                        line-height: $lineHeight2*$serifFactor*$scaleFactor;
                     }
-
                 }
+
+            }
+            .middle:hover{
+                color: rgba(var(--color4));
             }
             .left{
                 width: 6vw;
@@ -1473,27 +1196,7 @@ main{
                     padding: 0;
                 }
             }
-            .middle{
-                text-align: center;
-                @media (orientation: portrait) {
-                    padding: $padding*2 0 0 0;
-                }
-                h3{
-                    font-family: 'FreeSans-JK';
-                    max-width: 64vw;
-                    @media (orientation: portrait) {
-                        max-width: 80vw;
-                        margin-left: 10vw;
-                        hyphens: auto;
-                    }
-                }
-                @media (orientation: portrait) {
-                    h3{
-                        padding-bottom: 0;
 
-                    }
-                }
-            }
             .right{
                 width: 20vw;
                 @media (orientation: portrait) {
@@ -1507,58 +1210,52 @@ main{
             margin-top: -2vw;
         }
     }
-    #navButton, #accessibilityButton{
-        top: 5.6vw;
-        @media (orientation: portrait) {
-            top: 9.75vw;
-        }
-    }
-    #accessibilityButton{
-        top: 12vw;
-            @media (orientation: portrait) {
-                top: 22vw;
-            }
-        }
 }
 
 /*FILTERS */
 #filters{
     position: fixed;
-    top:0;
+    top: 3.1vw;
     left: 0;
     width: 100vw;
-    height: 4.5vw;
+    height: 3.2vw;
     background: rgba(var(--color3));
-    box-shadow: 0 0 2vw black;
-    z-index: 10;
+    box-shadow: 0 0 2vw rgba(var(--color2));
+    z-index: 110;
     white-space: nowrap;
-    overflow: scroll;
+    overflow-x: scroll;
     @media (orientation: portrait) {
-        height: 8.5vw;
+        height: 14vw;
+        top: 0;
+        z-index: 90;
     }
-    .mediumpill{
-        font-size: $fontSize1;
-        line-height: $lineHeight1;
-        background: rgba(var(--color3));
+    .bubble{
+        display: inline-block;
+        vertical-align: top;
+        margin: $padding;
+        @media (orientation: portrait) {
+            margin: $padding*$scaleFactor;
+        }
+    }
+    .filterpill{
+        background: rgba(var(--color1));
         border: 1px solid rgba(var(--color2));
         color: rgba(var(--color2));
-        display: inline-block;
-        text-transform: capitalize;
-        margin-top: $padding;
-        margin-left: $padding;
-        margin-right: 0;
-        transition: none;
-        @media (orientation: portrait) {
-            font-size: $fontSize1*$scaleFactor;
-            line-height: $lineHeight1*$scaleFactor;                      
-        }
+    }
+    .filterpill:hover{
+        background: rgba(var(--color4));
+        border: 1px solid rgba(var(--color4));
+        color: rgba(var(--color1));
     }
     .active{
         background: rgba(var(--color2));
-        color: rgba(var(--color1));                   
+        color: rgba(var(--color1));   
+        border: 1px solid rgba(var(--color2));                
     }
-    .mediumpill:hover{
-        box-shadow: 0 0 10px rgba(var(--color2));
+    .active:hover{
+        background: rgba(var(--color4));
+        border: 1px solid rgba(var(--color4));
+        color: rgba(var(--color1));        
     }
     #filtermap{
         float: right;
@@ -1583,160 +1280,11 @@ main{
     }
 }
 
+
 /*NAVIGATION */
-nav{
-    position: fixed;
-    top:-100%;
-    width:100%;
-    height: 100%;
-    background: linear-gradient(0deg,  rgba(var(--color1))0%, rgba(var(--color3)) 50%);
-    transition: top 0.5s ease-in-out;
-    z-index: 90;
-    overflow: hidden;
-    @media (orientation: portrait) {
-        overflow: scroll;
-    }
-    #headerlogo{
-        @media (orientation: portrait) {
-            position: fixed;
-        }
-    }
-    ul{
-        margin-top: $padding*3;
-        @media (orientation: portrait) {
-            margin-top: 19vh;
-        }
-    }
-    li.navigation{
-        font-size: $fontSize3VH;
-        line-height: $lineHeight3VH;
-        padding-bottom: $padding;
-        text-align: center;  
-        @media (orientation: portrait) {
-            padding-bottom: 0;
-            font-size: 13vw;
-            line-height: 13vw;
-        }     
-    }
-    .navigationMobile{
-        font-family: 'FreeSerif-JK';
-        display: none;
-        @media (orientation: portrait) {
-            width: 50%;
-            display: inline-block;
-        }
-    }
-    .logo{
-        position: absolute;
-        width: 27%;
-        @media (orientation: portrait) {
-            width: 50%;
-        }
-    }
-    .navTimetable, .navArtists{
-        position: absolute;
-        right: 5vw;
-        top: 33vh;
-        width: 20vh;
-        text-align: center;
-        color: rgba(var(--color2));
-        font-size: $fontSize3VH;
-        line-height: $lineHeight3VH;
-        @media (orientation: portrait) {
-            position: relative;
-            width: 100%;
-            top: 0;
-            font-size: 13vw;
-            line-height: 13vw;
-            right: 0;
-        }
-    }
-    .navArtists{
-        right: auto;
-        left: 3vw;
-        width: 26vh;
-        top: 45vh;
-        @media (orientation: portrait) {
-            top:0;
-            width: 100%;
-            left: 0;
-        }
-    }
-    .navBottom{
-        display: flex;
-        text-align: center;
-        .left, .middle, .right{
-            width: 32%;
-            font-size: $fontSize3VH;
-            font-family: 'FreeSerif-JK';
-            @media (orientation: portrait) {
-                font-size: 13vw;
-            }     
-        }
-        .middle{
-            width:34%;
-            @media (orientation: portrait) {
-                margin-top: 5vw;
-                width:90%;
-            }
-        }
-        .left, .right{
-            margin-top: -5vh;
-            @media (orientation: portrait) {
-                margin-top: 18vw;
-            }
-            .navSub{
-                line-height: 10vh;
-                @media (orientation: portrait) {
-                    display: none;
-                }
-            }
-        }
-        img,svg{
-            height: $fontSize3VH*0.8;
-            padding: $padding;
-            @media (orientation: portrait) {
-                height: 13vw;
-                padding: $padding*2;
-            }
-        }
-        .cls-1 {
-            fill: none;
-            stroke: rgba(var(--color2));
-            stroke-miterlimit: 10;
-            stroke-width: 20px;
-        }
-
-    }
-    .languages{
-        position: absolute;
-        top: 0;
-        right: 9vw;
-        margin-top: 0;
-        @media (orientation: portrait) {
-            right: 20vw;
-        }
-        li{
-            display: inline-block;
-            list-style: none;
-        }
-        .smallpill{
-            margin-top: 3vw;
-            background: rgba(var(--color1));
-        }
-        .smallpill:hover{
-            background: rgba(var(--color2));
-            color: rgba(var(--color1));
-        }
-    }
 
 
-}
-
-.open{
-    top:0;
-}
-#navButton,#newsClose,#navButtonClose,#accessibilityButton{
+#newsClose{
     position: fixed;
     top: 1.1vw;
     right: 1.1vw;
@@ -1744,12 +1292,12 @@ nav{
     cursor:pointer;
     @media (orientation: portrait) {
         top: 1.1vw*$scaleFactor;
-        right: 1.1vw*$scaleFactor;      
+        right: 1.1vw*$scaleFactor;
     }
     img, svg{
         width:4.7vw;
         @media (orientation: portrait) {
-            width:4.7vw*$scaleFactor; 
+            width:4.7vw*$scaleFactor;
         }
     }
     .st0{
@@ -1759,45 +1307,21 @@ nav{
         fill:rgba(var(--color1));
     }
 }
-#accessibilityButton{
-    top: 8vw;
-    @media (orientation: portrait) {
-        top: 17vw;
-    }
-}
 
-.startpage #navButton, #newsClose{
-    //top:$fontSize2*2 + $padding*2;
-    @media (orientation: portrait) {
-       // top:$fontSize2*2*$scaleFactor + $padding*2*$scaleFactor;  
-    }
-}
-#newsClose,#navButtonClose{
-    display: none;
-}
-// #instaButton, #visitButton, #aboutButton, #ticketButton{
-//     position: relative;
-//     top: $lineHeight2*2 + $padding;
-//     margin-left: $padding;
-//     z-index: 11;
-//     background: rgba(var(--color1));
-//     color: rgba(var(--color2));
-//     display: inline-block;
-//     vertical-align: text-top;
-//     margin-top: calc(-97vh - 2vw);
-//     @media (orientation: portrait) {
-//         margin-top: 1vh;
-//         display: block;
-//         width: fit-content;
-//     }
-// }
+
+
 #instaButton{
-    position: fixed;
-    top: $padding;
-    left: $padding;
-    background: rgba(var(--color1));
-    color: rgba(var(--color2));
+    position: absolute;
+    top: auto;
+    left: auto;
     z-index: 10;
+    right: 0.8vw;
+    bottom: 4vw;
+    @media (orientation: portrait) {
+        bottom: auto;
+        top: 175vw;
+    }
+
 }
 @keyframes ticketButtonAnimation {
     0%   { 
@@ -1868,7 +1392,7 @@ nav{
     overflow: hidden;
     box-sizing: border-box;
     height:$fontSize2*2;
-    box-shadow: 0 0 20px black;
+    box-shadow: 0 0 20px rgba(var(--color2));
     z-index: 2;
     transition: all 1s;
     @media (orientation: portrait) {
@@ -1943,12 +1467,12 @@ nav{
             }
             h3{
                 font-family: 'FreeSans-JK';
-                font-size: $fontSize0;
-                line-height: $lineHeight0;
+                font-size: $fontSize1;
+                line-height: $lineHeight1;
                 text-align: center;
                 @media (orientation: portrait) {
-                    line-height: $lineHeight0*$scaleFactor;
-                    font-size: $fontSize0*$scaleFactor;                   
+                    line-height: $lineHeight1*$scaleFactor;
+                    font-size: $fontSize1*$scaleFactor;                   
                 }
             }
             p{
@@ -1956,12 +1480,12 @@ nav{
                 animation: none;
                 white-space: normal;
                 font-family: 'FreeSans-JK';
-                font-size: $fontSize0;
-                line-height: $lineHeight0;
+                font-size: $fontSize1;
+                line-height: $lineHeight1;
                 cursor: default;
                 @media (orientation: portrait) {
-                    font-size: $fontSize0*$scaleFactor;
-                    line-height: $lineHeight0*$scaleFactor;                   
+                    font-size: $fontSize1*$scaleFactor;
+                    line-height: $lineHeight1*$scaleFactor;                   
                 }
 
             }
@@ -2008,7 +1532,7 @@ nav{
 }
 .list{
     p,a,h5{
-        color:black;
+        color:rgba(var(--color2));
         font-size: $fontSize1;
         line-height: $lineHeight1;
     }
@@ -2019,323 +1543,46 @@ nav{
 
 
 /* FOOTER */
-footer{
-    background-color: rgba(var(--color2));
-    padding: $padding*2;
-    box-shadow: 0 0 20px black;
-    @media (orientation: portrait) {
-        scroll-snap-align: none;
-    }
-    a,p{
-        color:white;
-        font-size: $fontSize1;
-        line-height: $lineHeight1;
-        @media (orientation: portrait) {
-            font-size: $fontSize1*$scaleFactor;
-            line-height: $lineHeight1*$scaleFactor;            
-        }
-    }
-    div{
-        display: inline-block;
-        vertical-align: top;
-    }
-    .toplinks{
-        width:80%;
-        @media (orientation: portrait) {
-            width: 50%;
-        }
-        ul{
-            margin-top: $padding;
-
-        }
-        li{
-            display: inline-block;
-            @media (orientation: portrait) {
-                display: block;
-                margin-top: $lineHeight2*$scaleFactor;
-            }
-            .mediumpill{
-                border: 1px solid rgba(var(--color1));
-            }
-            a{
-                background-color: rgba(var(--color1));
-                color:  rgba(var(--color2));
-            }
-            a:hover{
-                background-color:rgba(var(--color2));
-                color: rgba(var(--color1));
-            }
-        }
-        .logo{
-            width: 30%;
-            margin-right: 8%;
-            margin-top: -1vw;
-            margin-left: -1vw;
-            @media (orientation: portrait) {
-                width: 100%;
-            }
-        }
-        .logo,ul{
-            display: inline-block;
-            vertical-align: top;
-        }
-    }
-    .adresse{
-        width:30%;
-        @media (orientation: portrait) {
-            width: 100%;
-            margin-top: 10vw;
-        }
-        h6{
-            font-size: $fontSize0;
-            line-height: $lineHeight0;
-            color:white;
-            @media (orientation: portrait) {
-                font-size: $fontSize0*$scaleFactor;
-                line-height: $lineHeight0*$scaleFactor;                
-            }
-
-        }
-    }
-    .left{
-        width: 20%;
-        height:100px;
-        @media (orientation: portrait) {
-            width: 50%;
-            height: auto;
-            margin-top: 29vw;
-        }
-        .mediumpill{
-            border: 1px solid white;
-            line-height: $lineHeight1*3;
-        }
-        a{
-            background-color: rgba(var(--color2));
-        }
-        a:hover{
-            background-color: white;
-            color:rgba(var(--color2));
-        }
-        .nohover:hover{
-            background-color: transparent;
-            color: rgba(var(--color1));
-        }
-        .smicons{
-            @media (orientation: portrait) {
-                width: 100%;
-            }
-            img{
-                width: $fontSize2*2.5;
-                margin-right: $padding;
-                @media (orientation: portrait) {
-                    width: $fontSize2*2.5*$scaleFactor; 
-                    margin-right: $padding*$scaleFactor;
-                }
-            }
-            margin-bottom: $padding*3;
-        }
-        .smalllinks{
-            @media (orientation: portrait) {
-                margin-top: $padding*$scaleFactor*2;
-            }
-                li{
-                @media (orientation: portrait) {
-                    margin-top: $padding*$scaleFactor;
-                }
-            }
-
-        }
-        li{
-            @media (orientation: portrait) {
-                display: block;
-                margin-top: $lineHeight2*$scaleFactor;
-            }
-        }
-
-    }
-    .middle{
-        width: 50%;
-        margin-top: $padding*-4;
-        @media (orientation: portrait) {
-            width: 100%;
-            margin-top: 0;
-        }
-        div{
-            display: block;
-        }
-        p{
-            font-size: $fontSize0;
-            line-height: $lineHeight0;
-            margin-block-end: 0;
-            @media (orientation: portrait) {
-                font-size: $fontSize0*$scaleFactor;
-                line-height: $lineHeight0*$scaleFactor;               
-            }
-        }
-        .logofooter{
-            display: inline-block;
-            vertical-align: middle;
-            height: $fontSize2;
-            padding: $padding $padding*3 $padding 0;
-            @media (orientation: portrait) {
-                height: $fontSize2*$scaleFactor;
-                padding: $padding*$scaleFactor $padding*3*$scaleFactor $padding*$scaleFactor 0;
-            }
-        }
-        .logofooterlang{
-            width: $fontSize2*6;
-            height: auto;
-            @media (orientation: portrait) {
-                width:30vw;
-            }
-        }
-        .logofootersquare{
-            height: 3vw;
-            @media (orientation: portrait) {
-                height: 3vw*$scaleFactor;
-            }
-        }
-    }
-}
-#newsletterClose{
-    display: none;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-    z-index: 9;
-}
-#newsletterBox{
-    display: none;
-    position: fixed;
-    width: 50vw;
-    height: auto;
-    margin-left: 50%;
-    transform: translateX(-50%);
-    background: rgba(var(--color1));
-    padding: $padding;
-    padding-top: $padding*4;
-    top: 20vh;
+footer {
+    width: 100%;
     text-align: center;
-    border-radius: $padding;
-    box-shadow: 0 0 20px rgba(var(--color1));
-    z-index: 10;
+    padding-bottom: $padding * 2;
+    border-top: 1px solid rgba(0, 0, 0, 1);
+    background: rgba(var(--color3));
     @media (orientation: portrait) {
-        width: calc(100vw - $padding*2);
-
+        padding-top: $padding * 6;
+        padding-bottom: $padding * 6;
     }
-    label{
-        font-weight: bold;
-        font-family: 'FreeSans-JK';
-        color: rgba(var(--color2));
-        transition: color 1s linear;
-        font-size: $fontSize2;
-        line-height: $lineHeight2;    
-    
+    img {
+        margin: 0.8vw;
+        height: 5vw;
+        background: rgba(254, 247, 246, 1);
+        padding: 0;
+        border-radius: 50%;
         @media (orientation: portrait) {
-            font-size: $fontSize2*$scaleFactor;
-            line-height: $lineHeight2*$scaleFactor;    
+            height: 15vw;
         }
     }
-    #mc_embed_signup .button{
+    img:hover {
+        box-shadow: 0 0 10px rgba(var(--color2));
+    }
+    div {
         display: inline-block;
-        background-color: rgba(var(--color2));
-        color: rgba(var(--color1));
-        transition: color 1s linear;
-        transition: background-color 1s linear;
-        padding: $padding $padding*2 $padding $padding*2;
-        border-radius: $lineHeight1;
+        vertical-align: middle;
+        width: 33%;
+        @media (orientation: portrait) {
+            display: block;
+            width: 100%;
+        }
+    }
+    a {
+        color: rgba(0, 0, 0, 1);
         font-size: $fontSize1;
-        line-height: $lineHeight1;
-        margin-left:  $padding;
-        margin-bottom: $padding;
-        cursor: pointer;
+        line-height: $lineHeight1 * 1.8;
         @media (orientation: portrait) {
-            font-size: $fontSize1*$scaleFactor*1.5;
-            line-height: $lineHeight1*$scaleFactor*1.5;           
-            padding: $padding*$scaleFactor $padding*2*$scaleFactor $padding*$scaleFactor $padding*2*$scaleFactor;
-            margin-left:  $padding*$scaleFactor;
-            margin-bottom: $padding*$scaleFactor;
-            border-radius: $lineHeight1*$scaleFactor*2;
+            font-size: $fontSize1 * $scaleFactor;
+            line-height: $lineHeight1 * $scaleFactor * 1.8;
         }
-    }
-
-    .submit, input, #mc_embed_signup input{
-        background-color: transparent;
-        border: 0.2vw solid rgba(var(--color2));
-        color: rgba(var(--color2));  
-        transition: color 1s linear;
-        margin-left: 50%;
-        margin-right: 50%;  
-        transform: translateX(-50%);    
-        margin-top: $padding;
-        font-size: $fontSize1;
-        line-height: $lineHeight1;
-        padding: $padding*1.5 $padding*3 $padding*1.5 $padding*3;
-        border-radius: $lineHeight1*3;
-        font-family: "FreeSans-JK", sans-serif;
-        @media (orientation: portrait) {
-            font-size: $fontSize1*2*$scaleFactor;
-            line-height: $lineHeight1*$scaleFactor;
-            padding: $padding*3*$scaleFactor $padding*6*$scaleFactor $padding*3*$scaleFactor $padding*6*$scaleFactor;
-            border-radius: $lineHeight1*3*$scaleFactor;      
-            border: 1vw solid rgba(var(--color2));
-    
-        }
-
-    }
-    #mc_embed_signup .mc-field-group input{
-        width: 70%;
-        margin-top:0.5vw;
-        @media (orientation: portrait) {
-            width: 90%;
-        }
-  
-    }
-    #mc_embed_signup .mc-field-group{
-        min-height: auto;
-    }
-    #mc_embed_signup .foot{
-        width: 100%;
-        grid-template-columns: auto;
-    }
-    #mc_embed_signup .button{
-        font-family: "FreeSans-JK";
-        height:auto;
-        margin-left: auto;
-        margin-right: auto;
-        transform: translateX(0);
-    }
-    #mc_embed_signup .asterisk{
-        color:rgba(var(--color2));
-    }
-    #mc_embed_signup #mc-embedded-subscribe-form div.mce_inline_error, #mc_embed_signup .helper_text{
-        background: none;
-        color:rgba(var(--color2));
-    }
-    #mc_embed_signup #mc-embedded-subscribe-form input.mce_inline_error{
-        border: 0.4vw solid #e85c41;
-        @media (orientation: portrait) {
-            border: 1vw solid #e85c41;
-        }
-    }
-    #mc_embed_signup .mc-field-group label{
-        text-align: center;
-    }
-    #mc_embed_signup form{
-        z-index: 0;
-    }
-    #mc_embed_signup #mce-success-response{
-        font-size: $fontSize3;
-        line-height: $lineHeight3;
-        font-family: "FreeSerif-JK";
-        width:100%;
-        text-align: center;
-        color:rgba(var(--color2));
-        padding-top:0;
-    
     }
 }
 
@@ -2348,13 +1595,13 @@ footer{
     color: rgba(var(--color2));
     transition: color 1s linear;
     padding: $padding/2 $padding $padding/2 $padding;
-    font-size: $fontSize0;
-    line-height: $lineHeight0;
+    font-size: $fontSize1;
+    line-height: $lineHeight1;
     margin-left:  $padding*2;
     margin-bottom: $padding;
     @media (orientation: portrait) {
-        font-size: $fontSize0*$scaleFactor;
-        line-height: $lineHeight0*$scaleFactor;
+        font-size: $fontSize1*$scaleFactor;
+        line-height: $lineHeight1*$scaleFactor;
         margin-left:  $padding*$scaleFactor;
         margin-bottom: $padding*$scaleFactor;
         padding: $padding/2*$scaleFactor $padding*$scaleFactor $padding/2*$scaleFactor $padding*$scaleFactor;
@@ -2393,4 +1640,453 @@ footer{
     animation: emojiFly 4s forwards;
     font-size: 3vw;
 
+}
+
+
+#hamburger{
+    display:none;
+    @media (orientation: portrait) {
+        width: 12vw;
+        display: block;
+        position:fixed;
+        left: 86.25vw;
+        bottom: 2.25vw;
+        z-index: 120;
+
+    }
+}
+#startpageNav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: $padding;
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: $padding;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    background: rgba(var(--color1));
+    box-shadow: 0 0 1vw rgba(var(--color2));
+    a {
+        display: inline-block;
+    }
+    @media (orientation: portrait) {
+        display: none;
+        flex-direction: column;
+        gap: $padding * $scaleFactor;
+        max-width: 100vw;
+        background:transparent;
+        text-align: center;
+        box-shadow: none;
+        margin-top: 20vh;
+    }
+    &.open {
+        @media (orientation: portrait) {
+            display: block;
+        }
+    }
+
+    a.bubble, div.bubble{
+        @media (orientation: portrait) {
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 7vw;
+            font-size: $fontSize4*1.5;
+            line-height: $lineHeight4*1.5;
+            padding: $padding*0.7*$scaleFactor $padding*4*$scaleFactor*1.5;
+            border-radius: $fontSize4*1.5;
+            background: rgba(var(--color4));
+            border-color: rgba(var(--color4));
+        }
+
+    }
+}
+
+// ─── Startpage (reference layout) ───────────────────────────────────────────
+
+body.startpage {
+    height: auto;
+
+    .columnVideo {
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        width: 100vw;
+        height: calc(100vh - 16.5vw);
+        background: url(../img/mesh-festival-background.jpg);
+        background-size: contain;
+        margin-top: 13.4vw;
+        box-shadow: 0 0 1vw rgba(var(--color2));
+        @media (orientation: portrait) {
+            background-size: cover;
+            background-position: center;
+            margin-top: 30.4vw;
+            height: calc(100vh - 49vw);
+            box-shadow: 0 0 3vw rgba(var(--color2));
+
+        }
+        video {
+            object-fit: cover;
+            height: 100vh;
+            width: 100vw;
+        }
+    }
+
+    .columnTitle {
+        position: fixed;
+        top: 3.2vw;
+        text-align: left;
+        max-height: 40vh;
+        height: 40vh;
+        overflow: hidden;
+        width: 100vw;
+        z-index: -1;
+        background-image: url(../img/mesh-festival-gradient.jpg);
+        background-size: 100% auto;
+        background-position: top;
+        @media (orientation: portrait) {
+            top: -6.8vw;
+        }
+        h1, h2, h4 {
+            font-family: "FreeSans-JK";
+            font-size: 15vw;
+            line-height: 10vw;
+            letter-spacing: -1.8vw;
+            width: -moz-fit-content;
+            width: fit-content;
+            text-align: left;
+            padding: 0;
+            color: rgba(var(--color2));
+            display: inline-block;
+            filter: blur(1px);
+            vertical-align: top;
+            @media (orientation: portrait) {
+                font-size: 43vw;
+                line-height: 46vw;
+                letter-spacing: -3.9vw;
+            }
+        }
+        h1{
+            margin-left: -1vw;
+            @media (orientation: portrait) {
+                margin-left: -3vw;
+            }
+
+        }
+        h2{
+            font-size: 5.6vw;
+            line-height: 4.5vw;
+            letter-spacing: -0.5vw;
+            margin-left: 10vw;
+            margin-top: 1.5vw;
+            text-align: right;
+            width: 56vw;
+            word-spacing: 17vw;
+            @media (orientation: portrait) {
+                font-size: 8vw;
+                line-height: 6vw;
+            }        
+        }
+        h4{
+            font-size: 2.5vw;
+            line-height: 2.2vw;
+            letter-spacing: -0.1vw;
+            width: 20vw;
+            margin-left: 2vw;
+            display: block;
+            position: absolute;
+            top: 1.8vw;
+            left: 34vw;
+            @media (orientation: portrait) {
+                font-size: 4vw;
+                line-height: 4vw;
+            }        
+        }
+        h2,h4{
+            @media (orientation: portrait) {
+                display:none;
+            }
+        }
+    }
+    .columnTitleBottom{
+        background: rgba(var(--color1));
+        background: linear-gradient(180deg,rgba(var(--color2)) 0%, rgba(var(--color1)) 5%);
+        filter: blur(1px);
+        @media (orientation: portrait) {
+            background:none;
+        }
+        h2{
+            display:none;
+            @media (orientation: portrait) {
+                display:block;
+                text-align: left;
+                font-family: 'FreeSans-JK';
+                font-size: 12vw;
+                line-height: 11vw;
+                margin-top: -10.5vw;
+                letter-spacing: -1vw;
+                span{
+                    margin-left: 23vw;
+                }
+            }
+
+        }
+        h3 {
+            font-family: "FreeSans-JK";
+            font-size: $fontSize2;
+            line-height: $lineHeight2;
+            padding: $padding;
+            text-align: left;
+            color: rgba(var(--color2));
+            @media (orientation: portrait) {
+                font-size: 5vw;
+                line-height: 5vw;
+                width: 40vw;
+                position: relative;
+                margin-left: 0;
+                margin-top: -10vw;
+                padding-bottom: 0;
+            }
+        }
+        h4 {
+            display:none;
+            @media (orientation: portrait) {
+                display: block;
+                font-family: "FreeSans-JK";
+                text-align: left;
+                font-size: 5vw;
+                line-height: 5vw;
+                width: 56vw;
+                top: -10.5vw;
+                left: 31vw;
+                position: relative;
+            }
+        }
+    }
+
+    .column {
+        margin-left: 0;
+        width: 100vw;
+        padding-top: $padding * 10;
+        background: rgba(var(--color1));
+        @media (orientation: portrait) {
+            width: 100%;
+            margin-left: 0;
+            background: rgba(254, 247, 246, 1);
+            background-attachment: fixed;
+            padding-top: 12vw;
+        }
+
+    }
+
+    .section {
+        top: 0;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    #statementContent {
+        width: 60%;
+        margin-left: 20%;
+        @media (orientation: portrait) {
+            width: 90%;
+            margin-left: 5%;
+        }
+    }
+
+    .statement {
+        color: rgba(140, 110, 255, 1);
+        padding-top: 0;
+        padding-bottom: 5vw;
+        height: auto;
+        h1 {
+            font-family: "FreeSerif-JK";
+            color: rgba(0, 0, 0, 1);
+            width: 60%;
+            margin-left: 20%;
+            @media (orientation: portrait) {
+                margin-left: 0;
+                width: auto;
+            }
+        }
+        h3 {
+            font-family: 'FreeSans-JK';
+            font-size: $fontSize2;
+            line-height: $lineHeight2;
+            color: rgba(0, 0, 0, 1);
+            text-align: center;
+            @media (orientation: portrait) {
+                font-size: $fontSize2 * $scaleFactor;
+                line-height: $lineHeight2 * $scaleFactor;
+            }
+        }
+        strong{
+            font-weight: normal;
+            text-shadow: 0 0 5px rgba(var(--color4));
+        }
+    }
+
+    .logos {
+        margin-top: 0;
+        text-align: center;
+        img {
+            height: 2.5vw;
+            width: auto;
+            display: inline-block;
+            vertical-align: middle;
+            padding: $padding * 2;
+            margin-top: $padding;
+            @media (orientation: portrait) {
+                height: 6vw;
+                padding-bottom: 6vw;
+                padding-top: 6vw;
+            }
+        }
+        .logofooterlang {
+            width: 13vw;
+            height: auto;
+        }
+        .logofootersquare {
+            height: 4vw;
+        }
+        a, span {
+            color: rgba(0, 0, 0, 1);
+            font-size: $fontSize1;
+            line-height: $lineHeight1;
+            @media (orientation: portrait) {
+                font-size: $fontSize2 * $scaleFactor;
+                line-height: $lineHeight2 * $scaleFactor;
+            }
+        }
+        a:hover {
+            text-shadow: 0 0 10px rgba(var(--color2));
+        }
+        span {
+            @media (orientation: portrait) {
+                width: 90%;
+                margin-left: 5%;
+                display: block;
+            }
+        }
+        @keyframes startpage-move {
+            from { transform: translateX(0) }
+            to   { transform: translateX(-100%) }
+        }
+        .logobannerOuter {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .logobannerInner {
+            transform: translateX(0);
+            animation: startpage-move 10s linear infinite;
+            display: inline-block;
+            width: fit-content;
+            white-space: nowrap;
+        }
+        .logobannerOuter:hover .logobannerInner {
+            animation-play-state: paused;
+        }
+    }
+
+
+
+    #lang, #mesh2024 {
+        position: absolute;
+        right: $padding;
+        top: $padding;
+        z-index: 110;
+        @media (orientation: portrait) {
+            width: auto;
+            top: 33vw;
+        }
+    }
+    #lang{
+        @media (orientation: portrait) {
+            top: 62vw;
+        }
+    }
+
+    #calltoaction {
+        position: absolute;
+        right: $padding;
+        bottom: 7vw;
+        width: fit-content;
+        background: rgba(var(--color4));
+        color: rgba(var(--color1));
+        border:rgba(var(--color4)) 1px solid;
+        z-index: 10;
+        @media (orientation: portrait) {
+            bottom: auto;
+            top: 48vw;
+        }
+    }
+    #calltoaction:hover {
+        background: rgba(var(--color1));
+        color: rgba(var(--color4));       
+        border:rgba(var(--color1)) 1px solid;
+    }
+    .videoSubtitleWrap {
+        position: fixed;
+        left: 0;
+        bottom: 8vw;
+        width: 100vw;
+        transition: 1s all;
+        z-index: 10;
+    }
+
+    #cookieNotice {
+        position: fixed;
+        z-index: 100;
+        bottom: 10px;
+        right: 50px;
+        width: 300px;
+        background: rgba(254, 247, 246, 1);
+        padding: 10px;
+        border: 0.4vw solid rgba(233, 71, 121, 1);
+        font-size: $fontSize1;
+        line-height: $lineHeight1 * 1.2;
+        @media (orientation: portrait) {
+            font-size: $fontSize1 * $scaleFactor;
+            line-height: $lineHeight1 * 1.2 * $scaleFactor;
+        }
+        h4 {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'FreeSans-JK';
+            color: rgba(233, 71, 121, 1);
+            font-size: $fontSize1;
+            line-height: $lineHeight1;
+            @media (orientation: portrait) {
+                font-size: $fontSize1 * $scaleFactor;
+                line-height: $lineHeight1 * 1.2 * $scaleFactor;
+            }
+        }
+        button {
+            background-color: rgba(233, 71, 121, 1);
+            color: rgba(0, 0, 0, 1);
+            transition: color 1s linear, background-color 1s linear;
+            padding: 0.8vw 1.6vw;
+            border-radius: 1.5vw;
+            font-size: $fontSize1;
+            line-height: $lineHeight1;
+            font-family: 'FreeSans-JK';
+            text-align: center;
+            width: 100%;
+            margin: 0;
+            border: none;
+            cursor: pointer;
+            @media (orientation: portrait) {
+                font-size: $fontSize1 * $scaleFactor;
+                line-height: $lineHeight1 * 1.8 * $scaleFactor;
+                border-radius: 1.5vw * $scaleFactor;
+            }
+        }
+    }
 }

@@ -260,7 +260,7 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
 
 //Artists
 async function getAllArtists() {
-    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*&limit=1000");
+    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*.*&limit=1000");
     if (!response.ok) {
         console.log('Response not okay');
         const data = '';
@@ -286,8 +286,8 @@ async function getAllArtists() {
                 artist.Name = valueArtist.Name;
                 artist.Format = value.Format;
                 artist.slug = value.slug;
+                artist.Title = value.translations && value.translations[0] ? value.translations[0].Title : '';
                 artist.Venues = value.Venues;
-                //console.log(value.Venues[0]);
                 artists.push(structuredClone(artist));
             }
         }   
@@ -659,7 +659,7 @@ app.get("/robots.txt", async function (req, res) {
 
 //Startpage
 async function getStartpage() {
-    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Startpage?fields[]=*.*.*.*");
+    const response = await fetch("https://env-9468449.appengine.flow.ch/items/Pages/?filter[slug][_eq]=startpage&fields[]=*.*.*");
         
     if (!response.ok) {
         console.log('Response not okay');
@@ -692,10 +692,18 @@ app.get("/:language?", async function (req, res) {
 
         //console.log(result);
         //console.log(language);
-        result.data.pathname = langRemove(pathname);
+        result.data[0].pathname = langRemove(pathname);
+
+        if(result.data[0].translations && result.data[0].translations.length > 0){
+            if(result.data[0].translations[0].languages_code.code !== 'de'){
+                var deContent = result.data[0].translations[1];
+                result.data[0].translations[1] = result.data[0].translations[0];
+                result.data[0].translations[0] = deContent;
+            }
+        }
 
         if(result){
-             res.render('startpage',{data:result.data,navigation:navigation.data,footer:footer.data,highlights:highlights.data,language:languageObject,events:[],venues:[],format:[]});
+             res.render('startpage',{data:result.data[0],navigation:navigation.data,footer:footer.data,highlights:highlights.data,language:languageObject,events:[],venues:[],format:[]});
         }
 
     } catch (err) {

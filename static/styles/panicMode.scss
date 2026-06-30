@@ -149,7 +149,7 @@ section{
     background: white !important;
 
 }
-#navButton img, #navButton svg, #newsClose img, #newsClose svg, #navButtonClose img, #navButtonClose svg{
+#newsClose img, #newsClose svg{
     width: 8.7vw;
     @media (orientation: portrait) {
         width: 15vw;
@@ -170,19 +170,6 @@ footer .toplinks li .mediumpill{
     h2, h3, a, p{
         color: blue !important;
     }
-}
-#accessibilityButton {
-    right: 1vw;
-    top: 12vw;
-    @media (orientation: portrait) {
-        top: 20vw;
-    }
-}
-.timetable #accessibilityButton, .artists #accessibilityButton{
-    top: 16vw;
-    @media (orientation: portrait) {
-        top: 28vw;
-    }  
 }
 .eventswrapper a .events .eventimg .label{
     color: white !important;

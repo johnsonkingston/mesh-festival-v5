@@ -1,13 +1,14 @@
-<svg width="944px" height="300px" viewBox="0 0 944 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>hek-logo</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="hek-logo" fill="#ffffff" fill-rule="nonzero">
-            <polygon id="Path" points="349.18 300 589.21 300 589.21 256.79 407.32 256.79"></polygon>
-            <polygon id="Path" points="584.64 43.21 584.64 0 349.18 0 407.32 43.21"></polygon>
-            <rect id="Rectangle" x="407.31" y="122.46" width="159.7" height="46.3"></rect>
-            <rect id="Rectangle" x="657.77" y="0" width="58.14" height="300"></rect>
-            <polygon id="Path" points="235.47 123.82 58.14 123.82 58.14 0 0 0 0 300 58.14 300 58.14 167.45 235.47 167.45 235.47 300 293.61 300 293.61 0 235.47 0"></polygon>
-            <polygon id="Path" points="789.39 145.61 935.09 0 863.32 0 717.98 145.61 872.23 300 944 300"></polygon>
-        </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Ebene_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 944 300">
+  <!-- Generator: Adobe Illustrator 30.2.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <g id="Page-1">
+    <g id="hek-logo">
+      <polygon id="Path" points="349.18 300 589.21 300 589.21 256.79 407.32 256.79 349.18 300"/>
+      <polygon id="Path1" points="584.64 43.21 584.64 0 349.18 0 407.32 43.21 584.64 43.21"/>
+      <rect id="Rectangle" x="407.31" y="122.46" width="159.7" height="46.3"/>
+      <rect id="Rectangle1" x="657.77" y="0" width="58.14" height="300"/>
+      <polygon id="Path2" points="235.47 123.82 58.14 123.82 58.14 0 0 0 0 300 58.14 300 58.14 167.45 235.47 167.45 235.47 300 293.61 300 293.61 0 235.47 0 235.47 123.82"/>
+      <polygon id="Path3" points="789.39 145.61 935.09 0 863.32 0 717.98 145.61 872.23 300 944 300 789.39 145.61"/>
     </g>
+  </g>
 </svg>

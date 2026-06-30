@@ -1,126 +1,24 @@
-#ticketshop
-#ticketclose(onclick="openticket('!{data.Ticketlink}')")
-#newsletterClose(onclick="closeNewsletter()")
-#newsletterBox <div id="mc_embed_shell"><div id="mc_embed_signup"><form action="https://meshfestival.us9.list-manage.com/subscribe/post?u=559479f5c526b5d3100a3b277&amp;id=8a5c55bc1a&amp;f_id=00691ee1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"><div id="mc_embed_signup_scroll"><div class="indicates-required"></div><div class="mc-field-group"><label for="mce-EMAIL">E-Mail<span class="asterisk">*</span></label><input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required="" value=""><span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span></div><div class="mc-field-group"><label for="mce-FNAME">Vorname</label><input type="text" name="FNAME" class="text" id="mce-FNAME" value=""></div><div class="mc-field-group"><label for="mce-LNAME">Nachname</label><input type="text" name="LNAME" class="text" id="mce-LNAME" value=""></div><div id="mce-responses" class="clear foot"><div class="response" id="mce-error-response" style="display:none"></div><div class="response" id="mce-success-response" style="display:none"></div></div><div aria-hidden="true" style="position:absolute;left:-5000px">/* real people should not fill this in and expect good things - do not remove this or risk form bot signups */ <input type="text" name="b_559479f5c526b5d3100a3b277_8a5c55bc1a" tabindex="-1" value=""></div><div class="optionalParent"><div class="clear foot"><input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe"><p style="margin:0 auto;display:none;"><a href="http://eepurl.com/iDa5fs" title="Mailchimp – Einfaches, schnelles E-Mail-Marketing"><span style="display:inline-block;background-color:transparent;border-radius:4px"><img class="refferal_badge" src="https://digitalasset.intuit.com/render/content/dam/intuit/mc-fe/en_us/images/intuit-mc-rewards-text-dark.svg" alt="Intuit Mailchimp" style="width:220px;height:40px;display:flex;padding:2px 0;justify-content:center;align-items:center"></span></a></p></div></div></div></form></div></div>
-    script.
-        function closeNewsletter(){
-            $('#newsletterBox').fadeOut();
-            $('#newsletterClose').fadeOut();
-        }
-        function showNewsletter(){
-            $('#newsletterBox').fadeIn();
-            $('#newsletterClose').fadeIn();
-        }
-footer 
-    div.toplinks 
-        a(href=baseURL)
-            img#footerlogo.logo(src=baseURL+"static/img/mesh-festival1.png",loading="lazy", alt="Mesh Festival Logo")
-        ul 
-            each val in footer[languageParameter].Top_Links
-                li
-                    a.mediumpill(href=baseURL+val.URL, title=val.Title)= val.Title
-    div.left
-        div.smicons
-            a(href="https://www.instagram.com/meshfestival/",target="_blank", title="Instagram").nohover
-                img(src=baseURL+"static/img/icons/sm-icon-02.svg", alt="Instagram")
-            a(href="https://www.linkedin.com/company/meshfestival/",target="_blank", title="LinkedIn").nohover
-                img(src=baseURL+"static/img/icons/sm-icon-01.svg", alt="LinkedIn")
-            a(href="https://www.facebook.com/meshfestival/",target="_blank", title="Facebook").nohover
-                img(src=baseURL+"static/img/icons/sm-icon-03.svg", alt="Facebook")
-        div 
-            ul 
-                each val in footer[languageParameter].Second_Links
-                    li
-                        if(val.URL.indexOf('http') !== -1)
-                            a.mediumpill(href=val.URL, title=val.Title, target='_blank')= val.Title
-                        else
-                            a.mediumpill(href=baseURL+val.URL+'/'+language[0], title=val.Title)= val.Title
-                li
-                    a.mediumpill(href="#",onclick="showNewsletter()", title="Newsletter").nohover Newsletter
-
-        div 
-            ul.smalllinks
-                each val in footer[languageParameter].Small_Links
-                    li
-                        a(href=baseURL+val.URL+'/'+language[0], title=val.Title).nohover= val.Title
-
-    div.adresse 
-        p !{footer[languageParameter].Adress}
-        
-    div.middle
-        div
-            p !{footer[languageParameter].Title_Logo_Line_1}
-            a(href='https://hek.ch/',target='_blank', title="HEK")
-                img(src=baseURL+'static/img/hek.svg', alt="Logo HEK").logofooter
-            a(href='https://iart.ch/',target='_blank', title="iArt")
-                img(src=baseURL+'static/img/iart.svg', alt="Logo iArt").logofooter
-            a(href='https://www.fhnw.ch/de/die-fhnw/hochschulen/hgk',target='_blank',title="HGK FHNW")
-                img(src=baseURL+'static/img/FHNW_HGK_DE.svg', alt="Logo HGK FHNW").logofooter                
-        div 
-            p !{footer[languageParameter].Title_Logo_Line_2}
-            a(href="http://www.swisslosfonds.bs.ch/",target="_blank",title="Swisslos BS")
-                img(src=baseURL+"static/img/swisslos-bs.svg", alt="Logo Swisslos").logofooter  
-            a(href="https://www.baselland.ch/politik-und-behorden/direktionen/sicherheitsdirektion/swisslos-fonds",target="_blank",title="Swisslos BL")
-                img(src=baseURL+"static/img/swisslos-bl.svg", alt="Logo Swisslos BL").logofooter  
-            a(href="https://www.cms-basel.ch/",target="_blank",title="CMS")
-                img(src=baseURL+"static/img/cms.svg", alt="Logo CMS").logofooter  
-            a(href="https://www.ernst-goehner-stiftung.ch",target="_blank",title="Ernst Göhner Stiftung")
-                img(src=baseURL+"static/img/EGS_Schriftzug_2_weiss.svg", alt="Logo EGS").logofooter  
-            a(href="https://prohelvetia.ch/",target="_blank",title="ProHelvetia")
-                img(src=baseURL+"static/img/PRH_CD_RGB_white_DE_LOGO.svg", alt="Logo Prohelvetia").logofooter     
-            a(href="https://www.mobiliar.ch/",target="_blank",title="Mobiliar")
-                img(src=baseURL+"static/img/MOB_d_RGB_weiss.svg", alt="Logo Mobiliar").logofooter  
-            a(href="https://www.kbhg.ch/",target="_blank",title="KBHG")
-                img(src=baseURL+"static/img/kbhg.svg", alt="Logo KBHG").logofooter  
-            a(href="https://www.swissuniversities.ch/",target="_blank",title="Swissuniversities")
-                img(src=baseURL+"static/img/swissuniversities.svg", alt="Logo Swissuniversities").logofooter.logofooterlang
-
-        div 
-            p !{footer[languageParameter].Title_Logo_Line_3}
-            a(href="https://www.musik-akademie.ch/klassik/de/projekte-und-ensembles/elektronisches-studio-basel.html",target="_blank",title="Elektronisches Studio Basel")
-                img(src=baseURL+"static/img/elektronisches-studio-basel.svg", alt="Logo Elektronisches Studio Basel").logofooter.logofooterlang
-            a(href="https://radiox.ch/",target="_blank",title="Radio X")
-                img(src=baseURL+"static/img/radio-x.svg", alt="Logo Radio X").logofooter  
-            a(href="https://derivative.ca/",target="_blank",title="Touchdesigner")
-                img(src=baseURL+"static/img/touchdesigner.svg", alt="Logo Touchdesigner").logofooter  
-
-        div 
-            p !{footer[languageParameter].Title_Logo_Line_5}            
-            a(href="https://radiox.ch/",target="_blank",title="Radio X")
-                img(src=baseURL+"static/img/radio-x.svg", alt="Logo Radio X").logofooter   
-            a(href="https://basellive.ch",target="_blank",title="Radio X")
-                img(src=baseURL+"static/img/basel-live.svg", alt="Basel Live").logofooter   
-            a(href="https://www.filmexplorer.ch/",target="_blank",title="Film Explorer")
-                img(src=baseURL+"static/img/filmexplorer.png", alt="Film Explorer").logofooter.logofooterlang                   
-        div 
-            p !{footer[languageParameter].Title_Logo_Line_4}            
-            a(href="https://kunsthausbaselland.ch/",target="_blank",title="Kunsthaus Baselland")
-                img(src=baseURL+"static/img/kunsthaus-baselland.svg", alt="Logo Kunsthaus Baselland").logofooter.logofooterlang  
- 
-            a(href="https://ateliermondial.com/",target="_blank",title="Atelier Mondial")
-                img(src=baseURL+"static/img/AMLOGO_Size0_BLACK_Outline.svg",loading="lazy", alt="Logo Atelier Mondial").logofooter.logofootersquare 
-            a(href="https://kabinett.com/",target="_blank", title="Kabinett")
-                img(src=baseURL+"static/img/KABINETT_LOGO_V-1.svg",loading="lazy", alt="Logo Kabinett").logofooter.logofootersquare 
-            a(href="https://www.herzogdemeuron.com/",target="_blank",title="Herzog&DeMeuron")
-                img(src=baseURL+"static/img/herzogdemeuron.svg", alt="Logo Herzog&DeMeuron").logofooter.logofooterlang
-            a(href="https://www.sfgbasel.ch/",target="_blank",title="SFG")
-                img(src=baseURL+"static/img/sfg_zentriert.svg",loading="lazy", alt="Logo SFG").logofooter.logofootersquare                                 
-            a(href="https://civic.hgk.fhnw.ch/",target="_blank",title="Civic")
-                img(src=baseURL+"static/img/CIVIC-LOGO-WHITE.png",loading="lazy", alt="Logo Civic").logofooter
-            a(href="https://fluxdock.io",target="_blank",title="Fluxdock")
-                img(src=baseURL+"static/img/fluxdock.svg",loading="lazy", alt="Logo Fluxdock").logofooter
+footer
+    div
+        a(href="/static/html/datenschutz.html" target="_blank") Datenschutz
+            br
+        a(href="/static/html/imprint.html" target="_blank") Impressum
+    div
+        a(href="https://www.instagram.com/meshfestival/",target="_blank")
+            img(src="/static/img/icons/sm-icon-02.svg")
+        a(href="https://www.linkedin.com/company/meshfestival",target="_blank")
+            img(src="/static/img/icons/sm-icon-01.svg")
+        a(href="https://www.facebook.com/meshfestival/",target="_blank")
+            img(src="/static/img/icons/sm-icon-03.svg")
+    div
+        a(href="mailto:media@meshfestival.ch",target="_blank") Kontakt: media@meshfestival.ch
+        br
+        a(href="https://confirmsubscription.com/h/i/50DBB2AA262DFFE1",target="_blank") Newsletter
 
 
 
 
-
-
-    script(src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" crossorigin="anonymous")
-    script(src="https://embed.ticketpark.ch/v1/")                
+    //script(src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js" crossorigin="anonymous")
+    //script(src="https://embed.ticketpark.ch/v1/")                
     script(src=baseURL+'static/script/main.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js')
-    script(src=baseURL+'static/script/socket.js')
 
-    script(src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js')
-    script.
-        jQuery,window.fnames=new Array,window.ftypes=new Array,fnames[0]="EMAIL",ftypes[0]="email",fnames[1]="FNAME",ftypes[1]="text",fnames[2]="LNAME",ftypes[2]="text",fnames[3]="ADDRESS",ftypes[3]="address",fnames[4]="PHONE",ftypes[4]="phone",fnames[5]="BIRTHDAY",ftypes[5]="birthday";var $mcj=jQuery.noConflict(!0)

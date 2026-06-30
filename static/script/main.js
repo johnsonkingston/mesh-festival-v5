@@ -1,34 +1,13 @@
-//Colors
-const colors = [
-    {
-        "color1":"215, 255, 0",
-        "color2":"140, 110, 255"
-    },
-    {
-        "color1":"255, 145, 120",
-        "color2":"120, 150, 120"
-    },    
-    {
-        "color1":"230, 155, 255",
-        "color2":"0, 200, 60"
-    }
-];
 const languageShort = ['de','en'];
 
-var currentColor = 0;
+function toggleNav() {
+    $('#startpageNav').toggleClass('open');
+    $('main').toggleClass('blur');
+    $('#filters').toggleClass('blur');
+    $('footer').toggleClass('blur');
+    
 
-function changeColors(){ 
-    currentColor++;
-    if(currentColor > colors.length-1){
-        currentColor = 0;
-    }
-    $('#footerlogo').attr('src',baseURL+'static/img/mesh-festival'+(currentColor+1)+'.png');
-    $('#headerlogo').attr('src',baseURL+'static/img/mesh-festival'+(currentColor+1)+'_top.png');
-    $(':root').css('--color1', colors[currentColor].color1);
-    $(':root').css('--color2', colors[currentColor].color2);
 }
-
-const intervalID = setInterval(changeColors, 10000);
 
 
 
@@ -37,50 +16,11 @@ const intervalID = setInterval(changeColors, 10000);
 //Links
 $( document ).ready(function() {
 
-    $( '.content a').each(function( index ) {
-
-        //Ticketlinks
-        if($(this).attr('href').indexOf('ticketshow') !== -1){
-            var code = $(this).attr('href').split("ticketshow:")[1];
-            code = code.split("/")[0];
-            var id = code.split(",")[0];
-            if(code.split(",").length > 1){
-                var invitation = code.split(",")[1];
-            }else{
-                var invitation = true;
-            }
-
-            $(this).attr('onclick','openticket("'+id+'","show",'+invitation+')');
-            console.log(id);
-            $(this).removeAttr('href');
-        }else if($(this).attr('href').indexOf('ticketid') !== -1){
-            var code = $(this).attr('href').split("ticketid:")[1];
-            code = code.split("/")[0];
-            var id = code.split(",")[0];
-            if(code.split(",").length > 1){
-                var invitation = code.split(",")[1];
-            }else{
-                var invitation = true;
-            }
-
-            $(this).attr('onclick','openticket("'+id+'","event")');
-            console.log(id);
-            $(this).removeAttr('href');
-        }
-
-
-
-        
+     $('.logobannerInner').each(function( index ) {
+        $(this).clone().appendTo($(this).parent()).addClass('clone');
+        $(this).clone().appendTo($(this).parent()).addClass('clone');
     });
-
-    $( '.EventTimetableContent a').each(function( index ) {
-        $(this).attr('data-checked',1);
-
-        if($(this).attr('href').substr(0, 4) !== 'http'){
-            $(this).attr('href',baseURL+$(this).attr('href')+'/'+languageShort[languageParameter]);
-        }    
-    });
-    
+   
 
 
 
@@ -109,8 +49,6 @@ function openticket(ticketid,format,invitation){
     $('#ticketclose').fadeToggle();
     $('main').toggleClass('blur');
     $('footer').toggleClass('blur');
-    $('#navButton').toggle();
-    $('#accessibilityButton').toggle();
     $('body').toggleClass('block');
 
     console.log(ticketid);
@@ -172,75 +110,5 @@ $(window).keydown(function(){
 
 
 
-//Cookies
-
-function setCookie(name,value,days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-}
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-}
-function eraseCookie(name) {   
-    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-}
-
-
-//Panic Mode
-function toggleAccess(){
-    var panicCookie = getCookie('panic');
-    if (panicCookie) {
-        panicModeOff();
-    }else
-    {
-        panicMode();
-    }
-
-}
-
-
-function panicMode(){
-    clearInterval(intervalID);
-    $(':root').css('--color1', '0,0,0');
-    $(':root').css('--color2', '0,0,0');
-    $(':root').css('--color3', '255,255,255');
-
-    var cssId = 'myCss'; 
-    if (!document.getElementById(cssId))
-    {
-        var head  = document.getElementsByTagName('head')[0];
-        var link  = document.createElement('link');
-        link.id   = cssId;
-        link.rel  = 'stylesheet';
-        link.type = 'text/css';
-        link.href = baseURL+'static/styles/panicMode.min.css';
-        link.media = 'all';
-        head.appendChild(link);
-    }
-    setCookie('panic','yes',30);
-}
-
-function panicModeOff(){
-    eraseCookie('panic');
-    location.reload();
-}
-
-var panicCookie = getCookie('panic');
-if (panicCookie) {
-    panicMode();
-    console.log('Panic Mode enabled!');
-}
 
 

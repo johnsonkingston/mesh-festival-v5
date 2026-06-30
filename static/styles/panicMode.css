@@ -173,11 +173,11 @@ section .startspacer {
   background: white !important;
 }
 
-#navButton img, #navButton svg, #newsClose img, #newsClose svg, #navButtonClose img, #navButtonClose svg {
+#newsClose img, #newsClose svg {
   width: 8.7vw;
 }
 @media (orientation: portrait) {
-  #navButton img, #navButton svg, #newsClose img, #newsClose svg, #navButtonClose img, #navButtonClose svg {
+  #newsClose img, #newsClose svg {
     width: 15vw;
   }
 }
@@ -199,25 +199,6 @@ footer .toplinks li .mediumpill {
 }
 .EventTimetable h2, .EventTimetable h3, .EventTimetable a, .EventTimetable p {
   color: blue !important;
-}
-
-#accessibilityButton {
-  right: 1vw;
-  top: 12vw;
-}
-@media (orientation: portrait) {
-  #accessibilityButton {
-    top: 20vw;
-  }
-}
-
-.timetable #accessibilityButton, .artists #accessibilityButton {
-  top: 16vw;
-}
-@media (orientation: portrait) {
-  .timetable #accessibilityButton, .artists #accessibilityButton {
-    top: 28vw;
-  }
 }
 
 .eventswrapper a .events .eventimg .label {
