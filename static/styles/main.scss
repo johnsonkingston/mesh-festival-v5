@@ -26,8 +26,8 @@ $fontSize1: 1.2vw;
 $lineHeight1: 1.3vw;
 $fontSize2: 2vw;
 $lineHeight2: 2.2vw;
-$fontSize3: 7vw;
-$lineHeight3: 6vw;
+$fontSize3: 4vw;
+$lineHeight3: 4.4vw;
 $fontSize4: 9vw;
 $lineHeight4: 9vw;
 $fontSize3VH: 10vh;
@@ -152,15 +152,36 @@ ul{
         padding-right: $padding*6;
     }
 }
+// a.bubble,div.bubble{
+//     font-size: $fontSize1;
+//     line-height: $lineHeight1;
+//     padding: $padding*0.7 $padding*2;
+//     border-radius: $lineHeight1;
+//     background-color: rgba(var(--color2)); 
+//     color: rgba(var(--color1));
+//     transition: all 0.1s linear;
+//     border: 1px solid rgba(var(--color2));     
+//     @media (orientation: portrait) {
+//         font-size: $fontSize4;
+//         line-height: $lineHeight4;
+//         padding: $padding*0.7*$scaleFactor $padding*4*$scaleFactor;
+//         border-radius: $fontSize4;
+//     }
+// }
+// .bubble:hover{
+//     background: rgba(var(--color4));
+//     box-shadow: 0 0 0.5vw rgba(var(--color4));
+//     border: 1px solid rgba(var(--color4));   
+// }
 a.bubble,div.bubble{
-    font-size: $fontSize1;
-    line-height: $lineHeight1;
-    padding: $padding*0.7 $padding*2;
-    border-radius: $lineHeight1;
-    background-color: rgba(var(--color2)); 
-    color: rgba(var(--color1));
-    transition: all 0.1s linear;
-    border: 1px solid rgba(var(--color2));     
+    font-size: $fontSize3;
+    line-height: 3.2vw;
+    color: rgba(var(--color2));
+    filter: blur(1px);
+    padding-right: $padding*2;
+    animation: bubbleAnimation 2s ease-in-out infinite alternate;
+    text-shadow: 0 0 1px rgba(var(--color2));
+    transition: filter 0.4s ease, text-shadow 0.4s ease;
     @media (orientation: portrait) {
         font-size: $fontSize4;
         line-height: $lineHeight4;
@@ -168,11 +189,23 @@ a.bubble,div.bubble{
         border-radius: $fontSize4;
     }
 }
-.bubble:hover{
-    background: rgba(var(--color4));
-    box-shadow: 0 0 0.5vw rgba(var(--color4));
-    border: 1px solid rgba(var(--color4));   
+@keyframes bubbleAnimation {
+    0% {
+        filter: blur(3px);
+        text-shadow: 0 0 5px rgba(var(--color2));
+    }
+    100% {
+        filter: blur(0.5px);
+        text-shadow: 0 0 10px rgba(var(--color4));
+    }
 }
+
+.bubble:hover{
+    animation: none;
+    filter: blur(0px);
+    text-shadow: 0 0 10px rgba(var(--color4));
+}
+
 main.blur {
     filter: blur(10px);
 }
@@ -270,12 +303,11 @@ main.blur {
             main
             {
                 width:50%;
-
-                background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
-                background-attachment: fixed;
-                padding: $padding;
+                background: rgba(var(--color3));
                 margin-left: calc(50% - ($padding*2));
                 min-height: 100vh;
+                padding: $padding;
+                padding-left: 0;
                 padding-bottom: 10vh;
                 padding-top: 5vw;
                 position: relative;
@@ -283,7 +315,6 @@ main.blur {
                     margin-left: 0;
                     padding: $padding*$scaleFactor;
                     width: calc(100% - $padding*2*$scaleFactor);
-                    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(var(--color3)) 15vw, rgba(var(--color1)) 100%);
                     padding-top: $padding*12;
                 }
                 .mainimage{
@@ -314,8 +345,12 @@ main.blur {
                     color: rgba(var(--color2));
                     z-index: -1;
                 }
+                    ul,p,a,h1,h2,h3,h4,h5,h6,table,tr,td,em,i,video,iframe{
+                        padding-left: $padding;
+                    }
                 .content{
                     overflow: hidden;
+
                     ul{
                         text-indent: -$lineHeight2;
                         margin-left: $lineHeight2;
@@ -334,7 +369,6 @@ main.blur {
                     }
                     h3{
                         margin-top: $padding*3;
-                        margin-bottom: $padding*2;
                     }
                     h2{
                         font-size: $fontSize2;
@@ -736,8 +770,8 @@ main.blur {
         }
 
         h1,h2,h3,h4{
-            font-family: 'FreeSerif-JK';
-            text-align: center;
+            font-family: 'FreeSans-JK';
+            filter: blur(1px);
         }
         h3{
             font-size: $fontSize3;
@@ -766,6 +800,16 @@ main.blur {
                 font-size: $fontSize2*$scaleFactor;
                 line-height: $lineHeight2*$scaleFactor;                
             }
+        }
+        .accordeon-title{
+            margin-bottom: 0;
+        }
+        .accordeon{
+            background: rgba(var(--color1));
+            margin-top: 0;
+            margin-bottom: 0;
+            background: linear-gradient(180deg, rgba(var(--color2)) 0%, rgba(var(--color1)) 15%, rgba(var(--color1)) 85%, rgba(var(--color2)) 100%);
+
         }
         #ticketshop{
             display: none;
@@ -872,7 +916,7 @@ main.blur {
             }
             .EventTimetable{
                 background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
-                color: rgba(var(--color1));
+                color: rgba(var(--color2));
                 border-radius: $padding;
                 position: relative;
                 width: 12vw;
@@ -919,6 +963,8 @@ main.blur {
                     box-shadow: 0 0 10px;
                     background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
                     hyphens: none;
+                    color: rgba(var(--color2));
+
                     @media (orientation: portrait) {
                         margin-bottom: $padding*0.5*$scaleFactor;
                     
@@ -1208,10 +1254,10 @@ main.blur {
 /*FILTERS */
 #filters{
     position: fixed;
-    top: 3.1vw;
+    top: 2.9vw;
     left: 0;
     width: 100vw;
-    height: 3.2vw;
+    height: 2.9vw;
     background: rgba(var(--color3));
     box-shadow: 0 0 2vw rgba(var(--color2));
     z-index: 110;
@@ -1225,29 +1271,20 @@ main.blur {
     .bubble{
         display: inline-block;
         vertical-align: top;
-        margin: $padding;
         @media (orientation: portrait) {
             margin: $padding*$scaleFactor;
         }
     }
-    .filterpill{
-        background: rgba(var(--color1));
-        border: 1px solid rgba(var(--color2));
-        color: rgba(var(--color2));
-    }
+
     .filterpill:hover{
-        background: rgba(var(--color4));
-        border: 1px solid rgba(var(--color4));
-        color: rgba(var(--color1));
+        color: rgba(var(--color4));
     }
     .active{
         background: rgba(var(--color2));
         color: rgba(var(--color1));   
-        border: 1px solid rgba(var(--color2));                
     }
     .active:hover{
         background: rgba(var(--color4));
-        border: 1px solid rgba(var(--color4));
         color: rgba(var(--color1));        
     }
     #filtermap{
@@ -1682,13 +1719,12 @@ footer {
     position: fixed;
     left: 0;
     top: 0;
-    padding: $padding;
     z-index: 100;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     gap: $padding;
-    height: auto;
+    height: 2.9vw;
     width: 100%;
     overflow: hidden;
     background: rgba(var(--color1));
@@ -1758,10 +1794,10 @@ body.startpage {
         left: 0;
         overflow: hidden;
         width: 100vw;
-        height: calc(100vh - 16.5vw);
+        height: calc(100vh - 16.3vw);
         background: url(../img/mesh-festival-background.jpg);
         background-size: contain;
-        margin-top: 13.4vw;
+        margin-top: 13.1vw;
         box-shadow: 0 0 1vw rgba(var(--color2));
         @media (orientation: portrait) {
             background-size: cover;
@@ -1780,7 +1816,7 @@ body.startpage {
 
     .columnTitle {
         position: fixed;
-        top: 3.2vw;
+        top: 2.9vw;
         text-align: left;
         max-height: 40vh;
         height: 40vh;
@@ -2050,7 +2086,7 @@ body.startpage {
     }
     #lang{
         position: fixed;
-        top: $padding;
+        top: 0;
         @media (orientation: portrait) {
             top: 62vw;
             display:none;

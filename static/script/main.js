@@ -6,16 +6,40 @@ function toggleNav() {
     $('#filters').toggleClass('blur');
     $('footer').toggleClass('blur');
     $('#hamburger').toggleClass('open');
-    
-
 }
 
+$(window).keydown(function(){
+    if (event.keyCode == 27) toggleNav();
+});
 
 
 
+
+
+function initAccordeon() {
+    var titles = $('.accordeon-title').toArray();
+    var items = $('.accordeon').toArray();
+    if (!titles.length) return;
+
+    $(items).hide();
+
+    titles.forEach(function(title, i) {
+        var nextTitle = titles[i + 1] || null;
+        var group = items.filter(function(item) {
+            var afterTitle = !!(title.compareDocumentPosition(item) & 4);
+            var beforeNext = !nextTitle || !!(nextTitle.compareDocumentPosition(item) & 2);
+            return afterTitle && beforeNext;
+        });
+        $(title).css('cursor', 'pointer').click(function() {
+            $(group).slideToggle(200);
+            $(this).toggleClass('open');
+        });
+    });
+}
 
 //Links
 $( document ).ready(function() {
+    initAccordeon();
 
      $('.logobannerInner').each(function( index ) {
         $(this).clone().appendTo($(this).parent()).addClass('clone');
@@ -102,12 +126,6 @@ function openticket(ticketid,format,invitation){
 
 }
  
-$(window).keydown(function(){
-    var x = event.keyCode;
-    if (x == 27) {
-        openticket();
-    }
-});
 
 
 
