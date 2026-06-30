@@ -1704,7 +1704,8 @@ footer {
         background:transparent;
         text-align: center;
         box-shadow: none;
-        margin-top: 20vh;
+        margin-top: 10vh;
+        padding-top: 10vh;
     }
     &.open {
         @media (orientation: portrait) {
@@ -1712,6 +1713,21 @@ footer {
         }
     }
 
+    // a.bubble, div.bubble{
+    //     @media (orientation: portrait) {
+    //         display: block;
+    //         width: fit-content;
+    //         margin-left: auto;
+    //         margin-right: auto;
+    //         margin-bottom: 7vw;
+    //         font-size: $fontSize4*1.5;
+    //         line-height: $lineHeight4*1.5;
+    //         padding: $padding*0.7*$scaleFactor $padding*4*$scaleFactor*1.5;
+    //         border-radius: $fontSize4*1.5;
+    //         background: rgba(var(--color4));
+    //         border-color: rgba(var(--color4));
+    //     }
+    // }
     a.bubble, div.bubble{
         @media (orientation: portrait) {
             display: block;
@@ -1719,14 +1735,16 @@ footer {
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 7vw;
-            font-size: $fontSize4*1.5;
+            font-size: $fontSize4*2.5;
             line-height: $lineHeight4*1.5;
             padding: $padding*0.7*$scaleFactor $padding*4*$scaleFactor*1.5;
-            border-radius: $fontSize4*1.5;
-            background: rgba(var(--color4));
-            border-color: rgba(var(--color4));
+            border-radius: none;
+            background: transparent;
+            border-color: transparent;
+            color: rgba(var(--color2));
+            filter: blur(1px);
+            text-shadow: rgba(var(--color4)) 0 0 2vw;
         }
-
     }
 }
 

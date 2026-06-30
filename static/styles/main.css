@@ -1838,7 +1838,8 @@ footer a {
     background: transparent;
     text-align: center;
     box-shadow: none;
-    margin-top: 20vh;
+    margin-top: 10vh;
+    padding-top: 10vh;
   }
 }
 @media (orientation: portrait) {
@@ -1854,12 +1855,15 @@ footer a {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 7vw;
-    font-size: 13.5vw;
+    font-size: 22.5vw;
     line-height: 13.5vw;
     padding: 0.875vw 7.5vw;
-    border-radius: 13.5vw;
-    background: rgba(var(--color4));
-    border-color: rgba(var(--color4));
+    border-radius: none;
+    background: transparent;
+    border-color: transparent;
+    color: rgba(var(--color2));
+    filter: blur(1px);
+    text-shadow: rgba(var(--color4)) 0 0 2vw;
   }
 }
 
