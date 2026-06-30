@@ -5,6 +5,7 @@ function toggleNav() {
     $('main').toggleClass('blur');
     $('#filters').toggleClass('blur');
     $('footer').toggleClass('blur');
+    $('#hamburger').toggleClass('open');
     
 
 }

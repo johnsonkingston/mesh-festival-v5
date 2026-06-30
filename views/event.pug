@@ -16,8 +16,6 @@ html(lang=language[0])
                     img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen', alt=+data.Main_Image.title)
                 .mainimageCaption !{data.Main_Image.description}
                 
-            img.grid(src=baseURL+'static/img/grid1.png', alt='Mesh Festival')
-            img.grid#gridRight(src=baseURL+'static/img/grid.png', alt='Mesh Festival')
             h1= data.Artist
             h3= data.translations[languageParameter].Title
 
@@ -57,19 +55,4 @@ html(lang=language[0])
                 .lead !{data.translations[languageParameter].Lead}
                 .content !{data.translations[languageParameter].Content}
 
-
-        script.
-            $( document ).ready(function() {
-                $( "video" ).each(function( index ) {
-                    $(this).attr('playsinline','true');
-                    $(this).attr('preload','metadata');
-                });
-
-                isOverflown();
-
-                    setTimeout(() => {
-                        $("html, body").animate({ scrollTop: $(window).outerHeight()*0.4 },1000);
-                    }, 200);
-
-            });
         include includes/footer.pug

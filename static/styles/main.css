@@ -28,6 +28,7 @@ body {
   overscroll-behavior: none;
   scrollbar-width: none;
   background: rgba(var(--color1));
+  color: rgba(var(--color2));
 }
 
 .block {
@@ -287,42 +288,40 @@ main.blur {
   min-height: 100vh;
   padding-bottom: 10vh;
   padding-top: 5vw;
+  position: relative;
 }
 @media (orientation: portrait) {
   .page main {
     margin-left: 0;
     padding: 1.25vw;
     width: calc(100% - 2.5vw);
-    margin-top: 100vh;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(var(--color3)) 15vw, rgba(var(--color1)) 100%);
     padding-top: 6vw;
   }
 }
-.page main .mainimage, .page main .grid {
+.page main .mainimage {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 49%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  z-index: -3;
+  z-index: 2;
+  box-shadow: black 0 0 1vw;
 }
 @media (orientation: portrait) {
   .page main .mainimage {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    left: auto;
+    top: auto;
+    z-index: auto;
+    box-shadow: none;
     -o-object-position: left;
        object-position: left;
   }
-}
-.page main .grid {
-  z-index: 0;
-  width: auto;
-  z-index: -2;
-  mix-blend-mode: overlay;
-}
-.page main #gridRight {
-  left: auto;
-  Right: 0;
 }
 .page main .mainimageCaption {
   position: fixed;
@@ -732,8 +731,8 @@ main.blur {
 }
 .event main {
   background: rgba(var(--color1));
-  margin-top: 95vh;
-  padding-top: 10vw;
+  margin-top: 0;
+  padding-top: 5vw;
 }
 @media (orientation: portrait) {
   .event main {
@@ -1661,8 +1660,11 @@ footer {
   width: 100%;
   text-align: center;
   padding-bottom: 1vw;
-  border-top: 1px solid rgb(0, 0, 0);
+  border-top: 1px solid rgba(var(--color2));
   background: rgba(var(--color3));
+  position: relative;
+  z-index: 3;
+  box-shadow: rgba(var(--color2)) 0 0 1vw;
 }
 @media (orientation: portrait) {
   footer {
@@ -1697,7 +1699,7 @@ footer div {
   }
 }
 footer a {
-  color: rgb(0, 0, 0);
+  color: rgba(var(--color2));
   font-size: 1.2vw;
   line-height: 2.34vw;
 }
@@ -1772,13 +1774,40 @@ footer a {
 }
 @media (orientation: portrait) {
   #hamburger {
-    width: 12vw;
+    width: 16vw;
+    height: 16vw;
     display: block;
     position: fixed;
-    left: 86.25vw;
-    bottom: 2.25vw;
+    left: 79.25vw;
+    bottom: 1vw;
     z-index: 120;
   }
+  #hamburger div {
+    width: 100%;
+    height: 2vw;
+    background: rgba(var(--color2));
+    margin-bottom: 2.3vw;
+    box-shadow: rgba(var(--color2)) 0 0 1vw;
+    transition: all 1s;
+  }
+  #hamburger div:nth-child(3) {
+    position: absolute;
+  }
+  #hamburger div:last-child {
+    margin-bottom: 0;
+  }
+}
+
+#hamburger.open div:nth-child(1) {
+  transform: rotate(45deg);
+  position: absolute;
+}
+#hamburger.open div:nth-child(2) {
+  transform: rotate(-45deg);
+  position: absolute;
+}
+#hamburger.open div:nth-child(3) {
+  visibility: hidden;
 }
 
 #startpageNav {
@@ -2004,7 +2033,7 @@ body.startpage .columnTitleBottom h4 {
     text-align: left;
     font-size: 5vw;
     line-height: 5vw;
-    width: 56vw;
+    width: 51vw;
     top: -10.5vw;
     left: 31vw;
     position: relative;
@@ -2048,7 +2077,7 @@ body.startpage .statement {
 }
 body.startpage .statement h1 {
   font-family: "FreeSerif-JK";
-  color: rgb(0, 0, 0);
+  color: rgba(var(--color2));
   width: 60%;
   margin-left: 20%;
 }
@@ -2062,7 +2091,7 @@ body.startpage .statement h3 {
   font-family: "FreeSans-JK";
   font-size: 2vw;
   line-height: 2.2vw;
-  color: rgb(0, 0, 0);
+  color: rgba(var(--color2));
   text-align: center;
 }
 @media (orientation: portrait) {
@@ -2102,7 +2131,7 @@ body.startpage .logos .logofootersquare {
   height: 4vw;
 }
 body.startpage .logos a, body.startpage .logos span {
-  color: rgb(0, 0, 0);
+  color: rgba(var(--color2));
   font-size: 1.2vw;
   line-height: 1.3vw;
 }
@@ -2149,18 +2178,24 @@ body.startpage .logos .logobannerOuter:hover .logobannerInner {
 body.startpage #lang, body.startpage #mesh2024 {
   position: absolute;
   right: 0.5vw;
-  top: 0.5vw;
+  top: 14vw;
   z-index: 110;
 }
 @media (orientation: portrait) {
   body.startpage #lang, body.startpage #mesh2024 {
+    position: absolute;
     width: auto;
     top: 33vw;
   }
 }
+body.startpage #lang {
+  position: fixed;
+  top: 0.5vw;
+}
 @media (orientation: portrait) {
   body.startpage #lang {
     top: 62vw;
+    display: none;
   }
 }
 body.startpage #calltoaction {
@@ -2228,7 +2263,7 @@ body.startpage #cookieNotice h4 {
 }
 body.startpage #cookieNotice button {
   background-color: rgb(233, 71, 121);
-  color: rgb(0, 0, 0);
+  color: rgba(var(--color2));
   transition: color 1s linear, background-color 1s linear;
   padding: 0.8vw 1.6vw;
   border-radius: 1.5vw;

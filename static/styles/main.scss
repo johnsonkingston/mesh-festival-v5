@@ -52,7 +52,7 @@ body{
     overscroll-behavior: none;
     scrollbar-width: none;
     background: rgba(var(--color1));
-
+    color: rgba(var(--color2));
 }
 .block{
     height: 100vh;
@@ -278,40 +278,33 @@ main.blur {
                 min-height: 100vh;
                 padding-bottom: 10vh;
                 padding-top: 5vw;
+                position: relative;
                 @media (orientation: portrait) {
                     margin-left: 0;
                     padding: $padding*$scaleFactor;
                     width: calc(100% - $padding*2*$scaleFactor);
-                    margin-top: 100vh;
                     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(var(--color3)) 15vw, rgba(var(--color1)) 100%);
-                    
                     padding-top: $padding*12;
-
                 }
-                .mainimage, .grid{
+                .mainimage{
                     position: fixed;
                     top:0;
                     left:0;
-                    width:100%;
+                    width:49%;
                     height: 100%;
                     object-fit: cover;
-                    z-index: -3;
-                }
-                .mainimage{
+                    z-index: 2;
+                    box-shadow: black 0 0 1vw;
                     @media (orientation: portrait) {
+                        position: relative;
+                        width: 100%;
+                        height: 100vh;
+                        left: auto;
+                        top: auto;
+                        z-index: auto;
+                        box-shadow: none;
                         object-position: left;
                     }
-
-                }
-                .grid{
-                    z-index: 0;
-                    width:auto;
-                    z-index: -2;
-                    mix-blend-mode: overlay;
-                }
-                #gridRight{
-                    left: auto;
-                    Right: 0;
                 }
                 .mainimageCaption{
                     position: fixed;
@@ -686,8 +679,8 @@ main.blur {
             }
             main{
                 background: rgba(var(--color1));
-                margin-top: 95vh;
-                padding-top:10vw;
+                margin-top: 0;
+                padding-top: 5vw;
                 @media (orientation: portrait) {
                     padding-top:30vw;
                     margin-top: 85vh;
@@ -1547,8 +1540,11 @@ footer {
     width: 100%;
     text-align: center;
     padding-bottom: $padding * 2;
-    border-top: 1px solid rgba(0, 0, 0, 1);
+    border-top: 1px solid rgba(var(--color2));
     background: rgba(var(--color3));
+    position: relative;
+    z-index: 3;
+    box-shadow: rgba(var(--color2)) 0 0 1vw;
     @media (orientation: portrait) {
         padding-top: $padding * 6;
         padding-bottom: $padding * 6;
@@ -1576,7 +1572,7 @@ footer {
         }
     }
     a {
-        color: rgba(0, 0, 0, 1);
+        color: rgba(var(--color2));
         font-size: $fontSize1;
         line-height: $lineHeight1 * 1.8;
         @media (orientation: portrait) {
@@ -1646,14 +1642,41 @@ footer {
 #hamburger{
     display:none;
     @media (orientation: portrait) {
-        width: 12vw;
+        width: 16vw;
+        height: 16vw;
         display: block;
-        position:fixed;
-        left: 86.25vw;
-        bottom: 2.25vw;
+        position: fixed;
+        left: 79.25vw;
+        bottom: 1vw;
         z-index: 120;
-
+        div{
+            width: 100%;
+            height: 2vw;
+            background: rgba(var(--color2));
+            margin-bottom: 2.3vw;
+            box-shadow: rgba(var(--color2))0 0 1vw;
+            transition: all 1s;
+        }
+        div:nth-child(3) {
+            position: absolute;
+        }        
+        div:last-child{
+            margin-bottom: 0;
+        }
     }
+}
+#hamburger.open{
+    div:nth-child(1) {
+        transform: rotate(45deg);
+        position: absolute;
+    }
+    div:nth-child(2) {
+        transform: rotate(-45deg);
+        position: absolute;
+    }
+    div:nth-child(3) {
+        visibility: hidden;
+    }    
 }
 #startpageNav {
     position: fixed;
@@ -1861,7 +1884,7 @@ body.startpage {
                 text-align: left;
                 font-size: 5vw;
                 line-height: 5vw;
-                width: 56vw;
+                width: 51vw;
                 top: -10.5vw;
                 left: 31vw;
                 position: relative;
@@ -1906,7 +1929,7 @@ body.startpage {
         height: auto;
         h1 {
             font-family: "FreeSerif-JK";
-            color: rgba(0, 0, 0, 1);
+            color: rgba(var(--color2));
             width: 60%;
             margin-left: 20%;
             @media (orientation: portrait) {
@@ -1918,7 +1941,7 @@ body.startpage {
             font-family: 'FreeSans-JK';
             font-size: $fontSize2;
             line-height: $lineHeight2;
-            color: rgba(0, 0, 0, 1);
+            color: rgba(var(--color2));
             text-align: center;
             @media (orientation: portrait) {
                 font-size: $fontSize2 * $scaleFactor;
@@ -1955,7 +1978,7 @@ body.startpage {
             height: 4vw;
         }
         a, span {
-            color: rgba(0, 0, 0, 1);
+            color: rgba(var(--color2));
             font-size: $fontSize1;
             line-height: $lineHeight1;
             @media (orientation: portrait) {
@@ -1999,16 +2022,20 @@ body.startpage {
     #lang, #mesh2024 {
         position: absolute;
         right: $padding;
-        top: $padding;
+        top: 14vw;
         z-index: 110;
         @media (orientation: portrait) {
+            position: absolute;
             width: auto;
             top: 33vw;
         }
     }
     #lang{
+        position: fixed;
+        top: $padding;
         @media (orientation: portrait) {
             top: 62vw;
+            display:none;
         }
     }
 
@@ -2070,7 +2097,7 @@ body.startpage {
         }
         button {
             background-color: rgba(233, 71, 121, 1);
-            color: rgba(0, 0, 0, 1);
+            color: rgba(var(--color2));
             transition: color 1s linear, background-color 1s linear;
             padding: 0.8vw 1.6vw;
             border-radius: 1.5vw;
