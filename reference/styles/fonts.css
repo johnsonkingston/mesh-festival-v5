@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'FreeSerif-JK';
+    src: url('../fonts/FreeSerifBoldCondensed.woff2') format('woff2'),
+        url('../fonts/FreeSerifBoldCondensed.woff') format('woff');
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FreeSans-JK';
+    src: url('../fonts/JK-MESH-Text.woff2') format('woff2'),
+        url('../fonts/JK-MESH-Text.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
