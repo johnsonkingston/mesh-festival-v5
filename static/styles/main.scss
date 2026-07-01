@@ -1803,8 +1803,7 @@ footer {
         background:transparent;
         text-align: center;
         box-shadow: none;
-        margin-top: 10vh;
-        padding-top: 10vh;
+        padding-top: 20vh;
         height: 70vh;
     }
     &.open {
@@ -2180,6 +2179,10 @@ body.startpage {
     #lang{
         position: absolute;
         right: 0;
+        @media (orientation: portrait) {
+            top: 2vw;
+            font-size: $fontSize3*$scaleFactor;
+        }
     }
 
     #calltoaction {

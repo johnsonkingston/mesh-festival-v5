@@ -1919,8 +1919,7 @@ footer a {
     background: transparent;
     text-align: center;
     box-shadow: none;
-    margin-top: 10vh;
-    padding-top: 10vh;
+    padding-top: 20vh;
     height: 70vh;
   }
 }
@@ -2312,6 +2311,12 @@ body.startpage #mesh2024 {
 body.startpage #lang {
   position: absolute;
   right: 0;
+}
+@media (orientation: portrait) {
+  body.startpage #lang {
+    top: 2vw;
+    font-size: 10vw;
+  }
 }
 body.startpage #calltoaction {
   position: absolute;
