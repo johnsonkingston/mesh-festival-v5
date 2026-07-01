@@ -1496,7 +1496,7 @@ p, li {
   #instaButton {
     right: 1vw;
     bottom: auto;
-    top: 175vw;
+    top: calc(100vh - 39vw);
   }
 }
 
@@ -2330,7 +2330,7 @@ body.startpage #calltoaction {
   body.startpage #calltoaction {
     right: 1vw;
     bottom: auto;
-    top: 166vw;
+    top: calc(100vh - 49vw);
   }
 }
 body.startpage .videoSubtitleWrap {

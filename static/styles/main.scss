@@ -1412,7 +1412,8 @@ a.bubble,div.bubble{
     @media (orientation: portrait) {
         right: $padding*2;
         bottom: auto;
-        top: 175vw;
+        top: calc(100vh - 39vw);
+
     }
 
 }
@@ -2194,7 +2195,7 @@ body.startpage {
         @media (orientation: portrait) {
             right: $padding*2;
             bottom: auto;
-            top: 166vw;
+            top: calc(100vh - 49vw);
         }
     }
 
