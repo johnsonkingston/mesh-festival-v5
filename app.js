@@ -18,6 +18,12 @@ app.use('/static/lang', express.static('lang'));
 app.use('/static/includes', express.static('includes'));
 app.use('/node_modules', express.static('node_modules'));
 
+app.use((req, res, next) => {
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+    res.locals.baseURL = `${protocol}://${req.get('host')}/`;
+    next();
+});
+
 
 const fs = require('fs');
 var path = require('path');

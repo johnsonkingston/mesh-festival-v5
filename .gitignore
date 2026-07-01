@@ -1,5 +1,3 @@
-views/includes/vars/vars.pug
-views/includes/vars
 node_modules/
 .DS_Store
-CLAUDE.mdviews/includes/vars/vars.pug
+CLAUDE.md

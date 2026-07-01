@@ -1837,6 +1837,7 @@ footer a {
   overflow: hidden;
   background: rgba(var(--color1));
   box-shadow: 0 0 1vw rgba(var(--color2));
+  height: 70vh;
 }
 #startpageNav a {
   display: inline-block;
