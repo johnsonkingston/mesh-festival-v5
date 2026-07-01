@@ -24,10 +24,10 @@ $fontSize1: 1.2vw;
 $lineHeight1: 1.4vw;
 $fontSize1: 1.2vw;
 $lineHeight1: 1.3vw;
-$fontSize2: 2vw;
-$lineHeight2: 2.2vw;
+$fontSize2: 1.8vw;
+$lineHeight2: 2.1vw;
 $fontSize3: 4vw;
-$lineHeight3: 4.4vw;
+$lineHeight3: 4.2vw;
 $fontSize4: 9vw;
 $lineHeight4: 9vw;
 $fontSize3VH: 10vh;
@@ -185,7 +185,7 @@ a.bubble,div.bubble{
     @media (orientation: portrait) {
         font-size: $fontSize4;
         line-height: $lineHeight4;
-        padding: $padding*0.7*$scaleFactor $padding*4*$scaleFactor;
+        padding: 0;
         border-radius: $fontSize4;
     }
 }
@@ -193,6 +193,10 @@ a.bubble,div.bubble{
     0% {
         filter: blur(3px);
         text-shadow: 0 0 5px rgba(var(--color2));
+    }
+    10% {
+        filter: blur(1px);
+        text-shadow: 0 0 10px rgba(var(--color2));
     }
     100% {
         filter: blur(0.5px);
@@ -206,7 +210,7 @@ a.bubble,div.bubble{
     text-shadow: 0 0 10px rgba(var(--color4));
 }
 
-main.blur {
+.blur {
     filter: blur(10px);
 }
 
@@ -309,13 +313,12 @@ main.blur {
                 padding: $padding;
                 padding-left: 0;
                 padding-bottom: 10vh;
-                padding-top: 5vw;
+                padding-top: 4vw;
                 position: relative;
                 @media (orientation: portrait) {
                     margin-left: 0;
                     padding: $padding*$scaleFactor;
                     width: calc(100% - $padding*2*$scaleFactor);
-                    padding-top: $padding*12;
                 }
                 .mainimage{
                     position: fixed;
@@ -328,12 +331,14 @@ main.blur {
                     box-shadow: black 0 0 1vw;
                     @media (orientation: portrait) {
                         position: relative;
-                        width: 100%;
-                        height: 100vh;
+                        width: 100vw;
+                        margin-left: -$padding*$scaleFactor;
+                        margin-top: -$padding*$scaleFactor;
+                        height: auto;
                         left: auto;
                         top: auto;
                         z-index: auto;
-                        box-shadow: none;
+                        box-shadow: rgba(var(--color2)) 0 0 2vw;
                         object-position: left;
                     }
                 }
@@ -345,7 +350,7 @@ main.blur {
                     color: rgba(var(--color2));
                     z-index: -1;
                 }
-                    ul,p,a,h1,h2,h3,h4,h5,h6,table,tr,td,em,i,video,iframe{
+                    ul,p,h1,h2,h3,h4,h5,h6,table,tr,td,video,iframe{
                         padding-left: $padding;
                     }
                 .content{
@@ -405,20 +410,15 @@ main.blur {
                         }                        
                     }
                     h4{
-                        font-size: $fontSize2;
+                        font-size: $fontSize2*$serifFactor;
                         line-height: $lineHeight2;
                         color: rgba(var(--color2));
-                        background: rgba(var(--color3));
-                        border: 0.2vw solid rgba(var(--color2));
-                        border-radius: $lineHeight2;
-                        padding: calc($padding/2) calc($padding*2) calc($padding/2) $padding*2;
-                        margin-top: $padding;
-                        display: inline-block;
+                        font-family: 'FreeSerif-JK';
+                        padding-top: $padding;
                         @media (orientation: portrait) {
                             font-size: $fontSize2*$scaleFactor;
                             line-height: $lineHeight2*$scaleFactor;
                             border-radius: $lineHeight2*$scaleFactor;
-                            padding: calc($padding/2)*$scaleFactor calc($padding*2)*$scaleFactor calc($padding/2)*$scaleFactor $padding*2*$scaleFactor;
                             margin-top: $padding*$scaleFactor;
                         }
                     }
@@ -450,6 +450,7 @@ main.blur {
                         }
                     }
                     a{
+                        color: rgba(var(--color2));
                         img{
                             width: 25%;
                             display: inline-block;
@@ -703,12 +704,15 @@ main.blur {
                 background: rgba(var(--color1));
                 position: fixed;
                 top: $padding;
-                left: 50vw;
+                left: 75vw;
                 transform: translateX(-50%);
                 z-index: 10;
                 text-transform: capitalize;
                 @media (orientation: portrait) {
                     top: $padding*$scaleFactor;
+                }
+                a{
+                    color: rgba(var(--color2));
                 }
             }
             main{
@@ -716,19 +720,24 @@ main.blur {
                 margin-top: 0;
                 padding-top: 5vw;
                 @media (orientation: portrait) {
-                    padding-top:30vw;
-                    margin-top: 85vh;
+                    padding-top: 2vw;
+                    margin-top: 0;
 
                 }
                 .mainimage{
                     @media (orientation: portrait) {
+                        width: 100vw;
+                        margin-left: -$padding*$scaleFactor;
                         object-position: center;
+                        box-shadow: rgba(var(--color2)) 0 0 2vw;
+                        margin-top: 2vw;
                     }
                 }
                 .lead{
                     font-size: $fontSize2;
                     line-height: $lineHeight2;    
-                    color: rgba(var(--color2));               
+                    color: rgba(var(--color2));   
+                    padding-left: $padding;            
                     @media (orientation: portrait) {
                         font-size: $fontSize2*$scaleFactor;
                         line-height: $lineHeight2*$scaleFactor;                           
@@ -769,13 +778,15 @@ main.blur {
             }
         }
 
-        h1,h2,h3,h4{
+        h1,h2,h3{
             font-family: 'FreeSans-JK';
             filter: blur(1px);
         }
         h3{
             font-size: $fontSize3;
             line-height: $lineHeight3;
+            font-family: 'FreeSerif-JK';
+
             @media (orientation: portrait) {
                 font-size: $fontSize3*$scaleFactor;
                 line-height: $lineHeight3*$scaleFactor;                
@@ -785,11 +796,20 @@ main.blur {
             font-family: 'FreeSans-JK';  
             font-size: $fontSize3*0.9;
             line-height: $lineHeight3*0.9;
-            margin-bottom: $padding;
+            margin-bottom: 0;
+            margin-top: $padding*2;
             @media (orientation: portrait) {
                 font-size: $fontSize3*$scaleFactor*0.9;
                 line-height: $lineHeight3*$scaleFactor*0.9;                
             }         
+        }
+        h4{
+            font-size: $fontSize1;
+            line-height: $lineHeight1;
+            @media (orientation: portrait) {
+                font-size: $fontSize1*$scaleFactor;
+                line-height: $lineHeight1*$scaleFactor;                
+            }
         }
         p,li
         {
@@ -801,15 +821,53 @@ main.blur {
                 line-height: $lineHeight2*$scaleFactor;                
             }
         }
-        .accordeon-title{
+        .accordeon-title {
             margin-bottom: 0;
+            cursor: pointer;
+            
+            &::after {
+                content: ' ▶';
+                display: inline-block;
+                transition: transform 0.2s ease;
+                font-size: $fontSize3*0.7;
+                margin-left: $padding*2;
+                @media (orientation: portrait) {
+                    font-size: $fontSize3*$scaleFactor*0.8;
+                    margin-left: $padding*2*$scaleFactor;
+                }
+            }
+            
+            &.open::after {
+                transform: rotate(90deg);
+            }
         }
         .accordeon{
             background: rgba(var(--color1));
-            margin-top: 0;
-            margin-bottom: 0;
-            background: linear-gradient(180deg, rgba(var(--color2)) 0%, rgba(var(--color1)) 15%, rgba(var(--color1)) 85%, rgba(var(--color2)) 100%);
+            padding-top: $padding;
+            padding-bottom: $padding;
+            margin:0;
+            position: relative;
+        }
+        .accordeon-title + .accordeon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1vw;
+            background: linear-gradient(180deg, rgba(var(--color2)) 0%, transparent 100%);
+            pointer-events: none;
+        }
 
+        .accordeon:has(+ .accordeon-title)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1vw;
+            background: linear-gradient(0deg, rgba(var(--color2)) 0%, transparent 100%);
+            pointer-events: none;
         }
         #ticketshop{
             display: none;
@@ -852,6 +910,9 @@ main.blur {
                 @media (orientation: portrait) {
                     margin-top: 19.5vw;
                 }
+            }
+            h1,h2,h3,h4,h5,h6{
+                filter: none;
             }
             main::-webkit-scrollbar {
                 height: 14px;
@@ -1195,16 +1256,17 @@ main.blur {
             }
 
             .left, .middle, .right{
-                padding: $padding $padding*3; 
+                padding: $padding $padding*3 $padding*3 $padding*3; 
                 color: rgba(var(--color2));
                 @media (orientation: portrait) {
-                    padding: $padding*3*$scaleFactor $padding*3*$scaleFactor;
+                    padding: $padding*3*$scaleFactor $padding*3*$scaleFactor $padding*3*$scaleFactor $padding*5*$scaleFactor
                 }
                 h3,h4{
                     font-family: 'FreeSans-JK';
                     font-size: $fontSize1;
                     line-height: $lineHeight1;
                     text-align: center;
+                    filter: none;
                         @media (orientation: portrait) {
                         font-size: $fontSize2*$scaleFactor;
                         line-height: $fontSize2*$scaleFactor; 
@@ -1348,6 +1410,7 @@ main.blur {
     right: 0.8vw;
     bottom: 4vw;
     @media (orientation: portrait) {
+        right: $padding*2;
         bottom: auto;
         top: 175vw;
     }
@@ -1577,7 +1640,6 @@ footer {
     width: 100%;
     text-align: center;
     padding-bottom: $padding * 2;
-    border-top: 1px solid rgba(var(--color2));
     background: rgba(var(--color3));
     position: relative;
     z-index: 3;
@@ -1729,7 +1791,7 @@ footer {
     overflow: hidden;
     background: rgba(var(--color1));
     box-shadow: 0 0 1vw rgba(var(--color2));
-    height: 70vh;
+    height: 2.9vw;
     a {
         display: inline-block;
     }
@@ -1743,6 +1805,7 @@ footer {
         box-shadow: none;
         margin-top: 10vh;
         padding-top: 10vh;
+        height: 70vh;
     }
     &.open {
         @media (orientation: portrait) {
@@ -1766,7 +1829,9 @@ footer {
     //     }
     // }
     a.bubble, div.bubble{
+        box-shadow: rgba(var(--color2)) 1vw 0 1vw;
         @media (orientation: portrait) {
+            box-shadow: none;
             display: block;
             width: fit-content;
             margin-left: auto;
@@ -1813,6 +1878,35 @@ body.startpage {
             height: 100vh;
             width: 100vw;
         }
+        h1,h2{
+            position: absolute;
+            top: 14vw;
+            z-index: 1000;
+            left: 1vw;
+            @media (orientation: portrait) {
+                top: 34vw;
+                left: 3vw;
+            }
+        }
+        h1{
+            font-family: "FreeSerif-JK";
+            font-size: $fontSize3;
+            line-height: 3.5vw;
+            top: 15.5vw;
+            width: 20vw;
+            @media (orientation: portrait) {
+                font-size: $fontSize3*$scaleFactor;
+                line-height: 3.5vw*$scaleFactor;
+                top: 39vw;
+                width: 50vw;
+            }
+        }
+        h2{
+            font-size: $fontSize2;
+            @media (orientation: portrait) {
+                font-size: $fontSize2*$scaleFactor;
+            }
+        }
     }
 
     .columnTitle {
@@ -1851,8 +1945,10 @@ body.startpage {
         }
         h1{
             margin-left: -1vw;
+            margin-top: -0.1vw;
             @media (orientation: portrait) {
                 margin-left: -3vw;
+                margin-top: -1vw;
             }
 
         }
@@ -1893,7 +1989,7 @@ body.startpage {
     }
     .columnTitleBottom{
         background: rgba(var(--color1));
-        background: linear-gradient(180deg,rgba(var(--color2)) 0%, rgba(var(--color1)) 5%);
+        background: linear-gradient(180deg,rgba(178,178,178,1) 0%, rgba(var(--color1)) 1vw);
         filter: blur(1px);
         @media (orientation: portrait) {
             background:none;
@@ -1952,6 +2048,7 @@ body.startpage {
         width: 100vw;
         padding-top: $padding * 10;
         background: rgba(var(--color1));
+        margin-top: -10px;
         @media (orientation: portrait) {
             width: 100%;
             margin-left: 0;
@@ -1969,8 +2066,8 @@ body.startpage {
     }
 
     #statementContent {
-        width: 60%;
-        margin-left: 20%;
+        width: 50%;
+        margin-left: 25%;
         @media (orientation: portrait) {
             width: 90%;
             margin-left: 5%;
@@ -1985,12 +2082,6 @@ body.startpage {
         h1 {
             font-family: "FreeSerif-JK";
             color: rgba(var(--color2));
-            width: 60%;
-            margin-left: 20%;
-            @media (orientation: portrait) {
-                margin-left: 0;
-                width: auto;
-            }
         }
         h3 {
             font-family: 'FreeSans-JK';
@@ -2074,24 +2165,21 @@ body.startpage {
 
 
 
-    #lang, #mesh2024 {
+    #mesh2024 {
         position: absolute;
         right: $padding;
         top: 14vw;
         z-index: 110;
         @media (orientation: portrait) {
+            right: $padding*2;
             position: absolute;
             width: auto;
             top: 33vw;
         }
     }
     #lang{
-        position: fixed;
-        top: 0;
-        @media (orientation: portrait) {
-            top: 62vw;
-            display:none;
-        }
+        position: absolute;
+        right: 0;
     }
 
     #calltoaction {
@@ -2099,20 +2187,14 @@ body.startpage {
         right: $padding;
         bottom: 7vw;
         width: fit-content;
-        background: rgba(var(--color4));
-        color: rgba(var(--color1));
-        border:rgba(var(--color4)) 1px solid;
         z-index: 10;
         @media (orientation: portrait) {
+            right: $padding*2;
             bottom: auto;
-            top: 48vw;
+            top: 166vw;
         }
     }
-    #calltoaction:hover {
-        background: rgba(var(--color1));
-        color: rgba(var(--color4));       
-        border:rgba(var(--color1)) 1px solid;
-    }
+
     .videoSubtitleWrap {
         position: fixed;
         left: 0;

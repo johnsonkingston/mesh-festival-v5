@@ -4,8 +4,11 @@ div#hamburger(onclick="toggleNav()")
     div
     div
 nav#startpageNav
-    a.bubble(href=baseURL) •Was
-    a.bubble(href=baseURL+'timetable') •Wann
-    a.bubble(href=baseURL+'artists/') •Wer
-    a.bubble(href=baseURL+'pages/visit/') •Wo
-    a.bubble(href=baseURL+'pages/about/de') •Wie
+    if navigation && navigation[languageParameter] && navigation[languageParameter].Menu
+        each item in navigation[languageParameter].Menu
+            if item.Visible !== false
+                a.bubble(href=baseURL+(item.URL || ''))= item.Title
+    if(language[0] == 'en')
+        a#lang.bubble(href="/de") DE
+    else
+        a#lang.bubble(href="/en") EN

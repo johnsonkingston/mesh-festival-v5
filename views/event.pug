@@ -2,12 +2,13 @@ doctype html
 html(lang=language[0])
     include includes/head.pug
     body.page.event
-        include includes/sitenav.pug
-
-        .breadcrumb.mediumpill
-            a(href=baseURL+'pages/'+data.Format)= data.formatTranslation[languageParameter]
+        include includes/sitenav.pug           
 
         main
+            h4= data.formatTranslation[languageParameter]   
+            h1= data.Artist
+            h3= data.translations[languageParameter].Title
+            
             if data.Main_Image == null
                 img.mainimage(src=imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png')
             else 
@@ -15,9 +16,7 @@ html(lang=language[0])
                     source(media="min-width:650px",srcset=imgURL+data.Main_Image.filename_disk+'?key=content')
                     img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen', alt=+data.Main_Image.title)
                 .mainimageCaption !{data.Main_Image.description}
-                
-            h1= data.Artist
-            h3= data.translations[languageParameter].Title
+
 
             .eventHeader 
                 .eventHeaderColumn

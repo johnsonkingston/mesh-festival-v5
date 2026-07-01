@@ -118,24 +118,24 @@ ul {
 }
 
 .mediumpill {
-  font-size: 2vw;
-  line-height: 2.2vw;
-  border-radius: 2vw;
+  font-size: 1.8vw;
+  line-height: 2.1vw;
+  border-radius: 1.8vw;
   padding: 0.25vw 1vw 0.25vw 1vw;
   margin-right: 0.5vw;
 }
 @media (orientation: portrait) {
   .mediumpill {
-    font-size: 5vw;
-    line-height: 5.5vw;
-    border-radius: 5vw;
+    font-size: 4.5vw;
+    line-height: 5.25vw;
+    border-radius: 4.5vw;
     padding: 0.625vw 2.5vw 0.625vw 2.5vw;
   }
 }
 
 .bigpill {
   font-size: 4vw;
-  line-height: 6.6vw;
+  line-height: 6.3vw;
   border-radius: 4vw;
   padding: 0.5vw 2vw 0.5vw 2vw;
   background: rgba(var(--color1));
@@ -147,7 +147,7 @@ ul {
 @media (orientation: portrait) {
   .bigpill {
     font-size: 6vw;
-    line-height: 9.9vw;
+    line-height: 9.45vw;
     border-radius: 6vw;
     padding-left: 3vw;
     padding-right: 3vw;
@@ -168,7 +168,7 @@ a.bubble, div.bubble {
   a.bubble, div.bubble {
     font-size: 9vw;
     line-height: 9vw;
-    padding: 0.875vw 5vw;
+    padding: 0;
     border-radius: 9vw;
   }
 }
@@ -177,6 +177,10 @@ a.bubble, div.bubble {
   0% {
     filter: blur(3px);
     text-shadow: 0 0 5px rgba(var(--color2));
+  }
+  10% {
+    filter: blur(1px);
+    text-shadow: 0 0 10px rgba(var(--color2));
   }
   100% {
     filter: blur(0.5px);
@@ -189,7 +193,7 @@ a.bubble, div.bubble {
   text-shadow: 0 0 10px rgba(var(--color4));
 }
 
-main.blur {
+.blur {
   filter: blur(10px);
 }
 
@@ -264,17 +268,17 @@ main.blur {
 }
 .eventswrapper a .events .caption {
   display: inline-block;
-  font-size: 2vw;
-  line-height: 2.2vw;
-  text-indent: -2.2vw;
-  margin-left: 2.2vw;
+  font-size: 1.8vw;
+  line-height: 2.1vw;
+  text-indent: -2.1vw;
+  margin-left: 2.1vw;
 }
 @media (orientation: portrait) {
   .eventswrapper a .events .caption {
-    font-size: 5vw;
-    line-height: 5.5vw;
-    text-indent: -5.5vw;
-    margin-left: 5.5vw;
+    font-size: 4.5vw;
+    line-height: 5.25vw;
+    text-indent: -5.25vw;
+    margin-left: 5.25vw;
   }
 }
 @media (orientation: portrait) {
@@ -297,7 +301,7 @@ main.blur {
   padding: 0.5vw;
   padding-left: 0;
   padding-bottom: 10vh;
-  padding-top: 5vw;
+  padding-top: 4vw;
   position: relative;
 }
 @media (orientation: portrait) {
@@ -305,7 +309,6 @@ main.blur {
     margin-left: 0;
     padding: 1.25vw;
     width: calc(100% - 2.5vw);
-    padding-top: 6vw;
   }
 }
 .page main .mainimage {
@@ -322,12 +325,14 @@ main.blur {
 @media (orientation: portrait) {
   .page main .mainimage {
     position: relative;
-    width: 100%;
-    height: 100vh;
+    width: 100vw;
+    margin-left: -1.25vw;
+    margin-top: -1.25vw;
+    height: auto;
     left: auto;
     top: auto;
     z-index: auto;
-    box-shadow: none;
+    box-shadow: rgba(var(--color2)) 0 0 2vw;
     -o-object-position: left;
        object-position: left;
   }
@@ -340,20 +345,20 @@ main.blur {
   color: rgba(var(--color2));
   z-index: -1;
 }
-.page main ul, .page main p, .page main a, .page main h1, .page main h2, .page main h3, .page main h4, .page main h5, .page main h6, .page main table, .page main tr, .page main td, .page main em, .page main i, .page main video, .page main iframe {
+.page main ul, .page main p, .page main h1, .page main h2, .page main h3, .page main h4, .page main h5, .page main h6, .page main table, .page main tr, .page main td, .page main video, .page main iframe {
   padding-left: 0.5vw;
 }
 .page main .content {
   overflow: hidden;
 }
 .page main .content ul {
-  text-indent: -2.2vw;
-  margin-left: 2.2vw;
+  text-indent: -2.1vw;
+  margin-left: 2.1vw;
 }
 @media (orientation: portrait) {
   .page main .content ul {
-    text-indent: -5.5vw;
-    margin-left: 5.5vw;
+    text-indent: -5.25vw;
+    margin-left: 5.25vw;
   }
 }
 .page main .content li:before {
@@ -366,13 +371,13 @@ main.blur {
   margin-top: 1.5vw;
 }
 .page main .content h2 {
-  font-size: 2vw;
-  line-height: 2.2vw;
+  font-size: 1.8vw;
+  line-height: 2.1vw;
   font-family: "FreeSans-JK";
-  margin-top: 2.2vw;
+  margin-top: 2.1vw;
   background: rgba(var(--color1));
   padding: 0.5vw 1vw;
-  border-radius: 2.2vw;
+  border-radius: 2.1vw;
   display: block;
   width: -moz-fit-content;
   width: fit-content;
@@ -383,43 +388,38 @@ main.blur {
 }
 @media (orientation: portrait) {
   .page main .content h2 {
-    font-size: 5vw;
-    line-height: 5.5vw;
+    font-size: 4.5vw;
+    line-height: 5.25vw;
     padding: 1.25vw 2.5vw;
     top: 2.5vw;
-    border-radius: 5.5vw;
+    border-radius: 5.25vw;
   }
 }
 .page main .content h1 {
   font-size: 3.6vw;
-  line-height: 3.96vw;
+  line-height: 3.78vw;
   font-family: "FreeSans-JK";
-  margin-top: 2.2vw;
+  margin-top: 2.1vw;
 }
 @media (orientation: portrait) {
   .page main .content h1 {
-    font-size: 4.5vw;
-    line-height: 4.95vw;
-    margin-top: 5.5vw;
+    font-size: 4.05vw;
+    line-height: 4.725vw;
+    margin-top: 5.25vw;
   }
 }
 .page main .content h4 {
-  font-size: 2vw;
-  line-height: 2.2vw;
+  font-size: 1.98vw;
+  line-height: 2.1vw;
   color: rgba(var(--color2));
-  background: rgba(var(--color3));
-  border: 0.2vw solid rgba(var(--color2));
-  border-radius: 2.2vw;
-  padding: 0.25vw 1vw 0.25vw 1vw;
-  margin-top: 0.5vw;
-  display: inline-block;
+  font-family: "FreeSerif-JK";
+  padding-top: 0.5vw;
 }
 @media (orientation: portrait) {
   .page main .content h4 {
-    font-size: 5vw;
-    line-height: 5.5vw;
-    border-radius: 5.5vw;
-    padding: 0.625vw 2.5vw 0.625vw 2.5vw;
+    font-size: 4.5vw;
+    line-height: 5.25vw;
+    border-radius: 5.25vw;
     margin-top: 1.25vw;
   }
 }
@@ -453,6 +453,9 @@ main.blur {
   .page main .content table, .page main .content tr, .page main .content td {
     display: block;
   }
+}
+.page main .content a {
+  color: rgba(var(--color2));
 }
 .page main .content a img {
   width: 25%;
@@ -514,8 +517,8 @@ main.blur {
   margin-block-start: 0;
   margin-block-end: 0;
   font-family: "FreeSerif-JK";
-  font-size: 4vw;
-  line-height: 4vw;
+  font-size: 3.6vw;
+  line-height: 3.6vw;
   text-align: center;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: rgba(var(--color3));
@@ -523,8 +526,8 @@ main.blur {
 }
 @media (orientation: portrait) {
   .page main .content .box-text {
-    font-size: 10vw;
-    line-height: 10vw;
+    font-size: 9vw;
+    line-height: 9vw;
   }
 }
 .page main .content .box-text em {
@@ -582,8 +585,8 @@ main.blur {
   vertical-align: top;
   text-align: center;
   font-family: "FreeSerif-JK";
-  font-size: 4vw;
-  line-height: 4vw;
+  font-size: 3.6vw;
+  line-height: 3.6vw;
   color: white;
   padding: 0.5vw;
   margin-bottom: 1.25vw;
@@ -609,8 +612,8 @@ main.blur {
 }
 @media (orientation: portrait) {
   .page main .content .table-boxes td em {
-    font-size: 5vw;
-    line-height: 5vw;
+    font-size: 4.5vw;
+    line-height: 4.5vw;
     border-radius: 1.25vw;
     padding: 1.25vw;
   }
@@ -623,8 +626,8 @@ main.blur {
   vertical-align: top;
   text-align: center;
   font-family: "FreeSerif-JK";
-  font-size: 4vw;
-  line-height: 4vw;
+  font-size: 3.6vw;
+  line-height: 3.6vw;
   color: white;
   margin-block-start: 0em;
   margin-block-end: 0em;
@@ -648,8 +651,8 @@ main.blur {
 }
 @media (orientation: portrait) {
   .page main .content .table-boxes td p em {
-    font-size: 5vw;
-    line-height: 5vw;
+    font-size: 4.5vw;
+    line-height: 4.5vw;
   }
 }
 .page main .content .pill p {
@@ -730,7 +733,7 @@ main.blur {
   background: rgba(var(--color1));
   position: fixed;
   top: 0.5vw;
-  left: 50vw;
+  left: 75vw;
   transform: translateX(-50%);
   z-index: 10;
   text-transform: capitalize;
@@ -740,6 +743,9 @@ main.blur {
     top: 1.25vw;
   }
 }
+.event .breadcrumb a {
+  color: rgba(var(--color2));
+}
 .event main {
   background: rgba(var(--color1));
   margin-top: 0;
@@ -747,25 +753,30 @@ main.blur {
 }
 @media (orientation: portrait) {
   .event main {
-    padding-top: 30vw;
-    margin-top: 85vh;
+    padding-top: 2vw;
+    margin-top: 0;
   }
 }
 @media (orientation: portrait) {
   .event main .mainimage {
+    width: 100vw;
+    margin-left: -1.25vw;
     -o-object-position: center;
        object-position: center;
+    box-shadow: rgba(var(--color2)) 0 0 2vw;
+    margin-top: 2vw;
   }
 }
 .event main .lead {
-  font-size: 2vw;
-  line-height: 2.2vw;
+  font-size: 1.8vw;
+  line-height: 2.1vw;
   color: rgba(var(--color2));
+  padding-left: 0.5vw;
 }
 @media (orientation: portrait) {
   .event main .lead {
-    font-size: 5vw;
-    line-height: 5.5vw;
+    font-size: 4.5vw;
+    line-height: 5.25vw;
   }
 }
 .event .eventHeader {
@@ -799,56 +810,109 @@ main.blur {
   margin-left: -1.2vw;
   margin-bottom: 0.5vw;
 }
-h1, h2, h3, h4 {
+h1, h2, h3 {
   font-family: "FreeSans-JK";
   filter: blur(1px);
 }
 
 h3 {
   font-size: 4vw;
-  line-height: 4.4vw;
+  line-height: 4.2vw;
+  font-family: "FreeSerif-JK";
 }
 @media (orientation: portrait) {
   h3 {
     font-size: 10vw;
-    line-height: 11vw;
+    line-height: 10.5vw;
   }
 }
 
 h1 {
   font-family: "FreeSans-JK";
   font-size: 3.6vw;
-  line-height: 3.96vw;
-  margin-bottom: 0.5vw;
+  line-height: 3.78vw;
+  margin-bottom: 0;
+  margin-top: 1vw;
 }
 @media (orientation: portrait) {
   h1 {
     font-size: 9vw;
-    line-height: 9.9vw;
+    line-height: 9.45vw;
+  }
+}
+
+h4 {
+  font-size: 1.2vw;
+  line-height: 1.3vw;
+}
+@media (orientation: portrait) {
+  h4 {
+    font-size: 3vw;
+    line-height: 3.25vw;
   }
 }
 
 p, li {
   color: rgba(var(--color2));
-  font-size: 2vw;
-  line-height: 2.2vw;
+  font-size: 1.8vw;
+  line-height: 2.1vw;
 }
 @media (orientation: portrait) {
   p, li {
-    font-size: 5vw;
-    line-height: 5.5vw;
+    font-size: 4.5vw;
+    line-height: 5.25vw;
   }
 }
 
 .accordeon-title {
   margin-bottom: 0;
+  cursor: pointer;
+}
+.accordeon-title::after {
+  content: " ▶";
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-size: 2.8vw;
+  margin-left: 1vw;
+}
+@media (orientation: portrait) {
+  .accordeon-title::after {
+    font-size: 8vw;
+    margin-left: 2.5vw;
+  }
+}
+.accordeon-title.open::after {
+  transform: rotate(90deg);
 }
 
 .accordeon {
   background: rgba(var(--color1));
-  margin-top: 0;
-  margin-bottom: 0;
-  background: linear-gradient(180deg, rgba(var(--color2)) 0%, rgba(var(--color1)) 15%, rgba(var(--color1)) 85%, rgba(var(--color2)) 100%);
+  padding-top: 0.5vw;
+  padding-bottom: 0.5vw;
+  margin: 0;
+  position: relative;
+}
+
+.accordeon-title + .accordeon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1vw;
+  background: linear-gradient(180deg, rgba(var(--color2)) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.accordeon:has(+ .accordeon-title)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1vw;
+  background: linear-gradient(0deg, rgba(var(--color2)) 0%, transparent 100%);
+  pointer-events: none;
 }
 
 #ticketshop {
@@ -894,6 +958,9 @@ p, li {
   .timetable main {
     margin-top: 19.5vw;
   }
+}
+.timetable h1, .timetable h2, .timetable h3, .timetable h4, .timetable h5, .timetable h6 {
+  filter: none;
 }
 .timetable main::-webkit-scrollbar {
   height: 14px;
@@ -1264,12 +1331,12 @@ p, li {
   }
 }
 .artists main .artist .left, .artists main .artist .middle, .artists main .artist .right {
-  padding: 0.5vw 1.5vw;
+  padding: 0.5vw 1.5vw 1.5vw 1.5vw;
   color: rgba(var(--color2));
 }
 @media (orientation: portrait) {
   .artists main .artist .left, .artists main .artist .middle, .artists main .artist .right {
-    padding: 3.75vw 3.75vw;
+    padding: 3.75vw 3.75vw 3.75vw 6.25vw;
   }
 }
 .artists main .artist .left h3, .artists main .artist .left h4, .artists main .artist .middle h3, .artists main .artist .middle h4, .artists main .artist .right h3, .artists main .artist .right h4 {
@@ -1277,11 +1344,12 @@ p, li {
   font-size: 1.2vw;
   line-height: 1.3vw;
   text-align: center;
+  filter: none;
 }
 @media (orientation: portrait) {
   .artists main .artist .left h3, .artists main .artist .left h4, .artists main .artist .middle h3, .artists main .artist .middle h4, .artists main .artist .right h3, .artists main .artist .right h4 {
-    font-size: 5vw;
-    line-height: 5vw;
+    font-size: 4.5vw;
+    line-height: 4.5vw;
   }
 }
 .artists main .artist .left h4, .artists main .artist .middle h4, .artists main .artist .right h4 {
@@ -1291,8 +1359,8 @@ p, li {
 }
 @media (orientation: portrait) {
   .artists main .artist .left h4, .artists main .artist .middle h4, .artists main .artist .right h4 {
-    font-size: 5.5vw;
-    line-height: 6.05vw;
+    font-size: 4.95vw;
+    line-height: 5.775vw;
   }
 }
 .artists main .artist .middle:hover {
@@ -1426,6 +1494,7 @@ p, li {
 }
 @media (orientation: portrait) {
   #instaButton {
+    right: 1vw;
     bottom: auto;
     top: 175vw;
   }
@@ -1493,19 +1562,19 @@ p, li {
   white-space: nowrap;
   overflow: hidden;
   box-sizing: border-box;
-  height: 4vw;
+  height: 3.6vw;
   box-shadow: 0 0 20px rgba(var(--color2));
   z-index: 2;
   transition: all 1s;
 }
 @media (orientation: portrait) {
   .marquee {
-    height: 10vw;
+    height: 9vw;
   }
 }
 
 .newsopen {
-  height: calc(100vh + 4vw);
+  height: calc(100vh + 3.6vw);
 }
 @media (orientation: portrait) {
   .newsopen {
@@ -1520,16 +1589,16 @@ p, li {
 .marquee p {
   display: inline-block;
   animation: marquee 20s linear infinite;
-  line-height: 4.4vw;
-  font-size: 4vw;
+  line-height: 4.2vw;
+  font-size: 3.6vw;
   margin-block-start: 0;
   margin-block-end: 0;
   cursor: pointer;
 }
 @media (orientation: portrait) {
   .marquee p {
-    line-height: 11vw;
-    font-size: 10vw;
+    line-height: 10.5vw;
+    font-size: 9vw;
   }
 }
 
@@ -1549,7 +1618,7 @@ p, li {
 }
 @media (orientation: portrait) {
   .newscontent {
-    height: calc(100vh - 10vw);
+    height: calc(100vh - 9vw);
   }
 }
 .newscontent .newscontentInner {
@@ -1568,25 +1637,25 @@ p, li {
   }
 }
 .newscontent .newscontentInner .grid-item h1, .newscontent .newscontentInner .grid-sizer h1 {
-  line-height: 3.4vw;
-  font-size: 4vw;
+  line-height: 3.06vw;
+  font-size: 3.6vw;
   font-family: "FreeSerif-JK";
 }
 @media (orientation: portrait) {
   .newscontent .newscontentInner .grid-item h1, .newscontent .newscontentInner .grid-sizer h1 {
-    line-height: 8.5vw;
-    font-size: 10vw;
+    line-height: 7.65vw;
+    font-size: 9vw;
   }
 }
 .newscontent .newscontentInner .grid-item h2, .newscontent .newscontentInner .grid-sizer h2 {
   font-family: "FreeSans-JK";
-  line-height: 4vw;
-  font-size: 4vw;
+  line-height: 3.6vw;
+  font-size: 3.6vw;
 }
 @media (orientation: portrait) {
   .newscontent .newscontentInner .grid-item h2, .newscontent .newscontentInner .grid-sizer h2 {
-    line-height: 10vw;
-    font-size: 10vw;
+    line-height: 9vw;
+    font-size: 9vw;
   }
 }
 .newscontent .newscontentInner .grid-item h3, .newscontent .newscontentInner .grid-sizer h3 {
@@ -1673,7 +1742,6 @@ footer {
   width: 100%;
   text-align: center;
   padding-bottom: 1vw;
-  border-top: 1px solid rgba(var(--color2));
   background: rgba(var(--color3));
   position: relative;
   z-index: 3;
@@ -1755,7 +1823,7 @@ footer a {
 }
 @media (orientation: portrait) {
   .cursor {
-    font-size: 5vw;
+    font-size: 4.5vw;
   }
 }
 
@@ -1837,7 +1905,7 @@ footer a {
   overflow: hidden;
   background: rgba(var(--color1));
   box-shadow: 0 0 1vw rgba(var(--color2));
-  height: 70vh;
+  height: 2.9vw;
 }
 #startpageNav a {
   display: inline-block;
@@ -1853,6 +1921,7 @@ footer a {
     box-shadow: none;
     margin-top: 10vh;
     padding-top: 10vh;
+    height: 70vh;
   }
 }
 @media (orientation: portrait) {
@@ -1860,8 +1929,12 @@ footer a {
     display: block;
   }
 }
+#startpageNav a.bubble, #startpageNav div.bubble {
+  box-shadow: rgba(var(--color2)) 1vw 0 1vw;
+}
 @media (orientation: portrait) {
   #startpageNav a.bubble, #startpageNav div.bubble {
+    box-shadow: none;
     display: block;
     width: -moz-fit-content;
     width: fit-content;
@@ -1909,6 +1982,41 @@ body.startpage .columnVideo video {
   height: 100vh;
   width: 100vw;
 }
+body.startpage .columnVideo h1, body.startpage .columnVideo h2 {
+  position: absolute;
+  top: 14vw;
+  z-index: 1000;
+  left: 1vw;
+}
+@media (orientation: portrait) {
+  body.startpage .columnVideo h1, body.startpage .columnVideo h2 {
+    top: 34vw;
+    left: 3vw;
+  }
+}
+body.startpage .columnVideo h1 {
+  font-family: "FreeSerif-JK";
+  font-size: 4vw;
+  line-height: 3.5vw;
+  top: 15.5vw;
+  width: 20vw;
+}
+@media (orientation: portrait) {
+  body.startpage .columnVideo h1 {
+    font-size: 10vw;
+    line-height: 8.75vw;
+    top: 39vw;
+    width: 50vw;
+  }
+}
+body.startpage .columnVideo h2 {
+  font-size: 1.8vw;
+}
+@media (orientation: portrait) {
+  body.startpage .columnVideo h2 {
+    font-size: 4.5vw;
+  }
+}
 body.startpage .columnTitle {
   position: fixed;
   top: 2.9vw;
@@ -1950,10 +2058,12 @@ body.startpage .columnTitle h1, body.startpage .columnTitle h2, body.startpage .
 }
 body.startpage .columnTitle h1 {
   margin-left: -1vw;
+  margin-top: -0.1vw;
 }
 @media (orientation: portrait) {
   body.startpage .columnTitle h1 {
     margin-left: -3vw;
+    margin-top: -1vw;
   }
 }
 body.startpage .columnTitle h2 {
@@ -1996,7 +2106,7 @@ body.startpage .columnTitle h4 {
 }
 body.startpage .columnTitleBottom {
   background: rgba(var(--color1));
-  background: linear-gradient(180deg, rgba(var(--color2)) 0%, rgba(var(--color1)) 5%);
+  background: linear-gradient(180deg, rgb(178, 178, 178) 0%, rgba(var(--color1)) 1vw);
   filter: blur(1px);
 }
 @media (orientation: portrait) {
@@ -2023,8 +2133,8 @@ body.startpage .columnTitleBottom h2 {
 }
 body.startpage .columnTitleBottom h3 {
   font-family: "FreeSans-JK";
-  font-size: 2vw;
-  line-height: 2.2vw;
+  font-size: 1.8vw;
+  line-height: 2.1vw;
   padding: 0.5vw;
   text-align: left;
   color: rgba(var(--color2));
@@ -2061,6 +2171,7 @@ body.startpage .column {
   width: 100vw;
   padding-top: 5vw;
   background: rgba(var(--color1));
+  margin-top: -10px;
 }
 @media (orientation: portrait) {
   body.startpage .column {
@@ -2077,8 +2188,8 @@ body.startpage .section {
   overflow: hidden;
 }
 body.startpage #statementContent {
-  width: 60%;
-  margin-left: 20%;
+  width: 50%;
+  margin-left: 25%;
 }
 @media (orientation: portrait) {
   body.startpage #statementContent {
@@ -2095,26 +2206,18 @@ body.startpage .statement {
 body.startpage .statement h1 {
   font-family: "FreeSerif-JK";
   color: rgba(var(--color2));
-  width: 60%;
-  margin-left: 20%;
-}
-@media (orientation: portrait) {
-  body.startpage .statement h1 {
-    margin-left: 0;
-    width: auto;
-  }
 }
 body.startpage .statement h3 {
   font-family: "FreeSans-JK";
-  font-size: 2vw;
-  line-height: 2.2vw;
+  font-size: 1.8vw;
+  line-height: 2.1vw;
   color: rgba(var(--color2));
   text-align: center;
 }
 @media (orientation: portrait) {
   body.startpage .statement h3 {
-    font-size: 5vw;
-    line-height: 5.5vw;
+    font-size: 4.5vw;
+    line-height: 5.25vw;
   }
 }
 body.startpage .statement strong {
@@ -2154,8 +2257,8 @@ body.startpage .logos a, body.startpage .logos span {
 }
 @media (orientation: portrait) {
   body.startpage .logos a, body.startpage .logos span {
-    font-size: 5vw;
-    line-height: 5.5vw;
+    font-size: 4.5vw;
+    line-height: 5.25vw;
   }
 }
 body.startpage .logos a:hover {
@@ -2192,28 +2295,23 @@ body.startpage .logos .logobannerInner {
 body.startpage .logos .logobannerOuter:hover .logobannerInner {
   animation-play-state: paused;
 }
-body.startpage #lang, body.startpage #mesh2024 {
+body.startpage #mesh2024 {
   position: absolute;
   right: 0.5vw;
   top: 14vw;
   z-index: 110;
 }
 @media (orientation: portrait) {
-  body.startpage #lang, body.startpage #mesh2024 {
+  body.startpage #mesh2024 {
+    right: 1vw;
     position: absolute;
     width: auto;
     top: 33vw;
   }
 }
 body.startpage #lang {
-  position: fixed;
-  top: 0;
-}
-@media (orientation: portrait) {
-  body.startpage #lang {
-    top: 62vw;
-    display: none;
-  }
+  position: absolute;
+  right: 0;
 }
 body.startpage #calltoaction {
   position: absolute;
@@ -2221,21 +2319,14 @@ body.startpage #calltoaction {
   bottom: 7vw;
   width: -moz-fit-content;
   width: fit-content;
-  background: rgba(var(--color4));
-  color: rgba(var(--color1));
-  border: rgba(var(--color4)) 1px solid;
   z-index: 10;
 }
 @media (orientation: portrait) {
   body.startpage #calltoaction {
+    right: 1vw;
     bottom: auto;
-    top: 48vw;
+    top: 166vw;
   }
-}
-body.startpage #calltoaction:hover {
-  background: rgba(var(--color1));
-  color: rgba(var(--color4));
-  border: rgba(var(--color1)) 1px solid;
 }
 body.startpage .videoSubtitleWrap {
   position: fixed;
