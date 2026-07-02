@@ -1,5 +1,13 @@
 const languageShort = ['de','en'];
 
+function toggleFilter() {
+    $('#filters .bubble').toggleClass('open');
+}
+
+function historyBack() {
+    history.back();
+}
+
 function toggleNav() {
     $('#startpageNav').toggleClass('open');
     $('main').toggleClass('blur');

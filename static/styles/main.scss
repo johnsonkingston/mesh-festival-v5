@@ -43,7 +43,9 @@ $serifFactor: 1.1;
     --color4:   255,88,0,1;
     --hourHeight: 7vw; 
 }
-
+html{
+        background: rgba(var(--color3));
+}
 body{
     font-family: 'FreeSans-JK', sans-serif;
     margin:0;
@@ -783,7 +785,7 @@ a.bubble,div.bubble{
             filter: blur(1px);
         }
         h3{
-            font-size: $fontSize3;
+            font-size: $fontSize3*$serifFactor;
             line-height: $lineHeight3;
             font-family: 'FreeSerif-JK';
 
@@ -794,8 +796,8 @@ a.bubble,div.bubble{
         }
         h1{
             font-family: 'FreeSans-JK';  
-            font-size: $fontSize3*0.9;
-            line-height: $lineHeight3*0.9;
+            font-size: $fontSize3;
+            line-height: $lineHeight3;
             margin-bottom: 0;
             margin-top: $padding*2;
             @media (orientation: portrait) {
@@ -832,11 +834,13 @@ a.bubble,div.bubble{
                 background-size: contain;
                 background-repeat: no-repeat;
                 background-position: center;
-                width: $fontSize3*0.7;
-                height: $fontSize3*0.7;
+                width: 3vw;
+                height: 2vw;
                 transition: transform 0.2s ease;
                 margin-left: $padding*2;
                 vertical-align: baseline;
+                float:right;
+                margin-right: $padding*2;
                 @media (orientation: portrait) {
                     width: $fontSize3*$scaleFactor*0.8;
                     height: $fontSize3*$scaleFactor*0.8;
@@ -845,7 +849,7 @@ a.bubble,div.bubble{
             }
             
             &.open::after {
-                transform: rotate(90deg);
+                transform: rotate(180deg);
             }
         }
         .accordeon{
@@ -948,7 +952,7 @@ a.bubble,div.bubble{
             .timetableSpalte{
                 display: inline-block;
                 vertical-align: top;
-                padding-bottom: 30vw;
+                padding-bottom: 3vw;
             }
             .timetableSpalte10{
                 position: absolute;
@@ -1246,7 +1250,7 @@ a.bubble,div.bubble{
 /*ARTISTS */
 .artists{
     main{
-        margin-top: 8vw;
+        padding-top: 8vw;
         margin-bottom: 4.5vw;
         @media (orientation: portrait) {
             margin-top: 16.5vw;
@@ -1254,10 +1258,8 @@ a.bubble,div.bubble{
 
         .artist{
             display: inline-flex;
-            justify-content: center;
             align-items: center;
             width: 25%;
-            text-align: center;
             @media (orientation: portrait) {
                 width: 49%;
             }
@@ -1272,7 +1274,6 @@ a.bubble,div.bubble{
                     font-family: 'FreeSans-JK';
                     font-size: $fontSize1;
                     line-height: $lineHeight1;
-                    text-align: center;
                     filter: none;
                         @media (orientation: portrait) {
                         font-size: $fontSize2*$scaleFactor;
@@ -1321,6 +1322,13 @@ a.bubble,div.bubble{
 }
 
 /*FILTERS */
+#filteropen {
+    display: none;
+    @media (orientation: portrait) {
+        display: block;
+    }
+}
+
 #filters{
     position: fixed;
     top: 2.9vw;
@@ -1334,9 +1342,14 @@ a.bubble,div.bubble{
     overflow-x: scroll;
     overflow-y: hidden;
     @media (orientation: portrait) {
-        height: 9vw;
         top: 0;
+        height: auto;
+        width: auto;
+        overflow: visible;
+        white-space: normal;
+        padding: 0;
         z-index: 90;
+
     }
     .bubble{
         display: inline-block;
@@ -1346,11 +1359,23 @@ a.bubble,div.bubble{
         padding-right: 0;
         border-radius: 0;
         @media (orientation: portrait) {
-            margin-right: 2vw;
-            padding-right: 1vw;
+            display: none;
+            box-shadow: none;
+            padding: 0 $padding*$scaleFactor*2;
+            border-radius: 0;
+            margin-right: 0;
+            &.open {
+                @media (orientation: portrait) {
+                    display: block;
+                }
+            }
         }
     }
-
+    #filteropen {
+         @media (orientation: portrait) {
+            display:block;
+        }       
+    }
     .filterpill:hover{
         color: rgba(var(--color4));
     }
@@ -1653,7 +1678,6 @@ a.bubble,div.bubble{
 footer {
     width: 100%;
     text-align: center;
-    padding-bottom: $padding * 2;
     background: rgba(var(--color3));
     position: relative;
     z-index: 3;
@@ -1752,6 +1776,50 @@ footer {
 }
 
 
+#back {
+    display: none;
+    @media (orientation: portrait) {
+        width: 16vw;
+        height: 16vw;
+        display: flex;
+        align-items: center;
+        position: fixed;
+        left: 79.25vw;
+        bottom: 18vw;
+        z-index: 120;
+        cursor: pointer;
+        div {
+            background: rgba(var(--color2));
+            box-shadow: rgba(var(--color2)) 0 0 1vw;
+            transition: all 0.3s;
+            position: absolute;
+        }
+        div:nth-child(1) {
+            width: 15vw;
+            height: 2vw;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        div:nth-child(2) {
+            width: 10vw;
+            height: 2vw;
+            left: 0;
+            top: calc(50% - 0.5vw);
+            transform: rotate(-45deg);
+            transform-origin: left center;
+        }
+        div:nth-child(3) {
+            width: 10vw;
+            height: 2vw;
+            left: 0;
+            top: 6.5vw;
+            transform: rotate(45deg);
+            transform-origin: left center;
+        }
+    }
+}
+
 #hamburger{
     display:none;
     @media (orientation: portrait) {
@@ -1816,7 +1884,6 @@ footer {
         gap: $padding * $scaleFactor;
         max-width: 100vw;
         background:transparent;
-        text-align: center;
         box-shadow: none;
         padding-top: 15vh;
         height: 70vh;
@@ -1847,9 +1914,6 @@ footer {
         @media (orientation: portrait) {
             box-shadow: none;
             display: block;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
             margin-bottom: 7vw;
             font-size: $fontSize4*2.5;
             line-height: $lineHeight4*1.5;
@@ -1860,6 +1924,7 @@ footer {
             color: rgba(var(--color2));
             filter: blur(1px);
             text-shadow: rgba(var(--color4)) 0 0 2vw;
+            border-radius: 0;
         }
     }
     #lang{
@@ -2207,7 +2272,7 @@ body.startpage {
     #calltoaction {
         position: absolute;
         right: $padding;
-        bottom: 7vw;
+        bottom: 7.5vw;
         width: fit-content;
         z-index: 10;
         @media (orientation: portrait) {
