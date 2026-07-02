@@ -1098,7 +1098,7 @@ a.bubble,div.bubble{
             .date{
                 margin-bottom: 0;
                 position: sticky;
-                top: 6vw;
+                top: 8vw;
                 z-index: 1;
                 height: 0;
                 text-align: center;
@@ -1319,22 +1319,28 @@ a.bubble,div.bubble{
     top: 2.9vw;
     left: 0;
     width: 100vw;
-    height: 2.9vw;
+    height: 3vw;
     background: rgba(var(--color3));
     box-shadow: 0 0 2vw rgba(var(--color2));
     z-index: 110;
     white-space: nowrap;
     overflow-x: scroll;
+    overflow-y: hidden;
     @media (orientation: portrait) {
-        height: 14vw;
+        height: 9vw;
         top: 0;
         z-index: 90;
     }
     .bubble{
         display: inline-block;
         vertical-align: top;
+        box-shadow: rgba(var(--color2)) 1vw 0 1vw;
+        padding-top: 0;
+        padding-right: 0;
+        border-radius: 0;
         @media (orientation: portrait) {
-            margin: $padding*$scaleFactor;
+            margin-right: 2vw;
+            padding-right: 1vw;
         }
     }
 
@@ -1792,7 +1798,8 @@ footer {
     overflow: hidden;
     background: rgba(var(--color1));
     box-shadow: 0 0 1vw rgba(var(--color2));
-    height: 2.9vw;
+    margin-right: 0.5vw;
+    height: 3vw;
     a {
         display: inline-block;
     }
@@ -1804,7 +1811,7 @@ footer {
         background:transparent;
         text-align: center;
         box-shadow: none;
-        padding-top: 20vh;
+        padding-top: 15vh;
         height: 70vh;
     }
     &.open {
@@ -1846,6 +1853,14 @@ footer {
             color: rgba(var(--color2));
             filter: blur(1px);
             text-shadow: rgba(var(--color4)) 0 0 2vw;
+        }
+    }
+    #lang{
+        position: absolute;
+        right: 0;
+        @media (orientation: portrait) {
+            top: 2vw;
+            font-size: $fontSize3*$scaleFactor;
         }
     }
 }
@@ -2054,7 +2069,10 @@ body.startpage {
             margin-left: 0;
             background: rgba(254, 247, 246, 1);
             background-attachment: fixed;
-            padding-top: 12vw;
+            padding-top: 29vw;
+            margin-top: -17vw;
+            background: linear-gradient(180deg,rgba(178,178,178,1) 0%, rgba(var(--color1)) 2vw);
+
         }
 
     }
@@ -2177,14 +2195,7 @@ body.startpage {
             top: 33vw;
         }
     }
-    #lang{
-        position: absolute;
-        right: 0;
-        @media (orientation: portrait) {
-            top: 2vw;
-            font-size: $fontSize3*$scaleFactor;
-        }
-    }
+
 
     #calltoaction {
         position: absolute;

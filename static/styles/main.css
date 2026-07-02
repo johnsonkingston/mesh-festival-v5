@@ -1164,7 +1164,7 @@ p, li {
 .timetable .date {
   margin-bottom: 0;
   position: sticky;
-  top: 6vw;
+  top: 8vw;
   z-index: 1;
   height: 0;
   text-align: center;
@@ -1397,16 +1397,17 @@ p, li {
   top: 2.9vw;
   left: 0;
   width: 100vw;
-  height: 2.9vw;
+  height: 3vw;
   background: rgba(var(--color3));
   box-shadow: 0 0 2vw rgba(var(--color2));
   z-index: 110;
   white-space: nowrap;
   overflow-x: scroll;
+  overflow-y: hidden;
 }
 @media (orientation: portrait) {
   #filters {
-    height: 14vw;
+    height: 9vw;
     top: 0;
     z-index: 90;
   }
@@ -1414,10 +1415,15 @@ p, li {
 #filters .bubble {
   display: inline-block;
   vertical-align: top;
+  box-shadow: rgba(var(--color2)) 1vw 0 1vw;
+  padding-top: 0;
+  padding-right: 0;
+  border-radius: 0;
 }
 @media (orientation: portrait) {
   #filters .bubble {
-    margin: 1.25vw;
+    margin-right: 2vw;
+    padding-right: 1vw;
   }
 }
 #filters .filterpill:hover {
@@ -1905,7 +1911,8 @@ footer a {
   overflow: hidden;
   background: rgba(var(--color1));
   box-shadow: 0 0 1vw rgba(var(--color2));
-  height: 2.9vw;
+  margin-right: 0.5vw;
+  height: 3vw;
 }
 #startpageNav a {
   display: inline-block;
@@ -1919,7 +1926,7 @@ footer a {
     background: transparent;
     text-align: center;
     box-shadow: none;
-    padding-top: 20vh;
+    padding-top: 15vh;
     height: 70vh;
   }
 }
@@ -1949,6 +1956,16 @@ footer a {
     color: rgba(var(--color2));
     filter: blur(1px);
     text-shadow: rgba(var(--color4)) 0 0 2vw;
+  }
+}
+#startpageNav #lang {
+  position: absolute;
+  right: 0;
+}
+@media (orientation: portrait) {
+  #startpageNav #lang {
+    top: 2vw;
+    font-size: 10vw;
   }
 }
 
@@ -2178,7 +2195,9 @@ body.startpage .column {
     margin-left: 0;
     background: rgb(254, 247, 246);
     background-attachment: fixed;
-    padding-top: 12vw;
+    padding-top: 29vw;
+    margin-top: -17vw;
+    background: linear-gradient(180deg, rgb(178, 178, 178) 0%, rgba(var(--color1)) 2vw);
   }
 }
 body.startpage .section {
@@ -2306,16 +2325,6 @@ body.startpage #mesh2024 {
     position: absolute;
     width: auto;
     top: 33vw;
-  }
-}
-body.startpage #lang {
-  position: absolute;
-  right: 0;
-}
-@media (orientation: portrait) {
-  body.startpage #lang {
-    top: 2vw;
-    font-size: 10vw;
   }
 }
 body.startpage #calltoaction {
