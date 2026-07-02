@@ -826,13 +826,20 @@ a.bubble,div.bubble{
             cursor: pointer;
             
             &::after {
-                content: ' ▶';
+                content: '';
                 display: inline-block;
+                background-image: url('/static/img/arrow.svg');
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                width: $fontSize3*0.7;
+                height: $fontSize3*0.7;
                 transition: transform 0.2s ease;
-                font-size: $fontSize3*0.7;
                 margin-left: $padding*2;
+                vertical-align: baseline;
                 @media (orientation: portrait) {
-                    font-size: $fontSize3*$scaleFactor*0.8;
+                    width: $fontSize3*$scaleFactor*0.8;
+                    height: $fontSize3*$scaleFactor*0.8;
                     margin-left: $padding*2*$scaleFactor;
                 }
             }
@@ -1252,7 +1259,7 @@ a.bubble,div.bubble{
             width: 25%;
             text-align: center;
             @media (orientation: portrait) {
-                width: 50%;
+                width: 49%;
             }
 
             .left, .middle, .right{
@@ -2267,5 +2274,11 @@ body.startpage {
                 border-radius: 1.5vw * $scaleFactor;
             }
         }
+    }
+}
+
+.locations{
+    #map{
+        display:block;
     }
 }

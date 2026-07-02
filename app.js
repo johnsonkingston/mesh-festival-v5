@@ -229,6 +229,28 @@ function rewriteDate(event,subkey){
 
 
 
+app.get("/locations/:language?", async function (req, res) {
+    var pathname = req.originalUrl;
+    language = req.params.language || 'de';
+    languageObject = [language, languageTransform(language)];
+
+    try {
+        result = await getAllEvents();
+        navigation = await getNavigation();
+        footer = await getFooter();
+        venues = await getVenues();
+
+        result.data[0].pathname = langRemove(pathname);
+
+        if (result.data[0]) {
+            res.render('locations', {data: result.data[0], events: events, navigation: navigation.data, footer: footer.data, language: languageObject, highlights: [], venues: venues.data, format: []});
+        }
+    } catch (err) {
+        console.error(err);
+        res.redirect('/');
+    }
+});
+
 app.get("/timetable/:language?/:format?", async function (req, res) {
     var pathname = req.originalUrl;
     language = req.params.language  || 'de';

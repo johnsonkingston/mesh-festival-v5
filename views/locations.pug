@@ -1,0 +1,31 @@
+html(lang=language[0])
+    include includes/head.pug
+    body.locations
+        include includes/sitenav.pug
+
+        - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights','workshops']
+        - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibitions'], konferenz: ['Konferenz','Conference'], performances: ['Performances','Performances'], diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights'], workshops: ['Workshops','Workshops']}
+        - var dayOutput = {16: ['Mi, 16. Oktober','Wed, 16 October'], 17: ['Do, 17. Oktober','Thu, 17 October'], 18: ['Fr, 18. Oktober','Fri, 18 October'], 19: ['Sa, 19. Oktober','Sat, 19 October'], 20: ['So, 20. Oktober','Sun, 20 October']}
+        #map 
+            img(src=imgURL+"5850ee5c-5b08-4fe4-ad9b-186dcf9044ab.png",onclick="$('#map').hide();")
+
+        main
+            each day in [16,17,18,19,20]
+                - var dayEvents = events.filter(function(e){ return e.Day == day && e.status == 'published' && e.In_Timetable })
+                if dayEvents.length > 0
+                    h2.bubble= dayOutput[day][languageParameter]
+                    ul
+                        each event in dayEvents
+                            li
+                                a(href=baseURL+'events/'+event.slug+'/'+language[0])
+                                    span.hour= event.Hour + ':' + (event.Minute || '00')
+                                    | &ensp;
+                                    span.artist= event.Artist
+                                    if event.translations[languageParameter] && event.translations[languageParameter].Title
+                                        | &ensp;–&ensp;
+                                        span.title= event.translations[languageParameter].Title
+                                    if event.Venues[0] !== undefined && venues[event.Venues[0].Venues_id] !== undefined
+                                        | &ensp;
+                                        span.venue= venues[event.Venues[0].Venues_id].Name
+
+        include includes/footer.pug

@@ -869,15 +869,22 @@ p, li {
   cursor: pointer;
 }
 .accordeon-title::after {
-  content: " ▶";
+  content: "";
   display: inline-block;
+  background-image: url("/static/img/arrow.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 2.8vw;
+  height: 2.8vw;
   transition: transform 0.2s ease;
-  font-size: 2.8vw;
   margin-left: 1vw;
+  vertical-align: baseline;
 }
 @media (orientation: portrait) {
   .accordeon-title::after {
-    font-size: 8vw;
+    width: 8vw;
+    height: 8vw;
     margin-left: 2.5vw;
   }
 }
@@ -1327,7 +1334,7 @@ p, li {
 }
 @media (orientation: portrait) {
   .artists main .artist {
-    width: 50%;
+    width: 49%;
   }
 }
 .artists main .artist .left, .artists main .artist .middle, .artists main .artist .right {
@@ -2404,4 +2411,8 @@ body.startpage #cookieNotice button {
     line-height: 5.85vw;
     border-radius: 3.75vw;
   }
+}
+
+.locations #map {
+  display: block;
 }/*# sourceMappingURL=main.css.map */
