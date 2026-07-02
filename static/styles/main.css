@@ -969,7 +969,7 @@ p, li {
 }
 @media (orientation: portrait) {
   .timetable main {
-    margin-top: 19.5vw;
+    margin-top: 12.5vw;
   }
 }
 .timetable h1, .timetable h2, .timetable h3, .timetable h4, .timetable h5, .timetable h6 {
@@ -1328,7 +1328,7 @@ p, li {
 }
 @media (orientation: portrait) {
   .artists main {
-    margin-top: 16.5vw;
+    margin-top: 0;
   }
 }
 .artists main .artist {
@@ -1428,7 +1428,7 @@ p, li {
   #filters {
     top: 0;
     height: auto;
-    width: auto;
+    width: 100vw;
     overflow: visible;
     white-space: normal;
     padding: 0;
