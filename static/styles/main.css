@@ -15,13 +15,14 @@
 :root {
   --color1: 250, 250, 250, 1;
   --color2: 51, 51, 51, 1;
-  --color3: 235,235,235,1;
-  --color4: 255,88,0,1;
+  --color3: 235, 235, 235, 1;
+  --color4: 255, 88, 0, 1;
   --hourHeight: 7vw;
 }
 
 html {
   background: rgba(var(--color3));
+  overscroll-behavior: none;
 }
 
 body {
@@ -63,7 +64,12 @@ a:hover {
   display: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   max-width: 100%;
   overflow: visible;
   margin-block-start: 0;
@@ -158,7 +164,8 @@ ul {
   }
 }
 
-a.bubble, div.bubble {
+a.bubble,
+div.bubble {
   font-size: 4vw;
   line-height: 3.2vw;
   color: rgba(var(--color2));
@@ -169,7 +176,8 @@ a.bubble, div.bubble {
   transition: filter 0.4s ease, text-shadow 0.4s ease;
 }
 @media (orientation: portrait) {
-  a.bubble, div.bubble {
+  a.bubble,
+  div.bubble {
     font-size: 9vw;
     line-height: 9vw;
     padding: 0;
@@ -349,7 +357,19 @@ a.bubble, div.bubble {
   color: rgba(var(--color2));
   z-index: -1;
 }
-.page main ul, .page main p, .page main h1, .page main h2, .page main h3, .page main h4, .page main h5, .page main h6, .page main table, .page main tr, .page main td, .page main video, .page main iframe {
+.page main ul,
+.page main p,
+.page main h1,
+.page main h2,
+.page main h3,
+.page main h4,
+.page main h5,
+.page main h6,
+.page main table,
+.page main tr,
+.page main td,
+.page main video,
+.page main iframe {
   padding-left: 0.5vw;
 }
 .page main .content {
@@ -446,15 +466,20 @@ a.bubble, div.bubble {
     line-height: 3.25vw;
   }
 }
-.page main .content p, .page main .content li {
+.page main .content p,
+.page main .content li {
   hyphens: auto;
 }
-.page main .content table, .page main .content tr, .page main .content td {
+.page main .content table,
+.page main .content tr,
+.page main .content td {
   border: none;
   vertical-align: top;
 }
 @media (orientation: portrait) {
-  .page main .content table, .page main .content tr, .page main .content td {
+  .page main .content table,
+  .page main .content tr,
+  .page main .content td {
     display: block;
   }
 }
@@ -467,11 +492,13 @@ a.bubble, div.bubble {
   vertical-align: middle;
   margin: 0.5vw;
 }
-.page main .content em, .page main .content i {
+.page main .content em,
+.page main .content i {
   text-transform: uppercase;
   font-style: normal;
 }
-.page main .content img, .page main .content video {
+.page main .content img,
+.page main .content video {
   width: 100%;
   margin-bottom: 0.5vw;
 }
@@ -697,14 +724,16 @@ a.bubble, div.bubble {
 .page main .content h4.bio-wrapper {
   width: auto;
 }
-.page main .content .image-half, .page main .content .image-bio {
+.page main .content .image-half,
+.page main .content .image-bio {
   width: 25vw;
   margin-right: 0.5vw;
   display: inline-block;
   vertical-align: top;
 }
 @media (orientation: portrait) {
-  .page main .content .image-half, .page main .content .image-bio {
+  .page main .content .image-half,
+  .page main .content .image-bio {
     width: 60vw;
   }
 }
@@ -806,7 +835,8 @@ a.bubble, div.bubble {
     line-height: 3.25vw;
   }
 }
-.event .eventHeader .eventHeaderColumn #ticketlink, .event .eventHeader .eventHeaderColumn #ticketlink2 {
+.event .eventHeader .eventHeaderColumn #ticketlink,
+.event .eventHeader .eventHeaderColumn #ticketlink2 {
   background-color: rgba(var(--color1));
   color: rgba(var(--color2));
   display: inline-block;
@@ -814,7 +844,9 @@ a.bubble, div.bubble {
   margin-left: -1.2vw;
   margin-bottom: 0.5vw;
 }
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: "FreeSans-JK";
   filter: blur(1px);
 }
@@ -856,13 +888,15 @@ h4 {
   }
 }
 
-p, li {
+p,
+li {
   color: rgba(var(--color2));
   font-size: 1.8vw;
   line-height: 2.1vw;
 }
 @media (orientation: portrait) {
-  p, li {
+  p,
+  li {
     font-size: 4.5vw;
     line-height: 5.25vw;
   }
@@ -972,7 +1006,12 @@ p, li {
     margin-top: 12.5vw;
   }
 }
-.timetable h1, .timetable h2, .timetable h3, .timetable h4, .timetable h5, .timetable h6 {
+.timetable h1,
+.timetable h2,
+.timetable h3,
+.timetable h4,
+.timetable h5,
+.timetable h6 {
   filter: none;
 }
 .timetable main::-webkit-scrollbar {
@@ -1080,7 +1119,8 @@ p, li {
   padding-bottom: 0.25vw;
   margin-left: 1.2vw;
 }
-.timetable .EventTimetable .EventTimetableContent h5, .timetable .EventTimetable .EventTimetableContent h6 {
+.timetable .EventTimetable .EventTimetableContent h5,
+.timetable .EventTimetable .EventTimetableContent h6 {
   color: rgba(var(--color2));
 }
 .timetable .EventTimetable .EventTimetableContent h5 {
@@ -1121,13 +1161,15 @@ p, li {
     line-height: 3vw;
   }
 }
-.timetable .EventTimetable p i, .timetable .EventTimetable p em {
+.timetable .EventTimetable p i,
+.timetable .EventTimetable p em {
   font-size: 0.8vw;
   line-height: 0.8vw;
   font-style: normal;
 }
 @media (orientation: portrait) {
-  .timetable .EventTimetable p i, .timetable .EventTimetable p em {
+  .timetable .EventTimetable p i,
+  .timetable .EventTimetable p em {
     font-size: 2vw;
     line-height: 2vw;
   }
@@ -1165,13 +1207,27 @@ p, li {
   background: linear-gradient(180deg, rgba(var(--color2)) 65%, rgba(var(--color3)) 100%);
   color: rgba(var(--color3));
 }
-.timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h1, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h2, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h3, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h4, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h5, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h6, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent p, .timetable .EventTimetablePaid .EventTimetable .EventTimetableContent a {
+.timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h1,
+.timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h2,
+.timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h3,
+.timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h4,
+.timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h5,
+.timetable .EventTimetablePaid .EventTimetable .EventTimetableContent h6,
+.timetable .EventTimetablePaid .EventTimetable .EventTimetableContent p,
+.timetable .EventTimetablePaid .EventTimetable .EventTimetableContent a {
   color: rgba(var(--color3));
 }
 .timetable .EventTimetablePaid .EventTimetable a {
   background: rgba(var(--color2));
 }
-.timetable .EventTimetablePaid h1, .timetable .EventTimetablePaid h2, .timetable .EventTimetablePaid h3, .timetable .EventTimetablePaid h4, .timetable .EventTimetablePaid h5, .timetable .EventTimetablePaid h6, .timetable .EventTimetablePaid p, .timetable .EventTimetablePaid a {
+.timetable .EventTimetablePaid h1,
+.timetable .EventTimetablePaid h2,
+.timetable .EventTimetablePaid h3,
+.timetable .EventTimetablePaid h4,
+.timetable .EventTimetablePaid h5,
+.timetable .EventTimetablePaid h6,
+.timetable .EventTimetablePaid p,
+.timetable .EventTimetablePaid a {
   color: rgba(var(--color3));
 }
 .timetable .date {
@@ -1206,7 +1262,8 @@ p, li {
     border-radius: 4vw;
   }
 }
-.timetable h2, .timetable h3 {
+.timetable h2,
+.timetable h3 {
   font-family: "FreeSans-JK";
   font-size: 1.2vw;
   line-height: 1.2vw;
@@ -1216,18 +1273,21 @@ p, li {
   margin-right: 0.5vw;
 }
 @media (orientation: portrait) {
-  .timetable h2, .timetable h3 {
+  .timetable h2,
+  .timetable h3 {
     font-size: 3vw;
     line-height: 3vw;
   }
 }
-.timetable h3, .timetable h6 {
+.timetable h3,
+.timetable h6 {
   font-size: 0.8vw;
   line-height: 0.8vw;
   margin-top: 0;
 }
 @media (orientation: portrait) {
-  .timetable h3, .timetable h6 {
+  .timetable h3,
+  .timetable h6 {
     font-size: 2vw;
     line-height: 2vw;
   }
@@ -1285,7 +1345,8 @@ p, li {
     left: 9vw;
   }
 }
-.timetable .caption .paid, .timetable .caption .free {
+.timetable .caption .paid,
+.timetable .caption .free {
   display: inline-block;
   background: rgba(var(--color2));
   border-radius: 0.5vw;
@@ -1294,11 +1355,13 @@ p, li {
   width: 13vw;
   box-shadow: 0 0 5px rgba(var(--color2));
 }
-.timetable .caption .paid h2, .timetable .caption .free h2 {
+.timetable .caption .paid h2,
+.timetable .caption .free h2 {
   color: rgba(var(--color3));
 }
 @media (orientation: portrait) {
-  .timetable .caption .paid, .timetable .caption .free {
+  .timetable .caption .paid,
+  .timetable .caption .free {
     width: 27vw;
     border-radius: 1vw;
   }
@@ -1341,34 +1404,52 @@ p, li {
     width: 49%;
   }
 }
-.artists main .artist .left, .artists main .artist .middle, .artists main .artist .right {
+.artists main .artist .left,
+.artists main .artist .middle,
+.artists main .artist .right {
   padding: 0.5vw 1.5vw 1.5vw 1.5vw;
   color: rgba(var(--color2));
 }
 @media (orientation: portrait) {
-  .artists main .artist .left, .artists main .artist .middle, .artists main .artist .right {
+  .artists main .artist .left,
+  .artists main .artist .middle,
+  .artists main .artist .right {
     padding: 3.75vw 3.75vw 3.75vw 6.25vw;
   }
 }
-.artists main .artist .left h3, .artists main .artist .left h4, .artists main .artist .middle h3, .artists main .artist .middle h4, .artists main .artist .right h3, .artists main .artist .right h4 {
+.artists main .artist .left h3,
+.artists main .artist .left h4,
+.artists main .artist .middle h3,
+.artists main .artist .middle h4,
+.artists main .artist .right h3,
+.artists main .artist .right h4 {
   font-family: "FreeSans-JK";
   font-size: 1.2vw;
   line-height: 1.3vw;
   filter: none;
 }
 @media (orientation: portrait) {
-  .artists main .artist .left h3, .artists main .artist .left h4, .artists main .artist .middle h3, .artists main .artist .middle h4, .artists main .artist .right h3, .artists main .artist .right h4 {
+  .artists main .artist .left h3,
+  .artists main .artist .left h4,
+  .artists main .artist .middle h3,
+  .artists main .artist .middle h4,
+  .artists main .artist .right h3,
+  .artists main .artist .right h4 {
     font-size: 4.5vw;
     line-height: 4.5vw;
   }
 }
-.artists main .artist .left h4, .artists main .artist .middle h4, .artists main .artist .right h4 {
+.artists main .artist .left h4,
+.artists main .artist .middle h4,
+.artists main .artist .right h4 {
   font-family: "FreeSerif-JK";
   font-size: 1.32vw;
   line-height: 1.43vw;
 }
 @media (orientation: portrait) {
-  .artists main .artist .left h4, .artists main .artist .middle h4, .artists main .artist .right h4 {
+  .artists main .artist .left h4,
+  .artists main .artist .middle h4,
+  .artists main .artist .right h4 {
     font-size: 4.95vw;
     line-height: 5.775vw;
   }
@@ -1511,11 +1592,13 @@ p, li {
     right: 2.75vw;
   }
 }
-#newsClose img, #newsClose svg {
+#newsClose img,
+#newsClose svg {
   width: 4.7vw;
 }
 @media (orientation: portrait) {
-  #newsClose img, #newsClose svg {
+  #newsClose img,
+  #newsClose svg {
     width: 11.75vw;
   }
 }
@@ -1666,53 +1749,62 @@ p, li {
 .newscontent .newscontentInner {
   width: 100vw;
 }
-.newscontent .newscontentInner .grid-item, .newscontent .newscontentInner .grid-sizer {
+.newscontent .newscontentInner .grid-item,
+.newscontent .newscontentInner .grid-sizer {
   width: 22%;
   float: left;
   padding: 0.5vw;
   margin-bottom: 1.5vw;
 }
 @media (orientation: portrait) {
-  .newscontent .newscontentInner .grid-item, .newscontent .newscontentInner .grid-sizer {
+  .newscontent .newscontentInner .grid-item,
+  .newscontent .newscontentInner .grid-sizer {
     width: calc(100% - 1vw);
     padding-bottom: 10vh;
   }
 }
-.newscontent .newscontentInner .grid-item h1, .newscontent .newscontentInner .grid-sizer h1 {
+.newscontent .newscontentInner .grid-item h1,
+.newscontent .newscontentInner .grid-sizer h1 {
   line-height: 3.06vw;
   font-size: 3.6vw;
   font-family: "FreeSerif-JK";
 }
 @media (orientation: portrait) {
-  .newscontent .newscontentInner .grid-item h1, .newscontent .newscontentInner .grid-sizer h1 {
+  .newscontent .newscontentInner .grid-item h1,
+  .newscontent .newscontentInner .grid-sizer h1 {
     line-height: 7.65vw;
     font-size: 9vw;
   }
 }
-.newscontent .newscontentInner .grid-item h2, .newscontent .newscontentInner .grid-sizer h2 {
+.newscontent .newscontentInner .grid-item h2,
+.newscontent .newscontentInner .grid-sizer h2 {
   font-family: "FreeSans-JK";
   line-height: 3.6vw;
   font-size: 3.6vw;
 }
 @media (orientation: portrait) {
-  .newscontent .newscontentInner .grid-item h2, .newscontent .newscontentInner .grid-sizer h2 {
+  .newscontent .newscontentInner .grid-item h2,
+  .newscontent .newscontentInner .grid-sizer h2 {
     line-height: 9vw;
     font-size: 9vw;
   }
 }
-.newscontent .newscontentInner .grid-item h3, .newscontent .newscontentInner .grid-sizer h3 {
+.newscontent .newscontentInner .grid-item h3,
+.newscontent .newscontentInner .grid-sizer h3 {
   font-family: "FreeSans-JK";
   font-size: 1.2vw;
   line-height: 1.3vw;
   text-align: center;
 }
 @media (orientation: portrait) {
-  .newscontent .newscontentInner .grid-item h3, .newscontent .newscontentInner .grid-sizer h3 {
+  .newscontent .newscontentInner .grid-item h3,
+  .newscontent .newscontentInner .grid-sizer h3 {
     line-height: 3.25vw;
     font-size: 3vw;
   }
 }
-.newscontent .newscontentInner .grid-item p, .newscontent .newscontentInner .grid-sizer p {
+.newscontent .newscontentInner .grid-item p,
+.newscontent .newscontentInner .grid-sizer p {
   display: block;
   animation: none;
   white-space: normal;
@@ -1722,37 +1814,45 @@ p, li {
   cursor: default;
 }
 @media (orientation: portrait) {
-  .newscontent .newscontentInner .grid-item p, .newscontent .newscontentInner .grid-sizer p {
+  .newscontent .newscontentInner .grid-item p,
+  .newscontent .newscontentInner .grid-sizer p {
     font-size: 3vw;
     line-height: 3.25vw;
   }
 }
-.newscontent .newscontentInner .grid-item .video-portrait video, .newscontent .newscontentInner .grid-sizer .video-portrait video {
+.newscontent .newscontentInner .grid-item .video-portrait video,
+.newscontent .newscontentInner .grid-sizer .video-portrait video {
   width: 100%;
   height: auto;
 }
-.newscontent .newscontentInner .grid-item .date, .newscontent .newscontentInner .grid-sizer .date {
+.newscontent .newscontentInner .grid-item .date,
+.newscontent .newscontentInner .grid-sizer .date {
   text-align: center;
 }
-.newscontent .newscontentInner .grid-item img, .newscontent .newscontentInner .grid-sizer img {
+.newscontent .newscontentInner .grid-item img,
+.newscontent .newscontentInner .grid-sizer img {
   width: 100%;
   box-shadow: 0 0 10px rgba(var(--color2));
   margin-bottom: 0.5vw;
 }
 @media (orientation: portrait) {
-  .newscontent .newscontentInner .grid-item img, .newscontent .newscontentInner .grid-sizer img {
+  .newscontent .newscontentInner .grid-item img,
+  .newscontent .newscontentInner .grid-sizer img {
     margin-bottom: 1.25vw;
   }
 }
-.newscontent .newscontentInner .grid-item video, .newscontent .newscontentInner .grid-sizer video {
+.newscontent .newscontentInner .grid-item video,
+.newscontent .newscontentInner .grid-sizer video {
   width: 100%;
 }
 @media (orientation: portrait) {
-  .newscontent .newscontentInner .grid-item video, .newscontent .newscontentInner .grid-sizer video {
+  .newscontent .newscontentInner .grid-item video,
+  .newscontent .newscontentInner .grid-sizer video {
     height: 56.25vw;
   }
 }
-.newscontent .newscontentInner .grid-item a, .newscontent .newscontentInner .grid-sizer a {
+.newscontent .newscontentInner .grid-item a,
+.newscontent .newscontentInner .grid-sizer a {
   margin-top: 1vw;
   color: rgba(var(--color1));
   background-color: rgba(var(--color2));
@@ -1760,17 +1860,21 @@ p, li {
   padding: 0.25vw 0.5vw;
 }
 @media (orientation: portrait) {
-  .newscontent .newscontentInner .grid-item a, .newscontent .newscontentInner .grid-sizer a {
+  .newscontent .newscontentInner .grid-item a,
+  .newscontent .newscontentInner .grid-sizer a {
     border-radius: 3.25vw;
     padding: 0.625vw 1.25vw;
   }
 }
-.newscontent .newscontentInner .grid-item span, .newscontent .newscontentInner .grid-sizer span {
+.newscontent .newscontentInner .grid-item span,
+.newscontent .newscontentInner .grid-sizer span {
   background: none;
   color: rgba(var(--color2));
 }
 
-.list p, .list a, .list h5 {
+.list p,
+.list a,
+.list h5 {
   color: rgba(var(--color2));
   font-size: 1.2vw;
   line-height: 1.3vw;
@@ -1833,7 +1937,8 @@ footer a {
 }
 
 /*SOCKET */
-#status, .member {
+#status,
+.member {
   display: inline-block;
   background-color: rgba(var(--color1));
   color: rgba(var(--color2));
@@ -1845,7 +1950,8 @@ footer a {
   margin-bottom: 0.5vw;
 }
 @media (orientation: portrait) {
-  #status, .member {
+  #status,
+  .member {
     font-size: 3vw;
     line-height: 3.25vw;
     margin-left: 1.25vw;
@@ -2015,11 +2121,13 @@ footer a {
     display: block;
   }
 }
-#startpageNav a.bubble, #startpageNav div.bubble {
+#startpageNav a.bubble,
+#startpageNav div.bubble {
   box-shadow: rgba(var(--color2)) 1vw 0 1vw;
 }
 @media (orientation: portrait) {
-  #startpageNav a.bubble, #startpageNav div.bubble {
+  #startpageNav a.bubble,
+  #startpageNav div.bubble {
     box-shadow: none;
     display: block;
     margin-bottom: 7vw;
@@ -2075,14 +2183,16 @@ body.startpage .columnVideo video {
   height: 100vh;
   width: 100vw;
 }
-body.startpage .columnVideo h1, body.startpage .columnVideo h2 {
+body.startpage .columnVideo h1,
+body.startpage .columnVideo h2 {
   position: absolute;
   top: 14vw;
   z-index: 1000;
   left: 1vw;
 }
 @media (orientation: portrait) {
-  body.startpage .columnVideo h1, body.startpage .columnVideo h2 {
+  body.startpage .columnVideo h1,
+  body.startpage .columnVideo h2 {
     top: 34vw;
     left: 3vw;
   }
@@ -2128,7 +2238,9 @@ body.startpage .columnTitle {
     top: -6.8vw;
   }
 }
-body.startpage .columnTitle h1, body.startpage .columnTitle h2, body.startpage .columnTitle h4 {
+body.startpage .columnTitle h1,
+body.startpage .columnTitle h2,
+body.startpage .columnTitle h4 {
   font-family: "FreeSans-JK";
   font-size: 15vw;
   line-height: 10vw;
@@ -2143,7 +2255,9 @@ body.startpage .columnTitle h1, body.startpage .columnTitle h2, body.startpage .
   vertical-align: top;
 }
 @media (orientation: portrait) {
-  body.startpage .columnTitle h1, body.startpage .columnTitle h2, body.startpage .columnTitle h4 {
+  body.startpage .columnTitle h1,
+  body.startpage .columnTitle h2,
+  body.startpage .columnTitle h4 {
     font-size: 43vw;
     line-height: 46vw;
     letter-spacing: -3.9vw;
@@ -2193,7 +2307,8 @@ body.startpage .columnTitle h4 {
   }
 }
 @media (orientation: portrait) {
-  body.startpage .columnTitle h2, body.startpage .columnTitle h4 {
+  body.startpage .columnTitle h2,
+  body.startpage .columnTitle h4 {
     display: none;
   }
 }
@@ -2345,13 +2460,15 @@ body.startpage .logos .logofooterlang {
 body.startpage .logos .logofootersquare {
   height: 4vw;
 }
-body.startpage .logos a, body.startpage .logos span {
+body.startpage .logos a,
+body.startpage .logos span {
   color: rgba(var(--color2));
   font-size: 1.2vw;
   line-height: 1.3vw;
 }
 @media (orientation: portrait) {
-  body.startpage .logos a, body.startpage .logos span {
+  body.startpage .logos a,
+  body.startpage .logos span {
     font-size: 4.5vw;
     line-height: 5.25vw;
   }

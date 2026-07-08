@@ -20,12 +20,14 @@
     "glob": "^10.3.10",
     "jquery": "^3.7.1",
     "node-fetch": "^3.3.2",
-    "nodemon": "^2.0.22",
+    "nodemon": "^3.1.14",
     "pug": "^3.0.2",
-    "require": "^2.4.20",
+    "require": "^0.4.4",
     "socket.io": "^4.7.2"
   },
   "devDependencies": {
-    "eslint": "^8.51.0"
+    "@prettier/plugin-pug": "^3.4.2",
+    "eslint": "^8.51.0",
+    "prettier": "^3.9.4"
   }
 }
