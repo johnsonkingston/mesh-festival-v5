@@ -732,9 +732,6 @@ async function getStartpage() {
 }
 
 app.get("/:language?", async function (req, res) {
-  //if(result.length<1){
-  //console.log(req);
-  //}
   var pathname = req.originalUrl;
 
   try {
