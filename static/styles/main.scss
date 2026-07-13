@@ -24,16 +24,14 @@ $lineHeightMicro: 1vw;
 
 $fontSize1: 1.2vw;
 $lineHeight1: 1.4vw;
-$fontSize1: 1.2vw;
-$lineHeight1: 1.3vw;
 $fontSize2: 1.8vw;
 $lineHeight2: 2.1vw;
-$fontSize3: 4vw;
-$lineHeight3: 4.2vw;
-$fontSize4: 9vw;
-$lineHeight4: 9vw;
-$fontSize3VH: 10vh;
-$lineHeight3VH: 8vh;
+$fontSize3: 3vw;
+$lineHeight3: 3.3vw;
+$fontSize4: 4vw;
+$lineHeight4: 4.2vw;
+$fontSize5: 9vw;
+$lineHeight5: 9vw;
 
 $scaleFactor: 2.5;
 $serifFactor: 1.1;
@@ -68,7 +66,7 @@ body {
   background: rgba(var(--color2));
 }
 a {
-  text-decoration: none;
+  text-decoration: dotted underline;
 }
 a:hover {
   color: rgba(var(--color4));
@@ -139,18 +137,18 @@ ul {
   }
 }
 .bigpill {
-  font-size: $fontSize3;
-  line-height: $lineHeight3 * 1.5;
-  border-radius: $fontSize3;
+  font-size: $fontSize4;
+  line-height: $lineHeight4 * 1.5;
+  border-radius: $fontSize4;
   padding: $padding $padding * 4 $padding $padding * 4;
   background: rgba(var(--color1));
   color: rgba(var(--color2));
   text-align: center;
   width: fit-content;
   @media (orientation: portrait) {
-    font-size: $fontSize3 * 1.5;
-    line-height: $lineHeight3 * 1.5 * 1.5;
-    border-radius: $fontSize3 * 1.5;
+    font-size: $fontSize4 * 1.5;
+    line-height: $lineHeight4 * 1.5 * 1.5;
+    border-radius: $fontSize4 * 1.5;
     padding-left: $padding * 6;
     padding-right: $padding * 6;
   }
@@ -165,10 +163,10 @@ ul {
 //     transition: all 0.1s linear;
 //     border: 1px solid rgba(var(--color2));
 //     @media (orientation: portrait) {
-//         font-size: $fontSize4;
-//         line-height: $lineHeight4;
+//         font-size: $fontSize5;
+//         line-height: $lineHeight5;
 //         padding: $padding*0.7*$scaleFactor $padding*4*$scaleFactor;
-//         border-radius: $fontSize4;
+//         border-radius: $fontSize5;
 //     }
 // }
 // .bubble:hover{
@@ -178,7 +176,7 @@ ul {
 // }
 a.bubble,
 div.bubble {
-  font-size: $fontSize3;
+  font-size: $fontSize4;
   line-height: 3.2vw;
   color: rgba(var(--color2));
   filter: blur(1px);
@@ -189,10 +187,10 @@ div.bubble {
     filter 0.4s ease,
     text-shadow 0.4s ease;
   @media (orientation: portrait) {
-    font-size: $fontSize4;
-    line-height: $lineHeight4;
+    font-size: $fontSize5;
+    line-height: $lineHeight5;
     padding: 0;
-    border-radius: $fontSize4;
+    border-radius: $fontSize5;
   }
 }
 @keyframes bubbleAnimation {
@@ -373,10 +371,10 @@ div.bubble {
 
       ul {
         text-indent: -$lineHeight2;
-        margin-left: $lineHeight2;
+        margin-left: 0;
         @media (orientation: portrait) {
           text-indent: -$lineHeight2 * $scaleFactor;
-          margin-left: $lineHeight2 * $scaleFactor;
+          margin-left: 0;
         }
       }
       li:before {
@@ -414,8 +412,8 @@ div.bubble {
         }
       }
       h1 {
-        font-size: $fontSize3 * 0.9;
-        line-height: $lineHeight3 * 0.9;
+        font-size: $fontSize4 * 0.9;
+        line-height: $lineHeight4 * 0.9;
         font-family: "FreeSans-JK";
         margin-top: $lineHeight2;
         @media (orientation: portrait) {
@@ -425,16 +423,16 @@ div.bubble {
         }
       }
       h4 {
-        font-size: $fontSize2 * $serifFactor;
-        line-height: $lineHeight2;
+        font-size: $fontSize3;
+        line-height: $lineHeight3;
         color: rgba(var(--color2));
-        font-family: "FreeSerif-JK";
-        padding-top: $padding;
+        padding-top: $lineHeight2;
+        padding-bottom: 0;
         @media (orientation: portrait) {
-          font-size: $fontSize2 * $scaleFactor;
-          line-height: $lineHeight2 * $scaleFactor;
-          border-radius: $lineHeight2 * $scaleFactor;
-          margin-top: $padding * $scaleFactor;
+          font-size: $fontSize3 * $scaleFactor;
+          line-height: $lineHeight3 * $scaleFactor;
+          border-radius: 0;
+          padding-top: $lineHeight2 * $scaleFactor;
         }
       }
       h5 {
@@ -628,8 +626,8 @@ div.bubble {
           hyphens: none;
           @media (orientation: portrait) {
             display: block;
-            font-size: $fontSize3 * $scaleFactor;
-            line-height: $fontSize3 * $scaleFactor;
+            font-size: $fontSize4 * $scaleFactor;
+            line-height: $fontSize4 * $scaleFactor;
             border-radius: $padding * $scaleFactor;
             padding: $padding * $scaleFactor;
           }
@@ -823,24 +821,24 @@ h3 {
   filter: blur(1px);
 }
 h3 {
-  font-size: $fontSize3 * $serifFactor;
-  line-height: $lineHeight3;
+  font-size: $fontSize4 * $serifFactor;
+  line-height: $lineHeight4;
   font-family: "FreeSerif-JK";
 
   @media (orientation: portrait) {
-    font-size: $fontSize3 * $scaleFactor;
-    line-height: $lineHeight3 * $scaleFactor;
+    font-size: $fontSize4 * $scaleFactor;
+    line-height: $lineHeight4 * $scaleFactor;
   }
 }
 h1 {
   font-family: "FreeSans-JK";
-  font-size: $fontSize3;
-  line-height: $lineHeight3;
+  font-size: $fontSize4;
+  line-height: $lineHeight4;
   margin-bottom: 0;
   margin-top: $padding * 2;
   @media (orientation: portrait) {
-    font-size: $fontSize3 * $scaleFactor * 0.9;
-    line-height: $lineHeight3 * $scaleFactor * 0.9;
+    font-size: $fontSize4 * $scaleFactor * 0.9;
+    line-height: $lineHeight4 * $scaleFactor * 0.9;
   }
 }
 h4 {
@@ -880,8 +878,8 @@ li {
     float: right;
     margin-right: $padding * 2;
     @media (orientation: portrait) {
-      width: $fontSize3 * $scaleFactor * 0.8;
-      height: $fontSize3 * $scaleFactor * 0.8;
+      width: $fontSize4 * $scaleFactor * 0.8;
+      height: $fontSize4 * $scaleFactor * 0.8;
       margin-left: $padding * 2 * $scaleFactor;
     }
   }
@@ -896,6 +894,10 @@ li {
   padding-bottom: $padding;
   margin: 0;
   position: relative;
+}
+ul {
+  background-color: rgba(var(--color1));
+  margin-left: 0;
 }
 .accordeon-title + .accordeon::before {
   content: "";
@@ -963,9 +965,10 @@ li {
   font-size: 1.3vh;
 
   main {
-    min-height: 200vh;
+    height: calc(100vh - 10.5vw);
     margin-top: 10.5vw;
     @media (orientation: portrait) {
+      height: calc(100vh - 12.5vw);
       margin-top: 12.5vw;
     }
   }
@@ -977,8 +980,61 @@ li {
   h6 {
     filter: none;
   }
-  main::-webkit-scrollbar {
-    height: 14px;
+  .timetableSlider {
+    position: relative;
+    height: 100%;
+  }
+  .timetableSliderTrack {
+    display: flex;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .timetableSliderTrack::-webkit-scrollbar {
+    display: none;
+  }
+  .timetableDaySlide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    scroll-snap-align: start;
+  }
+  .timetableDaySlide::-webkit-scrollbar {
+    width: 14px;
+  }
+  .timetableSliderArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    cursor: pointer;
+    border: 1px solid rgba(var(--color2));
+    background: rgba(var(--color3));
+    color: rgba(var(--color2));
+    width: 3vw;
+    height: 3vw;
+    line-height: 3vw;
+    text-align: center;
+    font-size: $fontSize2;
+    border-radius: 50%;
+    box-shadow: 0 0 2vw rgba(var(--color2));
+    @media (orientation: portrait) {
+      width: 8vw;
+      height: 8vw;
+      line-height: 8vw;
+    }
+  }
+  .timetableSliderArrowPrev {
+    left: 1vw;
+  }
+  .timetableSliderArrowNext {
+    right: 1vw;
   }
   .timetableDay {
     width: 94vw;
@@ -991,7 +1047,8 @@ li {
     margin-left: 4vw;
     width: 95vw;
     white-space: nowrap;
-    overflow: scroll;
+    overflow-x: scroll;
+    overflow-y: visible;
     @media (orientation: portrait) {
       margin-left: 7vw;
       width: 93vw;
@@ -1186,7 +1243,7 @@ li {
   .date {
     margin-bottom: 0;
     position: sticky;
-    top: 8vw;
+    top: 2.5vw;
     z-index: 1;
     height: 0;
     text-align: center;
@@ -1400,13 +1457,6 @@ li {
 }
 
 /*FILTERS */
-#filteropen {
-  display: none;
-  @media (orientation: portrait) {
-    display: block;
-  }
-}
-
 #filters {
   position: fixed;
   top: 2.9vw;
@@ -1449,6 +1499,7 @@ li {
     }
   }
   #filteropen {
+    display: none;
     @media (orientation: portrait) {
       display: block;
     }
@@ -1968,10 +2019,10 @@ footer {
   //         margin-left: auto;
   //         margin-right: auto;
   //         margin-bottom: 7vw;
-  //         font-size: $fontSize4*1.5;
-  //         line-height: $lineHeight4*1.5;
+  //         font-size: $fontSize5*1.5;
+  //         line-height: $lineHeight5*1.5;
   //         padding: $padding*0.7*$scaleFactor $padding*4*$scaleFactor*1.5;
-  //         border-radius: $fontSize4*1.5;
+  //         border-radius: $fontSize5*1.5;
   //         background: rgba(var(--color4));
   //         border-color: rgba(var(--color4));
   //     }
@@ -1983,8 +2034,8 @@ footer {
       box-shadow: none;
       display: block;
       margin-bottom: 7vw;
-      font-size: $fontSize4 * 2.5;
-      line-height: $lineHeight4 * 1.5;
+      font-size: $fontSize5 * 2.5;
+      line-height: $lineHeight5 * 1.5;
       padding: $padding * 0.7 * $scaleFactor $padding * 4 * $scaleFactor * 1.5;
       border-radius: none;
       background: transparent;
@@ -2000,7 +2051,7 @@ footer {
     right: 0;
     @media (orientation: portrait) {
       top: 2vw;
-      font-size: $fontSize3 * $scaleFactor;
+      font-size: $fontSize4 * $scaleFactor;
     }
   }
 }
@@ -2045,12 +2096,12 @@ body.startpage {
     }
     h1 {
       font-family: "FreeSerif-JK";
-      font-size: $fontSize3;
+      font-size: $fontSize4;
       line-height: 3.5vw;
       top: 15.5vw;
       width: 20vw;
       @media (orientation: portrait) {
-        font-size: $fontSize3 * $scaleFactor;
+        font-size: $fontSize4 * $scaleFactor;
         line-height: 3.5vw * $scaleFactor;
         top: 39vw;
         width: 50vw;

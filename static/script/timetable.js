@@ -40,6 +40,17 @@ function filterTimetableAll(){
 }
 
 
+//Day slider
+function slideDay(direction){
+    var track = $('.timetableSliderTrack');
+    if(!track.length) return;
+    var slides = track.find('.timetableDaySlide');
+    var slideWidth = track.width();
+    var current = Math.round(track.scrollLeft() / slideWidth);
+    var next = Math.min(Math.max(current + direction, 0), slides.length - 1);
+    track.animate({ scrollLeft: next * slideWidth }, 300);
+}
+
 //Timeline
 function setTimeline(){
     let d = new Date();
@@ -173,7 +184,7 @@ function shrink(){
     for (const keyDay in days) {
         var day = days[keyDay];
         
-        var i = 8; 
+        var i = 10;
         while (i < EarliestEvent[day].hour) {
             $('#timetableHourline'+day+'-'+i).height(shrinkHeight+'em');
             totalShrink[day] += reductionHeight;
@@ -208,16 +219,19 @@ function shrink(){
         }
     }
 
-    $( '.EventTimetableA').each(function( index ) {   
-        var day = $(this).attr('data-day'); 
-        var hour =  $(this).attr('data-hour'); 
+    $( '.EventTimetableA').each(function( index ) {
+        var day = $(this).attr('data-day');
+        var hour =  $(this).attr('data-hour');
         var topMargin =  $('#timetableHourline'+day+'-'+Math.floor(hour)).offset().top-$('#filters').height();
-        topMargin = topMargin/emHeight;  
+        topMargin = topMargin/emHeight;
         $(this).attr('data-topedit',topMargin);
         $(this).css('top',$(this).attr('data-topedit')+'em');
     });
 
-    $('.timetableSpalte').height($('main').height());
+    $('.timetableDaySlide').each(function(){
+        var slideHeight = $(this).find('.timetableHourlineWrap').height();
+        $(this).find('.timetableSpalte').height(slideHeight);
+    });
 
 }
 

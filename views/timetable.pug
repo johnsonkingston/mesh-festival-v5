@@ -6,16 +6,14 @@ html(lang=language[0])
         include includes/sitenav.pug
 
         - var hourHeight = 7;
-        - var hourStart = 8;
-        - var hoursPerDay = 19;
-        - var totalEnd = hourStart + hoursPerDay + 1;
-        - var firstEvent = true;
+        - var hourStart = 10;
+        - var hoursPerDay = 17;
         - var dayOutput = {16: ['Mittwoch, 16. Oktober', 'Thursday'], 17: ['Donnerstag, 17. Oktober', 'Thursday'], 18: ['Freitag, 18. Oktober', 'Thursday'], 19: ['Samstag, 19. Oktober', 'Thursday'], 20: ['Sonntag, 20. Oktober', 'Thursday']}
         - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights'];
         - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights']};
 
         - var id = 1;
-        #filters 
+        #filters
             .bubble#filteropen(onclick="toggleFilter()") Filter
 
             .mediumpill.bubble.active#filterAll(onclick="filterTimetableAll()",data-all='1')='All'
@@ -23,89 +21,95 @@ html(lang=language[0])
                 .mediumpill.bubble.filterpill(onclick="filterTimetable('"+format+"',$(this))",data-visible=1,id="filter-"+format)=formatsTranslation[format][languageParameter]
 
         //    .mediumpill.bubble.active#filtermap(onclick="$('#map').toggle();")='Map'
-        //- #map 
+        //- #map
         //-     img(src=imgURL+"5850ee5c-5b08-4fe4-ad9b-186dcf9044ab.png",onclick="$('#map').hide();")
 
         main
-            //day
-            each day in [16,17,18,19,20]
-                //venue
-                div(class="timetableDay")
-                    .date
-                        h1.bubble=dayOutput[day][0]
-                    - var n = hourStart;
-                    .timetableHourlineWrap(data-hour=n)
-                        while n < hoursPerDay+hourStart+1
-                            .timetableHourline(style="height:"+hourHeight+"em;",id="timetableHourline"+day+'-'+n)
-                                if(n < 24)
-                                    - var timePrint = n 
-                                else 
-                                    - var timePrint = n-24
-                                .hourlineChar= timePrint+':00'
-                                - n++
-                    #time
+            .timetableSlider
+                button.timetableSliderArrow.timetableSliderArrowPrev(onclick="slideDay(-1)",aria-label="Previous day") ‹
+                .timetableSliderTrack
+                    //day
+                    each day, dayIndex in [16,17,18,19,20]
+                        .timetableDaySlide(data-day-index=dayIndex)
+                            div(class="timetableDay")
+                                .date
+                                    h1.bubble=dayOutput[day][0]
+                                - var n = hourStart;
+                                .timetableHourlineWrap(data-hour=n)
+                                    while n < hoursPerDay+hourStart+1
+                                        .timetableHourline(style="height:"+hourHeight+"em;",id="timetableHourline"+day+'-'+n)
+                                            if(n < 24)
+                                                - var timePrint = n
+                                            else
+                                                - var timePrint = n-24
+                                            .hourlineChar= timePrint+':00'
+                                            - n++
+                                #time
 
-            .timetableSpalteWrap
-                each val in [23,21,12,19,3,4,5,6,8,11,1,9,13,7,14,15,16,17,18,20,22,24,25,26,2,27,10]
-                    - var hourBefore = totalEnd
-                    - currentDay = 14
-                    - firstEvent = true
-                    if(val !== 10)
-                        .timetableSpalte(class="timetableSpalte"+val)
-                            each event in events 
-                                if(event.Venues[0] !== undefined)
-                                    if(event.status == 'published' && event.In_Timetable && event.Venues[0].Venues_id == val && event.Hour !== '' && event.Day !== undefined)
-                                    
-                                        - if(currentDay !== event.Day) var hourMargin = totalEnd - hourBefore + parseInt(event.Hour) + (parseInt(event.Minute)/60) - hourStart
-                                        - else var hourMargin = parseInt(event.Hour) + (parseInt(event.Minute)/60) - hourBefore
-                                        - if(firstEvent) hourMargin = hourMargin + ((parseInt(event.Day) - 16) * (hoursPerDay+1))                                    
-                                        - if(event.Timetable_only !== '1') var Timetable_only = true
+                            .timetableSpalteWrap
+                                //venue
+                                each val in [23,21,12,19,3,4,5,6,8,11,1,9,13,7,14,15,16,17,18,20,22,24,25,26,2,27,10]
+                                    - var hourBefore = hourStart
+                                    - var firstEventInColumn = true
+                                    if(val !== 10)
+                                        .timetableSpalte(class="timetableSpalte"+val)
+                                            each event in events
+                                                if(event.Venues[0] !== undefined)
+                                                    if(event.status == 'published' && event.In_Timetable && event.Venues[0].Venues_id == val && event.Hour !== '' && event.Day == day)
+
+                                                        - var eventHour = parseInt(event.Hour) + (parseInt(event.Minute)/60)
+                                                        - var effHour = eventHour < hourStart ? hourStart : eventHour
+                                                        - var minuteOffset = effHour - Math.floor(effHour)
+                                                        - if(firstEventInColumn) var hourMargin = effHour - hourStart
+                                                        - else var hourMargin = effHour - hourBefore
+                                                        - if(event.Timetable_only !== '1') var Timetable_only = true
 
 
-                                        #{event.Timetable_only == '1' ? 'div' : 'a'}(href=baseURL+'events/'+event.slug+'/'+language[0])
-                                            .EventTimetableA(class='A'+event.Format,style="height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;margin-top:"+(parseInt(event.Minute)/60)*hourHeight+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=parseInt(event.Hour)+((parseInt(event.Minute)/60)),data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-venue=event.Venues[0].Venues_id,data-id=id,id="Event-"+id)
-                                                .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
-                                                    if(event.Timetable_only == '1')
-                                                        if(event.translations[languageParameter] !== undefined)
-                                                            .EventTimetableContent !{event.translations[languageParameter].Content}
-                                                        else
-                                                            .EventTimetableContent !{event.translations[0].Content}
-                                                    else
-                                                        h2.artist='• '+event.Artist
-                                                        if(formatsTranslation[event.Format] !== undefined)
-                                                            h3.format=formatsTranslation[event.Format][languageParameter]
-                                                        if(venues[event.Venues[0].Venues_id] !== undefined)
-                                                            //h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id].Name
-                                                - currentDay = event.Day
-                                                - hourBefore = event.HourEnd
-                                                - firstEvent = false
-                                                - id++
-                    else 
-                        each event in events 
-                            if(event.Venues[0] !== undefined)
-                                if(event.status == 'published' && event.In_Timetable && event.Venues[0].Venues_id == val && event.Hour !== '' && event.Day !== undefined)
-                                
-                                    - if(currentDay !== event.Day) var hourMargin = totalEnd - hourBefore + parseInt(event.Hour) + (parseInt(event.Minute)/60) - hourStart
-                                    - else var hourMargin = parseInt(event.Hour) + (parseInt(event.Minute)/60) - hourBefore
-                                    - if(firstEvent) hourMargin = hourMargin + ((parseInt(event.Day) - 16) * (hoursPerDay+1))                                    
-                                    - if(event.Timetable_only !== '1') var Timetable_only = true
+                                                        #{event.Timetable_only == '1' ? 'div' : 'a'}(href=baseURL+'events/'+event.slug+'/'+language[0])
+                                                            .EventTimetableA(class='A'+event.Format,style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-venue=event.Venues[0].Venues_id,data-id=id,id="Event-"+id)
+                                                                .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
+                                                                    if(event.Timetable_only == '1')
+                                                                        if(event.translations[languageParameter] !== undefined)
+                                                                            .EventTimetableContent !{event.translations[languageParameter].Content}
+                                                                        else
+                                                                            .EventTimetableContent !{event.translations[0].Content}
+                                                                    else
+                                                                        h2.artist='• '+event.Artist
+                                                                        if(formatsTranslation[event.Format] !== undefined)
+                                                                            h3.format=formatsTranslation[event.Format][languageParameter]
+                                                                        if(venues[event.Venues[0].Venues_id] !== undefined)
+                                                                            //h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id].Name
+                                                                - hourBefore = event.HourEnd
+                                                                - firstEventInColumn = false
+                                                                - id++
+                                    else
+                                        each event in events
+                                            if(event.Venues[0] !== undefined)
+                                                if(event.status == 'published' && event.In_Timetable && event.Venues[0].Venues_id == val && event.Hour !== '' && event.Day == day)
 
-                                    #{event.Timetable_only == '1' ? 'div' : 'a'}(href=baseURL+'events/'+event.slug+'/'+language[0])
-                                        .EventTimetableA.EventTimetableASingle(class='A'+event.Format,style="height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;margin-top:"+(parseInt(event.Minute)/60)*hourHeight+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=parseInt(event.Hour)+((parseInt(event.Minute)/60)),data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-venue=event.Venues[0].Venues_id,data-id=id,id="Event-"+id)
-                                            .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
-                                                if(event.Timetable_only == '1')
-                                                    if(event.translations[languageParameter] !== undefined)
-                                                        .EventTimetableContent !{event.translations[languageParameter].Content}
-                                                    else
-                                                        .EventTimetableContent !{event.translations[0].Content}
-                                                else
-                                                    h2.artist='• '+event.Artist
-                                                    if(formatsTranslation[event.Format] !== undefined)
-                                                        h3.format=formatsTranslation[event.Format][languageParameter]
-                                                    if(venues[event.Venues[0].Venues_id] !== undefined)
-                                                        //h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id].Name
-                                            - currentDay = event.Day
-                                            - hourBefore = event.HourEnd
-                                            - firstEvent = false
-                                            - id++
+                                                    - var eventHour = parseInt(event.Hour) + (parseInt(event.Minute)/60)
+                                                    - var effHour = eventHour < hourStart ? hourStart : eventHour
+                                                    - var minuteOffset = effHour - Math.floor(effHour)
+                                                    - if(firstEventInColumn) var hourMargin = effHour - hourStart
+                                                    - else var hourMargin = effHour - hourBefore
+                                                    - if(event.Timetable_only !== '1') var Timetable_only = true
+
+                                                    #{event.Timetable_only == '1' ? 'div' : 'a'}(href=baseURL+'events/'+event.slug+'/'+language[0])
+                                                        .EventTimetableA.EventTimetableASingle(class='A'+event.Format,style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-venue=event.Venues[0].Venues_id,data-id=id,id="Event-"+id)
+                                                            .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
+                                                                if(event.Timetable_only == '1')
+                                                                    if(event.translations[languageParameter] !== undefined)
+                                                                        .EventTimetableContent !{event.translations[languageParameter].Content}
+                                                                    else
+                                                                        .EventTimetableContent !{event.translations[0].Content}
+                                                                else
+                                                                    h2.artist='• '+event.Artist
+                                                                    if(formatsTranslation[event.Format] !== undefined)
+                                                                        h3.format=formatsTranslation[event.Format][languageParameter]
+                                                                    if(venues[event.Venues[0].Venues_id] !== undefined)
+                                                                        //h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id].Name
+                                                        - hourBefore = event.HourEnd
+                                                        - firstEventInColumn = false
+                                                        - id++
+                button.timetableSliderArrow.timetableSliderArrowNext(onclick="slideDay(1)",aria-label="Next day") ›
         include includes/footer.pug

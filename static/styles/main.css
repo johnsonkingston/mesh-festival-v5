@@ -52,7 +52,8 @@ body {
 }
 
 a {
-  text-decoration: none;
+  -webkit-text-decoration: dotted underline;
+          text-decoration: dotted underline;
 }
 
 a:hover {
@@ -98,7 +99,7 @@ ul {
 /*GENERAL*/
 .smallpill {
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   border-radius: 1.2vw;
   padding: 0.25vw 1vw 0.25vw 1vw;
   margin-right: 0.25vw;
@@ -107,7 +108,7 @@ ul {
 @media (orientation: portrait) {
   .smallpill {
     font-size: 3vw;
-    line-height: 3.25vw;
+    line-height: 3.5vw;
     border-radius: 3vw;
     padding: 0.625vw 2.5vw 0.625vw 2.5vw;
     margin-right: 0.625vw;
@@ -384,13 +385,13 @@ div.bubble {
 .page main .content ul,
 .visit main .content ul {
   text-indent: -2.1vw;
-  margin-left: 2.1vw;
+  margin-left: 0;
 }
 @media (orientation: portrait) {
   .page main .content ul,
   .visit main .content ul {
     text-indent: -5.25vw;
-    margin-left: 5.25vw;
+    margin-left: 0;
   }
 }
 .page main .content li:before,
@@ -449,25 +450,25 @@ div.bubble {
 }
 .page main .content h4,
 .visit main .content h4 {
-  font-size: 1.98vw;
-  line-height: 2.1vw;
+  font-size: 3vw;
+  line-height: 3.3vw;
   color: rgba(var(--color2));
-  font-family: "FreeSerif-JK";
-  padding-top: 0.5vw;
+  padding-top: 2.1vw;
+  padding-bottom: 0;
 }
 @media (orientation: portrait) {
   .page main .content h4,
   .visit main .content h4 {
-    font-size: 4.5vw;
-    line-height: 5.25vw;
-    border-radius: 5.25vw;
-    margin-top: 1.25vw;
+    font-size: 7.5vw;
+    line-height: 8.25vw;
+    border-radius: 0;
+    padding-top: 5.25vw;
   }
 }
 .page main .content h5,
 .visit main .content h5 {
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   color: rgba(var(--color2));
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
@@ -475,15 +476,15 @@ div.bubble {
 .page main .content h6,
 .visit main .content h6 {
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   color: rgba(var(--color2));
-  margin-bottom: 1.3vw;
+  margin-bottom: 1.4vw;
 }
 @media (orientation: portrait) {
   .page main .content h6,
   .visit main .content h6 {
     font-size: 3vw;
-    line-height: 3.25vw;
+    line-height: 3.5vw;
   }
 }
 .page main .content p,
@@ -606,7 +607,7 @@ div.bubble {
 .page main .content .box-text em,
 .visit main .content .box-text em {
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   font-style: normal;
   font-family: "FreeSans-JK";
   text-align: left;
@@ -618,7 +619,7 @@ div.bubble {
   .page main .content .box-text em,
   .visit main .content .box-text em {
     font-size: 3vw;
-    line-height: 3.25vw;
+    line-height: 3.5vw;
   }
 }
 .page main .content .box-text a,
@@ -751,12 +752,12 @@ div.bubble {
   display: inline;
   color: rgba(var(--color3));
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
 }
 .page main .content .pill,
 .visit main .content .pill {
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   background: rgba(var(--color2));
   color: rgba(var(--color3));
   border-radius: 1.2vw;
@@ -768,7 +769,7 @@ div.bubble {
   .page main .content .pill,
   .visit main .content .pill {
     font-size: 3vw;
-    line-height: 3.25vw;
+    line-height: 3.5vw;
     border-radius: 3vw;
     padding: 0.3125vw 1.25vw 0.3125vw 1.25vw;
   }
@@ -776,14 +777,14 @@ div.bubble {
 .page main .content .bio-wrapper,
 .visit main .content .bio-wrapper {
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   width: 66%;
 }
 @media (orientation: portrait) {
   .page main .content .bio-wrapper,
   .visit main .content .bio-wrapper {
     font-size: 3vw;
-    line-height: 3.25vw;
+    line-height: 3.5vw;
   }
 }
 .page main .content h4.bio-wrapper,
@@ -824,7 +825,7 @@ div.bubble {
 .page main .content .image-caption,
 .visit main .content .image-caption {
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   margin-block-start: 0.2em;
 }
 .page main .content .video-portrait video,
@@ -928,7 +929,7 @@ div.bubble {
 }
 .event .eventHeader .eventHeaderColumn p {
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   margin-block-start: 0;
   margin-block-end: 0;
   hyphens: none;
@@ -936,7 +937,7 @@ div.bubble {
 @media (orientation: portrait) {
   .event .eventHeader .eventHeaderColumn p {
     font-size: 3vw;
-    line-height: 3.25vw;
+    line-height: 3.5vw;
   }
 }
 .event .eventHeader .eventHeaderColumn #ticketlink,
@@ -983,12 +984,12 @@ h1 {
 
 h4 {
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
 }
 @media (orientation: portrait) {
   h4 {
     font-size: 3vw;
-    line-height: 3.25vw;
+    line-height: 3.5vw;
   }
 }
 
@@ -1042,6 +1043,11 @@ li {
   padding-bottom: 0.5vw;
   margin: 0;
   position: relative;
+}
+
+ul {
+  background-color: rgba(var(--color1));
+  margin-left: 0;
 }
 
 .accordeon-title + .accordeon::before {
@@ -1102,11 +1108,12 @@ li {
   font-size: 1.3vh;
 }
 .timetable main {
-  min-height: 200vh;
+  height: calc(100vh - 10.5vw);
   margin-top: 10.5vw;
 }
 @media (orientation: portrait) {
   .timetable main {
+    height: calc(100vh - 12.5vw);
     margin-top: 12.5vw;
   }
 }
@@ -1118,8 +1125,63 @@ li {
 .timetable h6 {
   filter: none;
 }
-.timetable main::-webkit-scrollbar {
-  height: 14px;
+.timetable .timetableSlider {
+  position: relative;
+  height: 100%;
+}
+.timetable .timetableSliderTrack {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.timetable .timetableSliderTrack::-webkit-scrollbar {
+  display: none;
+}
+.timetable .timetableDaySlide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  scroll-snap-align: start;
+}
+.timetable .timetableDaySlide::-webkit-scrollbar {
+  width: 14px;
+}
+.timetable .timetableSliderArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  cursor: pointer;
+  border: 1px solid rgba(var(--color2));
+  background: rgba(var(--color3));
+  color: rgba(var(--color2));
+  width: 3vw;
+  height: 3vw;
+  line-height: 3vw;
+  text-align: center;
+  font-size: 1.8vw;
+  border-radius: 50%;
+  box-shadow: 0 0 2vw rgba(var(--color2));
+}
+@media (orientation: portrait) {
+  .timetable .timetableSliderArrow {
+    width: 8vw;
+    height: 8vw;
+    line-height: 8vw;
+  }
+}
+.timetable .timetableSliderArrowPrev {
+  left: 1vw;
+}
+.timetable .timetableSliderArrowNext {
+  right: 1vw;
 }
 .timetable .timetableDay {
   width: 94vw;
@@ -1132,7 +1194,8 @@ li {
   margin-left: 4vw;
   width: 95vw;
   white-space: nowrap;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: visible;
 }
 @media (orientation: portrait) {
   .timetable .timetableSpalteWrap {
@@ -1337,7 +1400,7 @@ li {
 .timetable .date {
   margin-bottom: 0;
   position: sticky;
-  top: 8vw;
+  top: 2.5vw;
   z-index: 1;
   height: 0;
   text-align: center;
@@ -1350,7 +1413,7 @@ li {
 }
 .timetable .date h1 {
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   background: rgba(var(--color2));
   color: rgba(var(--color1));
   border: 1px solid rgba(var(--color2));
@@ -1362,7 +1425,7 @@ li {
 @media (orientation: portrait) {
   .timetable .date h1 {
     font-size: 3vw;
-    line-height: 3.25vw;
+    line-height: 3.5vw;
     border-radius: 4vw;
   }
 }
@@ -1529,7 +1592,7 @@ li {
 .artists main .artist .right h4 {
   font-family: "FreeSans-JK";
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   filter: none;
 }
 @media (orientation: portrait) {
@@ -1548,7 +1611,7 @@ li {
 .artists main .artist .right h4 {
   font-family: "FreeSerif-JK";
   font-size: 1.32vw;
-  line-height: 1.43vw;
+  line-height: 1.54vw;
 }
 @media (orientation: portrait) {
   .artists main .artist .left h4,
@@ -1587,15 +1650,6 @@ li {
 }
 
 /*FILTERS */
-#filteropen {
-  display: none;
-}
-@media (orientation: portrait) {
-  #filteropen {
-    display: block;
-  }
-}
-
 #filters {
   position: fixed;
   top: 2.9vw;
@@ -1641,6 +1695,9 @@ li {
   #filters .bubble.open {
     display: block;
   }
+}
+#filters #filteropen {
+  display: none;
 }
 @media (orientation: portrait) {
   #filters #filteropen {
@@ -1897,13 +1954,13 @@ li {
 .newscontent .newscontentInner .grid-sizer h3 {
   font-family: "FreeSans-JK";
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   text-align: center;
 }
 @media (orientation: portrait) {
   .newscontent .newscontentInner .grid-item h3,
   .newscontent .newscontentInner .grid-sizer h3 {
-    line-height: 3.25vw;
+    line-height: 3.5vw;
     font-size: 3vw;
   }
 }
@@ -1914,14 +1971,14 @@ li {
   white-space: normal;
   font-family: "FreeSans-JK";
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   cursor: default;
 }
 @media (orientation: portrait) {
   .newscontent .newscontentInner .grid-item p,
   .newscontent .newscontentInner .grid-sizer p {
     font-size: 3vw;
-    line-height: 3.25vw;
+    line-height: 3.5vw;
   }
 }
 .newscontent .newscontentInner .grid-item .video-portrait video,
@@ -1960,13 +2017,13 @@ li {
   margin-top: 1vw;
   color: rgba(var(--color1));
   background-color: rgba(var(--color2));
-  border-radius: 1.3vw;
+  border-radius: 1.4vw;
   padding: 0.25vw 0.5vw;
 }
 @media (orientation: portrait) {
   .newscontent .newscontentInner .grid-item a,
   .newscontent .newscontentInner .grid-sizer a {
-    border-radius: 3.25vw;
+    border-radius: 3.5vw;
     padding: 0.625vw 1.25vw;
   }
 }
@@ -1981,7 +2038,7 @@ li {
 .list h5 {
   color: rgba(var(--color2));
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
 }
 .list em {
   font-style: normal;
@@ -2031,12 +2088,12 @@ footer div {
 footer a {
   color: rgba(var(--color2));
   font-size: 1.2vw;
-  line-height: 2.34vw;
+  line-height: 2.52vw;
 }
 @media (orientation: portrait) {
   footer a {
     font-size: 3vw;
-    line-height: 5.85vw;
+    line-height: 6.3vw;
   }
 }
 
@@ -2049,7 +2106,7 @@ footer a {
   transition: color 1s linear;
   padding: 0.25vw 0.5vw 0.25vw 0.5vw;
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   margin-left: 1vw;
   margin-bottom: 0.5vw;
 }
@@ -2057,11 +2114,11 @@ footer a {
   #status,
   .member {
     font-size: 3vw;
-    line-height: 3.25vw;
+    line-height: 3.5vw;
     margin-left: 1.25vw;
     margin-bottom: 1.25vw;
     padding: 0.625vw 1.25vw 0.625vw 1.25vw;
-    border-radius: 3.25vw;
+    border-radius: 3.5vw;
   }
 }
 
@@ -2572,7 +2629,7 @@ body.startpage .logos a,
 body.startpage .logos span {
   color: rgba(var(--color2));
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
 }
 @media (orientation: portrait) {
   body.startpage .logos a,
@@ -2661,12 +2718,12 @@ body.startpage #cookieNotice {
   padding: 10px;
   border: 0.4vw solid rgb(233, 71, 121);
   font-size: 1.2vw;
-  line-height: 1.56vw;
+  line-height: 1.68vw;
 }
 @media (orientation: portrait) {
   body.startpage #cookieNotice {
     font-size: 3vw;
-    line-height: 3.9vw;
+    line-height: 4.2vw;
   }
 }
 body.startpage #cookieNotice h4 {
@@ -2676,12 +2733,12 @@ body.startpage #cookieNotice h4 {
   font-family: "FreeSans-JK";
   color: rgb(233, 71, 121);
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
 }
 @media (orientation: portrait) {
   body.startpage #cookieNotice h4 {
     font-size: 3vw;
-    line-height: 3.9vw;
+    line-height: 4.2vw;
   }
 }
 body.startpage #cookieNotice button {
@@ -2691,7 +2748,7 @@ body.startpage #cookieNotice button {
   padding: 0.8vw 1.6vw;
   border-radius: 1.5vw;
   font-size: 1.2vw;
-  line-height: 1.3vw;
+  line-height: 1.4vw;
   font-family: "FreeSans-JK";
   text-align: center;
   width: 100%;
@@ -2702,7 +2759,7 @@ body.startpage #cookieNotice button {
 @media (orientation: portrait) {
   body.startpage #cookieNotice button {
     font-size: 3vw;
-    line-height: 5.85vw;
+    line-height: 6.3vw;
     border-radius: 3.75vw;
   }
 }
