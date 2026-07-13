@@ -31,14 +31,24 @@ function initAccordeon() {
 
     $(items).hide();
 
-    titles.forEach(function(title, i) {
+    var groups = titles.map(function(title, i) {
         var nextTitle = titles[i + 1] || null;
-        var group = items.filter(function(item) {
+        return items.filter(function(item) {
             var afterTitle = !!(title.compareDocumentPosition(item) & 4);
             var beforeNext = !nextTitle || !!(nextTitle.compareDocumentPosition(item) & 2);
             return afterTitle && beforeNext;
         });
+    });
+
+    titles.forEach(function(title, i) {
+        var group = groups[i];
         $(title).css('cursor', 'pointer').click(function() {
+            titles.forEach(function(otherTitle, j) {
+                if (j !== i && $(otherTitle).hasClass('open')) {
+                    $(groups[j]).slideUp(200);
+                    $(otherTitle).removeClass('open');
+                }
+            });
             $(group).slideToggle(200);
             $(this).toggleClass('open');
         });

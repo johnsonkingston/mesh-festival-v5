@@ -95,19 +95,6 @@ ul {
   padding-inline-start: 0;
 }
 
-::-webkit-scrollbar {
-  width: 7px;
-  height: 0px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(var(--color1));
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(var(--color2));
-}
-
 /*GENERAL*/
 .smallpill {
   font-size: 1.2vw;
@@ -304,11 +291,12 @@ div.bubble {
   }
 }
 
-/*PAGE */
-.page main {
-  width: 50%;
+/*PAGE + VISIT*/
+.page main,
+.visit main {
+  width: 48%;
   background: rgba(var(--color3));
-  margin-left: calc(50% - 1vw);
+  margin-left: calc(52% - 1vw);
   min-height: 100vh;
   padding: 0.5vw;
   padding-left: 0;
@@ -317,13 +305,15 @@ div.bubble {
   position: relative;
 }
 @media (orientation: portrait) {
-  .page main {
+  .page main,
+  .visit main {
     margin-left: 0;
     padding: 1.25vw;
     width: calc(100% - 2.5vw);
   }
 }
-.page main .mainimage {
+.page main .mainimage,
+.visit main .mainimage {
   position: fixed;
   top: 0;
   left: 0;
@@ -335,7 +325,8 @@ div.bubble {
   box-shadow: black 0 0 1vw;
 }
 @media (orientation: portrait) {
-  .page main .mainimage {
+  .page main .mainimage,
+  .visit main .mainimage {
     position: relative;
     width: 100vw;
     margin-left: -1.25vw;
@@ -349,7 +340,8 @@ div.bubble {
        object-position: left;
   }
 }
-.page main .mainimageCaption {
+.page main .mainimageCaption,
+.visit main .mainimageCaption {
   position: fixed;
   left: 0.5vw;
   bottom: 0.5vw;
@@ -369,32 +361,52 @@ div.bubble {
 .page main tr,
 .page main td,
 .page main video,
-.page main iframe {
+.page main iframe,
+.visit main ul,
+.visit main p,
+.visit main h1,
+.visit main h2,
+.visit main h3,
+.visit main h4,
+.visit main h5,
+.visit main h6,
+.visit main table,
+.visit main tr,
+.visit main td,
+.visit main video,
+.visit main iframe {
   padding-left: 0.5vw;
 }
-.page main .content {
+.page main .content,
+.visit main .content {
   overflow: hidden;
 }
-.page main .content ul {
+.page main .content ul,
+.visit main .content ul {
   text-indent: -2.1vw;
   margin-left: 2.1vw;
 }
 @media (orientation: portrait) {
-  .page main .content ul {
+  .page main .content ul,
+  .visit main .content ul {
     text-indent: -5.25vw;
     margin-left: 5.25vw;
   }
 }
-.page main .content li:before {
+.page main .content li:before,
+.visit main .content li:before {
   content: "• ";
 }
-.page main .content li p {
+.page main .content li p,
+.visit main .content li p {
   display: contents;
 }
-.page main .content h3 {
+.page main .content h3,
+.visit main .content h3 {
   margin-top: 1.5vw;
 }
-.page main .content h2 {
+.page main .content h2,
+.visit main .content h2 {
   font-size: 1.8vw;
   line-height: 2.1vw;
   font-family: "FreeSans-JK";
@@ -411,7 +423,8 @@ div.bubble {
   top: 1vw;
 }
 @media (orientation: portrait) {
-  .page main .content h2 {
+  .page main .content h2,
+  .visit main .content h2 {
     font-size: 4.5vw;
     line-height: 5.25vw;
     padding: 1.25vw 2.5vw;
@@ -419,20 +432,23 @@ div.bubble {
     border-radius: 5.25vw;
   }
 }
-.page main .content h1 {
+.page main .content h1,
+.visit main .content h1 {
   font-size: 3.6vw;
   line-height: 3.78vw;
   font-family: "FreeSans-JK";
   margin-top: 2.1vw;
 }
 @media (orientation: portrait) {
-  .page main .content h1 {
+  .page main .content h1,
+  .visit main .content h1 {
     font-size: 4.05vw;
     line-height: 4.725vw;
     margin-top: 5.25vw;
   }
 }
-.page main .content h4 {
+.page main .content h4,
+.visit main .content h4 {
   font-size: 1.98vw;
   line-height: 2.1vw;
   color: rgba(var(--color2));
@@ -440,89 +456,112 @@ div.bubble {
   padding-top: 0.5vw;
 }
 @media (orientation: portrait) {
-  .page main .content h4 {
+  .page main .content h4,
+  .visit main .content h4 {
     font-size: 4.5vw;
     line-height: 5.25vw;
     border-radius: 5.25vw;
     margin-top: 1.25vw;
   }
 }
-.page main .content h5 {
+.page main .content h5,
+.visit main .content h5 {
   font-size: 1.2vw;
   line-height: 1.3vw;
   color: rgba(var(--color2));
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
 }
-.page main .content h6 {
+.page main .content h6,
+.visit main .content h6 {
   font-size: 1.2vw;
   line-height: 1.3vw;
   color: rgba(var(--color2));
   margin-bottom: 1.3vw;
 }
 @media (orientation: portrait) {
-  .page main .content h6 {
+  .page main .content h6,
+  .visit main .content h6 {
     font-size: 3vw;
     line-height: 3.25vw;
   }
 }
 .page main .content p,
-.page main .content li {
+.page main .content li,
+.visit main .content p,
+.visit main .content li {
   hyphens: auto;
 }
 .page main .content table,
 .page main .content tr,
-.page main .content td {
+.page main .content td,
+.visit main .content table,
+.visit main .content tr,
+.visit main .content td {
   border: none;
   vertical-align: top;
 }
 @media (orientation: portrait) {
   .page main .content table,
   .page main .content tr,
-  .page main .content td {
+  .page main .content td,
+  .visit main .content table,
+  .visit main .content tr,
+  .visit main .content td {
     display: block;
   }
 }
-.page main .content a {
+.page main .content a,
+.visit main .content a {
   color: rgba(var(--color2));
 }
-.page main .content a img {
+.page main .content a img,
+.visit main .content a img {
   width: 25%;
   display: inline-block;
   vertical-align: middle;
   margin: 0.5vw;
 }
 .page main .content em,
-.page main .content i {
+.page main .content i,
+.visit main .content em,
+.visit main .content i {
   text-transform: uppercase;
   font-style: normal;
 }
 .page main .content img,
-.page main .content video {
+.page main .content video,
+.visit main .content img,
+.visit main .content video {
   width: 100%;
   margin-bottom: 0.5vw;
 }
-.page main .content video {
+.page main .content video,
+.visit main .content video {
   height: 28vw;
 }
 @media (orientation: portrait) {
-  .page main .content video {
+  .page main .content video,
+  .visit main .content video {
     height: 56.25vw;
     background: rgba(var(--color2));
   }
 }
-.page main .content iframe {
+.page main .content iframe,
+.visit main .content iframe {
   max-width: 100%;
   width: 100%;
   height: 28vw;
 }
 @media (orientation: portrait) {
-  .page main .content iframe {
+  .page main .content iframe,
+  .visit main .content iframe {
     width: 100%;
     height: 66vw;
   }
 }
-.page main .content .box-text {
+.page main .content .box-text,
+.visit main .content .box-text {
   margin-block-start: 0;
   margin-block-end: 0;
   margin-inline-start: 0;
@@ -536,13 +575,15 @@ div.bubble {
   border-radius: 0.5vw;
 }
 @media (orientation: portrait) {
-  .page main .content .box-text {
+  .page main .content .box-text,
+  .visit main .content .box-text {
     width: 100%;
     display: block;
     border-radius: 1.25vw;
   }
 }
-.page main .content .box-text {
+.page main .content .box-text,
+.visit main .content .box-text {
   color: white;
   padding: 0.5vw;
   margin-block-start: 0;
@@ -556,12 +597,14 @@ div.bubble {
   hyphens: auto;
 }
 @media (orientation: portrait) {
-  .page main .content .box-text {
+  .page main .content .box-text,
+  .visit main .content .box-text {
     font-size: 9vw;
     line-height: 9vw;
   }
 }
-.page main .content .box-text em {
+.page main .content .box-text em,
+.visit main .content .box-text em {
   font-size: 1.2vw;
   line-height: 1.3vw;
   font-style: normal;
@@ -572,42 +615,51 @@ div.bubble {
   text-transform: none;
 }
 @media (orientation: portrait) {
-  .page main .content .box-text em {
+  .page main .content .box-text em,
+  .visit main .content .box-text em {
     font-size: 3vw;
     line-height: 3.25vw;
   }
 }
-.page main .content .box-text a {
+.page main .content .box-text a,
+.visit main .content .box-text a {
   color: white;
 }
-.page main .content table {
+.page main .content table,
+.visit main .content table {
   border-collapse: separate !important;
   border-spacing: 0.5vw;
   width: 100%;
 }
 @media (orientation: portrait) {
-  .page main .content table {
+  .page main .content table,
+  .visit main .content table {
     width: 100%;
   }
 }
-.page main .content table tbody.table-boxes {
+.page main .content table tbody.table-boxes,
+.visit main .content table tbody.table-boxes {
   width: 100%;
   display: grid;
 }
 @media (orientation: portrait) {
-  .page main .content table tbody.table-boxes {
+  .page main .content table tbody.table-boxes,
+  .visit main .content table tbody.table-boxes {
     display: block;
     width: 95vw;
     overflow: scroll;
   }
 }
-.page main .content a .table-boxes td:hover {
+.page main .content a .table-boxes td:hover,
+.visit main .content a .table-boxes td:hover {
   box-shadow: 0 0 10px rgba(var(--color2));
 }
-.page main .content a .table-boxes td {
+.page main .content a .table-boxes td,
+.visit main .content a .table-boxes td {
   cursor: pointer;
 }
-.page main .content .table-boxes td {
+.page main .content .table-boxes td,
+.visit main .content .table-boxes td {
   background: rgba(var(--color2));
   border-radius: 0.5vw;
   width: auto;
@@ -623,18 +675,21 @@ div.bubble {
   margin-bottom: 1.25vw;
   hyphens: none;
 }
-.page main .content .table-boxes td a {
+.page main .content .table-boxes td a,
+.visit main .content .table-boxes td a {
   color: white;
 }
 @media (orientation: portrait) {
-  .page main .content .table-boxes td {
+  .page main .content .table-boxes td,
+  .visit main .content .table-boxes td {
     display: block;
     font-size: 3vw;
     line-height: 3vw;
     border-radius: 1.25vw;
   }
 }
-.page main .content .table-boxes td em {
+.page main .content .table-boxes td em,
+.visit main .content .table-boxes td em {
   display: block;
   font-family: "FreeSans-JK";
   font-size: 1.2vw;
@@ -642,14 +697,16 @@ div.bubble {
   text-align: center;
 }
 @media (orientation: portrait) {
-  .page main .content .table-boxes td em {
+  .page main .content .table-boxes td em,
+  .visit main .content .table-boxes td em {
     font-size: 4.5vw;
     line-height: 4.5vw;
     border-radius: 1.25vw;
     padding: 1.25vw;
   }
 }
-.page main .content .table-boxes td p {
+.page main .content .table-boxes td p,
+.visit main .content .table-boxes td p {
   background: rgba(var(--color2));
   border-radius: 0.5vw;
   width: auto;
@@ -665,7 +722,8 @@ div.bubble {
   hyphens: none;
 }
 @media (orientation: portrait) {
-  .page main .content .table-boxes td p {
+  .page main .content .table-boxes td p,
+  .visit main .content .table-boxes td p {
     display: block;
     font-size: 10vw;
     line-height: 10vw;
@@ -673,7 +731,8 @@ div.bubble {
     padding: 1.25vw;
   }
 }
-.page main .content .table-boxes td p em {
+.page main .content .table-boxes td p em,
+.visit main .content .table-boxes td p em {
   display: block;
   font-family: "FreeSans-JK";
   font-size: 1.2vw;
@@ -681,18 +740,21 @@ div.bubble {
   text-align: center;
 }
 @media (orientation: portrait) {
-  .page main .content .table-boxes td p em {
+  .page main .content .table-boxes td p em,
+  .visit main .content .table-boxes td p em {
     font-size: 4.5vw;
     line-height: 4.5vw;
   }
 }
-.page main .content .pill p {
+.page main .content .pill p,
+.visit main .content .pill p {
   display: inline;
   color: rgba(var(--color3));
   font-size: 1.2vw;
   line-height: 1.3vw;
 }
-.page main .content .pill {
+.page main .content .pill,
+.visit main .content .pill {
   font-size: 1.2vw;
   line-height: 1.3vw;
   background: rgba(var(--color2));
@@ -703,29 +765,35 @@ div.bubble {
   white-space: nowrap;
 }
 @media (orientation: portrait) {
-  .page main .content .pill {
+  .page main .content .pill,
+  .visit main .content .pill {
     font-size: 3vw;
     line-height: 3.25vw;
     border-radius: 3vw;
     padding: 0.3125vw 1.25vw 0.3125vw 1.25vw;
   }
 }
-.page main .content .bio-wrapper {
+.page main .content .bio-wrapper,
+.visit main .content .bio-wrapper {
   font-size: 1.2vw;
   line-height: 1.3vw;
   width: 66%;
 }
 @media (orientation: portrait) {
-  .page main .content .bio-wrapper {
+  .page main .content .bio-wrapper,
+  .visit main .content .bio-wrapper {
     font-size: 3vw;
     line-height: 3.25vw;
   }
 }
-.page main .content h4.bio-wrapper {
+.page main .content h4.bio-wrapper,
+.visit main .content h4.bio-wrapper {
   width: auto;
 }
 .page main .content .image-half,
-.page main .content .image-bio {
+.page main .content .image-bio,
+.visit main .content .image-half,
+.visit main .content .image-bio {
   width: 25vw;
   margin-right: 0.5vw;
   display: inline-block;
@@ -733,32 +801,68 @@ div.bubble {
 }
 @media (orientation: portrait) {
   .page main .content .image-half,
-  .page main .content .image-bio {
+  .page main .content .image-bio,
+  .visit main .content .image-half,
+  .visit main .content .image-bio {
     width: 60vw;
   }
 }
-.page main .content .image-bio {
+.page main .content .image-bio,
+.visit main .content .image-bio {
   width: 25vw;
 }
 @media (orientation: portrait) {
-  .page main .content .image-bio {
+  .page main .content .image-bio,
+  .visit main .content .image-bio {
     width: 60vw;
   }
 }
-.page main .content .image-link-fullsize {
+.page main .content .image-link-fullsize,
+.visit main .content .image-link-fullsize {
   width: 100%;
 }
-.page main .content .image-caption {
+.page main .content .image-caption,
+.visit main .content .image-caption {
   font-size: 1.2vw;
   line-height: 1.3vw;
   margin-block-start: 0.2em;
 }
-.page main .content .video-portrait video {
+.page main .content .video-portrait video,
+.visit main .content .video-portrait video {
   width: 50%;
   height: auto;
 }
-.page .eventswrapper a .events .eventimg img {
+.page .eventswrapper a .events .eventimg img,
+.visit .eventswrapper a .events .eventimg img {
   max-height: none;
+}
+
+.visit main {
+  margin-left: 0;
+  padding-left: 0%;
+  width: 100%;
+  padding-right: 0%;
+}
+.visit main p,
+.visit main h1,
+.visit main h2,
+.visit main h3,
+.visit main h4,
+.visit main ul {
+  padding-left: 25%;
+  width: 50%;
+  padding-right: 25%;
+}
+@media (orientation: portrait) {
+  .visit main p,
+  .visit main h1,
+  .visit main h2,
+  .visit main h3,
+  .visit main h4,
+  .visit main ul {
+    padding: 1.25vw;
+    width: 97.5vw;
+  }
 }
 
 .event .breadcrumb {
@@ -947,7 +1051,7 @@ li {
   left: 0;
   width: 100%;
   height: 1vw;
-  background: linear-gradient(180deg, rgba(var(--color2)) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(100, 100, 100, 0.5) 0%, transparent 100%);
   pointer-events: none;
 }
 
@@ -958,7 +1062,7 @@ li {
   left: 0;
   width: 100%;
   height: 1vw;
-  background: linear-gradient(0deg, rgba(var(--color2)) 0%, transparent 100%);
+  background: linear-gradient(0deg, rgba(100, 100, 100, 0.5) 0%, transparent 100%);
   pointer-events: none;
 }
 
@@ -2187,7 +2291,7 @@ body.startpage .columnVideo h1,
 body.startpage .columnVideo h2 {
   position: absolute;
   top: 14vw;
-  z-index: 1000;
+  z-index: 90;
   left: 1vw;
 }
 @media (orientation: portrait) {
@@ -2281,7 +2385,7 @@ body.startpage .columnTitle h2 {
   margin-top: 1.5vw;
   text-align: right;
   width: 56vw;
-  word-spacing: 17vw;
+  word-spacing: 9vw;
 }
 @media (orientation: portrait) {
   body.startpage .columnTitle h2 {
@@ -2312,6 +2416,9 @@ body.startpage .columnTitle h4 {
     display: none;
   }
 }
+body.startpage .columnTitle .place {
+  margin-left: 27vw;
+}
 body.startpage .columnTitleBottom {
   background: rgba(var(--color1));
   background: linear-gradient(180deg, rgb(178, 178, 178) 0%, rgba(var(--color1)) 1vw);
@@ -2340,15 +2447,15 @@ body.startpage .columnTitleBottom h2 {
   }
 }
 body.startpage .columnTitleBottom h3 {
-  font-family: "FreeSans-JK";
-  font-size: 1.8vw;
-  line-height: 2.1vw;
-  padding: 0.5vw;
-  text-align: left;
-  color: rgba(var(--color2));
+  visibility: hidden;
 }
 @media (orientation: portrait) {
   body.startpage .columnTitleBottom h3 {
+    visibility: visible;
+    font-family: "FreeSans-JK";
+    padding: 0.5vw;
+    text-align: left;
+    color: rgba(var(--color2));
     font-size: 5vw;
     line-height: 5vw;
     width: 40vw;
@@ -2432,7 +2539,8 @@ body.startpage .statement h3 {
 }
 body.startpage .statement strong {
   font-weight: normal;
-  text-shadow: 0 0 5px rgba(var(--color4));
+  font-family: "FreeSerif-JK";
+  font-size: 112%;
 }
 body.startpage .logos {
   margin-top: 0;
@@ -2524,7 +2632,7 @@ body.startpage #mesh2024 {
 body.startpage #calltoaction {
   position: absolute;
   right: 0.5vw;
-  bottom: 7.5vw;
+  top: 18.5vw;
   width: -moz-fit-content;
   width: fit-content;
   z-index: 10;
@@ -2532,8 +2640,7 @@ body.startpage #calltoaction {
 @media (orientation: portrait) {
   body.startpage #calltoaction {
     right: 1vw;
-    bottom: auto;
-    top: calc(100vh - 49vw);
+    top: calc(100vh - 40vw);
   }
 }
 body.startpage .videoSubtitleWrap {

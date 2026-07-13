@@ -105,16 +105,6 @@ ul {
   margin-inline-end: 0px;
   padding-inline-start: 0;
 }
-::-webkit-scrollbar {
-  width: 7px;
-  height: 0px;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(var(--color1));
-}
-::-webkit-scrollbar-track {
-  background: rgba(var(--color2));
-}
 
 /*GENERAL*/
 .smallpill {
@@ -315,12 +305,13 @@ div.bubble {
   }
 }
 
-/*PAGE */
-.page {
+/*PAGE + VISIT*/
+.page,
+.visit {
   main {
-    width: 50%;
+    width: 48%;
     background: rgba(var(--color3));
-    margin-left: calc(50% - ($padding * 2));
+    margin-left: calc(52% - 1vw);
     min-height: 100vh;
     padding: $padding;
     padding-left: 0;
@@ -724,6 +715,28 @@ div.bubble {
     max-height: none;
   }
 }
+.visit {
+  main {
+    margin-left: 0;
+    padding-left: 0%;
+    width: 100%;
+    padding-right: 0%;
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    ul {
+      padding-left: 25%;
+      width: 50%;
+      padding-right: 25%;
+      @media (orientation: portrait) {
+        padding: $padding * $scaleFactor;
+        width: calc(100vw - $padding * 2 * $scaleFactor);
+      }
+    }
+  }
+}
 .event {
   .breadcrumb {
     color: rgba(var(--color2));
@@ -891,7 +904,11 @@ li {
   left: 0;
   width: 100%;
   height: 1vw;
-  background: linear-gradient(180deg, rgba(var(--color2)) 0%, transparent 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(100, 100, 100, 0.5) 0%,
+    transparent 100%
+  );
   pointer-events: none;
 }
 
@@ -902,7 +919,11 @@ li {
   left: 0;
   width: 100%;
   height: 1vw;
-  background: linear-gradient(0deg, rgba(var(--color2)) 0%, transparent 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(100, 100, 100, 0.5) 0%,
+    transparent 100%
+  );
   pointer-events: none;
 }
 #ticketshop {
@@ -2015,7 +2036,7 @@ body.startpage {
     h2 {
       position: absolute;
       top: 14vw;
-      z-index: 1000;
+      z-index: 90;
       left: 1vw;
       @media (orientation: portrait) {
         top: 34vw;
@@ -2095,7 +2116,7 @@ body.startpage {
       margin-top: 1.5vw;
       text-align: right;
       width: 56vw;
-      word-spacing: 17vw;
+      word-spacing: 9vw;
       @media (orientation: portrait) {
         font-size: 8vw;
         line-height: 6vw;
@@ -2121,6 +2142,9 @@ body.startpage {
       @media (orientation: portrait) {
         display: none;
       }
+    }
+    .place {
+      margin-left: 27vw;
     }
   }
   .columnTitleBottom {
@@ -2150,13 +2174,13 @@ body.startpage {
       }
     }
     h3 {
-      font-family: "FreeSans-JK";
-      font-size: $fontSize2;
-      line-height: $lineHeight2;
-      padding: $padding;
-      text-align: left;
-      color: rgba(var(--color2));
+      visibility: hidden;
       @media (orientation: portrait) {
+        visibility: visible;
+        font-family: "FreeSans-JK";
+        padding: $padding;
+        text-align: left;
+        color: rgba(var(--color2));
         font-size: 5vw;
         line-height: 5vw;
         width: 40vw;
@@ -2240,7 +2264,8 @@ body.startpage {
     }
     strong {
       font-weight: normal;
-      text-shadow: 0 0 5px rgba(var(--color4));
+      font-family: "FreeSerif-JK";
+      font-size: 112%;
     }
   }
 
@@ -2328,13 +2353,12 @@ body.startpage {
   #calltoaction {
     position: absolute;
     right: $padding;
-    bottom: 7.5vw;
+    top: 18.5vw;
     width: fit-content;
     z-index: 10;
     @media (orientation: portrait) {
       right: $padding * 2;
-      bottom: auto;
-      top: calc(100vh - 49vw);
+      top: calc(100vh - 40vw);
     }
   }
 

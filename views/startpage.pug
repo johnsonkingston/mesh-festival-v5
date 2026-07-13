@@ -5,7 +5,6 @@ html(lang=language[0])
         include includes/sitenav.pug
         main
             a#mesh2024.bubble(href="https://2024.meshfestival.ch" target="_blank") Mesh 2024
-            a#instaButton.bubble(href="https://instagram.com/meshfestival" target="_blank") @meshfestival
             a#calltoaction.bubble(href="https://meshfestival.ch/static/html/tickets.html" target="_blank") Tickets
 
 
@@ -16,6 +15,8 @@ html(lang=language[0])
                     | 16.–20.
                     br
                     | Oktober 2026
+                h4.place Dreispitz Basel
+
             .columnVideo.mobile
                 video.mobileVideo(data-src="https://johnsonkingston.ch/MESH/Mesh-2026-Querformat-2.mp4",autoplay="true",loop="true",muted="true",playsinline="true",poster="/static/img/mesh-festival-background.jpg")
                 if data.translations && data.translations.length > 0
@@ -64,6 +65,17 @@ html(lang=language[0])
                 function videoLoad(){
                     $('.mobileVideo').attr('src',$('.mobileVideo').attr('data-src'));
                     $('.mobileVideo').attr('id','mainVideo');
+
+                    var mainVideo = document.getElementById('mainVideo');
+                    if (mainVideo) {
+                        var resumeVideo = function(){
+                            if (document.visibilityState === 'visible' && mainVideo.paused) {
+                                mainVideo.play().catch(function(){});
+                            }
+                        };
+                        mainVideo.addEventListener('pause', resumeVideo);
+                        document.addEventListener('visibilitychange', resumeVideo);
+                    }
                 }
                 videoLoad();
             include includes/footer.pug

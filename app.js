@@ -507,7 +507,8 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
     languageObject = [language, languageTransform(language)];
     if (result.data[0]) {
       //console.log(languageObject);
-      res.render("page", {
+      var template = pageSlug === "visit" ? "visit" : "page";
+      res.render(template, {
         data: result.data[0],
         navigation: navigation.data,
         footer: footer.data,
