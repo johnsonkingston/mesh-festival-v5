@@ -965,8 +965,8 @@ ul {
   font-size: 1.3vh;
 
   main {
-    height: calc(100vh - 10.5vw);
-    margin-top: 10.5vw;
+    height: calc(100vh - 4.5vw);
+    margin-top: 4.5vw;
     @media (orientation: portrait) {
       height: calc(100vh - 12.5vw);
       margin-top: 12.5vw;
@@ -2328,8 +2328,7 @@ body.startpage {
       width: auto;
       display: inline-block;
       vertical-align: middle;
-      padding: $padding * 2;
-      margin-top: $padding;
+      padding: $padding $padding * 4;
       @media (orientation: portrait) {
         height: 6vw;
         padding-bottom: 6vw;
@@ -2371,6 +2370,7 @@ body.startpage {
         transform: translateX(-100%);
       }
     }
+
     .logobannerOuter {
       width: 100%;
       overflow: hidden;
@@ -2383,6 +2383,12 @@ body.startpage {
       width: fit-content;
       white-space: nowrap;
     }
+    .logobannerOuter:last-of-type {
+      .logobannerInner {
+        animation: startpage-move 20s linear infinite;
+      }
+    }
+
     .logobannerOuter:hover .logobannerInner {
       animation-play-state: paused;
     }
@@ -2392,7 +2398,7 @@ body.startpage {
     position: absolute;
     right: $padding;
     top: 14vw;
-    z-index: 110;
+    z-index: 10;
     @media (orientation: portrait) {
       right: $padding * 2;
       position: absolute;

@@ -1108,8 +1108,8 @@ ul {
   font-size: 1.3vh;
 }
 .timetable main {
-  height: calc(100vh - 10.5vw);
-  margin-top: 10.5vw;
+  height: calc(100vh - 4.5vw);
+  margin-top: 4.5vw;
 }
 @media (orientation: portrait) {
   .timetable main {
@@ -2608,8 +2608,7 @@ body.startpage .logos img {
   width: auto;
   display: inline-block;
   vertical-align: middle;
-  padding: 1vw;
-  margin-top: 0.5vw;
+  padding: 0.5vw 2vw;
 }
 @media (orientation: portrait) {
   body.startpage .logos img {
@@ -2669,6 +2668,9 @@ body.startpage .logos .logobannerInner {
   width: fit-content;
   white-space: nowrap;
 }
+body.startpage .logos .logobannerOuter:last-of-type .logobannerInner {
+  animation: startpage-move 20s linear infinite;
+}
 body.startpage .logos .logobannerOuter:hover .logobannerInner {
   animation-play-state: paused;
 }
@@ -2676,7 +2678,7 @@ body.startpage #mesh2024 {
   position: absolute;
   right: 0.5vw;
   top: 14vw;
-  z-index: 110;
+  z-index: 10;
 }
 @media (orientation: portrait) {
   body.startpage #mesh2024 {
