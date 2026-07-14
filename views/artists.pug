@@ -16,32 +16,28 @@ html(lang=language[0])
                 | events array is empty
         - var char = ''
         - var nameBefore = ''
+        - var formatBefore = ''
         - var n = 0
+        - function truncateWords(text, maxLen) { if (!text || text.length <= maxLen) return text; var cut = text.substr(0, maxLen); var lastSpace = cut.lastIndexOf(' '); if (lastSpace > 0) cut = cut.substr(0, lastSpace); return cut + '…'; }
         - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights'];
         - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights']};
-        #filters 
-            .bubble#filteropen(onclick="toggleFilter()") Filter
 
-            .bubble.active#filterAll(onclick="filterTimetableAll()",data-all='1')='All'
-            each format in formats
-                .bubble.filterpill(onclick="filterTimetable('"+format+"',$(this))",data-visible=1,id="filter-"+format)=formatsTranslation[format][languageParameter]
-
-        //    .bubble.active#filtermap(onclick="$('#map').toggle();")='Map'
-        //- #map 
-        //-     img(src=imgURL+"5850ee5c-5b08-4fe4-ad9b-186dcf9044ab.png",onclick="$('#map').hide();")
             
         main
 
-            each event in events 
+            each event in events
                 //if(char !== event.Name.substr(0,1).toUpperCase())
                     h3.char=event.Name.substr(0,1)
+                if(formatBefore !== event.Format)
+                    if(formatsTranslation[event.Format] !== undefined)
+                        h2.formatHeader=formatsTranslation[event.Format][languageParameter]
                 a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format).artistLine
                     .artist
                         //.left
                         .middle
                             //a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format)
                             h3=event.First_Name+' '+event.Name
-                            h4=event.Title
+                            h4=truncateWords(event.Title, 40)
                         //.right 
                             a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format)
                                 if(formatsTranslation[event.Format] !== undefined)
@@ -61,6 +57,7 @@ html(lang=language[0])
                                 
                 - char = event.Name.substr(0,1).toUpperCase()
                 - nameBefore = (event.First_Name+event.Name)
+                - formatBefore = event.Format
                 -n++
 
         include includes/footer.pug

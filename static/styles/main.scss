@@ -980,6 +980,9 @@ ul {
   h6 {
     filter: none;
   }
+  a {
+    text-decoration: none;
+  }
   .timetableSlider {
     position: relative;
     height: 100%;
@@ -1010,34 +1013,45 @@ ul {
   }
   .timetableSliderArrow {
     position: absolute;
-    top: 50%;
+    top: 4.7vw;
     transform: translateY(-50%);
     z-index: 20;
     cursor: pointer;
-    border: 1px solid rgba(var(--color2));
-    background: rgba(var(--color3));
-    color: rgba(var(--color2));
-    width: 3vw;
-    height: 3vw;
-    line-height: 3vw;
-    text-align: center;
-    font-size: $fontSize2;
-    border-radius: 50%;
-    box-shadow: 0 0 2vw rgba(var(--color2));
+    width: 2vw;
+    height: 9vw;
     @media (orientation: portrait) {
-      width: 8vw;
-      height: 8vw;
-      line-height: 8vw;
+      width: 5vw;
+      height: 5vw;
+    }
+    div {
+      background: rgba(var(--color2));
+      box-shadow: rgba(var(--color2)) 0 0 1vw;
+      transition: all 0.3s;
+      position: absolute;
+      left: 15%;
+      width: 100%;
+      height: 6%;
+    }
+    div:nth-child(1) {
+      top: 43%;
+      transform: rotate(-60deg);
+      transform-origin: left center;
+    }
+    div:nth-child(2) {
+      top: 41%;
+      transform: rotate(60deg);
+      transform-origin: left center;
     }
   }
   .timetableSliderArrowPrev {
-    left: 1vw;
+    left: 31vw;
   }
   .timetableSliderArrowNext {
-    right: 1vw;
+    right: 31vw;
+    transform: translateY(-50%) scaleX(-1);
   }
   .timetableDay {
-    width: 94vw;
+    width: 98vw;
     margin-left: 1vw;
   }
   .timetableSpalteWrap {
@@ -1252,18 +1266,15 @@ ul {
       top: 12vw;
     }
     h1 {
-      font-size: $fontSize1;
-      line-height: $lineHeight1;
-      background: rgba(var(--color2));
-      color: rgba(var(--color1));
-      border: 1px solid rgba(var(--color2));
+      font-size: $fontSize3;
+      line-height: $lineHeight3;
+      text-shadow: rgba(var(--color2)) 0 0 1vw;
       transition: none;
       display: inline;
       padding: $padding * 0.5 $padding * 2;
-      border-radius: 2vw;
       @media (orientation: portrait) {
-        font-size: $fontSize1 * $scaleFactor;
-        line-height: $lineHeight1 * $scaleFactor;
+        font-size: $fontSize3 * $scaleFactor;
+        line-height: $lineHeight3 * $scaleFactor;
         border-radius: 4vw;
       }
     }
@@ -1384,16 +1395,32 @@ ul {
 /*ARTISTS */
 .artists {
   main {
-    padding-top: 8vw;
+    padding-top: 4vw;
     margin-bottom: 4.5vw;
     @media (orientation: portrait) {
       margin-top: 0;
     }
 
+    .formatHeader {
+      display: block;
+      width: 100%;
+      font-family: "FreeSans-JK";
+      font-size: $fontSize3;
+      line-height: $lineHeight3;
+      margin: $padding * 3 0 0 $padding * 3;
+      filter: none;
+      @media (orientation: portrait) {
+        width: auto;
+        font-size: $fontSize3 * $scaleFactor;
+        line-height: $lineHeight3 * $scaleFactor;
+        margin: $padding * 3 * $scaleFactor 0 0 $padding * 5 * $scaleFactor;
+      }
+    }
+
     .artist {
       display: inline-flex;
       align-items: center;
-      width: 25%;
+      width: 20%;
       @media (orientation: portrait) {
         width: 49%;
       }
@@ -1995,6 +2022,7 @@ footer {
   height: 3vw;
   a {
     display: inline-block;
+    text-decoration: none;
   }
   @media (orientation: portrait) {
     display: none;
@@ -2060,17 +2088,20 @@ footer {
 
 body.startpage {
   height: auto;
-
+  a {
+    text-decoration: none;
+  }
   .columnVideo {
     top: 0;
     left: 0;
     overflow: hidden;
     width: 100vw;
-    height: calc(100vh - 16.3vw);
+    height: calc(100vh - 13.3vw);
     background: url(../img/mesh-festival-background.jpg);
     background-size: contain;
     margin-top: 13.1vw;
     box-shadow: 0 0 1vw rgba(var(--color2));
+    position: sticky;
     @media (orientation: portrait) {
       background-size: cover;
       background-position: center;
@@ -2083,28 +2114,28 @@ body.startpage {
       height: 100vh;
       width: 100vw;
     }
-    h1,
-    h2 {
-      position: absolute;
-      top: 14vw;
-      z-index: 90;
-      left: 1vw;
-      @media (orientation: portrait) {
-        top: 34vw;
-        left: 3vw;
-      }
+  }
+  .editionTitle {
+    position: absolute;
+    width: 20vw;
+    top: 14vw;
+    left: 1vw;
+    z-index: 90;
+    @media (orientation: portrait) {
+      top: 34vw;
+      left: 3vw;
+    }
+    @media (orientation: portrait) {
+      width: 100%;
     }
     h1 {
       font-family: "FreeSerif-JK";
       font-size: $fontSize4;
       line-height: 3.5vw;
-      top: 15.5vw;
-      width: 20vw;
+      margin-top: 0;
       @media (orientation: portrait) {
         font-size: $fontSize4 * $scaleFactor;
         line-height: 3.5vw * $scaleFactor;
-        top: 39vw;
-        width: 50vw;
       }
     }
     h2 {
@@ -2114,7 +2145,6 @@ body.startpage {
       }
     }
   }
-
   .columnTitle {
     position: fixed;
     top: 2.9vw;
@@ -2206,6 +2236,7 @@ body.startpage {
       rgba(var(--color1)) 1vw
     );
     filter: blur(1px);
+    position: sticky;
     @media (orientation: portrait) {
       background: none;
     }
@@ -2260,9 +2291,9 @@ body.startpage {
   .column {
     margin-left: 0;
     width: 100vw;
-    padding-top: $padding * 10;
     background: rgba(var(--color1));
     margin-top: -10px;
+    position: sticky;
     @media (orientation: portrait) {
       width: 100%;
       margin-left: 0;
@@ -2403,7 +2434,7 @@ body.startpage {
       right: $padding * 2;
       position: absolute;
       width: auto;
-      top: 33vw;
+      top: calc(100vh - 50vw);
     }
   }
 

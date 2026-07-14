@@ -16,17 +16,15 @@ html(lang=language[0])
                     br
                     | Oktober 2026
                 h4.place Dreispitz Basel
-
-            .columnVideo.mobile
-                video.mobileVideo(data-src="https://johnsonkingston.ch/MESH/Mesh-2026-Querformat-2.mp4",autoplay="true",loop="true",muted="true",playsinline="true",poster="/static/img/mesh-festival-background.jpg")
+            .editionTitle
                 if data.translations && data.translations.length > 0
                     h2 Edition 2026
                     if(data.translations[languageParameter] === undefined)
                         h1= data.translations[0].Title
-                        .content !{data.translations[0].Content}
                     else
                         h1= data.translations[languageParameter].Title
-                        .content !{data.translations[languageParameter].Content}
+            .columnVideo.mobile
+                video.mobileVideo(data-src="https://johnsonkingston.ch/MESH/Mesh-2026-Querformat-2.mp4",autoplay="true",loop="true",muted="true",playsinline="true",poster="/static/img/mesh-festival-background.jpg")
             .columnTitleBottom
                 h2
                     | 16.–20. 

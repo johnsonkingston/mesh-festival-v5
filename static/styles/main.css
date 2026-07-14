@@ -1125,6 +1125,9 @@ ul {
 .timetable h6 {
   filter: none;
 }
+.timetable a {
+  text-decoration: none;
+}
 .timetable .timetableSlider {
   position: relative;
   height: 100%;
@@ -1155,36 +1158,47 @@ ul {
 }
 .timetable .timetableSliderArrow {
   position: absolute;
-  top: 50%;
+  top: 4.7vw;
   transform: translateY(-50%);
   z-index: 20;
   cursor: pointer;
-  border: 1px solid rgba(var(--color2));
-  background: rgba(var(--color3));
-  color: rgba(var(--color2));
-  width: 3vw;
-  height: 3vw;
-  line-height: 3vw;
-  text-align: center;
-  font-size: 1.8vw;
-  border-radius: 50%;
-  box-shadow: 0 0 2vw rgba(var(--color2));
+  width: 2vw;
+  height: 9vw;
 }
 @media (orientation: portrait) {
   .timetable .timetableSliderArrow {
-    width: 8vw;
-    height: 8vw;
-    line-height: 8vw;
+    width: 5vw;
+    height: 5vw;
   }
 }
+.timetable .timetableSliderArrow div {
+  background: rgba(var(--color2));
+  box-shadow: rgba(var(--color2)) 0 0 1vw;
+  transition: all 0.3s;
+  position: absolute;
+  left: 15%;
+  width: 100%;
+  height: 6%;
+}
+.timetable .timetableSliderArrow div:nth-child(1) {
+  top: 43%;
+  transform: rotate(-60deg);
+  transform-origin: left center;
+}
+.timetable .timetableSliderArrow div:nth-child(2) {
+  top: 41%;
+  transform: rotate(60deg);
+  transform-origin: left center;
+}
 .timetable .timetableSliderArrowPrev {
-  left: 1vw;
+  left: 31vw;
 }
 .timetable .timetableSliderArrowNext {
-  right: 1vw;
+  right: 31vw;
+  transform: translateY(-50%) scaleX(-1);
 }
 .timetable .timetableDay {
-  width: 94vw;
+  width: 98vw;
   margin-left: 1vw;
 }
 .timetable .timetableSpalteWrap {
@@ -1412,20 +1426,17 @@ ul {
   }
 }
 .timetable .date h1 {
-  font-size: 1.2vw;
-  line-height: 1.4vw;
-  background: rgba(var(--color2));
-  color: rgba(var(--color1));
-  border: 1px solid rgba(var(--color2));
+  font-size: 3vw;
+  line-height: 3.3vw;
+  text-shadow: rgba(var(--color2)) 0 0 1vw;
   transition: none;
   display: inline;
   padding: 0.25vw 1vw;
-  border-radius: 2vw;
 }
 @media (orientation: portrait) {
   .timetable .date h1 {
-    font-size: 3vw;
-    line-height: 3.5vw;
+    font-size: 7.5vw;
+    line-height: 8.25vw;
     border-radius: 4vw;
   }
 }
@@ -1553,7 +1564,7 @@ ul {
 
 /*ARTISTS */
 .artists main {
-  padding-top: 8vw;
+  padding-top: 4vw;
   margin-bottom: 4.5vw;
 }
 @media (orientation: portrait) {
@@ -1561,10 +1572,27 @@ ul {
     margin-top: 0;
   }
 }
+.artists main .formatHeader {
+  display: block;
+  width: 100%;
+  font-family: "FreeSans-JK";
+  font-size: 3vw;
+  line-height: 3.3vw;
+  margin: 1.5vw 0 0 1.5vw;
+  filter: none;
+}
+@media (orientation: portrait) {
+  .artists main .formatHeader {
+    width: auto;
+    font-size: 7.5vw;
+    line-height: 8.25vw;
+    margin: 3.75vw 0 0 6.25vw;
+  }
+}
 .artists main .artist {
   display: inline-flex;
   align-items: center;
-  width: 25%;
+  width: 20%;
 }
 @media (orientation: portrait) {
   .artists main .artist {
@@ -2264,6 +2292,7 @@ footer a {
 }
 #startpageNav a {
   display: inline-block;
+  text-decoration: none;
 }
 @media (orientation: portrait) {
   #startpageNav {
@@ -2318,16 +2347,20 @@ footer a {
 body.startpage {
   height: auto;
 }
+body.startpage a {
+  text-decoration: none;
+}
 body.startpage .columnVideo {
   top: 0;
   left: 0;
   overflow: hidden;
   width: 100vw;
-  height: calc(100vh - 16.3vw);
+  height: calc(100vh - 13.3vw);
   background: url(../img/mesh-festival-background.jpg);
   background-size: contain;
   margin-top: 13.1vw;
   box-shadow: 0 0 1vw rgba(var(--color2));
+  position: sticky;
 }
 @media (orientation: portrait) {
   body.startpage .columnVideo {
@@ -2344,40 +2377,41 @@ body.startpage .columnVideo video {
   height: 100vh;
   width: 100vw;
 }
-body.startpage .columnVideo h1,
-body.startpage .columnVideo h2 {
+body.startpage .editionTitle {
   position: absolute;
+  width: 20vw;
   top: 14vw;
-  z-index: 90;
   left: 1vw;
+  z-index: 90;
 }
 @media (orientation: portrait) {
-  body.startpage .columnVideo h1,
-  body.startpage .columnVideo h2 {
+  body.startpage .editionTitle {
     top: 34vw;
     left: 3vw;
   }
 }
-body.startpage .columnVideo h1 {
+@media (orientation: portrait) {
+  body.startpage .editionTitle {
+    width: 100%;
+  }
+}
+body.startpage .editionTitle h1 {
   font-family: "FreeSerif-JK";
   font-size: 4vw;
   line-height: 3.5vw;
-  top: 15.5vw;
-  width: 20vw;
+  margin-top: 0;
 }
 @media (orientation: portrait) {
-  body.startpage .columnVideo h1 {
+  body.startpage .editionTitle h1 {
     font-size: 10vw;
     line-height: 8.75vw;
-    top: 39vw;
-    width: 50vw;
   }
 }
-body.startpage .columnVideo h2 {
+body.startpage .editionTitle h2 {
   font-size: 1.8vw;
 }
 @media (orientation: portrait) {
-  body.startpage .columnVideo h2 {
+  body.startpage .editionTitle h2 {
     font-size: 4.5vw;
   }
 }
@@ -2480,6 +2514,7 @@ body.startpage .columnTitleBottom {
   background: rgba(var(--color1));
   background: linear-gradient(180deg, rgb(178, 178, 178) 0%, rgba(var(--color1)) 1vw);
   filter: blur(1px);
+  position: sticky;
 }
 @media (orientation: portrait) {
   body.startpage .columnTitleBottom {
@@ -2541,9 +2576,9 @@ body.startpage .columnTitleBottom h4 {
 body.startpage .column {
   margin-left: 0;
   width: 100vw;
-  padding-top: 5vw;
   background: rgba(var(--color1));
   margin-top: -10px;
+  position: sticky;
 }
 @media (orientation: portrait) {
   body.startpage .column {
@@ -2685,7 +2720,7 @@ body.startpage #mesh2024 {
     right: 1vw;
     position: absolute;
     width: auto;
-    top: 33vw;
+    top: calc(100vh - 50vw);
   }
 }
 body.startpage #calltoaction {

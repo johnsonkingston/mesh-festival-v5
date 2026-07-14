@@ -335,7 +335,22 @@ async function getAllArtists() {
       }
     }
 
-    artists.sort((a, b) => a.Name.localeCompare(b.Name));
+    const formatOrder = [
+      "ausstellungen",
+      "screenings",
+      "diskurs",
+      "konferenz",
+      "performances",
+      "clubnights",
+    ];
+    artists.sort((a, b) => {
+      var aIndex = formatOrder.indexOf(a.Format);
+      var bIndex = formatOrder.indexOf(b.Format);
+      if (aIndex === -1) aIndex = formatOrder.length;
+      if (bIndex === -1) bIndex = formatOrder.length;
+      if (aIndex !== bIndex) return aIndex - bIndex;
+      return a.Name.localeCompare(b.Name);
+    });
 
     events = artists;
 

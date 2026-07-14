@@ -26,14 +26,16 @@ html(lang=language[0])
 
         main
             .timetableSlider
-                button.timetableSliderArrow.timetableSliderArrowPrev(onclick="slideDay(-1)",aria-label="Previous day") ‹
+                div.timetableSliderArrow.timetableSliderArrowPrev(onclick="slideDay(-1)",role="button",tabindex="0",aria-label="Previous day")
+                    div
+                    div
                 .timetableSliderTrack
                     //day
                     each day, dayIndex in [16,17,18,19,20]
                         .timetableDaySlide(data-day-index=dayIndex)
                             div(class="timetableDay")
                                 .date
-                                    h1.bubble=dayOutput[day][0]
+                                    h1=dayOutput[day][0]
                                 - var n = hourStart;
                                 .timetableHourlineWrap(data-hour=n)
                                     while n < hoursPerDay+hourStart+1
@@ -111,5 +113,7 @@ html(lang=language[0])
                                                         - hourBefore = event.HourEnd
                                                         - firstEventInColumn = false
                                                         - id++
-                button.timetableSliderArrow.timetableSliderArrowNext(onclick="slideDay(1)",aria-label="Next day") ›
+                div.timetableSliderArrow.timetableSliderArrowNext(onclick="slideDay(1)",role="button",tabindex="0",aria-label="Next day")
+                    div
+                    div
         include includes/footer.pug
