@@ -299,7 +299,6 @@ div.bubble {
   min-height: 100vh;
   padding: 0.5vw;
   padding-left: 0;
-  padding-bottom: 10vh;
   padding-top: 4vw;
   position: relative;
 }
@@ -2149,10 +2148,26 @@ footer div {
     width: 100%;
   }
 }
+footer div:first-child {
+  text-align: right;
+}
+@media (orientation: portrait) {
+  footer div:first-child {
+    text-align: center;
+  }
+}
+footer div:last-child {
+  text-align: left;
+}
+@media (orientation: portrait) {
+  footer div:last-child {
+    text-align: center;
+  }
+}
 footer a {
   color: rgba(var(--color2));
   font-size: 1.2vw;
-  line-height: 2.52vw;
+  line-height: 1.4vw;
   text-decoration: none;
 }
 @media (orientation: portrait) {
