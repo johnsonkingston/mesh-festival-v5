@@ -11,7 +11,7 @@ html(lang=language[0])
         - var dayOutput = {16: ['Mittwoch, 16. Oktober', 'Thursday'], 17: ['Donnerstag, 17. Oktober', 'Thursday'], 18: ['Freitag, 18. Oktober', 'Thursday'], 19: ['Samstag, 19. Oktober', 'Thursday'], 20: ['Sonntag, 20. Oktober', 'Thursday']}
         - var dayAbbr = {16: 'Mi', 17: 'Do', 18: 'Fr', 19: 'Sa', 20: 'So'};
         - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights'];
-        - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights']};
+        - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights'], workshops: ['Workshops','Workshops']};
 
         - var id = 1;
         //#filters
@@ -80,7 +80,8 @@ html(lang=language[0])
                                                                     else
                                                                         if(formatsTranslation[event.Format] !== undefined)
                                                                             h3.format=formatsTranslation[event.Format][languageParameter]
-                                                                        h2.artist='• '+event.Artist
+                                                                        h2.title='• '+event.translations[languageParameter] !== undefined ? '• '+event.translations[languageParameter].Title : '• '+event.translations[0].Title
+                                                                        h2.artist=event.Artist
                                                                         if(venues[event.Venues[0].Venues_id] !== undefined)
                                                                             h3.time=venues[event.Venues[0].Venues_id].Name
                                                                 - hourBefore = event.HourEnd
@@ -109,7 +110,8 @@ html(lang=language[0])
                                                                 else
                                                                     if(formatsTranslation[event.Format] !== undefined)
                                                                         h3.format=formatsTranslation[event.Format][languageParameter]
-                                                                    h2.artist='• '+event.Artist
+                                                                    h2.title='• '+event.translations[languageParameter] !== undefined ? '• '+event.translations[languageParameter].Title : '• '+event.translations[0].Title
+                                                                    h2.artist=event.Artist
                                                                     if(venues[event.Venues[0].Venues_id] !== undefined)
                                                                         h3.time=venues[event.Venues[0].Venues_id].Name
                                                         - hourBefore = event.HourEnd
