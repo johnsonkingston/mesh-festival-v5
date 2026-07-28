@@ -515,6 +515,10 @@ div.bubble {
   vertical-align: middle;
   margin: 0.5vw;
 }
+.page main .content a:hover,
+.visit main .content a:hover {
+  color: rgba(var(--color4));
+}
 .page main .content em,
 .page main .content i,
 .visit main .content em,
@@ -1025,9 +1029,6 @@ li {
 .accordeon-title:hover {
   text-shadow: 0 0 10px rgba(var(--color2));
 }
-.accordeon-title:hover::after {
-  box-shadow: 0 0 10px rgba(var(--color2));
-}
 
 .accordeon {
   background: rgba(var(--color1));
@@ -1109,8 +1110,8 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable main {
-    height: calc(100vh - 12.5vw);
-    margin-top: 12.5vw;
+    height: calc(100vh - 2vw);
+    margin-top: 2vw;
   }
 }
 .timetable #dayNav {
@@ -1135,7 +1136,6 @@ ul {
   color: rgba(var(--color2));
   padding: 0.25vw 0.75vw;
   border-radius: 0.5vw;
-  transition: all 0.2s ease;
 }
 @media (orientation: portrait) {
   .timetable #dayNav .dayNavItem {
@@ -1149,6 +1149,7 @@ ul {
 }
 .timetable #dayNav .dayNavItem:hover {
   color: rgba(var(--color4));
+  text-shadow: 0 0 10px rgba(var(--color4));
 }
 .timetable #dayNav .dayNavItem.active {
   background: rgba(var(--color2));
@@ -1199,11 +1200,13 @@ ul {
   flex: 0 0 100%;
   width: 100%;
   height: 100%;
+  overflow-x: auto;
   overflow-y: auto;
   scroll-snap-align: start;
 }
 .timetable .timetableDaySlide::-webkit-scrollbar {
   width: 14px;
+  height: 14px;
 }
 .timetable .timetableSliderArrow {
   position: absolute;
@@ -1257,8 +1260,7 @@ ul {
   margin-left: 4vw;
   width: 95vw;
   white-space: nowrap;
-  overflow-x: scroll;
-  overflow-y: visible;
+  overflow: visible;
 }
 @media (orientation: portrait) {
   .timetable .timetableSpalteWrap {
@@ -1266,9 +1268,6 @@ ul {
     width: 93vw;
     top: 0;
   }
-}
-.timetable .timetableSpalteWrap::-webkit-scrollbar {
-  width: 0;
 }
 .timetable .timetableSpalte {
   display: inline-block;
@@ -2439,7 +2438,7 @@ footer a {
     box-shadow: none;
     display: block;
     margin-bottom: 7vw;
-    font-size: 22.5vw;
+    font-size: 16.2vw;
     line-height: 13.5vw;
     padding: 0.875vw 7.5vw;
     border-radius: none;
@@ -2447,7 +2446,7 @@ footer a {
     border-color: transparent;
     color: rgba(var(--color2));
     filter: blur(1px);
-    text-shadow: rgba(var(--color4)) 0 0 2vw;
+    text-shadow: rgba(var(--color2)) 0 0 2vw;
     border-radius: 0;
   }
 }
@@ -2468,8 +2467,21 @@ footer a {
   filter: none;
   text-shadow: none;
 }
+@media (orientation: portrait) {
+  #startpageNav a.bubble.active {
+    color: rgba(var(--color4));
+    background: transparent;
+    filter: blur(1px);
+    text-shadow: rgba(var(--color4)) 0 0 2vw;
+  }
+}
 #startpageNav a.bubble.active:hover {
-  color: rgba(var(--color4));
+  background: rgba(var(--color4));
+}
+@media (orientation: portrait) {
+  #startpageNav a.bubble.active:hover {
+    background: transparent;
+  }
 }
 
 body.startpage {
@@ -2779,6 +2791,9 @@ body.startpage .statement a {
     margin-bottom: -1vw;
   }
 }
+body.startpage .statement a:hover {
+  color: rgba(var(--color4));
+}
 body.startpage .logos {
   margin-top: 0;
   text-align: center;
@@ -2818,7 +2833,8 @@ body.startpage .logos span {
   }
 }
 body.startpage .logos a:hover {
-  text-shadow: 0 0 10px rgba(var(--color2));
+  text-shadow: 0 0 10px rgba(var(--color4));
+  color: rgba(var(--color4));
 }
 @media (orientation: portrait) {
   body.startpage .logos span {

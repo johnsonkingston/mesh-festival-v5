@@ -460,6 +460,9 @@ div.bubble {
           margin: $padding;
         }
       }
+      a:hover {
+        color: rgba(var(--color4));
+      }
       em,
       i {
         text-transform: uppercase;
@@ -868,9 +871,6 @@ li {
 }
 .accordeon-title:hover {
   text-shadow: 0 0 10px rgba(var(--color2));
-  &::after {
-    box-shadow: 0 0 10px rgba(var(--color2));
-  }
 }
 .accordeon {
   background: rgba(var(--color1));
@@ -951,8 +951,8 @@ ul {
     display: flex;
     flex-direction: column;
     @media (orientation: portrait) {
-      height: calc(100vh - 12.5vw);
-      margin-top: 12.5vw;
+      height: calc(100vh - 2vw);
+      margin-top: 2vw;
     }
   }
   #dayNav {
@@ -974,7 +974,6 @@ ul {
       color: rgba(var(--color2));
       padding: calc($padding/2) $padding * 1.5;
       border-radius: 0.5vw;
-      transition: all 0.2s ease;
       @media (orientation: portrait) {
         font-size: $fontSize2 * $scaleFactor;
         line-height: $lineHeight2 * $scaleFactor;
@@ -986,6 +985,7 @@ ul {
     }
     .dayNavItem:hover {
       color: rgba(var(--color4));
+      text-shadow: 0 0 10px rgba(var(--color4));
     }
     .dayNavItem.active {
       background: rgba(var(--color2));
@@ -1037,11 +1037,13 @@ ul {
     flex: 0 0 100%;
     width: 100%;
     height: 100%;
+    overflow-x: auto;
     overflow-y: auto;
     scroll-snap-align: start;
   }
   .timetableDaySlide::-webkit-scrollbar {
     width: 14px;
+    height: 14px;
   }
   .timetableSliderArrow {
     position: absolute;
@@ -1093,16 +1095,12 @@ ul {
     margin-left: 4vw;
     width: 95vw;
     white-space: nowrap;
-    overflow-x: scroll;
-    overflow-y: visible;
+    overflow: visible;
     @media (orientation: portrait) {
       margin-left: 7vw;
       width: 93vw;
       top: 0;
     }
-  }
-  .timetableSpalteWrap::-webkit-scrollbar {
-    width: 0;
   }
   .timetableSpalte {
     display: inline-block;
@@ -2169,7 +2167,7 @@ footer {
       box-shadow: none;
       display: block;
       margin-bottom: 7vw;
-      font-size: $fontSize5 * 2.5;
+      font-size: $fontSize5 * 1.8;
       line-height: $lineHeight5 * 1.5;
       padding: $padding * 0.7 * $scaleFactor $padding * 4 * $scaleFactor * 1.5;
       border-radius: none;
@@ -2177,7 +2175,7 @@ footer {
       border-color: transparent;
       color: rgba(var(--color2));
       filter: blur(1px);
-      text-shadow: rgba(var(--color4)) 0 0 2vw;
+      text-shadow: rgba(var(--color2)) 0 0 2vw;
       border-radius: 0;
     }
   }
@@ -2195,9 +2193,18 @@ footer {
     animation: none;
     filter: none;
     text-shadow: none;
+    @media (orientation: portrait) {
+      color: rgba(var(--color4));
+      background: transparent;
+      filter: blur(1px);
+      text-shadow: rgba(var(--color4)) 0 0 2vw;
+    }
   }
   a.bubble.active:hover {
-    color: rgba(var(--color4));
+    background: rgba(var(--color4));
+    @media (orientation: portrait) {
+      background: transparent;
+    }
   }
 }
 
@@ -2482,6 +2489,9 @@ body.startpage {
         margin-bottom: -1vw;
       }
     }
+    a:hover {
+      color: rgba(var(--color4));
+    }
   }
 
   .logos {
@@ -2517,7 +2527,8 @@ body.startpage {
       }
     }
     a:hover {
-      text-shadow: 0 0 10px rgba(var(--color2));
+      text-shadow: 0 0 10px rgba(var(--color4));
+      color: rgba(var(--color4));
     }
     span {
       @media (orientation: portrait) {
