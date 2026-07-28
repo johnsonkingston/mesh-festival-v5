@@ -1455,7 +1455,8 @@ ul {
       box-shadow: 0 0 10px rgba(var(--color2));
       margin: $padding;
       @media (orientation: portrait) {
-        width: 49%;
+        width: 48%;
+        border-radius: $padding * $scaleFactor;
       }
 
       .left,
@@ -1464,8 +1465,7 @@ ul {
         padding: $padding;
         color: rgba(var(--color2));
         @media (orientation: portrait) {
-          padding: $padding * 3 * $scaleFactor $padding * 3 * $scaleFactor
-            $padding * 3 * $scaleFactor $padding * 5 * $scaleFactor;
+          padding: $padding * $scaleFactor;
         }
         h3,
         h4 {

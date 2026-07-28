@@ -1630,7 +1630,8 @@ ul {
 }
 @media (orientation: portrait) {
   .artists main .artist {
-    width: 49%;
+    width: 48%;
+    border-radius: 1.25vw;
   }
 }
 .artists main .artist .left,
@@ -1643,7 +1644,7 @@ ul {
   .artists main .artist .left,
   .artists main .artist .middle,
   .artists main .artist .right {
-    padding: 3.75vw 3.75vw 3.75vw 6.25vw;
+    padding: 1.25vw;
   }
 }
 .artists main .artist .left h3,
