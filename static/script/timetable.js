@@ -41,6 +41,11 @@ function filterTimetableAll(){
 
 
 //Day slider
+function setActiveDayNav(index){
+    $('.dayNavItem').removeClass('active');
+    $('.dayNavItem[data-day-index="'+index+'"]').addClass('active');
+}
+
 function slideDay(direction){
     var track = $('.timetableSliderTrack');
     if(!track.length) return;
@@ -49,6 +54,15 @@ function slideDay(direction){
     var current = Math.round(track.scrollLeft() / slideWidth);
     var next = Math.min(Math.max(current + direction, 0), slides.length - 1);
     track.animate({ scrollLeft: next * slideWidth }, 300);
+    setActiveDayNav(next);
+}
+
+function goToDay(index){
+    var track = $('.timetableSliderTrack');
+    if(!track.length) return;
+    var slideWidth = track.width();
+    track.animate({ scrollLeft: index * slideWidth }, 300);
+    setActiveDayNav(index);
 }
 
 //Timeline
@@ -67,7 +81,7 @@ function setTimeline(){
         console.log(month);
         console.log(day);
         $('#time').show();
-        let topSet = $('#timetableHourline'+day+'-'+hour).offset().top-$('#filters').height();
+        let topSet = $('#timetableHourline'+day+'-'+hour).offset().top-$('.timetableSpalteWrap').first().offset().top;
         topSet = topSet/emHeight;
         console.log($('#time'));
         //$('#time').css('top',topSet+'em');
@@ -209,7 +223,7 @@ function shrink(){
                 //console.log('#timetableHourline'+firstInRow[key].day+'-'+Math.floor(firstInRow[key].hour));
                 //console.log(firstInRow[key].id);
 
-                var topMargin = $('#timetableHourline'+firstInRow[key].day+'-'+Math.floor(firstInRow[key].hour)).offset().top-$('#filters').height();
+                var topMargin = $('#timetableHourline'+firstInRow[key].day+'-'+Math.floor(firstInRow[key].hour)).offset().top-$('.timetableSpalteWrap').first().offset().top;
                 topMargin = topMargin/emHeight;
 
 
@@ -222,7 +236,7 @@ function shrink(){
     $( '.EventTimetableA').each(function( index ) {
         var day = $(this).attr('data-day');
         var hour =  $(this).attr('data-hour');
-        var topMargin =  $('#timetableHourline'+day+'-'+Math.floor(hour)).offset().top-$('#filters').height();
+        var topMargin =  $('#timetableHourline'+day+'-'+Math.floor(hour)).offset().top-$('.timetableSpalteWrap').first().offset().top;
         topMargin = topMargin/emHeight;
         $(this).attr('data-topedit',topMargin);
         $(this).css('top',$(this).attr('data-topedit')+'em');
@@ -269,6 +283,14 @@ function runShrink(){
 
 $( document ).ready(function() {
     runShrink();
+
+    $('.timetableSliderTrack').on('scroll', function(){
+        var track = $(this);
+        var slideWidth = track.width();
+        if(!slideWidth) return;
+        var current = Math.round(track.scrollLeft() / slideWidth);
+        setActiveDayNav(current);
+    });
 
     if(format !== 'none'){
         filterTimetable(format,$('#filter-'+format));

@@ -9,11 +9,12 @@ html(lang=language[0])
         - var hourStart = 10;
         - var hoursPerDay = 17;
         - var dayOutput = {16: ['Mittwoch, 16. Oktober', 'Thursday'], 17: ['Donnerstag, 17. Oktober', 'Thursday'], 18: ['Freitag, 18. Oktober', 'Thursday'], 19: ['Samstag, 19. Oktober', 'Thursday'], 20: ['Sonntag, 20. Oktober', 'Thursday']}
+        - var dayAbbr = {16: 'Mi', 17: 'Do', 18: 'Fr', 19: 'Sa', 20: 'So'};
         - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights'];
         - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights']};
 
         - var id = 1;
-        #filters
+        //#filters
             .bubble#filteropen(onclick="toggleFilter()") Filter
 
             .mediumpill.bubble.active#filterAll(onclick="filterTimetableAll()",data-all='1')='All'
@@ -25,17 +26,18 @@ html(lang=language[0])
         //-     img(src=imgURL+"5850ee5c-5b08-4fe4-ad9b-186dcf9044ab.png",onclick="$('#map').hide();")
 
         main
+            #dayNav
+                each day, dayIndex in [16,17,18,19,20]
+                    .dayNavItem(class=dayIndex==0?'active':'',data-day-index=dayIndex,onclick="goToDay("+dayIndex+")")
+                        span.dayAbbr= dayAbbr[day]
+                        span.dayFull= dayOutput[day][0]
             .timetableSlider
-                div.timetableSliderArrow.timetableSliderArrowPrev(onclick="slideDay(-1)",role="button",tabindex="0",aria-label="Previous day")
-                    div
-                    div
+
                 .timetableSliderTrack
                     //day
                     each day, dayIndex in [16,17,18,19,20]
                         .timetableDaySlide(data-day-index=dayIndex)
                             div(class="timetableDay")
-                                .date
-                                    h1=dayOutput[day][0]
                                 - var n = hourStart;
                                 .timetableHourlineWrap(data-hour=n)
                                     while n < hoursPerDay+hourStart+1
@@ -76,11 +78,11 @@ html(lang=language[0])
                                                                         else
                                                                             .EventTimetableContent !{event.translations[0].Content}
                                                                     else
-                                                                        h2.artist='• '+event.Artist
                                                                         if(formatsTranslation[event.Format] !== undefined)
                                                                             h3.format=formatsTranslation[event.Format][languageParameter]
+                                                                        h2.artist='• '+event.Artist
                                                                         if(venues[event.Venues[0].Venues_id] !== undefined)
-                                                                            //h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id].Name
+                                                                            h3.time=venues[event.Venues[0].Venues_id].Name
                                                                 - hourBefore = event.HourEnd
                                                                 - firstEventInColumn = false
                                                                 - id++
@@ -105,15 +107,13 @@ html(lang=language[0])
                                                                     else
                                                                         .EventTimetableContent !{event.translations[0].Content}
                                                                 else
-                                                                    h2.artist='• '+event.Artist
                                                                     if(formatsTranslation[event.Format] !== undefined)
                                                                         h3.format=formatsTranslation[event.Format][languageParameter]
+                                                                    h2.artist='• '+event.Artist
                                                                     if(venues[event.Venues[0].Venues_id] !== undefined)
-                                                                        //h3.time=+event.Hour+':'+event.Minute+' / '+venues[event.Venues[0].Venues_id].Name
+                                                                        h3.time=venues[event.Venues[0].Venues_id].Name
                                                         - hourBefore = event.HourEnd
                                                         - firstEventInColumn = false
                                                         - id++
-                div.timetableSliderArrow.timetableSliderArrowNext(onclick="slideDay(1)",role="button",tabindex="0",aria-label="Next day")
-                    div
-                    div
+
         include includes/footer.pug

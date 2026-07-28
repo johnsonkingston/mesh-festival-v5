@@ -1,7 +1,7 @@
 //version 5.0.0
 const express = require("express");
 const app = express();
-const serverPort = 8080;
+const serverPort = process.env.PORT || 8080;
 
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
@@ -774,6 +774,21 @@ app.get("/:language?", async function (req, res) {
       }
     }
 
+    var translation = result.data.translations
+      ? result.data.translations[languageObject[1]]
+      : null;
+
+    var mapLogos = (entries) =>
+      (entries || [])
+        .map((entry) => entry.directus_files_id)
+        .filter((file) => file)
+        .map((file) => ({
+          src: "https://env-9468449.appengine.flow.ch/assets/" + file.id,
+          href: file.description || null,
+          title: file.title || file.filename_download || "",
+          tags: file.tags || [],
+        }));
+
     if (result) {
       res.render("startpage", {
         data: result.data,
@@ -784,6 +799,12 @@ app.get("/:language?", async function (req, res) {
         events: [],
         venues: [],
         format: [],
+        initiative: translation ? translation.Logos_Line_1_Title : null,
+        sponsor: translation ? translation.Logos_Line_2_Title : null,
+        logosLine1: mapLogos(result.data.Logos_Line_1),
+        logosLine2: mapLogos(result.data.Logos_Line_2),
+        logosLine3: result.data.Logos_Line_3 || null,
+        logosLine3Title: translation ? translation.Logos_Line_3_Title : null,
       });
     }
   } catch (err) {

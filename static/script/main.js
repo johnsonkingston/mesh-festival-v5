@@ -17,7 +17,13 @@ function toggleNav() {
 }
 
 $(window).keydown(function(){
-    if (event.keyCode == 27) toggleNav();
+    if (event.keyCode == 27) {
+        if ($('#eventOverlay').hasClass('open')) {
+            closeEventOverlay();
+        } else {
+            toggleNav();
+        }
+    }
 });
 
 

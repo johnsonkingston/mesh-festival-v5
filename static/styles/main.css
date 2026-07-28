@@ -154,14 +154,11 @@ ul {
 
 a.bubble,
 div.bubble {
-  font-size: 4vw;
+  font-size: 3vw;
   line-height: 3.2vw;
   color: rgba(var(--color2));
-  filter: blur(1px);
   padding-right: 1vw;
-  animation: bubbleAnimation 2s ease-in-out infinite alternate;
-  text-shadow: 0 0 1px rgba(var(--color2));
-  transition: filter 0.4s ease, text-shadow 0.4s ease;
+  padding-left: 0.5vw;
 }
 @media (orientation: portrait) {
   a.bubble,
@@ -191,6 +188,7 @@ div.bubble {
   animation: none;
   filter: blur(0px);
   text-shadow: 0 0 10px rgba(var(--color4));
+  color: rgba(var(--color4));
 }
 
 .blur {
@@ -295,7 +293,7 @@ div.bubble {
 /*PAGE + VISIT*/
 .page main,
 .visit main {
-  width: 48%;
+  width: 46%;
   background: rgba(var(--color3));
   margin-left: calc(52% - 1vw);
   min-height: 100vh;
@@ -887,7 +885,7 @@ div.bubble {
 .event main {
   background: rgba(var(--color1));
   margin-top: 0;
-  padding-top: 5vw;
+  padding-top: 2vw;
 }
 @media (orientation: portrait) {
   .event main {
@@ -1103,19 +1101,71 @@ ul {
 }
 
 .timetable {
-  background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
-  background-attachment: fixed;
+  background: rgba(var(--color3));
   font-size: 1.3vh;
 }
 .timetable main {
   height: calc(100vh - 4.5vw);
   margin-top: 4.5vw;
+  display: flex;
+  flex-direction: column;
 }
 @media (orientation: portrait) {
   .timetable main {
     height: calc(100vh - 12.5vw);
     margin-top: 12.5vw;
   }
+}
+.timetable #dayNav {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5vw;
+  padding: 0.25vw 0;
+}
+@media (orientation: portrait) {
+  .timetable #dayNav {
+    gap: 0.625vw;
+    padding: 0.625vw 0;
+  }
+}
+.timetable #dayNav .dayNavItem {
+  cursor: pointer;
+  font-size: 1.8vw;
+  line-height: 2.1vw;
+  white-space: nowrap;
+  color: rgba(var(--color2));
+  padding: 0.25vw 0.75vw;
+  border-radius: 0.5vw;
+  transition: all 0.2s ease;
+}
+@media (orientation: portrait) {
+  .timetable #dayNav .dayNavItem {
+    font-size: 4.5vw;
+    line-height: 5.25vw;
+    padding: 0.625vw 1.25vw;
+  }
+}
+.timetable #dayNav .dayNavItem .dayFull {
+  display: none;
+}
+.timetable #dayNav .dayNavItem:hover {
+  color: rgba(var(--color4));
+}
+.timetable #dayNav .dayNavItem.active {
+  background: rgba(var(--color2));
+  color: rgba(var(--color1));
+}
+.timetable #dayNav .dayNavItem.active .dayAbbr {
+  display: none;
+}
+.timetable #dayNav .dayNavItem.active .dayFull {
+  display: inline;
+}
+.timetable #dayNav .dayNavItem.active:hover {
+  background: rgba(var(--color4));
+  color: rgba(var(--color1));
 }
 .timetable h1,
 .timetable h2,
@@ -1130,7 +1180,8 @@ ul {
 }
 .timetable .timetableSlider {
   position: relative;
-  height: 100%;
+  flex: 1 1 0;
+  min-height: 0;
 }
 .timetable .timetableSliderTrack {
   display: flex;
@@ -1203,7 +1254,7 @@ ul {
 }
 .timetable .timetableSpalteWrap {
   position: absolute;
-  top: 4.5vw;
+  top: 0;
   z-index: 2;
   margin-left: 4vw;
   width: 95vw;
@@ -1215,7 +1266,7 @@ ul {
   .timetable .timetableSpalteWrap {
     margin-left: 7vw;
     width: 93vw;
-    top: 8.5vw;
+    top: 0;
   }
 }
 .timetable .timetableSpalteWrap::-webkit-scrollbar {
@@ -1299,6 +1350,7 @@ ul {
   margin-top: 0;
   padding-bottom: 0.25vw;
   margin-left: 1.2vw;
+  text-align: right;
 }
 .timetable .EventTimetable .EventTimetableContent h5,
 .timetable .EventTimetable .EventTimetableContent h6 {
@@ -1318,7 +1370,7 @@ ul {
   border-radius: 0.5vw;
   padding: 0.25vw;
   display: block;
-  margin-bottom: 0.25vw;
+  margin-top: 0.25vw;
   box-shadow: 0 0 10px;
   background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
   hyphens: none;
@@ -1358,6 +1410,9 @@ ul {
 .timetable .EventTimetable:hover {
   height: auto !important;
   z-index: 10;
+}
+.timetable .EventTimetable:hover .time {
+  display: block;
 }
 .timetable .EventTimetableA {
   display: block;
@@ -1475,12 +1530,15 @@ ul {
 }
 .timetable .time {
   padding-bottom: 0.25vw;
-  padding-top: 0;
+  padding-top: 0.25vw;
+  display: none;
 }
 .timetable .format {
   text-transform: capitalize;
   margin-top: 0;
   padding: 0 0.5vw 0 0;
+  margin-top: 0.25vw;
+  text-align: right;
 }
 .timetable .timetableHourlineWrap {
   width: 98vw;
@@ -1565,7 +1623,11 @@ ul {
 /*ARTISTS */
 .artists main {
   padding-top: 4vw;
-  margin-bottom: 4.5vw;
+  padding-bottom: 4.5vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  max-width: calc(100% - 2vw);
+  background: rgba(var(--color3));
 }
 @media (orientation: portrait) {
   .artists main {
@@ -1578,7 +1640,7 @@ ul {
   font-family: "FreeSans-JK";
   font-size: 3vw;
   line-height: 3.3vw;
-  margin: 1.5vw 0 0 1.5vw;
+  margin: 1.5vw 0 0 0.5vw;
   filter: none;
 }
 @media (orientation: portrait) {
@@ -1592,7 +1654,12 @@ ul {
 .artists main .artist {
   display: inline-flex;
   align-items: center;
-  width: 20%;
+  width: calc(20% - 1vw);
+  background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
+  color: rgba(var(--color2));
+  border-radius: 0.5vw;
+  box-shadow: 0 0 10px rgba(var(--color2));
+  margin: 0.5vw;
 }
 @media (orientation: portrait) {
   .artists main .artist {
@@ -1602,7 +1669,7 @@ ul {
 .artists main .artist .left,
 .artists main .artist .middle,
 .artists main .artist .right {
-  padding: 0.5vw 1.5vw 1.5vw 1.5vw;
+  padding: 0.5vw;
   color: rgba(var(--color2));
 }
 @media (orientation: portrait) {
@@ -2273,6 +2340,81 @@ footer a {
   visibility: hidden;
 }
 
+#eventOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  cursor: pointer;
+}
+#eventOverlay.open {
+  display: block;
+}
+
+#eventOverlayFrame {
+  position: absolute;
+  top: 4vw;
+  left: 4vw;
+  right: 4vw;
+  bottom: 4vw;
+  width: calc(100% - 8vw);
+  height: calc(100% - 8vw);
+  border: none;
+  border-radius: 1vw;
+  box-shadow: 0 0 3vw rgba(var(--color2));
+  background: rgba(var(--color3));
+  cursor: auto;
+}
+@media (orientation: portrait) {
+  #eventOverlayFrame {
+    top: 2vw;
+    left: 2vw;
+    right: 2vw;
+    bottom: 2vw;
+    width: calc(100% - 4vw);
+    height: calc(100% - 4vw);
+    border-radius: 2.5vw;
+  }
+}
+
+#eventOverlayClose {
+  position: fixed;
+  top: 1.3vw;
+  right: 2vw;
+  z-index: 2001;
+  width: 1.8vw;
+  height: 1.8vw;
+  cursor: pointer;
+}
+@media (orientation: portrait) {
+  #eventOverlayClose {
+    top: 0.6vw;
+    right: 1vw;
+    width: 5vw;
+    height: 5vw;
+  }
+}
+#eventOverlayClose div {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 0.3vw;
+  background: rgba(var(--color2));
+  box-shadow: 0 0 0.5vw rgba(var(--color2));
+}
+@media (orientation: portrait) {
+  #eventOverlayClose div {
+    height: 0.8vw;
+  }
+}
+#eventOverlayClose div:nth-child(1) {
+  transform: rotate(45deg);
+}
+#eventOverlayClose div:nth-child(2) {
+  transform: rotate(-45deg);
+}
+
 #startpageNav {
   position: fixed;
   left: 0;
@@ -2281,14 +2423,13 @@ footer a {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 0.5vw;
   height: 2.9vw;
   width: 100%;
   overflow: hidden;
   background: rgba(var(--color1));
   box-shadow: 0 0 1vw rgba(var(--color2));
   margin-right: 0.5vw;
-  height: 3vw;
+  height: 3.2vw;
 }
 #startpageNav a {
   display: inline-block;
@@ -2314,6 +2455,7 @@ footer a {
 #startpageNav a.bubble,
 #startpageNav div.bubble {
   box-shadow: rgba(var(--color2)) 1vw 0 1vw;
+  border-radius: 0.5vw;
 }
 @media (orientation: portrait) {
   #startpageNav a.bubble,
@@ -2342,6 +2484,16 @@ footer a {
     top: 2vw;
     font-size: 10vw;
   }
+}
+#startpageNav a.bubble.active {
+  background: rgba(var(--color2));
+  color: rgba(var(--color1));
+  animation: none;
+  filter: none;
+  text-shadow: none;
+}
+#startpageNav a.bubble.active:hover {
+  color: rgba(var(--color4));
 }
 
 body.startpage {
@@ -2607,21 +2759,28 @@ body.startpage #statementContent {
   }
 }
 body.startpage .statement {
-  color: rgb(140, 110, 255);
   padding-top: 0;
   padding-bottom: 5vw;
   height: auto;
 }
+body.startpage .statement h1,
+body.startpage .statement h2,
+body.startpage .statement h3 {
+  filter: none;
+}
 body.startpage .statement h1 {
   font-family: "FreeSerif-JK";
-  color: rgba(var(--color2));
+  font-size: 6vw;
+  line-height: 6.3vw;
+}
+body.startpage .statement h2 {
+  font-size: 3vw;
+  line-height: 3.3vw;
 }
 body.startpage .statement h3 {
-  font-family: "FreeSans-JK";
-  font-size: 1.8vw;
-  line-height: 2.1vw;
-  color: rgba(var(--color2));
-  text-align: center;
+  font-size: 3vw;
+  line-height: 3.3vw;
+  font-family: "FreeSerif-JK";
 }
 @media (orientation: portrait) {
   body.startpage .statement h3 {
@@ -2633,6 +2792,16 @@ body.startpage .statement strong {
   font-weight: normal;
   font-family: "FreeSerif-JK";
   font-size: 112%;
+}
+body.startpage .statement a {
+  color: rgba(var(--color2));
+  border-bottom: 0.3vw dotted;
+}
+@media (orientation: portrait) {
+  body.startpage .statement a {
+    border-bottom: 1vw dotted;
+    margin-bottom: -1vw;
+  }
 }
 body.startpage .logos {
   margin-top: 0;
@@ -2690,6 +2859,14 @@ body.startpage .logos a:hover {
     transform: translateX(-100%);
   }
 }
+@keyframes move2 {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
 body.startpage .logos .logobannerOuter {
   width: 100%;
   overflow: hidden;
@@ -2703,8 +2880,8 @@ body.startpage .logos .logobannerInner {
   width: fit-content;
   white-space: nowrap;
 }
-body.startpage .logos .logobannerOuter:last-of-type .logobannerInner {
-  animation: startpage-move 20s linear infinite;
+body.startpage .logos .logobannerInnerSecond {
+  animation: move2 40s linear infinite;
 }
 body.startpage .logos .logobannerOuter:hover .logobannerInner {
   animation-play-state: paused;

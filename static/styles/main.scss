@@ -176,16 +176,11 @@ ul {
 // }
 a.bubble,
 div.bubble {
-  font-size: $fontSize4;
+  font-size: $fontSize3;
   line-height: 3.2vw;
   color: rgba(var(--color2));
-  filter: blur(1px);
   padding-right: $padding * 2;
-  animation: bubbleAnimation 2s ease-in-out infinite alternate;
-  text-shadow: 0 0 1px rgba(var(--color2));
-  transition:
-    filter 0.4s ease,
-    text-shadow 0.4s ease;
+  padding-left: $padding;
   @media (orientation: portrait) {
     font-size: $fontSize5;
     line-height: $lineHeight5;
@@ -212,6 +207,7 @@ div.bubble {
   animation: none;
   filter: blur(0px);
   text-shadow: 0 0 10px rgba(var(--color4));
+  color: rgba(var(--color4));
 }
 
 .blur {
@@ -307,7 +303,7 @@ div.bubble {
 .page,
 .visit {
   main {
-    width: 48%;
+    width: 46%;
     background: rgba(var(--color3));
     margin-left: calc(52% - 1vw);
     min-height: 100vh;
@@ -755,7 +751,7 @@ div.bubble {
   main {
     background: rgba(var(--color1));
     margin-top: 0;
-    padding-top: 5vw;
+    padding-top: 2vw;
     @media (orientation: portrait) {
       padding-top: 2vw;
       margin-top: 0;
@@ -956,20 +952,64 @@ ul {
 }
 
 .timetable {
-  background: linear-gradient(
-    0deg,
-    rgba(var(--color1)) 0%,
-    rgba(var(--color3)) 50%
-  );
-  background-attachment: fixed;
+  background: rgba(var(--color3));
   font-size: 1.3vh;
 
   main {
     height: calc(100vh - 4.5vw);
     margin-top: 4.5vw;
+    display: flex;
+    flex-direction: column;
     @media (orientation: portrait) {
       height: calc(100vh - 12.5vw);
       margin-top: 12.5vw;
+    }
+  }
+  #dayNav {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $padding;
+    padding: $padding * 0.5 0;
+    @media (orientation: portrait) {
+      gap: $padding * $scaleFactor * 0.5;
+      padding: $padding * $scaleFactor * 0.5 0;
+    }
+    .dayNavItem {
+      cursor: pointer;
+      font-size: $fontSize2;
+      line-height: $lineHeight2;
+      white-space: nowrap;
+      color: rgba(var(--color2));
+      padding: calc($padding/2) $padding * 1.5;
+      border-radius: 0.5vw;
+      transition: all 0.2s ease;
+      @media (orientation: portrait) {
+        font-size: $fontSize2 * $scaleFactor;
+        line-height: $lineHeight2 * $scaleFactor;
+        padding: calc($padding/2) * $scaleFactor $padding * $scaleFactor;
+      }
+      .dayFull {
+        display: none;
+      }
+    }
+    .dayNavItem:hover {
+      color: rgba(var(--color4));
+    }
+    .dayNavItem.active {
+      background: rgba(var(--color2));
+      color: rgba(var(--color1));
+      .dayAbbr {
+        display: none;
+      }
+      .dayFull {
+        display: inline;
+      }
+    }
+    .dayNavItem.active:hover {
+      background: rgba(var(--color4));
+      color: rgba(var(--color1));
     }
   }
   h1,
@@ -985,7 +1025,8 @@ ul {
   }
   .timetableSlider {
     position: relative;
-    height: 100%;
+    flex: 1 1 0;
+    min-height: 0;
   }
   .timetableSliderTrack {
     display: flex;
@@ -1056,7 +1097,7 @@ ul {
   }
   .timetableSpalteWrap {
     position: absolute;
-    top: 4.5vw;
+    top: 0;
     z-index: 2;
     margin-left: 4vw;
     width: 95vw;
@@ -1066,7 +1107,7 @@ ul {
     @media (orientation: portrait) {
       margin-left: 7vw;
       width: 93vw;
-      top: 8.5vw;
+      top: 0;
     }
   }
   .timetableSpalteWrap::-webkit-scrollbar {
@@ -1140,6 +1181,7 @@ ul {
         margin-top: 0;
         padding-bottom: $padding * 0.5;
         margin-left: 1.2vw;
+        text-align: right;
       }
       h5,
       h6 {
@@ -1158,7 +1200,7 @@ ul {
       border-radius: $padding;
       padding: $padding * 0.5;
       display: block;
-      margin-bottom: $padding * 0.5;
+      margin-top: $padding * 0.5;
       box-shadow: 0 0 10px;
       background: linear-gradient(
         0deg,
@@ -1197,6 +1239,9 @@ ul {
   .EventTimetable:hover {
     height: auto !important;
     z-index: 10;
+    .time {
+      display: block;
+    }
   }
   .EventTimetableA {
     display: block;
@@ -1310,12 +1355,15 @@ ul {
   }
   .time {
     padding-bottom: $padding * 0.5;
-    padding-top: 0;
+    padding-top: $padding * 0.5;
+    display: none;
   }
   .format {
     text-transform: capitalize;
     margin-top: 0;
     padding: 0 $padding 0 0;
+    margin-top: $padding/2;
+    text-align: right;
   }
   .timetableHourlineWrap {
     width: 98vw;
@@ -1396,7 +1444,12 @@ ul {
 .artists {
   main {
     padding-top: 4vw;
-    margin-bottom: 4.5vw;
+    padding-bottom: 4.5vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    max-width: calc(100% - 2vw);
+    background: rgba(var(--color3));
+
     @media (orientation: portrait) {
       margin-top: 0;
     }
@@ -1407,7 +1460,7 @@ ul {
       font-family: "FreeSans-JK";
       font-size: $fontSize3;
       line-height: $lineHeight3;
-      margin: $padding * 3 0 0 $padding * 3;
+      margin: $padding * 3 0 0 $padding;
       filter: none;
       @media (orientation: portrait) {
         width: auto;
@@ -1420,7 +1473,16 @@ ul {
     .artist {
       display: inline-flex;
       align-items: center;
-      width: 20%;
+      width: calc(20% - 1vw);
+      background: linear-gradient(
+        0deg,
+        rgba(var(--color1)) 0%,
+        rgba(var(--color3)) 50%
+      );
+      color: rgba(var(--color2));
+      border-radius: 0.5vw;
+      box-shadow: 0 0 10px rgba(var(--color2));
+      margin: $padding;
       @media (orientation: portrait) {
         width: 49%;
       }
@@ -1428,7 +1490,7 @@ ul {
       .left,
       .middle,
       .right {
-        padding: $padding $padding * 3 $padding * 3 $padding * 3;
+        padding: $padding;
         color: rgba(var(--color2));
         @media (orientation: portrait) {
           padding: $padding * 3 * $scaleFactor $padding * 3 * $scaleFactor
@@ -2004,6 +2066,73 @@ footer {
     visibility: hidden;
   }
 }
+#eventOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  cursor: pointer;
+  &.open {
+    display: block;
+  }
+}
+#eventOverlayFrame {
+  position: absolute;
+  top: 4vw;
+  left: 4vw;
+  right: 4vw;
+  bottom: 4vw;
+  width: calc(100% - 8vw);
+  height: calc(100% - 8vw);
+  border: none;
+  border-radius: $padding * 2;
+  box-shadow: 0 0 3vw rgba(var(--color2));
+  background: rgba(var(--color3));
+  cursor: auto;
+  @media (orientation: portrait) {
+    top: 2vw;
+    left: 2vw;
+    right: 2vw;
+    bottom: 2vw;
+    width: calc(100% - 4vw);
+    height: calc(100% - 4vw);
+    border-radius: $padding * $scaleFactor * 2;
+  }
+}
+#eventOverlayClose {
+  position: fixed;
+  top: 1.3vw;
+  right: 2vw;
+  z-index: 2001;
+  width: 1.8vw;
+  height: 1.8vw;
+  cursor: pointer;
+  @media (orientation: portrait) {
+    top: 0.6vw;
+    right: 1vw;
+    width: 5vw;
+    height: 5vw;
+  }
+  div {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 0.3vw;
+    background: rgba(var(--color2));
+    box-shadow: 0 0 0.5vw rgba(var(--color2));
+    @media (orientation: portrait) {
+      height: 0.8vw;
+    }
+  }
+  div:nth-child(1) {
+    transform: rotate(45deg);
+  }
+  div:nth-child(2) {
+    transform: rotate(-45deg);
+  }
+}
+
 #startpageNav {
   position: fixed;
   left: 0;
@@ -2012,14 +2141,13 @@ footer {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: $padding;
   height: 2.9vw;
   width: 100%;
   overflow: hidden;
   background: rgba(var(--color1));
   box-shadow: 0 0 1vw rgba(var(--color2));
   margin-right: 0.5vw;
-  height: 3vw;
+  height: 3.2vw;
   a {
     display: inline-block;
     text-decoration: none;
@@ -2058,6 +2186,7 @@ footer {
   a.bubble,
   div.bubble {
     box-shadow: rgba(var(--color2)) 1vw 0 1vw;
+    border-radius: 0.5vw;
     @media (orientation: portrait) {
       box-shadow: none;
       display: block;
@@ -2081,6 +2210,16 @@ footer {
       top: 2vw;
       font-size: $fontSize4 * $scaleFactor;
     }
+  }
+  a.bubble.active {
+    background: rgba(var(--color2));
+    color: rgba(var(--color1));
+    animation: none;
+    filter: none;
+    text-shadow: none;
+  }
+  a.bubble.active:hover {
+    color: rgba(var(--color4));
   }
 }
 
@@ -2325,20 +2464,27 @@ body.startpage {
   }
 
   .statement {
-    color: rgba(140, 110, 255, 1);
     padding-top: 0;
     padding-bottom: 5vw;
     height: auto;
+    h1,
+    h2,
+    h3 {
+      filter: none;
+    }
     h1 {
       font-family: "FreeSerif-JK";
-      color: rgba(var(--color2));
+      font-size: $fontSize4 * 1.5;
+      line-height: $lineHeight4 * 1.5;
+    }
+    h2 {
+      font-size: $fontSize3;
+      line-height: $lineHeight3;
     }
     h3 {
-      font-family: "FreeSans-JK";
-      font-size: $fontSize2;
-      line-height: $lineHeight2;
-      color: rgba(var(--color2));
-      text-align: center;
+      font-size: $fontSize3;
+      line-height: $lineHeight3;
+      font-family: "FreeSerif-JK";
       @media (orientation: portrait) {
         font-size: $fontSize2 * $scaleFactor;
         line-height: $lineHeight2 * $scaleFactor;
@@ -2348,6 +2494,15 @@ body.startpage {
       font-weight: normal;
       font-family: "FreeSerif-JK";
       font-size: 112%;
+    }
+    a {
+      color: rgba(var(--color2));
+      border-bottom: 0.3vw dotted;
+
+      @media (orientation: portrait) {
+        border-bottom: 1vw dotted;
+        margin-bottom: -1vw;
+      }
     }
   }
 
@@ -2401,7 +2556,14 @@ body.startpage {
         transform: translateX(-100%);
       }
     }
-
+    @keyframes move2 {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(0%);
+      }
+    }
     .logobannerOuter {
       width: 100%;
       overflow: hidden;
@@ -2414,10 +2576,8 @@ body.startpage {
       width: fit-content;
       white-space: nowrap;
     }
-    .logobannerOuter:last-of-type {
-      .logobannerInner {
-        animation: startpage-move 30s linear infinite;
-      }
+    .logobannerInnerSecond {
+      animation: move2 40s linear infinite;
     }
 
     .logobannerOuter:hover .logobannerInner {

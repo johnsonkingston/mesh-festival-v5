@@ -7,7 +7,7 @@ nav#startpageNav
     if navigation && navigation[languageParameter] && navigation[languageParameter].Menu
         each item in navigation[languageParameter].Menu
             if item.Visible !== false
-                a.bubble(href=baseURL+(item.URL || ''))= item.Title
+                a.bubble(class=(item.URL || '') == (data.pathname || '') ? 'active' : '',href=baseURL+(item.URL || ''))= item.Title
     - var newLang = language[0] == 'en' ? 'de' : 'en'
     - var langHref = baseURL + (data.pathname ? data.pathname + '/' : '') + newLang
     a#lang.bubble(href=langHref)= newLang.toUpperCase()

@@ -100,11 +100,11 @@ p{
     opacity: 1;
 }
 .columnVideo{
-    top:0;
+    margin-top:5vw;
     left:0;
     overflow:hidden;
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 5vw);
     background: url(../img/mesh-festival-background.jpg);
     background-size: contain;
     @media (orientation: portrait) {
@@ -112,14 +112,21 @@ p{
         background-position: center;
     }
 }
+.no-news .columnVideo{
+    margin-top:0;
+    height: 100vh;
+}
 .columnTitle{
     position: absolute;
-    top:0;
+    top:4.2vw;
     text-align: left;
     max-height: 100vh;
     height: 100vh;
     width: 100vw;
     overflow: scroll;
+    @media (orientation: portrait) {
+        top: 10.2vw;
+    }
     h1,h2,h3{
         color: black;
     }
@@ -141,7 +148,7 @@ p{
         line-height: 7.5vh;
         width: 48%;
         position: absolute;
-        bottom:0.5vw;
+        bottom:5vw;
         right:0;
         padding-bottom: 0;
         color:rgba(var(--color6));
@@ -151,7 +158,7 @@ p{
                     width: 50vw;
                     position: relative;
                     margin-left: 58%;
-                    margin-top: -11vw;          
+                    margin-top: -6vw;          
                 }
     }
     h4{
@@ -161,16 +168,22 @@ p{
         line-height: 2.2vw;
         text-align: left;
         position: absolute;
-        top: calc(100vh - 3vw);
+        bottom: 5.5vw;
         left: 1vw;
          color:rgba(var(--color6));
                @media (orientation: portrait) {
                     font-size: 5vw;
                     line-height: 5vw;
                     width: 70vw;
-                    top: calc(100vh - 11.5vw);
+                    top: calc(100vh - 21.5vw);
                     left: 2vw;
                 }
+    }
+}
+.no-news .columnTitle{
+    top:0;
+    @media (orientation: portrait) {
+        top: 0;
     }
 }
 ul.navigation{
@@ -541,16 +554,59 @@ label{
         width:90%;
         margin-left:5%;
     }
-    h3{
+    h2{
+        line-height: $lineHeight2;
+        padding: 0;
+        background: transparent;
+        overflow: visible;
+        margin-top: $lineHeight2*0.5;
+        @media (orientation: portrait) {
+            margin-top: $lineHeight2*0.5*$scaleFactor;  
+            line-height: $lineHeight2*$scaleFactor*1.2; 
+        }
+    }
+    h3, p{
         color:rgba(var(--color1));
         transition: color 1s linear;
+        line-height: $lineHeight2;
+        padding: 0;
+        margin-top: $lineHeight2*0.5;
+        @media (orientation: portrait) {
+            line-height: $lineHeight2*$scaleFactor;
+            font-size: $fontSize2*$scaleFactor;
+            margin-top: $lineHeight2*0.5*$scaleFactor;
+
+        }
     }
     img{
         margin-top:10vw;
         width:80%;
     }
-    b{
-        text-shadow: 0 0 5px rgba(var(--color5));
+    b, strong{
+        font-family: 'FreeSerif-JK';
+        font-size: 112%;
+    }
+    blockquote{
+        margin: 0;
+        p{
+            display: inline-block;
+            width: 22%;
+            vertical-align: top;
+            font-size: $fontSize1;
+            line-height: $lineHeight1;
+            margin: 0;
+            margin-right: 2%;
+            @media (orientation: portrait) {
+                margin: 0;
+                margin-right: 5%;
+                margin-bottom: 5vw;
+                width: 44%;
+                line-height: $lineHeight1*$scaleFactor;
+                font-size: $fontSize1*$scaleFactor;
+
+            }
+        }
+
     }
 }
 .contact{
@@ -738,10 +794,71 @@ label{
      -2px 2px 0 #f00,
       2px 2px 0 #f00;
 }
+#newsTicker{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 20;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: white;
+    padding: $padding/2 0;
+    .newsTickerTrack{
+        display: inline-flex;
+        animation: newsTickerMove 30s linear infinite;
+    }
+    .newsTickerInner{
+        display: inline-flex;
+        flex-shrink: 0;
+        padding-right: $padding*10;
+        color: rgba(var(--color1));
+        font-size: $fontSize0;
+        line-height: $lineHeight0;
+        p{
+            font-size: $fontSize2;
+            line-height: $lineHeight2;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: $padding;
+            @media (orientation: portrait) {
+                font-size: $fontSize2*$scaleFactor;
+                line-height: $lineHeight2*$scaleFactor;
+                margin-right: $padding*$scaleFactor;
+            }
+        }
+        em{
+            margin-left: $padding*4;
+            margin-right: $padding;
+            font-style: normal;
+            font-family: "FreeSerif-JK";
+            @media (orientation: portrait) {
+                margin-left: $padding*4*$scaleFactor;
+                margin-right: $padding*$scaleFactor;
+            }
+        }
+        * {
+            display: inline;
+        }
+    }
+    &:hover .newsTickerTrack{
+        animation-play-state: paused;
+    }
+    @media (orientation: portrait) {
+        .newsTickerInner{
+            font-size: $fontSize0*$scaleFactor;
+            line-height: $lineHeight0*$scaleFactor;
+        }
+    }
+}
+@keyframes newsTickerMove {
+    from {transform: translateX(0)}
+    to {transform: translateX(-50%)}
+}
 #lang, #insta, #mesh2024,#unmute, #calltoaction{
     position: fixed;
     right: $padding;
-    top: $padding;
+    top: 5.8vw;
     padding: $padding $padding*2 $padding $padding*2;
     border-radius: $lineHeight1;
     font-size: $fontSize1;
@@ -757,6 +874,7 @@ label{
         padding: $padding*$scaleFactor;       
         width: auto;      
         border-radius: $lineHeight1*$scaleFactor*2;
+        top: 12.8vw;
     }
     a{
         color: rgba(var(--color6));
@@ -771,7 +889,7 @@ label{
 }
 #insta, #mesh2024{
     right: $padding;
-    top: 4.5vw;
+    top: 9.5vw;
         @media (orientation: portrait) {
             top:auto;
             bottom: 1.5vw;
@@ -788,6 +906,7 @@ label{
     color:rgba(var(--color6));
     @media (orientation: portrait) {
         top: 70%;
+        text-align: center;
     }
 }
 #calltoaction:hover{
