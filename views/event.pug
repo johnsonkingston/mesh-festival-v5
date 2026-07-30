@@ -29,14 +29,14 @@ html(lang=language[0])
                     
                     if data.Venues.length > 0
                         p= data.Venues[0].Venues_id.Name
-                    p= data.translations[languageParameter].Price
+                    //p= data.translations[languageParameter].Price
                 
                 .eventHeaderColumn
-                    if data.translations[languageParameter].Seats_available !== ''
+                    //if data.translations[languageParameter].Seats_available !== ''
                         p= data.translations[languageParameter].Seats_available
-                    p= data.translations[languageParameter].Audience
-                    p= data.translations[languageParameter].Language
-                    if data.Ticketlink !== null
+                    //p= data.translations[languageParameter].Audience
+                    //p= data.translations[languageParameter].Language
+                    //if data.Ticketlink !== null
                         if data.Format == 'konferenz'
                             #ticketlink(onclick='openticket("'+data.Ticketlink+'","show",false);').smallpill Buy Conference Ticket
                         else if data.Format == 'ausstellungen'
