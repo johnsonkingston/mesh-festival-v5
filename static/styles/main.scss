@@ -1108,35 +1108,6 @@ ul {
     vertical-align: top;
     padding-bottom: 3vw;
   }
-  .timetableSpalte10 {
-    position: absolute;
-    left: 0;
-    z-index: -1;
-  }
-  .timetableSpalte20 {
-    margin-left: -13vw;
-    @media (orientation: portrait) {
-      margin-left: -20vw;
-    }
-  }
-  .timetableSpalte11 {
-    margin-left: -13vw;
-    @media (orientation: portrait) {
-      margin-left: -20vw;
-    }
-  }
-  .timetableSpalte14 {
-    margin-left: -13vw;
-    @media (orientation: portrait) {
-      margin-left: -20vw;
-    }
-  }
-  .timetableSpalte25 {
-    margin-left: -13vw;
-    @media (orientation: portrait) {
-      margin-left: -20vw;
-    }
-  }
   .timetableSpalteFilter {
     margin-left: 0 !important;
   }
@@ -1231,19 +1202,6 @@ ul {
     display: block;
     white-space: normal;
     position: absolute;
-  }
-  .EventTimetableASingle.Aperformances {
-    left: 39vw;
-    @media (orientation: portrait) {
-      left: 60vw;
-    }
-  }
-  .EventTimetableASingle.Aausstellungen {
-    left: 52vw;
-    @media (orientation: portrait) {
-      left: 80vw;
-      z-index: -1;
-    }
   }
   .Aclubnights {
     height: 11em !important;

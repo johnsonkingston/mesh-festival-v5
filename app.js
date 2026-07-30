@@ -583,6 +583,18 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
     }
     //console.log('Code: '+result.data[0].translations[0].languages_code.code);
 
+    //Fallback if only one translation exists in the CMS
+    if (!result.data[0].translations[1]) {
+      result.data[0].translations[1] = JSON.parse(
+        JSON.stringify(result.data[0].translations[0]),
+      );
+    }
+    if (!result.data[0].translations[0]) {
+      result.data[0].translations[0] = JSON.parse(
+        JSON.stringify(result.data[0].translations[1]),
+      );
+    }
+
     //Transformations
     //Price
     if (result.data[0].Price == 0) {
