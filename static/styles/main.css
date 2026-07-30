@@ -20,6 +20,10 @@
   --hourHeight: 7vw;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 html {
   background: rgba(var(--color3));
   overscroll-behavior: none;
@@ -356,8 +360,6 @@ div.bubble {
 .page main h5,
 .page main h6,
 .page main table,
-.page main tr,
-.page main td,
 .page main video,
 .page main iframe,
 .visit main ul,
@@ -369,8 +371,6 @@ div.bubble {
 .visit main h5,
 .visit main h6,
 .visit main table,
-.visit main tr,
-.visit main td,
 .visit main video,
 .visit main iframe {
   padding-left: 0.5vw;
