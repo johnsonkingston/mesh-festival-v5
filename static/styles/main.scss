@@ -1211,7 +1211,8 @@ ul {
   .EventTimetable:hover {
     height: auto !important;
     z-index: 10;
-    .time {
+    .time,
+    h4 {
       display: block;
     }
   }
@@ -1270,7 +1271,8 @@ ul {
     }
   }
   h2,
-  h3 {
+  h3,
+  h4 {
     font-family: "FreeSans-JK";
     font-size: $fontSize1;
     line-height: 1.2vw;
@@ -1287,6 +1289,7 @@ ul {
     font-size: $fontSize1 * $serifFactor;
   }
   h3,
+  h4,
   h6 {
     font-size: $fontSizeMicro;
     line-height: 0.8vw;
@@ -1301,7 +1304,8 @@ ul {
   .title {
     margin-top: 0;
   }
-  .time {
+  .time,
+  h4 {
     padding-bottom: $padding * 0.5;
     padding-top: $padding * 0.5;
     display: none;
