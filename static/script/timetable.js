@@ -69,7 +69,7 @@ function setTimeline() {
 
   day++;
   day++;
-  let emHeight = $(".timetableHourline").height() / 7;
+  let emHeight = $(".timetableHourline").height() / originalHeight;
 
   if (month == 9 && day > 13 && day < 19) {
     console.log(month);
@@ -90,7 +90,7 @@ let firstInRow = [];
 let EarliestEvent = {};
 let LastestEvent = {};
 var shrinkHeight = 1.3;
-var originalHeight = 7;
+var originalHeight = hourHeight;
 var reductionHeight = originalHeight - shrinkHeight;
 var rowWidth = 13;
 if ($(window).width() < $(window).outerHeight()) {
@@ -180,7 +180,7 @@ function shrink() {
   };
   $(".timetableHourline").height(originalHeight + "em");
 
-  var emHeight = $(".timetableHourline").height() / 7;
+  var emHeight = $(".timetableHourline").height() / originalHeight;
   //console.log('emHeight: '+emHeight);
 
   for (const keyDay in days) {

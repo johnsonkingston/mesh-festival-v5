@@ -1204,8 +1204,8 @@ ul {
       }
     }
     p {
-      font-size: $fontSize1;
-      line-height: 1.2vw;
+      font-size: $fontSizeMicro;
+      line-height: $lineHeightMicro;
       margin-block-start: 0;
       margin-block-end: 0;
       hyphens: none;
@@ -1287,8 +1287,8 @@ ul {
   h3,
   h4 {
     font-family: "FreeSans-JK";
-    font-size: $fontSize1;
-    line-height: 1.2vw;
+    font-size: $fontSizeMicro;
+    line-height: $lineHeightMicro;
     text-align: left;
     margin-left: $padding;
     margin-right: $padding;
@@ -1299,7 +1299,7 @@ ul {
   }
   .title {
     font-family: "FreeSerif-JK";
-    font-size: $fontSize1 * $serifFactor;
+    font-size: $fontSizeMicro * $serifFactor;
   }
   h3,
   h4,
