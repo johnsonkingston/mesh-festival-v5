@@ -88,6 +88,20 @@ async function getVenues() {
   }
 }
 
+async function getVenuesOverview() {
+  const response = await fetch(
+    "https://env-9468449.appengine.flow.ch/items/Venues/?filter[In_Overview][_eq]=true&fields[]=*.*",
+  );
+  if (!response.ok) {
+    console.log("Response not okay");
+    const data = "";
+    return data;
+  } else {
+    const data = await response.json();
+    return data;
+  }
+}
+
 //Navigation
 async function getNavigation() {
   const response = await fetch(
@@ -229,37 +243,6 @@ function rewriteDate(event, subkey) {
   return event;
 }
 
-app.get("/locations/:language?", async function (req, res) {
-  var pathname = req.originalUrl;
-  language = req.params.language || "de";
-  languageObject = [language, languageTransform(language)];
-
-  try {
-    result = await getAllEvents();
-    navigation = await getNavigation();
-    footer = await getFooter();
-    venues = await getVenues();
-
-    result.data[0].pathname = langRemove(pathname);
-
-    if (result.data[0]) {
-      res.render("locations", {
-        data: result.data[0],
-        events: events,
-        navigation: navigation.data,
-        footer: footer.data,
-        language: languageObject,
-        highlights: [],
-        venues: venues.data,
-        format: [],
-      });
-    }
-  } catch (err) {
-    console.error(err);
-    res.redirect("/");
-  }
-});
-
 app.get("/timetable/:language?/:format?", async function (req, res) {
   var pathname = req.originalUrl;
   language = req.params.language || "de";
@@ -379,6 +362,96 @@ app.get("/artists/:language?/", async function (req, res) {
 
     if (result.data[0]) {
       res.render("artists", {
+        data: result.data[0],
+        events: events,
+        navigation: navigation.data,
+        footer: footer.data,
+        language: languageObject,
+        highlights: [],
+        venues: venues.data,
+        format: [],
+      });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+//Ausstellungen
+async function getAusstellungenArtists() {
+  const response = await fetch(
+    "https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*.*&limit=1000",
+  );
+  if (!response.ok) {
+    console.log("Response not okay");
+    const data = "";
+    return data;
+  } else {
+    const data = await response.json();
+
+    events = data.data;
+    let artists = [];
+
+    for (const [key, value] of Object.entries(events)) {
+      if (
+        events[key].Artists_in_List !== null &&
+        events[key].status == "published" &&
+        events[key].Format == "ausstellungen"
+      ) {
+        var artist = [];
+        for (const [keyArtist, valueArtist] of Object.entries(
+          events[key].Artists_in_List,
+        )) {
+          if (valueArtist.First_name == undefined) {
+            artist.First_Name = "";
+          } else {
+            artist.First_Name = valueArtist.First_name;
+          }
+
+          artist.Name = valueArtist.Name;
+          artist.Format = value.Format;
+          artist.Thema = value.Thema;
+          artist.slug = value.slug;
+          artist.Title =
+            value.translations && value.translations[0]
+              ? value.translations[0].Title
+              : "";
+          artist.Venues = value.Venues;
+          artists.push(structuredClone(artist));
+        }
+      }
+    }
+
+    artists.sort((a, b) => {
+      var aThema = a.Thema || "";
+      var bThema = b.Thema || "";
+      if (aThema !== bThema) return aThema.localeCompare(bThema);
+      return a.Name.localeCompare(b.Name);
+    });
+
+    events = artists;
+
+    return data;
+  }
+}
+
+app.get("/ausstellungen/:language?/", async function (req, res) {
+  var pathname = req.originalUrl;
+  language = req.params.language || "de";
+  languageObject = [language, languageTransform(language)];
+
+  try {
+    result = await getAusstellungenArtists();
+    navigation = await getNavigation();
+    footer = await getFooter();
+    venues = await getVenues();
+
+    language = req.params.language || "de";
+
+    result.data[0].pathname = langRemove(pathname);
+
+    if (result.data[0]) {
+      res.render("ausstellungen", {
         data: result.data[0],
         events: events,
         navigation: navigation.data,
@@ -525,7 +598,17 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
     languageObject = [language, languageTransform(language)];
     if (result.data[0]) {
       //console.log(languageObject);
-      var template = pageSlug === "visit" ? "visit" : "page";
+      var template =
+        pageSlug === "visit"
+          ? "visit"
+          : pageSlug === "locations"
+            ? "locations"
+            : "page";
+      var venuesOverview = [];
+      if (pageSlug === "locations") {
+        var venuesOverviewResult = await getVenuesOverview();
+        venuesOverview = venuesOverviewResult.data || [];
+      }
       res.render(template, {
         data: result.data[0],
         navigation: navigation.data,
@@ -533,7 +616,7 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         language: languageObject,
         highlights: [],
         events: [],
-        venues: [],
+        venues: venuesOverview,
         format: [],
       });
     }

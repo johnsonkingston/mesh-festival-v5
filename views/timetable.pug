@@ -1,6 +1,6 @@
 html(lang=language[0])
     include includes/head.pug
-    - var hourHeight = 4;
+    - var hourHeight = 5;
     script.
         var hourHeight = #{hourHeight};
     script(src=baseURL+"static/script/timetable.js")
@@ -86,9 +86,10 @@ html(lang=language[0])
                                                                 if(formatsTranslation[event.Format] !== undefined)
                                                                     h3.format=formatsTranslation[event.Format][languageParameter]
                                                                 h2.title='• '+event.translations[languageParameter] !== undefined ? '• '+event.translations[languageParameter].Title : '• '+event.translations[0].Title
-                                                                h2.artist=event.Artist
+                                                                //h2.artist=event.Artist
+                                                                - var hourEndDisplay = ('0' + (Math.floor(event.HourEnd) % 24)).slice(-2)
                                                                 if(venues[event.Venues[0].Venues_id] !== undefined)
-                                                                    h3.time!=event.Hour+':'+(event.Minute || '00')+' <br>'+venues[event.Venues[0].Venues_id].Name
+                                                                    h3.time!=event.Hour+':'+(event.Minute || '00')+'&ndash;'+hourEndDisplay+':'+(event.MinuteEnd || '00')+' / '+venues[event.Venues[0].Venues_id].Name
                                                     - hourBefore = event.HourEnd
                                                     - firstEventInColumn = false
                                                     - id++
