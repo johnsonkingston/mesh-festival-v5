@@ -4,6 +4,10 @@ html(lang=language[0])
     body.visit
         include includes/sitenav.pug
 
+        if data.Main_Image
+            .splashImage
+                img(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen', alt=data.Main_Image.title)
+
         main
             if data.translations.length > 0
                 if(data.translations[languageParameter] === undefined)

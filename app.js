@@ -212,7 +212,10 @@ function rewriteDate(event, subkey) {
   }
 
   if (event.Time[subkey].End !== undefined) {
+    var endDay = event.Time[subkey].End.split("-")[2].substring(0, 2);
+    var dayOffset = endDay !== event.Day ? 24 : 0;
     event.HourEnd =
+      dayOffset +
       parseInt(event.Time[subkey].End.split("-")[2].substring(3, 5)) +
       parseInt(event.Time[subkey].End.split(":")[1]) / 60;
 

@@ -5,18 +5,18 @@ html(lang=language[0])
     body.timetable(data-size='1')
         include includes/sitenav.pug
 
-        - var hourHeight = 7;
+        - var hourHeight = 6;
         - var hourStart = 9;
         - var hoursPerDay = 17;
         - var dayOutput = {14: ['Mittwoch, 14. Oktober', 'Wednesday'], 15: ['Donnerstag, 15. Oktober', 'Thursday'], 16: ['Freitag, 16. Oktober', 'Friday'], 17: ['Samstag, 17. Oktober', 'Saturday'], 18: ['Sonntag, 18. Oktober', 'Sunday']}
         - var dayAbbr = {14: 'Mi', 15: 'Do', 16: 'Fr', 17: 'Sa', 18: 'So'};
         - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights'];
-        - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights'], workshops: ['Workshops','Workshops']};
+        - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights'], workshops: ['Workshop','Workshop'], workshop: ['Workshop','Workshop']};
 
         - var themaSlug = function(thema){ return thema.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); };
         - var themaList = [];
         - events.forEach(function(e){ if(e.status == 'published' && e.In_Timetable && e.Thema && themaList.indexOf(e.Thema) === -1){ themaList.push(e.Thema); } });
-        - themaList.sort();
+        - themaList.sort().reverse();
 
         - var id = 1;
         //#filters
