@@ -6,7 +6,7 @@ html(lang=language[0])
         - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights']};
 
         main
-            each currentDay in [16,17,18,19,20]
+            each currentDay in [14,15,16,17,18]
                 h1=currentDay
                 each val in ['ausstellungen', 'konferenz', 'performances',  'diskurs', 'screenings', 'clubnights']
                     h2=formatsTranslation[val][0]

@@ -6,12 +6,17 @@ html(lang=language[0])
         include includes/sitenav.pug
 
         - var hourHeight = 7;
-        - var hourStart = 10;
+        - var hourStart = 9;
         - var hoursPerDay = 17;
-        - var dayOutput = {16: ['Mittwoch, 16. Oktober', 'Thursday'], 17: ['Donnerstag, 17. Oktober', 'Thursday'], 18: ['Freitag, 18. Oktober', 'Thursday'], 19: ['Samstag, 19. Oktober', 'Thursday'], 20: ['Sonntag, 20. Oktober', 'Thursday']}
-        - var dayAbbr = {16: 'Mi', 17: 'Do', 18: 'Fr', 19: 'Sa', 20: 'So'};
+        - var dayOutput = {14: ['Mittwoch, 14. Oktober', 'Wednesday'], 15: ['Donnerstag, 15. Oktober', 'Thursday'], 16: ['Freitag, 16. Oktober', 'Friday'], 17: ['Samstag, 17. Oktober', 'Saturday'], 18: ['Sonntag, 18. Oktober', 'Sunday']}
+        - var dayAbbr = {14: 'Mi', 15: 'Do', 16: 'Fr', 17: 'Sa', 18: 'So'};
         - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights'];
         - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights'], workshops: ['Workshops','Workshops']};
+
+        - var themaSlug = function(thema){ return thema.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); };
+        - var themaList = [];
+        - events.forEach(function(e){ if(e.status == 'published' && e.In_Timetable && e.Thema && themaList.indexOf(e.Thema) === -1){ themaList.push(e.Thema); } });
+        - themaList.sort();
 
         - var id = 1;
         //#filters
@@ -27,7 +32,7 @@ html(lang=language[0])
 
         main
             #dayNav
-                each day, dayIndex in [16,17,18,19,20]
+                each day, dayIndex in [14,15,16,17,18]
                     .dayNavItem(class=dayIndex==0?'active':'',data-day-index=dayIndex,onclick="goToDay("+dayIndex+")")
                         span.dayAbbr= dayAbbr[day]
                         span.dayFull= dayOutput[day][0]
@@ -35,7 +40,7 @@ html(lang=language[0])
 
                 .timetableSliderTrack
                     //day
-                    each day, dayIndex in [16,17,18,19,20]
+                    each day, dayIndex in [14,15,16,17,18]
                         .timetableDaySlide(data-day-index=dayIndex)
                             div(class="timetableDay")
                                 - var n = hourStart;
@@ -51,40 +56,39 @@ html(lang=language[0])
                                 #time
 
                             .timetableSpalteWrap
-                                //venue
-                                each val in [23,21,12,19,3,4,5,6,8,11,1,9,13,7,14,15,16,17,18,20,22,24,25,26,2,27,10]
-                                    - var hourBefore = hourStart
-                                    - var firstEventInColumn = true
-                                    .timetableSpalte(class="timetableSpalte"+val)
-                                        each event in events
-                                            if(event.Venues[0] !== undefined)
-                                                if(event.status == 'published' && event.In_Timetable && event.Venues[0].Venues_id == val && event.Hour !== '' && event.Day == day)
+                                //thema
+                                each thema in themaList
+                                    - var dayEvents = events.filter(function(e){ return e.Venues[0] !== undefined && e.status == 'published' && e.In_Timetable && e.Thema == thema && e.Hour !== '' && e.Day == day; })
+                                    if dayEvents.length > 0
+                                        - var hourBefore = hourStart
+                                        - var firstEventInColumn = true
+                                        .timetableSpalte(class="timetableSpalte"+themaSlug(thema))
+                                            .timetableSpalteLabel= thema
+                                            each event in dayEvents
+                                                - var eventHour = parseInt(event.Hour) + (parseInt(event.Minute)/60)
+                                                - var effHour = eventHour < hourStart ? hourStart : eventHour
+                                                - var minuteOffset = effHour - Math.floor(effHour)
+                                                - if(firstEventInColumn) var hourMargin = effHour - hourStart
+                                                - else var hourMargin = effHour - hourBefore
+                                                - if(event.Timetable_only !== '1') var Timetable_only = true
 
-                                                    - var eventHour = parseInt(event.Hour) + (parseInt(event.Minute)/60)
-                                                    - var effHour = eventHour < hourStart ? hourStart : eventHour
-                                                    - var minuteOffset = effHour - Math.floor(effHour)
-                                                    - if(firstEventInColumn) var hourMargin = effHour - hourStart
-                                                    - else var hourMargin = effHour - hourBefore
-                                                    - if(event.Timetable_only !== '1') var Timetable_only = true
-
-
-                                                    #{event.Timetable_only == '1' ? 'div' : 'a'}(href=baseURL+'events/'+event.slug+'/'+language[0])
-                                                        .EventTimetableA(class='A'+event.Format,style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-venue=event.Venues[0].Venues_id,data-id=id,id="Event-"+id)
-                                                            .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
-                                                                if(event.Timetable_only == '1')
-                                                                    if(event.translations[languageParameter] !== undefined)
-                                                                        .EventTimetableContent !{event.translations[languageParameter].Content}
-                                                                    else
-                                                                        .EventTimetableContent !{event.translations[0].Content}
+                                                #{event.Timetable_only == '1' ? 'div' : 'a'}(href=baseURL+'events/'+event.slug+'/'+language[0])
+                                                    .EventTimetableA(class='A'+event.Format,style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-column=themaSlug(thema),data-id=id,id="Event-"+id)
+                                                        .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
+                                                            if(event.Timetable_only == '1')
+                                                                if(event.translations[languageParameter] !== undefined)
+                                                                    .EventTimetableContent !{event.translations[languageParameter].Content}
                                                                 else
-                                                                    if(formatsTranslation[event.Format] !== undefined)
-                                                                        h3.format=formatsTranslation[event.Format][languageParameter]
-                                                                    h2.title='• '+event.translations[languageParameter] !== undefined ? '• '+event.translations[languageParameter].Title : '• '+event.translations[0].Title
-                                                                    h2.artist=event.Artist
-                                                                    if(venues[event.Venues[0].Venues_id] !== undefined)
-                                                                        h3.time!=event.Hour+':'+(event.Minute || '00')+' <br>'+venues[event.Venues[0].Venues_id].Name
-                                                            - hourBefore = event.HourEnd
-                                                            - firstEventInColumn = false
-                                                            - id++
+                                                                    .EventTimetableContent !{event.translations[0].Content}
+                                                            else
+                                                                if(formatsTranslation[event.Format] !== undefined)
+                                                                    h3.format=formatsTranslation[event.Format][languageParameter]
+                                                                h2.title='• '+event.translations[languageParameter] !== undefined ? '• '+event.translations[languageParameter].Title : '• '+event.translations[0].Title
+                                                                h2.artist=event.Artist
+                                                                if(venues[event.Venues[0].Venues_id] !== undefined)
+                                                                    h3.time!=event.Hour+':'+(event.Minute || '00')+' <br>'+venues[event.Venues[0].Venues_id].Name
+                                                    - hourBefore = event.HourEnd
+                                                    - firstEventInColumn = false
+                                                    - id++
 
         include includes/footer.pug

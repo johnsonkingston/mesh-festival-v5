@@ -71,7 +71,7 @@ function setTimeline() {
   day++;
   let emHeight = $(".timetableHourline").height() / 7;
 
-  if (month == 9 && day > 15 && day < 21) {
+  if (month == 9 && day > 13 && day < 19) {
     console.log(month);
     console.log(day);
     $("#time").show();
@@ -100,29 +100,29 @@ if ($(window).width() < $(window).outerHeight()) {
 function getFirstByColumn() {
   firstInRow.length = 0;
 
-  var venueBefore = "";
+  var columnBefore = "";
   var dayBefore = "";
   for (const property in eventsJS) {
-    if (venueBefore !== eventsJS[property].venue) {
-      var venue = eventsJS[property].venue;
+    if (columnBefore !== eventsJS[property].column) {
+      var column = eventsJS[property].column;
       var id = eventsJS[property].id;
       var day = eventsJS[property].day;
       var hour = eventsJS[property].hour;
       var firstInRowElement = true;
-      firstInRow.push({ venue, id, day, hour, firstInRowElement });
+      firstInRow.push({ column, id, day, hour, firstInRowElement });
     } else if (
-      venueBefore !== eventsJS[property].venue ||
+      columnBefore !== eventsJS[property].column ||
       dayBefore !== eventsJS[property].day
     ) {
-      var venue = eventsJS[property].venue;
+      var column = eventsJS[property].column;
       var id = eventsJS[property].id;
       var day = eventsJS[property].day;
       var hour = eventsJS[property].hour;
       var firstInRowElement = false;
-      firstInRow.push({ venue, id, day, hour, firstInRowElement });
+      firstInRow.push({ column, id, day, hour, firstInRowElement });
     }
 
-    venueBefore = eventsJS[property].venue;
+    columnBefore = eventsJS[property].column;
     dayBefore = eventsJS[property].day;
   }
   //console.log(firstInRow);
@@ -130,11 +130,11 @@ function getFirstByColumn() {
 
 function getEarliestEvent() {
   EarliestEvent = {
+    14: { hour: 100 },
+    15: { hour: 100 },
     16: { hour: 100 },
     17: { hour: 100 },
     18: { hour: 100 },
-    19: { hour: 100 },
-    20: { hour: 100 },
   };
 
   for (const property in eventsJS) {
@@ -150,11 +150,11 @@ function getEarliestEvent() {
 
 function getLastestEvent() {
   LastestEvent = {
+    14: { hourEnd: 0 },
+    15: { hourEnd: 0 },
     16: { hourEnd: 0 },
     17: { hourEnd: 0 },
     18: { hourEnd: 0 },
-    19: { hourEnd: 0 },
-    20: { hourEnd: 0 },
   };
 
   for (const property in eventsJS) {
@@ -169,14 +169,14 @@ function getLastestEvent() {
 }
 
 function shrink() {
-  var days = [16, 17, 18, 19, 20];
+  var days = [14, 15, 16, 17, 18];
   var totalShrink = {
+    14: 0,
+    15: 0,
     16: 0,
     17: 0,
     18: 0,
     19: 0,
-    20: 0,
-    21: 0,
   };
   $(".timetableHourline").height(originalHeight + "em");
 
@@ -222,7 +222,7 @@ function shrink() {
       $("#Event-" + firstInRow[key].id).attr("data-topedit", topMargin);
       $(
         ".timetableSpalte" +
-          $("#Event-" + firstInRow[key].id).attr("data-venue"),
+          $("#Event-" + firstInRow[key].id).attr("data-column"),
       ).width(rowWidth + "vw");
     }
   }
@@ -255,10 +255,10 @@ function getElements() {
     if ($(this).children(".EventTimetable").is(":visible")) {
       var day = $(this).attr("data-day");
       var hour = $(this).attr("data-hour");
-      var venue = $(this).attr("data-venue");
+      var column = $(this).attr("data-column");
       var id = $(this).attr("data-id");
       var hourEnd = $(this).attr("data-end");
-      eventsJS.push({ day, hour, hourEnd, venue, id });
+      eventsJS.push({ day, hour, hourEnd, column, id });
     }
   });
 }
