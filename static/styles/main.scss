@@ -1056,6 +1056,9 @@ ul {
 .timetable {
   background: rgba(var(--color3));
   font-size: 1.3vh;
+  @media (orientation: portrait) {
+    font-size: 1.7vh;
+  }
   a:hover {
     text-shadow: rgba(var(--color4)) 0 0 5px;
     color: rgba(var(--color4));
@@ -1090,9 +1093,10 @@ ul {
       padding: calc($padding/2) $padding * 1.5;
       border-radius: 0.5vw;
       @media (orientation: portrait) {
-        font-size: $fontSize2 * $scaleFactor;
-        line-height: $lineHeight2 * $scaleFactor;
-        padding: calc($padding/2) * $scaleFactor $padding * $scaleFactor;
+        font-size: $fontSize2 * $scaleFactor * 1.3;
+        line-height: $lineHeight2 * $scaleFactor * 1.3;
+        padding: calc($padding/2) * $scaleFactor * 1.3 $padding * $scaleFactor *
+          1.3;
       }
       .dayFull {
         display: none;
@@ -1110,6 +1114,14 @@ ul {
       }
       .dayFull {
         display: inline;
+      }
+      @media (orientation: portrait) {
+        .dayAbbr {
+          display: inline;
+        }
+        .dayFull {
+          display: none;
+        }
       }
     }
     .dayNavItem.active:hover {
@@ -1236,7 +1248,7 @@ ul {
     text-align: center;
     @media (orientation: portrait) {
       top: -5.5vw;
-      width: 26vw;
+      width: 38vw;
       font-size: $fontSize1 * $scaleFactor;
       line-height: $lineHeight1 * $scaleFactor;
     }
@@ -1259,7 +1271,7 @@ ul {
     overflow: hidden;
     height: 100%;
     @media (orientation: portrait) {
-      width: 27vw;
+      width: 38vw;
       margin-right: $padding * 0.5 * $scaleFactor;
       margin-left: $padding * 0.5 * $scaleFactor;
       border-radius: $padding * $scaleFactor;
@@ -1437,19 +1449,35 @@ ul {
   .timetableHourlineWrap {
     width: 98vw;
     overflow: hidden;
+    @media (orientation: portrait) {
+      overflow: visible;
+    }
     .timetableHourline {
       color: rgba(var(--color2));
       background-image: url("../img/timetableBackground.svg");
       background-size: cover;
       background-repeat: repeat;
       width: 99vw;
+      @media (orientation: portrait) {
+        width: 100%;
+      }
       .hourlineChar {
         font-size: $fontSizeMicro;
         text-align: right;
         width: 2vw;
         @media (orientation: portrait) {
           font-size: $fontSizeMicro * $scaleFactor;
-          width: 2vw * $scaleFactor;
+          width: 2.5vw * $scaleFactor;
+          height: 100%;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          position: sticky;
+          left: 0;
+          z-index: 3;
+          background: rgba(var(--color3));
+          padding-right: $padding * $scaleFactor * 0.5;
         }
       }
     }
@@ -2284,7 +2312,7 @@ footer {
       box-shadow: none;
       display: block;
       margin-bottom: 7vw;
-      font-size: $fontSize5 * 1.8;
+      font-size: $fontSize5 * 1.4;
       line-height: $lineHeight5 * 1.5;
       padding: $padding * 0.7 * $scaleFactor $padding * 4 * $scaleFactor * 1.5;
       border-radius: none;
@@ -2317,6 +2345,8 @@ footer {
       background: transparent;
       filter: blur(1px);
       text-shadow: rgba(var(--color4)) 0 0 2vw;
+      padding: $padding * 0.7 * $scaleFactor $padding * 4 * $scaleFactor * 1.5;
+      margin-left: 0;
     }
   }
 

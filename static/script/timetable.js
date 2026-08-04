@@ -94,7 +94,7 @@ var originalHeight = hourHeight;
 var reductionHeight = originalHeight - shrinkHeight;
 var rowWidth = 15;
 if ($(window).width() < $(window).outerHeight()) {
-  var rowWidth = 28;
+  var rowWidth = 39;
 }
 
 function getFirstByColumn() {
@@ -242,6 +242,30 @@ function shrink() {
     var slideHeight = $(this).find(".timetableHourlineWrap").height();
     $(this).find(".timetableSpalte").height(slideHeight);
   });
+
+  syncHourlineWidth();
+}
+
+// Widens each day's hour-line grid to match the full scrollable width of
+// its event columns, so the grid lines run under every column and the
+// sticky hour labels (CSS: position:sticky) stay pinned to the left edge
+// while scrolling horizontally through a day.
+function syncHourlineWidth() {
+  var isMobile = $(window).width() < $(window).outerHeight();
+  $(".timetableDaySlide").each(function () {
+    var $slide = $(this);
+    var $hourlineWrap = $slide.find(".timetableHourlineWrap");
+    if (!isMobile) {
+      $hourlineWrap.css("width", "");
+      return;
+    }
+    var contentWidth = 0;
+    $slide.find(".timetableSpalte").each(function () {
+      contentWidth += $(this).outerWidth(true);
+    });
+    contentWidth = Math.max(contentWidth, $slide.width());
+    $hourlineWrap.css("width", contentWidth + "px");
+  });
 }
 
 function getElements() {
@@ -293,7 +317,7 @@ $(document).ready(function () {
 
   //Hover fix mobile
   if ($(window).width() < $(window).outerHeight()) {
-    rowWidth = 28;
+    rowWidth = 39;
     $(".timetableSpalte a").each(function (index) {
       $(this).on("click", function (event) {
         event.preventDefault();

@@ -1227,6 +1227,11 @@ ul {
   background: rgba(var(--color3));
   font-size: 1.3vh;
 }
+@media (orientation: portrait) {
+  .timetable {
+    font-size: 1.7vh;
+  }
+}
 .timetable a:hover {
   text-shadow: rgba(var(--color4)) 0 0 5px;
   color: rgba(var(--color4));
@@ -1268,9 +1273,9 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable #dayNav .dayNavItem {
-    font-size: 4.5vw;
-    line-height: 5.25vw;
-    padding: 0.625vw 1.25vw;
+    font-size: 5.85vw;
+    line-height: 6.825vw;
+    padding: 0.8125vw 1.625vw;
   }
 }
 .timetable #dayNav .dayNavItem .dayFull {
@@ -1289,6 +1294,14 @@ ul {
 }
 .timetable #dayNav .dayNavItem.active .dayFull {
   display: inline;
+}
+@media (orientation: portrait) {
+  .timetable #dayNav .dayNavItem.active .dayAbbr {
+    display: inline;
+  }
+  .timetable #dayNav .dayNavItem.active .dayFull {
+    display: none;
+  }
 }
 .timetable #dayNav .dayNavItem.active:hover {
   background: rgba(var(--color4));
@@ -1421,7 +1434,7 @@ ul {
 @media (orientation: portrait) {
   .timetable .timetableSpalteLabel {
     top: -5.5vw;
-    width: 26vw;
+    width: 38vw;
     font-size: 3vw;
     line-height: 3.5vw;
   }
@@ -1442,7 +1455,7 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable .EventTimetable {
-    width: 27vw;
+    width: 38vw;
     margin-right: 0.625vw;
     margin-left: 0.625vw;
     border-radius: 1.25vw;
@@ -1619,12 +1632,22 @@ ul {
   width: 98vw;
   overflow: hidden;
 }
+@media (orientation: portrait) {
+  .timetable .timetableHourlineWrap {
+    overflow: visible;
+  }
+}
 .timetable .timetableHourlineWrap .timetableHourline {
   color: rgba(var(--color2));
   background-image: url("../img/timetableBackground.svg");
   background-size: cover;
   background-repeat: repeat;
   width: 99vw;
+}
+@media (orientation: portrait) {
+  .timetable .timetableHourlineWrap .timetableHourline {
+    width: 100%;
+  }
 }
 .timetable .timetableHourlineWrap .timetableHourline .hourlineChar {
   font-size: 0.8vw;
@@ -1634,7 +1657,17 @@ ul {
 @media (orientation: portrait) {
   .timetable .timetableHourlineWrap .timetableHourline .hourlineChar {
     font-size: 2vw;
-    width: 5vw;
+    width: 6.25vw;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    background: rgba(var(--color3));
+    padding-right: 0.625vw;
   }
 }
 .timetable .venueLabel {
@@ -2568,7 +2601,7 @@ footer a {
     box-shadow: none;
     display: block;
     margin-bottom: 7vw;
-    font-size: 16.2vw;
+    font-size: 12.6vw;
     line-height: 13.5vw;
     padding: 0.875vw 7.5vw;
     border-radius: none;
@@ -2605,6 +2638,8 @@ footer a {
     background: transparent;
     filter: blur(1px);
     text-shadow: rgba(var(--color4)) 0 0 2vw;
+    padding: 0.875vw 7.5vw;
+    margin-left: 0;
   }
 }
 #startpageNav a.bubble.active:hover {
