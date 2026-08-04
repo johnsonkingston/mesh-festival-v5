@@ -30,7 +30,7 @@ html(lang=language[0])
                     h3.char=event.Name.substr(0,1)
                 if(formatBefore !== event.Format)
                     if(formatsTranslation[event.Format] !== undefined)
-                        h2.formatHeader=formatsTranslation[event.Format][languageParameter]
+                        h2.formatHeader.blurOrganic1=formatsTranslation[event.Format][languageParameter]
                 a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format).artistLine
                     .artist
                         //.left

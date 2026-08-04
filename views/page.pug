@@ -11,10 +11,10 @@ html(lang=language[0])
         main
             if data.translations.length > 0
                 if(data.translations[languageParameter] === undefined)
-                    h1= data.translations[0].Title
+                    h1.blurOrganic1-5= data.translations[0].Title
                     .content !{data.translations[0].Content}
                 else
-                    h1= data.translations[languageParameter].Title
+                    h1.blurOrganic1-5= data.translations[languageParameter].Title
                     .content !{data.translations[languageParameter].Content}
 
             if data.Events.length > 0

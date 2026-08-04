@@ -38,7 +38,7 @@ html(lang =lang)
                 Mesh 2024
         #calltoaction
             a(href="https://meshfestival.ch/static/html/tickets.html" target="_blank").
-                Get your Early Bird Ticket Now!
+                Get your Ticket!
 
 
         .columnVideo.mobile
@@ -82,20 +82,20 @@ html(lang =lang)
                                 else
                                     img(src=logo.src,alt=logo.title,class=logo.tags)
                     br
-                    span=sponsor
-                    div.logobannerOuter
-                        div.logobannerInner.logobannerInnerSecond
-                            each logo in logosLine2
-                                if logo.href
-                                    a(href=logo.href,target="_blank")
-                                        img(src=logo.src,alt=logo.title,class=logo.tags).logofooter
-                                else
-                                    img(src=logo.src,alt=logo.title,class=logo.tags).logofooter
+                    //- span=sponsor
+                    //- div.logobannerOuter
+                    //-     div.logobannerInner.logobannerInnerSecond
+                    //-         each logo in logosLine2
+                    //-             if logo.href
+                    //-                 a(href=logo.href,target="_blank")
+                    //-                     img(src=logo.src,alt=logo.title,class=logo.tags).logofooter
+                    //-             else
+                    //-                 img(src=logo.src,alt=logo.title,class=logo.tags).logofooter
 
-                    if logosLine3
-                        br
-                        span=logosLine3Title
-                        div.logobannerThird!= logosLine3
+                    //- if logosLine3
+                    //-     br
+                    //-     span=logosLine3Title
+                    //-     div.logobannerThird!= logosLine3
 
 
                     div.footer

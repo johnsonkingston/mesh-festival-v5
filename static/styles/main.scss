@@ -40,11 +40,95 @@ $serifFactor: 1.1;
   --color1: 254, 247, 246, 1;
   --color2: 51, 51, 51, 1;
   --color3: 240, 232, 232, 1;
-  --color4: 255, 88, 0, 1;
+  --color4: 253, 137, 119, 1;
   --hourHeight: 7vw;
 }
 ::-webkit-scrollbar {
   display: none;
+}
+@keyframes bubbleAnimation {
+  0% {
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+  }
+  50% {
+    mask-size: 80% 200%;
+    -webkit-mask-size: 80% 200%;
+  }
+  100% {
+    mask-size: 30% 100%;
+    -webkit-mask-size: 30% 100%;
+  }
+}
+
+.blurOrganic2 {
+  position: relative;
+  &::after {
+    animation: bubbleAnimation 5s infinite alternate;
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    mask-image: url("../img/blur-mask-blob2.svg");
+    -webkit-mask-image: url("../img/blur-mask-blob2.svg");
+    mask-size: 80% 80%;
+    -webkit-mask-size: 80% 80%;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-origin: border;
+    -webkit-mask-origin: border;
+  }
+}
+.blurOrganic1-5 {
+  position: relative;
+  &::after {
+    animation: bubbleAnimation 5s infinite alternate;
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    mask-image: url("../img/blur-mask-blob1-5.svg");
+    -webkit-mask-image: url("../img/blur-mask-blob1-5.svg");
+    mask-size: 80% 80%;
+    -webkit-mask-size: 80% 80%;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-origin: border;
+    -webkit-mask-origin: border;
+  }
+}
+.blurOrganic1,
+body.event .lead h2,
+body.event .lead h3,
+body.event .lead h4,
+body.event .content h2,
+body.event .content h3,
+body.event .content h4,
+body.artists .formatHeader,
+body.visit .content h2,
+body.visit .content h4 {
+  position: relative;
+  &::after {
+    animation: bubbleAnimation 5s infinite alternate;
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    mask-image: url("../img/blur-mask-blob1.svg");
+    -webkit-mask-image: url("../img/blur-mask-blob1.svg");
+    mask-size: 80% 80%;
+    -webkit-mask-size: 80% 80%;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-origin: border;
+    -webkit-mask-origin: border;
+  }
 }
 html {
   background: rgba(var(--color3));
@@ -66,7 +150,7 @@ body {
 }
 ::selection {
   color: rgba(var(--color1));
-  background: rgba(var(--color2));
+  background: rgba(var(--color4));
 }
 a {
   text-decoration: dotted underline;
@@ -189,20 +273,6 @@ div.bubble {
     line-height: $lineHeight5;
     padding: 0;
     border-radius: $fontSize5;
-  }
-}
-@keyframes bubbleAnimation {
-  0% {
-    filter: blur(3px);
-    text-shadow: 0 0 5px rgba(var(--color2));
-  }
-  10% {
-    filter: blur(1px);
-    text-shadow: 0 0 10px rgba(var(--color2));
-  }
-  100% {
-    filter: blur(0.5px);
-    text-shadow: 0 0 10px rgba(var(--color4));
   }
 }
 
@@ -844,7 +914,6 @@ h1,
 h2,
 h3 {
   font-family: "FreeSans-JK";
-  filter: blur(1px);
 }
 h3 {
   font-size: $fontSize4 * $serifFactor;
@@ -887,7 +956,7 @@ li {
 .accordeon-title {
   margin-bottom: 0;
   cursor: pointer;
-
+  filter: blur(1px);
   &::after {
     content: "";
     display: inline-block;
@@ -987,6 +1056,7 @@ ul {
   background: rgba(var(--color3));
   font-size: 1.3vh;
   a:hover {
+    text-shadow: rgba(var(--color4)) 0 0 5px;
     color: rgba(var(--color4));
   }
   main {
@@ -1760,6 +1830,14 @@ ul {
     transform: translate(-50%, 0);
   }
 }
+@keyframes newsTickerMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
 .newscontent {
   height: calc(100vh - 4.4vw);
   overflow: scroll;
@@ -2252,6 +2330,64 @@ body.startpage {
   a {
     text-decoration: none;
   }
+  #newsTicker {
+    width: 100vw;
+    z-index: 20;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: white;
+    padding: $padding * 0.5 0;
+    margin-top: -5.7vw;
+    @media (orientation: portrait) {
+      top: 0;
+    }
+    .newsTickerTrack {
+      display: inline-flex;
+      animation: newsTickerMove 30s linear infinite;
+    }
+    .newsTickerInner {
+      display: inline-flex;
+      flex-shrink: 0;
+      padding-right: $padding * 10;
+      color: rgba(var(--color2));
+      font-size: $fontSize1;
+      line-height: $lineHeight1;
+      p {
+        font-size: $fontSize2;
+        line-height: $lineHeight2;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: $padding;
+        @media (orientation: portrait) {
+          font-size: $fontSize2 * $scaleFactor;
+          line-height: $lineHeight2 * $scaleFactor;
+          margin-right: $padding * $scaleFactor;
+        }
+      }
+      em {
+        margin-left: $padding * 4;
+        margin-right: $padding;
+        font-style: normal;
+        font-family: "FreeSerif-JK";
+        @media (orientation: portrait) {
+          margin-left: $padding * 4 * $scaleFactor;
+          margin-right: $padding * $scaleFactor;
+        }
+      }
+      * {
+        display: inline;
+      }
+    }
+    &:hover .newsTickerTrack {
+      animation-play-state: paused;
+    }
+    @media (orientation: portrait) {
+      .newsTickerInner {
+        font-size: $fontSize1 * $scaleFactor;
+        line-height: $lineHeight1 * $scaleFactor;
+      }
+    }
+  }
   .columnVideo {
     top: 0;
     left: 0;
@@ -2315,9 +2451,7 @@ body.startpage {
     overflow: hidden;
     width: 100vw;
     z-index: -1;
-    background-image: url(../img/mesh-festival-gradient.jpg);
-    background-size: 100% auto;
-    background-position: top;
+
     @media (orientation: portrait) {
       top: -6.8vw;
     }
@@ -2334,8 +2468,8 @@ body.startpage {
       padding: 0;
       color: rgba(var(--color2));
       display: inline-block;
-      filter: blur(1px);
       vertical-align: top;
+      filter: none;
       @media (orientation: portrait) {
         font-size: 43vw;
         line-height: 46vw;
@@ -2391,6 +2525,7 @@ body.startpage {
   }
   .columnTitleBottom {
     background: rgba(var(--color1));
+    padding-bottom: 1vw;
     background: linear-gradient(
       180deg,
       rgba(178, 178, 178, 1) 0%,
@@ -2455,6 +2590,7 @@ body.startpage {
     background: rgba(var(--color1));
     margin-top: -10px;
     position: sticky;
+    box-shadow: 0 0 1vw rgba(var(--color2));
     @media (orientation: portrait) {
       width: 100%;
       margin-left: 0;
@@ -2540,6 +2676,7 @@ body.startpage {
       display: inline-block;
       vertical-align: middle;
       padding: $padding $padding * 4;
+      opacity: 0.9;
       @media (orientation: portrait) {
         height: 6vw;
         padding-bottom: 6vw;

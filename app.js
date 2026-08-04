@@ -903,6 +903,8 @@ app.get("/:language?", async function (req, res) {
         logosLine2: mapLogos(result.data.Logos_Line_2),
         logosLine3: result.data.Logos_Line_3 || null,
         logosLine3Title: translation ? translation.Logos_Line_3_Title : null,
+        newsContent:
+          result.data.Show_News && translation ? translation.News : null,
       });
     }
   } catch (err) {

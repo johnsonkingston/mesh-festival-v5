@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 606 333.01" preserveAspectRatio="none">
+  <!-- Generator: Adobe Illustrator 30.6.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 109)  -->
+  <defs>
+    <filter id="soften" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+  <g filter="url(#soften)">
+    <path d="M183.91,190.63c105.03-24.47-97.82-81.14,159-130,108.34-74.67,203.17,64.01,205.17,113.01,1.93,47.39-150.5,41-298,111-42.61,20.22-176.38-27.88-191-73-14.09-43.46,18.98,3.65,124.83-21.01h0Z" fill="#fff"/>
+  </g>
+  <rect width="606" height="333.01" fill="none"/>
+</svg>
