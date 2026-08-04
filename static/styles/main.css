@@ -13,9 +13,9 @@
   font-display: swap;
 }
 :root {
-  --color1: 250, 250, 250, 1;
+  --color1: 254, 247, 246, 1;
   --color2: 51, 51, 51, 1;
-  --color3: 235, 235, 235, 1;
+  --color3: 240, 232, 232, 1;
   --color4: 255, 88, 0, 1;
   --hourHeight: 7vw;
 }
@@ -482,7 +482,6 @@ div.bubble {
 .visit main .content h4 {
   font-size: 3vw;
   line-height: 3.3vw;
-  color: rgba(var(--color2));
   padding-top: 2.1vw;
   padding-bottom: 0;
 }
@@ -2463,6 +2462,7 @@ footer a {
 #startpageNav div.bubble {
   box-shadow: rgba(var(--color2)) 1vw 0 1vw;
   border-radius: 0.5vw;
+  background: rgba(var(--color1));
 }
 @media (orientation: portrait) {
   #startpageNav a.bubble,
@@ -2498,6 +2498,8 @@ footer a {
   animation: none;
   filter: none;
   text-shadow: none;
+  margin-left: -1vw;
+  padding-left: 1.5vw;
 }
 @media (orientation: portrait) {
   #startpageNav a.bubble.active {
