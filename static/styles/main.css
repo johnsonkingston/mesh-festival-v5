@@ -307,6 +307,40 @@ div.bubble {
      object-fit: cover;
 }
 
+.venueOverview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5vw;
+  padding-left: 0.5vw;
+  width: 50vw;
+  margin-left: 25vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+}
+.venueOverview .venueItem img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.venueOverview .venueItem .venueTitle {
+  margin-top: 0.25vw;
+  font-size: 1.2vw;
+  line-height: 1.4vw;
+}
+@media (orientation: portrait) {
+  .venueOverview {
+    gap: 1.25vw;
+    padding-left: 1.25vw;
+  }
+  .venueOverview .venueItem .venueTitle {
+    margin-top: 0.625vw;
+    font-size: 3vw;
+    line-height: 3.5vw;
+  }
+}
+
 /*PAGE + VISIT*/
 .page main,
 .visit main {
@@ -2875,6 +2909,10 @@ body.startpage .logos .logobannerInnerSecond {
 }
 body.startpage .logos .logobannerOuter:hover .logobannerInner {
   animation-play-state: paused;
+}
+body.startpage .logos .logobannerThird p {
+  font-size: 1.2vw;
+  line-height: 1.4vw;
 }
 body.startpage #mesh2024 {
   position: absolute;

@@ -19,7 +19,7 @@ html(lang=language[0])
                     .venueItem
                         if venue.image
                             img(src=imgURL+venue.image.filename_disk+'?key=content', alt=venue.Name)
-                        h3.venueTitle= venue.Name
+                        .caption.venueTitle= venue.Name
 
             if data.Events.length > 0
                 .eventswrapper

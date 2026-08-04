@@ -319,6 +319,10 @@ div.bubble {
   grid-template-columns: 1fr 1fr;
   gap: $padding;
   padding-left: $padding;
+  width: 50vw;
+  margin-left: 25vw;
+  padding-top: $padding * 2;
+  padding-bottom: $padding * 2;
   .venueItem {
     img {
       display: block;
@@ -2601,6 +2605,12 @@ body.startpage {
 
     .logobannerOuter:hover .logobannerInner {
       animation-play-state: paused;
+    }
+    .logobannerThird {
+      p {
+        font-size: $fontSize1;
+        line-height: $lineHeight1;
+      }
     }
   }
 
