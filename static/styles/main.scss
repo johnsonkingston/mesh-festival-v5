@@ -1417,6 +1417,10 @@ ul {
   .title {
     margin-top: 0;
     padding-top: $padding * 0.5;
+    @media (orientation: portrait) {
+      font-size: $fontSizeMicro * $serifFactor * 1.2 * $scaleFactor;
+      line-height: $lineHeightMicro * $scaleFactor;
+    }
   }
   .time,
   h4 {
