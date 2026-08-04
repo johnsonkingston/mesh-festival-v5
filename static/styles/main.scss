@@ -81,7 +81,8 @@ $serifFactor: 1.1;
     -webkit-mask-origin: border;
   }
 }
-.blurOrganic1-5 {
+.blurOrganic1-5,
+body.startpage .statement h2 {
   position: relative;
   &::after {
     animation: bubbleAnimation 5s infinite alternate;

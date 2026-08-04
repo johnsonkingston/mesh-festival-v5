@@ -59,10 +59,12 @@
   -webkit-mask-origin: border;
 }
 
-.blurOrganic1-5 {
+.blurOrganic1-5,
+body.startpage .statement h2 {
   position: relative;
 }
-.blurOrganic1-5::after {
+.blurOrganic1-5::after,
+body.startpage .statement h2::after {
   animation: bubbleAnimation 5s infinite alternate;
   content: "";
   position: absolute;
