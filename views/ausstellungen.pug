@@ -35,7 +35,7 @@ html(lang=language[0])
                     .artist
                         //.left
                         .middle
-                            //a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format)
+                            h3.format=formatsTranslation[event.Format][languageParameter]
                             h3='• '+event.First_Name+' '+event.Name
                             h4=truncateWords(event.Title, 40)
                         //.right

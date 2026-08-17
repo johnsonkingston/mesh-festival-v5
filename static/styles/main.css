@@ -1612,8 +1612,8 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable .title {
-    font-size: 2.64vw;
-    line-height: 2.5vw;
+    font-size: 3.3vw;
+    line-height: 3.5vw;
   }
 }
 .timetable .time,
@@ -1779,6 +1779,7 @@ ul {
 .artists main .artist .left,
 .artists main .artist .middle,
 .artists main .artist .right {
+  width: 100%;
   padding: 0.5vw;
   color: rgba(var(--color2));
 }
@@ -1809,6 +1810,21 @@ ul {
   .artists main .artist .right h4 {
     font-size: 4.5vw;
     line-height: 4.5vw;
+  }
+}
+.artists main .artist .left .format,
+.artists main .artist .middle .format,
+.artists main .artist .right .format {
+  text-align: right;
+  font-size: 0.8vw;
+  line-height: 1vw;
+}
+@media (orientation: portrait) {
+  .artists main .artist .left .format,
+  .artists main .artist .middle .format,
+  .artists main .artist .right .format {
+    font-size: 2vw;
+    line-height: 2.5vw;
   }
 }
 .artists main .artist .left h4,
@@ -2271,6 +2287,7 @@ footer {
   footer {
     padding-top: 3vw;
     padding-bottom: 3vw;
+    height: auto;
   }
 }
 footer img {
@@ -2396,7 +2413,6 @@ footer a {
   #back {
     width: 16vw;
     height: 16vw;
-    display: flex;
     align-items: center;
     position: fixed;
     left: 79.25vw;
@@ -2525,10 +2541,10 @@ footer a {
 }
 @media (orientation: portrait) {
   #eventOverlayClose {
-    top: 0.6vw;
-    right: 1vw;
-    width: 5vw;
-    height: 5vw;
+    top: 3vw;
+    right: 3vw;
+    width: 15vw;
+    height: 15vw;
   }
 }
 #eventOverlayClose div {
@@ -2542,7 +2558,7 @@ footer a {
 }
 @media (orientation: portrait) {
   #eventOverlayClose div {
-    height: 0.8vw;
+    height: 2vw;
   }
 }
 #eventOverlayClose div:nth-child(1) {
@@ -2600,7 +2616,6 @@ footer a {
   #startpageNav div.bubble {
     box-shadow: none;
     display: block;
-    margin-bottom: 7vw;
     font-size: 12.6vw;
     line-height: 13.5vw;
     padding: 0.875vw 7.5vw;
@@ -2742,11 +2757,68 @@ body.startpage .columnVideo {
     box-shadow: 0 0 3vw rgba(var(--color2));
   }
 }
-body.startpage .columnVideo video {
+body.startpage .columnVideo video,
+body.startpage .columnVideo .mobileVideo {
   -o-object-fit: cover;
      object-fit: cover;
   height: 100vh;
   width: 100vw;
+}
+body.startpage .columnVideo .sliderStage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+body.startpage .columnVideo .sliderLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform: translateX(0);
+  transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+body.startpage .columnVideo .sliderLayer.active {
+  z-index: 2;
+}
+body.startpage .columnVideo .sliderLayer.sliderLayerNext {
+  transform: translateX(100%);
+}
+body.startpage .columnVideo .sliderLayer.sliderLayerExit {
+  transform: translateX(-100%);
+}
+body.startpage .columnVideo .sliderDots {
+  position: absolute;
+  bottom: 2vw;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  display: flex;
+  gap: 0.75vw;
+}
+@media (orientation: portrait) {
+  body.startpage .columnVideo .sliderDots {
+    bottom: 5vw;
+    gap: 1.875vw;
+  }
+}
+body.startpage .columnVideo .sliderDot {
+  width: 2vw;
+  height: 2vw;
+  border-radius: 50%;
+  border: 0.2vw solid rgba(var(--color2));
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  filter: blur(1px);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+body.startpage .columnVideo .sliderDot.active {
+  background: rgba(var(--color2));
+}
+@media (orientation: portrait) {
+  body.startpage .columnVideo .sliderDot {
+    width: 1.75vw;
+    height: 1.75vw;
+  }
 }
 body.startpage .editionTitle {
   position: absolute;
@@ -2771,6 +2843,7 @@ body.startpage .editionTitle h1 {
   font-size: 4vw;
   line-height: 3.5vw;
   margin-top: 0;
+  transition: opacity 0.4s ease;
 }
 @media (orientation: portrait) {
   body.startpage .editionTitle h1 {
@@ -2780,11 +2853,31 @@ body.startpage .editionTitle h1 {
 }
 body.startpage .editionTitle h2 {
   font-size: 1.8vw;
+  transition: opacity 0.4s ease;
 }
 @media (orientation: portrait) {
   body.startpage .editionTitle h2 {
     font-size: 4.5vw;
   }
+}
+body.startpage .editionTitle .sliderFading {
+  opacity: 0;
+}
+body.startpage .editionTitle a {
+  display: block;
+  color: rgba(var(--color2));
+  text-decoration: none;
+}
+body.startpage .editionTitle a[href] {
+  cursor: pointer;
+}
+body.startpage .editionTitle a:hover {
+  color: inherit;
+  text-shadow: none;
+}
+body.startpage .editionTitle a[href]:hover h1, body.startpage .editionTitle a[href]:hover h2 {
+  -webkit-text-decoration: dotted underline;
+          text-decoration: dotted underline;
 }
 body.startpage .columnTitle {
   position: fixed;

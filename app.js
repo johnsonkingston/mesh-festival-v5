@@ -270,6 +270,7 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
         highlights: [],
         venues: venues.data,
         format: format,
+        slides: [],
       });
     }
   } catch (err) {
@@ -370,6 +371,7 @@ app.get("/artists/:language?/", async function (req, res) {
         highlights: [],
         venues: venues.data,
         format: [],
+        slides: [],
       });
     }
   } catch (err) {
@@ -395,8 +397,9 @@ async function getAusstellungenArtists() {
     for (const [key, value] of Object.entries(events)) {
       if (
         events[key].Artists_in_List !== null &&
-        events[key].status == "published" &&
-        events[key].Format == "ausstellungen"
+        events[key].status == "published"
+        //&&
+        //events[key].Format == "ausstellungen"
       ) {
         var artist = [];
         for (const [keyArtist, valueArtist] of Object.entries(
@@ -460,6 +463,7 @@ app.get("/ausstellungen/:language?/", async function (req, res) {
         highlights: [],
         venues: venues.data,
         format: [],
+        slides: [],
       });
     }
   } catch (err) {
@@ -549,6 +553,7 @@ app.get("/list/:language?/:format?", async function (req, res) {
         highlights: [],
         venues: venues.data,
         format: format,
+        slides: [],
       });
     }
   } catch (err) {
@@ -618,6 +623,7 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
         events: [],
         venues: venuesOverview,
         format: [],
+        slides: [],
       });
     }
   } catch (err) {
@@ -816,6 +822,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         events: [],
         venues: [],
         format: [],
+        slides: [],
       });
     }
   } catch (err) {
@@ -846,6 +853,22 @@ async function getStartpage() {
   }
 }
 
+//Startpage Slider
+async function getSlides() {
+  const response = await fetch(
+    "https://env-9468449.appengine.flow.ch/items/Slides_Startpage?fields[]=*.*&fields[]=Link.item:Events.slug",
+  );
+
+  if (!response.ok) {
+    console.log("Response not okay");
+    const data = "";
+    return data;
+  } else {
+    const data = await response.json();
+    return data;
+  }
+}
+
 app.get("/:language?", async function (req, res) {
   var pathname = req.originalUrl;
 
@@ -856,6 +879,7 @@ app.get("/:language?", async function (req, res) {
     navigation = await getNavigation();
     footer = await getFooter();
     highlights = await getHighlights();
+    slidesResult = await getSlides();
 
     languageObject = [language, languageTransform(language)];
 
@@ -875,6 +899,40 @@ app.get("/:language?", async function (req, res) {
     var translation = result.data.translations
       ? result.data.translations[languageObject[1]]
       : null;
+
+    var slideLangCode = function (translation) {
+      if (!translation) return null;
+      return translation.languages_code && translation.languages_code.code
+        ? translation.languages_code.code
+        : translation.languages_code;
+    };
+
+    var slides = ((slidesResult && slidesResult.data) || [])
+      .filter((slide) => slide.status === "published" && slide.File)
+      .map((slide) => {
+        if (slide.translations && slide.translations.length > 1) {
+          if (slideLangCode(slide.translations[0]) !== "de") {
+            var deSlide = slide.translations[1];
+            slide.translations[1] = slide.translations[0];
+            slide.translations[0] = deSlide;
+          }
+        }
+        var eventLink =
+          slide.Link &&
+          slide.Link[0] &&
+          slide.Link[0].collection === "Events" &&
+          slide.Link[0].item &&
+          slide.Link[0].item.slug
+            ? slide.Link[0].item.slug
+            : null;
+        slide.eventSlug = eventLink;
+        return slide;
+      })
+      .sort((a, b) => {
+        var sortA = a.sort === null || a.sort === undefined ? 0 : a.sort;
+        var sortB = b.sort === null || b.sort === undefined ? 0 : b.sort;
+        return sortA - sortB;
+      });
 
     var mapLogos = (entries) =>
       (entries || [])
@@ -896,6 +954,7 @@ app.get("/:language?", async function (req, res) {
         language: languageObject,
         events: [],
         venues: [],
+        slides: slides,
         format: [],
         initiative: translation ? translation.Logos_Line_1_Title : null,
         sponsor: translation ? translation.Logos_Line_2_Title : null,

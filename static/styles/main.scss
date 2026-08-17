@@ -1430,8 +1430,8 @@ ul {
     margin-top: 0;
     padding-top: $padding * 0.5;
     @media (orientation: portrait) {
-      font-size: $fontSizeMicro * $serifFactor * 1.2 * $scaleFactor;
-      line-height: $lineHeightMicro * $scaleFactor;
+      font-size: $fontSize1 * $serifFactor * $scaleFactor;
+      line-height: $lineHeight1 * $scaleFactor;
     }
   }
   .time,
@@ -1588,6 +1588,7 @@ ul {
       .left,
       .middle,
       .right {
+        width: 100%;
         padding: $padding;
         color: rgba(var(--color2));
         @media (orientation: portrait) {
@@ -1602,6 +1603,15 @@ ul {
           @media (orientation: portrait) {
             font-size: $fontSize2 * $scaleFactor;
             line-height: $fontSize2 * $scaleFactor;
+          }
+        }
+        .format {
+          text-align: right;
+          font-size: $fontSizeMicro;
+          line-height: $lineHeightMicro;
+          @media (orientation: portrait) {
+            font-size: $fontSizeMicro * $scaleFactor;
+            line-height: $lineHeightMicro * $scaleFactor;
           }
         }
         h4 {
@@ -1999,6 +2009,7 @@ footer {
   @media (orientation: portrait) {
     padding-top: $padding * 6;
     padding-bottom: $padding * 6;
+    height: auto;
   }
   img {
     margin: 0.8vw;
@@ -2107,7 +2118,6 @@ footer {
   @media (orientation: portrait) {
     width: 16vw;
     height: 16vw;
-    display: flex;
     align-items: center;
     position: fixed;
     left: 79.25vw;
@@ -2228,10 +2238,10 @@ footer {
   cursor: pointer;
   filter: blur(1px);
   @media (orientation: portrait) {
-    top: 0.6vw;
-    right: 1vw;
-    width: 5vw;
-    height: 5vw;
+    top: 3vw;
+    right: 3vw;
+    width: 15vw;
+    height: 15vw;
   }
   div {
     position: absolute;
@@ -2242,7 +2252,7 @@ footer {
     background: rgba(var(--color2));
     box-shadow: 0 0 0.5vw rgba(var(--color2));
     @media (orientation: portrait) {
-      height: 0.8vw;
+      height: 2vw;
     }
   }
   div:nth-child(1) {
@@ -2311,7 +2321,6 @@ footer {
     @media (orientation: portrait) {
       box-shadow: none;
       display: block;
-      margin-bottom: 7vw;
       font-size: $fontSize5 * 1.4;
       line-height: $lineHeight5 * 1.5;
       padding: $padding * 0.7 * $scaleFactor $padding * 4 * $scaleFactor * 1.5;
@@ -2441,10 +2450,65 @@ body.startpage {
       height: calc(100vh - 49vw);
       box-shadow: 0 0 3vw rgba(var(--color2));
     }
-    video {
+    video,
+    .mobileVideo {
       object-fit: cover;
       height: 100vh;
       width: 100vw;
+    }
+    .sliderStage {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .sliderLayer {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      transform: translateX(0);
+      transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+      &.active {
+        z-index: 2;
+      }
+      &.sliderLayerNext {
+        transform: translateX(100%);
+      }
+      &.sliderLayerExit {
+        transform: translateX(-100%);
+      }
+    }
+    .sliderDots {
+      position: absolute;
+      bottom: $padding * 4;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 15;
+      display: flex;
+      gap: $padding * 1.5;
+      @media (orientation: portrait) {
+        bottom: $padding * 4 * $scaleFactor;
+        gap: $padding * 1.5 * $scaleFactor;
+      }
+    }
+    .sliderDot {
+      width: $padding * 4;
+      height: $padding * 4;
+      border-radius: 50%;
+      border: 0.2vw solid rgba(var(--color2));
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      filter: blur(1px);
+      transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+      &.active {
+        background: rgba(var(--color2));
+      }
+      @media (orientation: portrait) {
+        width: $padding * 1.4 * $scaleFactor;
+        height: $padding * 1.4 * $scaleFactor;
+      }
     }
   }
   .editionTitle {
@@ -2465,6 +2529,7 @@ body.startpage {
       font-size: $fontSize4;
       line-height: 3.5vw;
       margin-top: 0;
+      transition: opacity 0.4s ease;
       @media (orientation: portrait) {
         font-size: $fontSize4 * $scaleFactor;
         line-height: 3.5vw * $scaleFactor;
@@ -2472,8 +2537,28 @@ body.startpage {
     }
     h2 {
       font-size: $fontSize2;
+      transition: opacity 0.4s ease;
       @media (orientation: portrait) {
         font-size: $fontSize2 * $scaleFactor;
+      }
+    }
+    .sliderFading {
+      opacity: 0;
+    }
+    a {
+      display: block;
+      color: rgba(var(--color2));
+      text-decoration: none;
+      &[href] {
+        cursor: pointer;
+      }
+      &:hover {
+        color: inherit;
+        text-shadow: none;
+      }
+      &[href]:hover h1,
+      &[href]:hover h2 {
+        text-decoration: dotted underline;
       }
     }
   }

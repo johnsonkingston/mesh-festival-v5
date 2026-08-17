@@ -29,3 +29,11 @@ script(src=baseURL+'static/script/eventOverlay.js')
         div
     iframe#eventOverlayFrame(name="eventOverlayFrame",src="about:blank")
 
+script.
+    (function(){
+        var eventSlug = new URLSearchParams(window.location.search).get('event');
+        if (!eventSlug || typeof openEventOverlay !== 'function') return;
+        var lang = (typeof language !== 'undefined' && language[0]) ? language[0] : 'de';
+        openEventOverlay(window.location.origin + '/events/' + eventSlug + '/' + lang, false);
+    })();
+
