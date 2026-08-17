@@ -1549,6 +1549,7 @@ ul {
     min-height: 100vh;
     @media (orientation: portrait) {
       margin-top: 0;
+      padding-top: 1vw;
     }
 
     .formatHeader {
@@ -1563,7 +1564,7 @@ ul {
         width: auto;
         font-size: $fontSize3 * $scaleFactor;
         line-height: $lineHeight3 * $scaleFactor;
-        margin: $padding * 3 * $scaleFactor 0 0 $padding * 5 * $scaleFactor;
+        margin: $padding * $scaleFactor 0 0 $padding * $scaleFactor;
       }
     }
 
@@ -2534,7 +2535,7 @@ body.startpage {
       left: 3vw;
     }
     @media (orientation: portrait) {
-      width: 100%;
+      width: 90%;
     }
     h1 {
       font-family: "FreeSerif-JK";
@@ -2899,11 +2900,13 @@ body.startpage {
     border-radius: $padding;
     box-shadow: rgba(var(--color2)) 1vw 0 1vw;
     @media (orientation: portrait) {
-      right: $padding * 2;
+      right: $padding * 4;
       position: absolute;
       width: auto;
       bottom: auto;
       top: calc(100vh - 50vw);
+      padding-left: $padding * 2;
+      padding-right: $padding * 2;
     }
   }
   #mesh2024:hover {

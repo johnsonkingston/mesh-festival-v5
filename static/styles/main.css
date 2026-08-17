@@ -1741,6 +1741,7 @@ ul {
 @media (orientation: portrait) {
   .artists main {
     margin-top: 0;
+    padding-top: 1vw;
   }
 }
 .artists main .formatHeader {
@@ -1757,7 +1758,7 @@ ul {
     width: auto;
     font-size: 7.5vw;
     line-height: 8.25vw;
-    margin: 3.75vw 0 0 6.25vw;
+    margin: 1.25vw 0 0 1.25vw;
   }
 }
 .artists main .artist {
@@ -2843,7 +2844,7 @@ body.startpage .editionTitle {
 }
 @media (orientation: portrait) {
   body.startpage .editionTitle {
-    width: 100%;
+    width: 90%;
   }
 }
 body.startpage .editionTitle h1 {
@@ -3237,11 +3238,13 @@ body.startpage #mesh2024 {
 }
 @media (orientation: portrait) {
   body.startpage #mesh2024 {
-    right: 1vw;
+    right: 2vw;
     position: absolute;
     width: auto;
     bottom: auto;
     top: calc(100vh - 50vw);
+    padding-left: 1vw;
+    padding-right: 1vw;
   }
 }
 body.startpage #mesh2024:hover {
