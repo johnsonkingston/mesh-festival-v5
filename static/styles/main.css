@@ -2684,6 +2684,8 @@ body.startpage #newsTicker {
 @media (orientation: portrait) {
   body.startpage #newsTicker {
     top: 0;
+    margin-top: 13.3vw;
+    margin-bottom: -1px;
   }
 }
 body.startpage #newsTicker .newsTickerTrack {
@@ -2697,6 +2699,12 @@ body.startpage #newsTicker .newsTickerInner {
   color: rgba(var(--color2));
   font-size: 1.2vw;
   line-height: 1.4vw;
+}
+@media (orientation: portrait) {
+  body.startpage #newsTicker .newsTickerInner {
+    background-color: white;
+    background: linear-gradient(180deg, rgb(178, 178, 178) 0%, rgb(255, 255, 255) 1vw, rgb(255, 255, 255) 8.5vw, rgb(178, 178, 178) 100%);
+  }
 }
 body.startpage #newsTicker .newsTickerInner p {
   font-size: 1.8vw;
@@ -2796,7 +2804,7 @@ body.startpage .columnVideo .sliderDots {
 }
 @media (orientation: portrait) {
   body.startpage .columnVideo .sliderDots {
-    bottom: 5vw;
+    bottom: 13vw;
     gap: 1.875vw;
   }
 }
@@ -2816,8 +2824,8 @@ body.startpage .columnVideo .sliderDot.active {
 }
 @media (orientation: portrait) {
   body.startpage .columnVideo .sliderDot {
-    width: 1.75vw;
-    height: 1.75vw;
+    width: 5vw;
+    height: 5vw;
   }
 }
 body.startpage .editionTitle {
@@ -3047,11 +3055,11 @@ body.startpage .column {
   body.startpage .column {
     width: 100%;
     margin-left: 0;
-    background: rgb(254, 247, 246);
+    background: rgba(var(--color1));
     background-attachment: fixed;
-    padding-top: 29vw;
-    margin-top: -17vw;
-    background: linear-gradient(180deg, rgb(178, 178, 178) 0%, rgba(var(--color1)) 2vw);
+    padding-top: 5vw;
+    margin-top: 0;
+    box-shadow: none;
   }
 }
 body.startpage .section {
@@ -3084,9 +3092,21 @@ body.startpage .statement h1 {
   font-size: 6vw;
   line-height: 6.3vw;
 }
+@media (orientation: portrait) {
+  body.startpage .statement h1 {
+    font-size: 15vw;
+    line-height: 13.65vw;
+  }
+}
 body.startpage .statement h2 {
   font-size: 3vw;
   line-height: 3.3vw;
+}
+@media (orientation: portrait) {
+  body.startpage .statement h2 {
+    font-size: 7.5vw;
+    line-height: 8.25vw;
+  }
 }
 body.startpage .statement h3 {
   font-size: 3vw;

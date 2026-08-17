@@ -2384,6 +2384,8 @@ body.startpage {
     margin-top: -5.7vw;
     @media (orientation: portrait) {
       top: 0;
+      margin-top: 13.3vw;
+      margin-bottom: -1px;
     }
     .newsTickerTrack {
       display: inline-flex;
@@ -2396,6 +2398,16 @@ body.startpage {
       color: rgba(var(--color2));
       font-size: $fontSize1;
       line-height: $lineHeight1;
+      @media (orientation: portrait) {
+        background-color: white;
+        background: linear-gradient(
+          180deg,
+          rgba(178, 178, 178, 1) 0%,
+          rgba(255, 255, 255, 1) 1vw,
+          rgba(255, 255, 255, 1) 8.5vw,
+          rgba(178, 178, 178, 1) 100%
+        );
+      }
       p {
         font-size: $fontSize2;
         line-height: $lineHeight2;
@@ -2486,7 +2498,7 @@ body.startpage {
       display: flex;
       gap: $padding * 1.5;
       @media (orientation: portrait) {
-        bottom: $padding * 4 * $scaleFactor;
+        bottom: 13vw;
         gap: $padding * 1.5 * $scaleFactor;
       }
     }
@@ -2506,8 +2518,8 @@ body.startpage {
         background: rgba(var(--color2));
       }
       @media (orientation: portrait) {
-        width: $padding * 1.4 * $scaleFactor;
-        height: $padding * 1.4 * $scaleFactor;
+        width: $padding * 4 * $scaleFactor;
+        height: $padding * 4 * $scaleFactor;
       }
     }
   }
@@ -2714,15 +2726,11 @@ body.startpage {
     @media (orientation: portrait) {
       width: 100%;
       margin-left: 0;
-      background: rgba(254, 247, 246, 1);
+      background: rgba(var(--color1));
       background-attachment: fixed;
-      padding-top: 29vw;
-      margin-top: -17vw;
-      background: linear-gradient(
-        180deg,
-        rgba(178, 178, 178, 1) 0%,
-        rgba(var(--color1)) 2vw
-      );
+      padding-top: 5vw;
+      margin-top: 0;
+      box-shadow: none;
     }
   }
 
@@ -2754,10 +2762,18 @@ body.startpage {
       font-family: "FreeSerif-JK";
       font-size: $fontSize4 * 1.5;
       line-height: $lineHeight4 * 1.5;
+      @media (orientation: portrait) {
+        font-size: $fontSize4 * 1.5 * $scaleFactor;
+        line-height: $lineHeight4 * 1.3 * $scaleFactor;
+      }
     }
     h2 {
       font-size: $fontSize3;
       line-height: $lineHeight3;
+      @media (orientation: portrait) {
+        font-size: $fontSize3 * $scaleFactor;
+        line-height: $lineHeight3 * $scaleFactor;
+      }
     }
     h3 {
       font-size: $fontSize3;
