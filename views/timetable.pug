@@ -93,7 +93,7 @@ html(lang=language[0])
                                                                 else
                                                                     if(formatsTranslation[event.Format] !== undefined)
                                                                         h3.format=formatsTranslation[event.Format][languageParameter]
-                                                                    h2.title='• '+event.translations[languageParameter] !== undefined ? '• '+event.translations[languageParameter].Title : '• '+event.translations[0].Title
+                                                                    h2.title!=event.translations[languageParameter] !== undefined ? '<span class="bullet">• </span>'+event.translations[languageParameter].Title : '<span class="bullet">• </span>'+event.translations[0].Title
                                                                     //h2.artist=event.Artist
                                                                     - var hourEndDisplay = ('0' + (Math.floor(event.HourEnd) % 24)).slice(-2)
                                                                     if(venues[event.Venues[0].Venues_id] !== undefined)

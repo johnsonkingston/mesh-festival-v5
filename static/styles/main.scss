@@ -1283,10 +1283,12 @@ ul {
     overflow: hidden;
     height: 100%;
     @media (orientation: portrait) {
-      width: 38vw;
+      width: 37vw;
+      padding: 0.5vw;
       margin-right: $padding * 0.5 * $scaleFactor;
       margin-left: $padding * 0.5 * $scaleFactor;
       border-radius: $padding * $scaleFactor;
+      overflow: scroll;
     }
     .EventTimetableContent {
       padding: $padding * 0.5 $padding * 0.5 0 $padding * 0.5;
@@ -1432,8 +1434,8 @@ ul {
     line-height: 0.8vw;
     margin-top: 0;
     @media (orientation: portrait) {
-      font-size: $fontSizeMicro * $scaleFactor;
-      line-height: 0.8vw * $scaleFactor;
+      font-size: $fontSize1 * $scaleFactor;
+      line-height: $lineHeight1 * $scaleFactor;
     }
   }
   .artist {
@@ -1449,10 +1451,17 @@ ul {
       height: $lineHeight1;
     }
     @media (orientation: portrait) {
-      font-size: $fontSize1 * $serifFactor * $scaleFactor;
-      line-height: $lineHeight1 * $scaleFactor;
+      font-size: 4.5vw;
+      line-height: 4.5vw;
       &::before {
         height: $lineHeight1 * $scaleFactor;
+      }
+    }
+    .bullet {
+      font-family: "FreeSans-JK";
+      font-size: $fontSize1;
+      @media (orientation: portrait) {
+        font-size: 4.3vw;
       }
     }
   }
@@ -1479,6 +1488,10 @@ ul {
     color: rgba(var(--color1));
     border-radius: $padding * 0.5;
     padding: $padding * 0.2 $padding * 0.4;
+    @media (orientation: portrait) {
+      padding: 0.1vw 0.5vw;
+      border-radius: $padding;
+    }
   }
   .timetableHourlineWrap {
     width: 98vw;

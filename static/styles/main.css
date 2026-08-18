@@ -1465,10 +1465,12 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable .EventTimetable {
-    width: 38vw;
+    width: 37vw;
+    padding: 0.5vw;
     margin-right: 0.625vw;
     margin-left: 0.625vw;
     border-radius: 1.25vw;
+    overflow: scroll;
   }
 }
 .timetable .EventTimetable .EventTimetableContent {
@@ -1612,8 +1614,8 @@ ul {
   .timetable h3,
   .timetable h4,
   .timetable h6 {
-    font-size: 2vw;
-    line-height: 2vw;
+    font-size: 3vw;
+    line-height: 3.5vw;
   }
 }
 .timetable .title {
@@ -1629,11 +1631,20 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable .title {
-    font-size: 3.3vw;
-    line-height: 3.5vw;
+    font-size: 4.5vw;
+    line-height: 4.5vw;
   }
   .timetable .title::before {
     height: 3.5vw;
+  }
+}
+.timetable .title .bullet {
+  font-family: "FreeSans-JK";
+  font-size: 1.2vw;
+}
+@media (orientation: portrait) {
+  .timetable .title .bullet {
+    font-size: 4.3vw;
   }
 }
 .timetable .EventTimetable .format {
@@ -1659,6 +1670,12 @@ ul {
   color: rgba(var(--color1));
   border-radius: 0.25vw;
   padding: 0.1vw 0.2vw;
+}
+@media (orientation: portrait) {
+  .timetable .format {
+    padding: 0.1vw 0.5vw;
+    border-radius: 0.5vw;
+  }
 }
 .timetable .timetableHourlineWrap {
   width: 98vw;
