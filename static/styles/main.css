@@ -1673,8 +1673,10 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable .format {
-    padding: 0.1vw 0.5vw;
+    padding: 0.1vw 0.6vw 0 0;
     border-radius: 0.5vw;
+    margin-top: 1vw;
+    margin-right: 1vw;
   }
 }
 .timetable .timetableHourlineWrap {
