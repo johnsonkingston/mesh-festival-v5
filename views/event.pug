@@ -13,13 +13,13 @@ html(lang=language[0])
             else 
                 picture
                     source(media="min-width:650px",srcset=imgURL+data.Main_Image.filename_disk+'?key=content')
-                    img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen', alt=+data.Main_Image.title)
+                    img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen', alt=data.Main_Image.title)
                 .mainimageCaption !{data.Main_Image.description}
 
 
             .eventHeader 
                 .eventHeaderColumn
-                    if data.translations[languageParameter].Time_frontend !== null
+                    if data.translations[languageParameter].Time_frontend
                         p !{data.translations[languageParameter].Time_frontend.replace(/\n/g, '<br/>')}
                     if data.Display_Time
                         if(languageParameter == 0)

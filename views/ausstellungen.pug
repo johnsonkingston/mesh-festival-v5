@@ -35,8 +35,9 @@ html(lang=language[0])
                     .artist
                         //.left
                         .middle
-                            h3.format=formatsTranslation[event.Format][languageParameter]
-                            h3='• '+event.First_Name+' '+event.Name
+                            if(formatsTranslation[event.Format] !== undefined)
+                                h3.format=formatsTranslation[event.Format][languageParameter]
+                            h3='• '+(event.First_Name || '')+' '+(event.Name || '')
                             h4=truncateWords(event.Title, 40)
                         //.right
                             a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format)
@@ -55,8 +56,8 @@ html(lang=language[0])
                                                 h4.venue=venues[events[n+1].Venues[0].Venues_id].Name
 
 
-                - char = event.Name.substr(0,1).toUpperCase()
-                - nameBefore = (event.First_Name+event.Name)
+                - char = (event.Name || '').substr(0,1).toUpperCase()
+                - nameBefore = ((event.First_Name || '')+(event.Name || ''))
                 - themaBefore = event.Thema
                 -n++
 

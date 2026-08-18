@@ -3,7 +3,7 @@
     .glide__track(data-glide-el='track')
         ul.glide__slides
             each val in highlights
-                if(val.translations[languageParameter].Link !== null)
+                if(val.translations[languageParameter] !== undefined && val.translations[languageParameter].Link !== null)
                     if(val.translations[languageParameter].Link.indexOf('http') !== -1)
                         - var link = val.translations[languageParameter].Link
                         - var target = '_blank'

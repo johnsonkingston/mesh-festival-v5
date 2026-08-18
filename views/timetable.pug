@@ -16,6 +16,7 @@ html(lang=language[0])
         - var formatsTranslation = {ausstellungen: ['Ausstellung','Exhibtion'], konferenz: ['Konferenz','Conference'],performances: ['Performance','Performance'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screening','Screening'], clubnights: ['Club Night','Club Night'], workshops: ['Workshop','Workshop'], workshop: ['Workshop','Workshop']};
 
         - var themaSlug = function(thema){ var slug = thema.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); return slug || 'other'; };
+        - var eventTranslation = function(evt, langParam){ var t = evt.translations || []; return t[langParam] || t[0] || {}; };
         - var themaList = [];
         - events.forEach(function(e){ if(e.status == 'published' && e.In_Timetable && e.Thema && themaList.indexOf(e.Thema) === -1){ themaList.push(e.Thema); } });
         - themaList.sort().reverse();
@@ -78,7 +79,7 @@ html(lang=language[0])
                                                     a(href=baseURL+'ausstellungen/'+language[0])
                                                         .EventTimetableA(class='A'+event.Format+' EventTimetableAusstellungenLink',style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-column=themaSlug(thema),data-id=id,id="Event-"+id)
                                                             .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
-                                                                h2.title= event.translations[languageParameter] !== undefined ? event.translations[languageParameter].Title : event.translations[0].Title
+                                                                h2.title= eventTranslation(event, languageParameter).Title
                                                                 - var hourEndDisplay = ('0' + (Math.floor(event.HourEnd) % 24)).slice(-2)
                                                                 h3.time!=event.Hour+':'+(event.Minute || '00')+'&ndash;'+hourEndDisplay+':'+(event.MinuteEnd || '00')
                                                 else
@@ -86,14 +87,11 @@ html(lang=language[0])
                                                         .EventTimetableA(class='A'+event.Format,style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-column=themaSlug(thema),data-id=id,id="Event-"+id)
                                                             .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
                                                                 if(event.Timetable_only == '1')
-                                                                    if(event.translations[languageParameter] !== undefined)
-                                                                        .EventTimetableContent !{event.translations[languageParameter].Content}
-                                                                    else
-                                                                        .EventTimetableContent !{event.translations[0].Content}
+                                                                    .EventTimetableContent !{eventTranslation(event, languageParameter).Content}
                                                                 else
                                                                     if(formatsTranslation[event.Format] !== undefined)
                                                                         h3.format=formatsTranslation[event.Format][languageParameter]
-                                                                    h2.title!=event.translations[languageParameter] !== undefined ? '<span class="bullet">• </span>'+event.translations[languageParameter].Title : '<span class="bullet">• </span>'+event.translations[0].Title
+                                                                    h2.title!='<span class="bullet">•</span>'+(eventTranslation(event, languageParameter).Title || '')
                                                                     //h2.artist=event.Artist
                                                                     - var hourEndDisplay = ('0' + (Math.floor(event.HourEnd) % 24)).slice(-2)
                                                                     if(venues[event.Venues[0].Venues_id] !== undefined)

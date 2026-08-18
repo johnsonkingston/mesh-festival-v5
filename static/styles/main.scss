@@ -1460,8 +1460,10 @@ ul {
     .bullet {
       font-family: "FreeSans-JK";
       font-size: $fontSize1;
+      margin-right: $padding * 0.3;
       @media (orientation: portrait) {
         font-size: 4.3vw;
+        margin-right: $padding;
       }
     }
   }
@@ -1489,7 +1491,7 @@ ul {
     border-radius: $padding * 0.5;
     padding: $padding * 0.2 $padding * 0.4;
     @media (orientation: portrait) {
-      padding: 0.1vw 0.6vw 0 0;
+      padding: 0.1vw 0.6vw 0vw 0.4vw;
       border-radius: $padding;
       margin-top: 1vw;
       margin-right: 1vw;
@@ -2340,7 +2342,7 @@ footer {
     background: transparent;
     box-shadow: none;
     padding-top: 15vh;
-    height: 70vh;
+    height: 85vh;
   }
   &.open {
     @media (orientation: portrait) {
@@ -2371,8 +2373,8 @@ footer {
     @media (orientation: portrait) {
       box-shadow: none;
       display: block;
-      font-size: $fontSize5 * 1.4;
-      line-height: $lineHeight5 * 1.5;
+      font-size: $fontSize5 * 1.8;
+      line-height: $lineHeight5 * 2;
       padding: $padding * 0.7 * $scaleFactor $padding * 4 * $scaleFactor * 1.5;
       border-radius: none;
       background: transparent;

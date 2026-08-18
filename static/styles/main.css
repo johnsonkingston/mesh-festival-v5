@@ -1641,10 +1641,12 @@ ul {
 .timetable .title .bullet {
   font-family: "FreeSans-JK";
   font-size: 1.2vw;
+  margin-right: 0.15vw;
 }
 @media (orientation: portrait) {
   .timetable .title .bullet {
     font-size: 4.3vw;
+    margin-right: 0.5vw;
   }
 }
 .timetable .EventTimetable .format {
@@ -1673,7 +1675,7 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable .format {
-    padding: 0.1vw 0.6vw 0 0;
+    padding: 0.1vw 0.6vw 0vw 0.4vw;
     border-radius: 0.5vw;
     margin-top: 1vw;
     margin-right: 1vw;
@@ -2649,7 +2651,7 @@ footer a {
     background: transparent;
     box-shadow: none;
     padding-top: 15vh;
-    height: 70vh;
+    height: 85vh;
   }
 }
 @media (orientation: portrait) {
@@ -2668,8 +2670,8 @@ footer a {
   #startpageNav div.bubble {
     box-shadow: none;
     display: block;
-    font-size: 12.6vw;
-    line-height: 13.5vw;
+    font-size: 16.2vw;
+    line-height: 18vw;
     padding: 0.875vw 7.5vw;
     border-radius: none;
     background: transparent;
