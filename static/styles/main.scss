@@ -22,6 +22,9 @@ $padding: 0.5vw;
 $fontSizeMicro: 0.8vw;
 $lineHeightMicro: 1vw;
 
+$fontSizeMicroMobile: 2vw;
+$lineHeightMicroMobile: 2.2vw;
+
 $fontSize1: 1.2vw;
 $lineHeight1: 1.4vw;
 $fontSize2: 1.8vw;
@@ -384,7 +387,15 @@ div.bubble {
     object-fit: cover;
   }
 }
-
+.visit {
+  .splashImage {
+    overflow-x: scroll;
+    img {
+      height: 100%;
+      width: auto;
+    }
+  }
+}
 .venueOverview {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1412,7 +1423,7 @@ ul {
   }
   .title {
     font-family: "FreeSerif-JK";
-    font-size: $fontSizeMicro * $serifFactor * 1.2;
+    font-size: $fontSize1 * $serifFactor;
   }
   h3,
   h4,
@@ -1430,10 +1441,26 @@ ul {
   .title {
     margin-top: 0;
     padding-top: $padding * 0.5;
+    line-height: $lineHeight1;
+    &::before {
+      content: "";
+      float: right;
+      width: 45%;
+      height: $lineHeight1;
+    }
     @media (orientation: portrait) {
       font-size: $fontSize1 * $serifFactor * $scaleFactor;
       line-height: $lineHeight1 * $scaleFactor;
+      &::before {
+        height: $lineHeight1 * $scaleFactor;
+      }
     }
+  }
+  .EventTimetable .format {
+    position: absolute;
+    top: 0;
+    right: 0;
+    float: none;
   }
   .time,
   h4 {
@@ -1446,6 +1473,12 @@ ul {
     padding: 0 $padding * 0.5 0 0;
     margin-top: $padding * 0.5;
     text-align: right;
+    float: right;
+    display: inline;
+    background: rgba(var(--color2));
+    color: rgba(var(--color1));
+    border-radius: $padding * 0.5;
+    padding: $padding * 0.2 $padding * 0.4;
   }
   .timetableHourlineWrap {
     width: 98vw;
@@ -2343,6 +2376,12 @@ footer {
       font-size: $fontSize4 * $scaleFactor;
     }
   }
+  a.bubble.startNavHome {
+    display: none;
+    @media (orientation: portrait) {
+      display: block;
+    }
+  }
   a.bubble.active {
     background: rgba(var(--color2));
     color: rgba(var(--color1));
@@ -2882,6 +2921,10 @@ body.startpage {
       p {
         font-size: $fontSize1;
         line-height: $lineHeight1;
+        @media (orientation: portrait) {
+          font-size: $fontSize2 * $scaleFactor;
+          line-height: $lineHeight2 * $scaleFactor;
+        }
       }
     }
   }

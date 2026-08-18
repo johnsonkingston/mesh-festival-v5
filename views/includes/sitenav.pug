@@ -6,8 +6,8 @@ div#hamburger(onclick="toggleNav()")
 nav#startpageNav
     if navigation && navigation[languageParameter] && navigation[languageParameter].Menu
         each item, index in navigation[languageParameter].Menu
-            if item.Visible !== false && !(index == 0 && !data.pathname)
-                a.bubble(class=(item.URL || '') == (data.pathname || '') ? 'active' : '',href=baseURL+(item.URL || ''),style="z-index:"+(navigation[languageParameter].Menu.length - index)+";")= item.Title
+            if item.Visible !== false
+                a.bubble(class=[((item.URL || '') == (data.pathname || '') ? 'active' : null), (index == 0 && !data.pathname ? 'startNavHome' : null)],href=baseURL+(item.URL || ''),style="z-index:"+(navigation[languageParameter].Menu.length - index)+";")= item.Title
     - var newLang = language[0] == 'en' ? 'de' : 'en'
     - var langHref = baseURL + (data.pathname ? data.pathname + '/' : '') + newLang
     a#lang.bubble(href=langHref)= newLang.toUpperCase()

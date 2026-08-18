@@ -390,6 +390,14 @@ div.bubble {
      object-fit: cover;
 }
 
+.visit .splashImage {
+  overflow-x: scroll;
+}
+.visit .splashImage img {
+  height: 100%;
+  width: auto;
+}
+
 .venueOverview {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1591,7 +1599,7 @@ ul {
 }
 .timetable .title {
   font-family: "FreeSerif-JK";
-  font-size: 1.056vw;
+  font-size: 1.32vw;
 }
 .timetable h3,
 .timetable h4,
@@ -1611,12 +1619,28 @@ ul {
 .timetable .title {
   margin-top: 0;
   padding-top: 0.25vw;
+  line-height: 1.4vw;
+}
+.timetable .title::before {
+  content: "";
+  float: right;
+  width: 45%;
+  height: 1.4vw;
 }
 @media (orientation: portrait) {
   .timetable .title {
     font-size: 3.3vw;
     line-height: 3.5vw;
   }
+  .timetable .title::before {
+    height: 3.5vw;
+  }
+}
+.timetable .EventTimetable .format {
+  position: absolute;
+  top: 0;
+  right: 0;
+  float: none;
 }
 .timetable .time,
 .timetable h4 {
@@ -1629,6 +1653,12 @@ ul {
   padding: 0 0.25vw 0 0;
   margin-top: 0.25vw;
   text-align: right;
+  float: right;
+  display: inline;
+  background: rgba(var(--color2));
+  color: rgba(var(--color1));
+  border-radius: 0.25vw;
+  padding: 0.1vw 0.2vw;
 }
 .timetable .timetableHourlineWrap {
   width: 98vw;
@@ -2641,6 +2671,14 @@ footer a {
     font-size: 10vw;
   }
 }
+#startpageNav a.bubble.startNavHome {
+  display: none;
+}
+@media (orientation: portrait) {
+  #startpageNav a.bubble.startNavHome {
+    display: block;
+  }
+}
 #startpageNav a.bubble.active {
   background: rgba(var(--color2));
   color: rgba(var(--color1));
@@ -3224,6 +3262,12 @@ body.startpage .logos .logobannerOuter:hover .logobannerInner {
 body.startpage .logos .logobannerThird p {
   font-size: 1.2vw;
   line-height: 1.4vw;
+}
+@media (orientation: portrait) {
+  body.startpage .logos .logobannerThird p {
+    font-size: 4.5vw;
+    line-height: 5.25vw;
+  }
 }
 body.startpage #mesh2024 {
   position: absolute;
