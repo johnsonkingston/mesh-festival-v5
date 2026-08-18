@@ -1273,9 +1273,9 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable #dayNav .dayNavItem {
-    font-size: 5.85vw;
+    font-size: 9vw;
     line-height: 6.825vw;
-    padding: 0.8125vw 1.625vw;
+    padding: 1.25vw 1.25vw;
   }
 }
 .timetable #dayNav .dayNavItem .dayFull {
@@ -1433,10 +1433,12 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable .timetableSpalteLabel {
-    top: -5.5vw;
+    top: 2vw;
     width: 38vw;
     font-size: 3vw;
     line-height: 3.5vw;
+    background: rgba(var(--color3));
+    padding-bottom: 1.25vw;
   }
 }
 .timetable .timetableSpalteFilter {
@@ -2773,58 +2775,54 @@ body.startpage .columnVideo .mobileVideo {
   height: 100vh;
   width: 100vw;
 }
-body.startpage .columnVideo .sliderStage {
+body.startpage .columnVideo .meshSlider {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+}
+body.startpage .columnVideo .meshSlider.swiper {
   overflow: hidden;
 }
-body.startpage .columnVideo .sliderLayer {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  transform: translateX(0);
-  transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+body.startpage .columnVideo .meshSlider .swiper-slide {
+  position: relative;
+  overflow: hidden;
 }
-body.startpage .columnVideo .sliderLayer.active {
-  z-index: 2;
-}
-body.startpage .columnVideo .sliderLayer.sliderLayerNext {
-  transform: translateX(100%);
-}
-body.startpage .columnVideo .sliderLayer.sliderLayerExit {
-  transform: translateX(-100%);
-}
-body.startpage .columnVideo .sliderDots {
+body.startpage .columnVideo .meshSlider .swiper-pagination {
   position: absolute;
   bottom: 2vw;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  width: 100%;
   z-index: 15;
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 0.75vw;
 }
 @media (orientation: portrait) {
-  body.startpage .columnVideo .sliderDots {
+  body.startpage .columnVideo .meshSlider .swiper-pagination {
     bottom: 13vw;
     gap: 1.875vw;
   }
 }
-body.startpage .columnVideo .sliderDot {
+body.startpage .columnVideo .meshSlider .swiper-pagination-bullet {
   width: 2vw;
   height: 2vw;
+  margin: 0;
   border-radius: 50%;
   border: 0.2vw solid rgba(var(--color2));
   background: transparent;
+  opacity: 1;
   padding: 0;
   cursor: pointer;
   filter: blur(1px);
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease;
 }
-body.startpage .columnVideo .sliderDot.active {
+body.startpage .columnVideo .meshSlider .swiper-pagination-bullet.swiper-pagination-bullet-active {
   background: rgba(var(--color2));
 }
 @media (orientation: portrait) {
-  body.startpage .columnVideo .sliderDot {
+  body.startpage .columnVideo .meshSlider .swiper-pagination-bullet {
     width: 5vw;
     height: 5vw;
   }

@@ -1,6 +1,8 @@
 doctype html
 html(lang=language[0])
     include includes/head.pug
+    link(rel="stylesheet", href="/node_modules/swiper/swiper-bundle.min.css")
+    script(src="/node_modules/swiper/swiper-bundle.min.js")
     body.startpage
         include includes/sitenav.pug
         main
@@ -31,19 +33,26 @@ html(lang=language[0])
                     else
                         h1.blurOrganic1-5= data.translations[languageParameter].Title
             .columnVideo.mobile
-                if slide0 && slide0.File
-                    - var slide0IsVideo = slide0.File.type && slide0.File.type.indexOf('video') === 0
-                    .sliderStage
-                        .sliderLayer.active#sliderLayerA(data-slide-index="0")
-                            if slide0IsVideo
-                                video.mobileVideo.sliderMedia(data-src=imgURL+slide0.File.filename_disk,loop="true",muted="true",playsinline="true",poster="/static/img/mesh-festival-background.jpg")
-                            else
-                                img.mobileVideo.sliderMedia(data-src=imgURL+slide0.File.filename_disk+'?key=fullscreen',alt=slide0Translation ? slide0Translation.Title : '',src="/static/img/mesh-festival-background.jpg")
-                        .sliderLayer.sliderLayerNext#sliderLayerB
-                    if slides.length > 1
-                        .sliderDots
+                if slides && slides.length > 0
+                    .swiper.meshSlider
+                        .swiper-wrapper
                             each slide, i in slides
-                                button.sliderDot(class=i === 0 ? 'active' : '',type="button",data-slide-index=i,aria-label="Slide "+(i+1))
+                                - var slideTranslation = (slide.translations && slide.translations.length > 0) ? (slide.translations[languageParameter] || slide.translations[0]) : null
+                                - var slideIsVideo = slide.File && slide.File.type && slide.File.type.indexOf('video') === 0
+                                - var slideEventHref = slide.eventSlug ? (baseURL + 'timetable/' + language[0] + '?event=' + slide.eventSlug) : ''
+                                .swiper-slide(data-title=slideTranslation ? slideTranslation.Title : '',data-text=slideTranslation ? slideTranslation.Text : '',data-event-href=slideEventHref)
+                                    if slideIsVideo
+                                        if i === 0
+                                            video.mobileVideo(loop="true",muted="true",playsinline="true",poster="/static/img/mesh-festival-background.jpg",src=imgURL+slide.File.filename_disk)
+                                        else
+                                            video.mobileVideo(loop="true",muted="true",playsinline="true",poster="/static/img/mesh-festival-background.jpg",data-src=imgURL+slide.File.filename_disk)
+                                    else
+                                        if i === 0
+                                            img.mobileVideo(alt=slideTranslation ? slideTranslation.Title : '',src=imgURL+slide.File.filename_disk+'?key=fullscreen')
+                                        else
+                                            img.mobileVideo(alt=slideTranslation ? slideTranslation.Title : '',data-src=imgURL+slide.File.filename_disk+'?key=fullscreen',src="/static/img/mesh-festival-background.jpg")
+                        if slides.length > 1
+                            .swiper-pagination
                 else
                     video.mobileVideo(data-src="https://johnsonkingston.ch/MESH/Mesh-2026-Querformat-2.mp4",autoplay="true",loop="true",muted="true",playsinline="true",poster="/static/img/mesh-festival-background.jpg")
             .columnTitleBottom
@@ -102,179 +111,91 @@ html(lang=language[0])
                         br
 
             script.
-                var meshSlides = (typeof slides !== 'undefined' && slides) ? slides : [];
-                var meshSlideIndex = 0;
-                var meshSlideIntervalMs = 6000;
-                var meshTransitionMs = 900;
-                var meshSliderTimer = null;
-                var meshActiveLayerId = 'sliderLayerA';
-
-                function meshOtherLayerId(id){
-                    return id === 'sliderLayerA' ? 'sliderLayerB' : 'sliderLayerA';
+                function meshLoadSlideMedia(slideEl){
+                    var media = slideEl && slideEl.querySelector('.mobileVideo[data-src]');
+                    if (!media) return;
+                    var src = media.getAttribute('data-src');
+                    media.removeAttribute('data-src');
+                    media.setAttribute('src', src);
+                    if (media.tagName === 'VIDEO') media.play().catch(function(){});
                 }
 
-                function meshBuildMedia(slide){
-                    if (!slide || !slide.File) return null;
-                    var isVideo = slide.File.type && slide.File.type.indexOf('video') === 0;
-                    var src = 'https://env-9468449.appengine.flow.ch/assets/' + slide.File.filename_disk + (isVideo ? '' : '?key=fullscreen');
-                    var mediaEl = document.createElement(isVideo ? 'video' : 'img');
-                    mediaEl.className = 'mobileVideo sliderMedia';
-                    if (isVideo) {
-                        mediaEl.loop = true;
-                        mediaEl.muted = true;
-                        mediaEl.setAttribute('playsinline', '');
-                        mediaEl.setAttribute('poster', '/static/img/mesh-festival-background.jpg');
+                function meshPreloadNeighbors(swiper){
+                    meshLoadSlideMedia(swiper.slides[swiper.activeIndex]);
+                    meshLoadSlideMedia(swiper.slides[swiper.activeIndex + 1]);
+                }
+
+                function meshSyncVideos(swiper){
+                    var activeSlide = swiper.slides[swiper.activeIndex];
+                    for (var i = 0; i < swiper.slides.length; i++) {
+                        var video = swiper.slides[i].querySelector('video.mobileVideo');
+                        if (!video) continue;
+                        if (swiper.slides[i] === activeSlide) {
+                            video.play().catch(function(){});
+                        } else {
+                            video.pause();
+                        }
                     }
-                    mediaEl.src = src;
-                    return mediaEl;
                 }
 
-                function meshSetLayerMedia(layerEl, slide, index){
-                    if (!layerEl) return;
-                    layerEl.innerHTML = '';
-                    layerEl.setAttribute('data-slide-index', index);
-                    var mediaEl = meshBuildMedia(slide);
-                    if (mediaEl) layerEl.appendChild(mediaEl);
-                }
-
-                function meshPlayLayer(layerEl){
-                    var mediaEl = layerEl && layerEl.querySelector('video.sliderMedia');
-                    if (mediaEl) mediaEl.play().catch(function(){});
-                }
-
-                function meshPauseLayer(layerEl){
-                    var mediaEl = layerEl && layerEl.querySelector('video.sliderMedia');
-                    if (mediaEl) mediaEl.pause();
-                }
-
-                function meshPreloadNext(afterIndex){
-                    if (meshSlides.length < 2) return;
-                    var nextLayer = document.getElementById(meshOtherLayerId(meshActiveLayerId));
-                    var preloadIndex = (afterIndex + 1) % meshSlides.length;
-                    meshSetLayerMedia(nextLayer, meshSlides[preloadIndex], preloadIndex);
-                }
-
-                function meshRenderSlideText(slide){
+                function meshUpdateText(swiper){
                     var tagline = document.getElementById('sliderTagline');
                     var headline = document.getElementById('sliderHeadline');
                     var link = document.getElementById('sliderTextLink');
-                    if (!slide || !slide.translations || (!tagline && !headline)) return;
-                    var t = slide.translations[languageParameter] || slide.translations[0];
-                    if (!t) return;
+                    var activeSlide = swiper.slides[swiper.activeIndex];
+                    if (!activeSlide || (!tagline && !headline)) return;
+                    var title = activeSlide.getAttribute('data-title') || '';
+                    var text = activeSlide.getAttribute('data-text') || '';
+                    var href = activeSlide.getAttribute('data-event-href') || '';
                     if (tagline) tagline.classList.add('sliderFading');
                     if (headline) headline.classList.add('sliderFading');
                     setTimeout(function(){
-                        if (tagline) tagline.textContent = t.Title;
-                        if (headline) headline.textContent = t.Text;
+                        if (tagline) tagline.textContent = title;
+                        if (headline) headline.textContent = text;
                         if (link) {
-                            if (slide.eventSlug) {
-                                link.setAttribute('href', baseURL + 'timetable/' + language[0] + '?event=' + slide.eventSlug);
-                            } else {
-                                link.removeAttribute('href');
-                            }
+                            if (href) link.setAttribute('href', href);
+                            else link.removeAttribute('href');
                         }
                         if (tagline) tagline.classList.remove('sliderFading');
                         if (headline) headline.classList.remove('sliderFading');
-                    }, meshTransitionMs / 2);
+                    }, 450);
                 }
 
-                function meshUpdateDots(index){
-                    var dots = document.querySelectorAll('.sliderDot');
-                    for (var i = 0; i < dots.length; i++) {
-                        dots[i].classList.toggle('active', i === index);
-                    }
-                }
-
-                function meshGoToSlide(index){
-                    if (!meshSlides.length || index === meshSlideIndex) return;
-
-                    var activeLayer = document.getElementById(meshActiveLayerId);
-                    var nextLayerId = meshOtherLayerId(meshActiveLayerId);
-                    var nextLayer = document.getElementById(nextLayerId);
-
-                    if (parseInt(nextLayer.getAttribute('data-slide-index'), 10) !== index) {
-                        meshSetLayerMedia(nextLayer, meshSlides[index], index);
-                    }
-
-                    void nextLayer.offsetWidth;
-                    nextLayer.classList.remove('sliderLayerNext');
-                    nextLayer.classList.add('active');
-                    activeLayer.classList.add('sliderLayerExit');
-                    activeLayer.classList.remove('active');
-
-                    meshPlayLayer(nextLayer);
-                    meshRenderSlideText(meshSlides[index]);
-                    meshUpdateDots(index);
-
-                    var exitingLayer = activeLayer;
-                    setTimeout(function(){
-                        meshPauseLayer(exitingLayer);
-                        exitingLayer.innerHTML = '';
-                        exitingLayer.removeAttribute('data-slide-index');
-                        exitingLayer.classList.remove('sliderLayerExit');
-                        exitingLayer.classList.add('sliderLayerNext');
-                        meshPreloadNext(index);
-                    }, meshTransitionMs);
-
-                    meshActiveLayerId = nextLayerId;
-                    meshSlideIndex = index;
-                }
-
-                function meshNextSlide(){
-                    if (meshSlides.length < 2) return;
-                    meshGoToSlide((meshSlideIndex + 1) % meshSlides.length);
-                }
-
-                function meshStartSlider(){
-                    if (meshSlides.length < 2) return;
-                    meshSliderTimer = setInterval(meshNextSlide, meshSlideIntervalMs);
-                }
-
-                function meshRestartSlider(){
-                    if (meshSliderTimer) clearInterval(meshSliderTimer);
-                    meshStartSlider();
-                }
-
-                function resumeActiveSliderVideo(){
-                    if (document.visibilityState !== 'visible') return;
-                    var activeLayer = document.getElementById(meshActiveLayerId);
-                    var mediaEl = activeLayer && activeLayer.querySelector('video.sliderMedia');
-                    if (mediaEl && mediaEl.paused) mediaEl.play().catch(function(){});
-                }
-                document.addEventListener('visibilitychange', resumeActiveSliderVideo);
-
-                function sliderLoad(){
-                    var firstLayer = document.getElementById('sliderLayerA');
-                    if (!firstLayer) {
-                        var fallbackMedia = document.querySelector('.columnVideo > .mobileVideo[data-src]');
-                        if (fallbackMedia) {
-                            var fallbackSrc = fallbackMedia.getAttribute('data-src');
-                            if (fallbackSrc) fallbackMedia.setAttribute('src', fallbackSrc);
-                        }
-                        return;
-                    }
-                    var firstMedia = firstLayer.querySelector('.sliderMedia');
-                    if (firstMedia) {
-                        var dataSrc = firstMedia.getAttribute('data-src');
-                        if (dataSrc) firstMedia.setAttribute('src', dataSrc);
-                        if (firstMedia.tagName === 'VIDEO') firstMedia.play().catch(function(){});
-                    }
-                    meshPreloadNext(0);
-
-                    var dots = document.querySelectorAll('.sliderDot');
-                    for (var i = 0; i < dots.length; i++) {
-                        dots[i].addEventListener('click', function(){
-                            var index = parseInt(this.getAttribute('data-slide-index'), 10);
-                            if (!isNaN(index) && index !== meshSlideIndex) {
-                                meshGoToSlide(index);
-                                meshRestartSlider();
+                var meshSwiperEl = document.querySelector('.meshSlider');
+                if (meshSwiperEl && typeof Swiper !== 'undefined') {
+                    var meshMultiSlide = meshSwiperEl.querySelectorAll('.swiper-slide').length > 1;
+                    var meshSwiper = new Swiper(meshSwiperEl, {
+                        loop: meshMultiSlide,
+                        speed: 900,
+                        autoplay: meshMultiSlide ? { delay: 6000, disableOnInteraction: false } : false,
+                        pagination: meshMultiSlide ? { el: '.swiper-pagination', clickable: true } : false,
+                        on: {
+                            init: function(swiper){
+                                meshPreloadNeighbors(swiper);
+                                meshSyncVideos(swiper);
+                            },
+                            slideChangeTransitionStart: function(swiper){
+                                meshUpdateText(swiper);
+                            },
+                            slideChangeTransitionEnd: function(swiper){
+                                meshPreloadNeighbors(swiper);
+                                meshSyncVideos(swiper);
                             }
-                        });
+                        }
+                    });
+                    document.addEventListener('visibilitychange', function(){
+                        if (document.visibilityState !== 'visible') return;
+                        var activeSlide = meshSwiper.slides[meshSwiper.activeIndex];
+                        var video = activeSlide && activeSlide.querySelector('video.mobileVideo');
+                        if (video && video.paused && video.getAttribute('src')) video.play().catch(function(){});
+                    });
+                } else {
+                    var fallbackMedia = document.querySelector('.columnVideo > .mobileVideo[data-src]');
+                    if (fallbackMedia) {
+                        var fallbackSrc = fallbackMedia.getAttribute('data-src');
+                        if (fallbackSrc) fallbackMedia.setAttribute('src', fallbackSrc);
                     }
                 }
-
-                sliderLoad();
-                meshStartSlider();
             include includes/footer.pug
 
 

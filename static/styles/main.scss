@@ -1093,10 +1093,9 @@ ul {
       padding: calc($padding/2) $padding * 1.5;
       border-radius: 0.5vw;
       @media (orientation: portrait) {
-        font-size: $fontSize2 * $scaleFactor * 1.3;
+        font-size: $fontSize2 * $scaleFactor * 2;
         line-height: $lineHeight2 * $scaleFactor * 1.3;
-        padding: calc($padding/2) * $scaleFactor * 1.3 $padding * $scaleFactor *
-          1.3;
+        padding: calc($padding/2) * $scaleFactor * 2 $padding * $scaleFactor;
       }
       .dayFull {
         display: none;
@@ -1247,10 +1246,12 @@ ul {
     white-space: normal;
     text-align: center;
     @media (orientation: portrait) {
-      top: -5.5vw;
+      top: 2vw;
       width: 38vw;
       font-size: $fontSize1 * $scaleFactor;
       line-height: $lineHeight1 * $scaleFactor;
+      background: rgba(var(--color3));
+      padding-bottom: $padding * $scaleFactor;
     }
   }
   .timetableSpalteFilter {
@@ -2469,58 +2470,52 @@ body.startpage {
       height: 100vh;
       width: 100vw;
     }
-    .sliderStage {
+    .meshSlider {
       position: absolute;
       inset: 0;
-      overflow: hidden;
-    }
-    .sliderLayer {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      transform: translateX(0);
-      transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
-      &.active {
-        z-index: 2;
+      width: 100%;
+      height: 100%;
+      &.swiper {
+        overflow: hidden;
       }
-      &.sliderLayerNext {
-        transform: translateX(100%);
+      .swiper-slide {
+        position: relative;
+        overflow: hidden;
       }
-      &.sliderLayerExit {
-        transform: translateX(-100%);
+      .swiper-pagination {
+        position: absolute;
+        bottom: $padding * 4;
+        left: 0;
+        width: 100%;
+        z-index: 15;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: $padding * 1.5;
+        @media (orientation: portrait) {
+          bottom: 13vw;
+          gap: $padding * 1.5 * $scaleFactor;
+        }
       }
-    }
-    .sliderDots {
-      position: absolute;
-      bottom: $padding * 4;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 15;
-      display: flex;
-      gap: $padding * 1.5;
-      @media (orientation: portrait) {
-        bottom: 13vw;
-        gap: $padding * 1.5 * $scaleFactor;
-      }
-    }
-    .sliderDot {
-      width: $padding * 4;
-      height: $padding * 4;
-      border-radius: 50%;
-      border: 0.2vw solid rgba(var(--color2));
-      background: transparent;
-      padding: 0;
-      cursor: pointer;
-      filter: blur(1px);
-      transition:
-        background 0.3s ease,
-        transform 0.3s ease;
-      &.active {
-        background: rgba(var(--color2));
-      }
-      @media (orientation: portrait) {
-        width: $padding * 4 * $scaleFactor;
-        height: $padding * 4 * $scaleFactor;
+      .swiper-pagination-bullet {
+        width: $padding * 4;
+        height: $padding * 4;
+        margin: 0;
+        border-radius: 50%;
+        border: 0.2vw solid rgba(var(--color2));
+        background: transparent;
+        opacity: 1;
+        padding: 0;
+        cursor: pointer;
+        filter: blur(1px);
+        transition: background 0.3s ease;
+        &.swiper-pagination-bullet-active {
+          background: rgba(var(--color2));
+        }
+        @media (orientation: portrait) {
+          width: $padding * 4 * $scaleFactor;
+          height: $padding * 4 * $scaleFactor;
+        }
       }
     }
   }
