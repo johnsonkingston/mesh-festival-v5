@@ -424,6 +424,9 @@ div.bubble {
   .venueOverview {
     gap: 1.25vw;
     padding-left: 1.25vw;
+    margin-left: 1.25vw;
+    margin-right: 1.25vw;
+    width: auto;
   }
   .venueOverview .venueItem .venueTitle {
     margin-top: 0.625vw;
@@ -908,8 +911,9 @@ div.bubble {
 @media (orientation: portrait) {
   .page main .content .bio-wrapper,
   .visit main .content .bio-wrapper {
-    font-size: 3vw;
-    line-height: 3.5vw;
+    font-size: 4.5vw;
+    line-height: 5.25vw;
+    width: 100%;
   }
 }
 .page main .content h4.bio-wrapper,
@@ -993,6 +997,12 @@ div.bubble {
   }
 }
 
+.event a {
+  color: rgba(var(--color2));
+}
+.event a:hover {
+  color: rgba(var(--color4));
+}
 .event .breadcrumb {
   color: rgba(var(--color2));
   background: rgba(var(--color1));
@@ -1007,9 +1017,6 @@ div.bubble {
   .event .breadcrumb {
     top: 1.25vw;
   }
-}
-.event .breadcrumb a {
-  color: rgba(var(--color2));
 }
 .event main {
   background: rgba(var(--color1));
@@ -1062,8 +1069,13 @@ div.bubble {
 }
 @media (orientation: portrait) {
   .event .eventHeader .eventHeaderColumn p {
-    font-size: 3vw;
-    line-height: 3.5vw;
+    font-size: 4.5vw;
+    line-height: 5.25vw;
+  }
+}
+@media (orientation: portrait) {
+  .event .eventHeader .eventHeaderColumn {
+    width: 90%;
   }
 }
 .event .eventHeader .eventHeaderColumn #ticketlink,
@@ -1115,6 +1127,23 @@ h4 {
   h4 {
     font-size: 3vw;
     line-height: 3.5vw;
+  }
+}
+
+.format {
+  background-color: rgba(var(--color2));
+  color: rgba(var(--color1));
+  border-radius: 0.5vw;
+  padding: 0.25vw 0.5vw;
+  display: inline-block;
+  margin-left: 0.5vw;
+}
+@media (orientation: portrait) {
+  .format {
+    font-size: 3vw;
+    line-height: 3.5vw;
+    padding: 0.1vw 0.8vw 0vw 0.8vw;
+    border-radius: 1vw;
   }
 }
 
@@ -1675,8 +1704,8 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable .format {
-    padding: 0.1vw 0.6vw 0vw 0.4vw;
-    border-radius: 0.5vw;
+    padding: 0.1vw 0.8vw 0vw 0.8vw;
+    border-radius: 1vw;
     margin-top: 1vw;
     margin-right: 1vw;
   }
@@ -1872,6 +1901,12 @@ ul {
   text-align: right;
   font-size: 0.8vw;
   line-height: 1vw;
+  background: rgba(var(--color2));
+  color: rgba(var(--color1));
+  padding: 0.1vw 0.2vw;
+  border-radius: 0.25vw;
+  display: inline-block;
+  float: right;
 }
 @media (orientation: portrait) {
   .artists main .artist .left .format,
@@ -1879,6 +1914,10 @@ ul {
   .artists main .artist .right .format {
     font-size: 2vw;
     line-height: 2.5vw;
+    padding: 0.1vw 0.8vw 0vw 0.8vw;
+    font-size: 3vw;
+    line-height: 3.5vw;
+    border-radius: 1vw;
   }
 }
 .artists main .artist .left h4,
@@ -2340,7 +2379,7 @@ footer {
 @media (orientation: portrait) {
   footer {
     padding-top: 3vw;
-    padding-bottom: 3vw;
+    padding-bottom: 22vw;
     height: auto;
   }
 }
@@ -2354,6 +2393,7 @@ footer img {
 @media (orientation: portrait) {
   footer img {
     height: 15vw;
+    margin: 4vw;
   }
 }
 footer img:hover {
@@ -2394,7 +2434,7 @@ footer a {
 }
 @media (orientation: portrait) {
   footer a {
-    font-size: 3vw;
+    font-size: 4.5vw;
     line-height: 6.3vw;
   }
 }
