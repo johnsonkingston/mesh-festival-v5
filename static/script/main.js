@@ -13,6 +13,7 @@ function toggleNav() {
     $('main').toggleClass('blur');
     $('#filters').toggleClass('blur');
     $('footer').toggleClass('blur');
+    $('.splashImage').toggleClass('blur');
     $('#hamburger').toggleClass('open');
 }
 

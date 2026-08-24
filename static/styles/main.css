@@ -1322,6 +1322,12 @@ ul {
   color: rgba(var(--color4));
   text-shadow: 0 0 10px rgba(var(--color4));
 }
+@media (orientation: portrait) {
+  .timetable #dayNav .dayNavItem:hover {
+    color: rgba(var(--color2));
+    text-shadow: none;
+  }
+}
 .timetable #dayNav .dayNavItem.active {
   background: rgba(var(--color2));
   color: rgba(var(--color1));
@@ -1343,6 +1349,13 @@ ul {
 .timetable #dayNav .dayNavItem.active:hover {
   background: rgba(var(--color4));
   color: rgba(var(--color1));
+}
+@media (orientation: portrait) {
+  .timetable #dayNav .dayNavItem.active:hover {
+    background: rgba(var(--color2));
+    color: rgba(var(--color1));
+    text-shadow: none;
+  }
 }
 .timetable h1,
 .timetable h2,
@@ -3194,6 +3207,7 @@ body.startpage .statement h1 {
   body.startpage .statement h1 {
     font-size: 15vw;
     line-height: 13.65vw;
+    width: 90%;
   }
 }
 body.startpage .statement h2 {

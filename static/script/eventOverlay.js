@@ -8,10 +8,14 @@ function isTopWindow() {
 
 function navigateOverlayFrame(href) {
     var frame = document.getElementById('eventOverlayFrame');
+    var targetHref = href;
+    if (href !== 'about:blank') {
+        targetHref = href + (href.indexOf('?') === -1 ? '?' : '&') + 'embed=1';
+    }
     try {
-        frame.contentWindow.location.replace(href);
+        frame.contentWindow.location.replace(targetHref);
     } catch (e) {
-        frame.src = href;
+        frame.src = targetHref;
     }
 }
 

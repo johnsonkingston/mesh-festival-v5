@@ -243,36 +243,40 @@ function rewriteDate(event, subkey) {
   return event;
 }
 
-app.get("/timetable/:language?/:format?", async function (req, res) {
+async function renderTimetable(req, res, extraLocals) {
+  extraLocals = extraLocals || {};
   var pathname = req.originalUrl;
   language = req.params.language || "de";
   languageObject = [language, languageTransform(language)];
-  format = req.params.format || "none";
+  format = extraLocals.format || req.params.format || "none";
 
+  result = await getAllEvents();
+  navigation = await getNavigation();
+  footer = await getFooter();
+  //news = await getNews();
+  venues = await getVenues();
+
+  result.data[0].pathname = langRemove(pathname);
+
+  if (result.data[0]) {
+    res.render("timetable", {
+      data: result.data[0],
+      events: events,
+      navigation: navigation.data,
+      footer: footer.data,
+      language: languageObject,
+      highlights: [],
+      venues: venues.data,
+      format: format,
+      slides: [],
+      autoOpenEvent: extraLocals.autoOpenEvent || null,
+    });
+  }
+}
+
+app.get("/timetable/:language?/:format?", async function (req, res) {
   try {
-    result = await getAllEvents();
-    navigation = await getNavigation();
-    footer = await getFooter();
-    //news = await getNews();
-    venues = await getVenues();
-
-    language = req.params.language || "de";
-
-    result.data[0].pathname = langRemove(pathname);
-
-    if (result.data[0]) {
-      res.render("timetable", {
-        data: result.data[0],
-        events: events,
-        navigation: navigation.data,
-        footer: footer.data,
-        language: languageObject,
-        highlights: [],
-        venues: venues.data,
-        format: format,
-        slides: [],
-      });
-    }
+    await renderTimetable(req, res);
   } catch (err) {
     console.error(err);
     res.redirect("/");
@@ -656,6 +660,11 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
   try {
     eventSlug = req.params.eventSlug;
     language = req.params.language || "de";
+
+    if (!req.query.embed) {
+      await renderTimetable(req, res, { autoOpenEvent: eventSlug });
+      return;
+    }
 
     console.log(language);
     result = await getEvent(eventSlug);

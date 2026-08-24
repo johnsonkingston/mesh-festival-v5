@@ -31,7 +31,8 @@ script(src=baseURL+'static/script/eventOverlay.js')
 
 script.
     (function(){
-        var eventSlug = new URLSearchParams(window.location.search).get('event');
+        var serverAutoOpenEvent = !{JSON.stringify(typeof autoOpenEvent !== 'undefined' && autoOpenEvent ? autoOpenEvent : null)};
+        var eventSlug = new URLSearchParams(window.location.search).get('event') || serverAutoOpenEvent;
         if (!eventSlug || typeof openEventOverlay !== 'function') return;
         var lang = (typeof language !== 'undefined' && language[0]) ? language[0] : 'de';
         openEventOverlay(window.location.origin + '/events/' + eventSlug + '/' + lang, false);
