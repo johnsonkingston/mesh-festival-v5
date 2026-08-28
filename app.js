@@ -846,6 +846,11 @@ app.get("/robots.txt", async function (req, res) {
   res.send("User-agent: *");
 });
 
+// Title-slide generator tool for conference speakers
+app.get("/generate-slides", function (req, res) {
+  res.render("generate-slides");
+});
+
 //Startpage
 async function getStartpage() {
   const response = await fetch(

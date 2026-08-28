@@ -1324,17 +1324,11 @@ ul {
       overflow: scroll;
     }
     .EventTimetableContent {
-      padding: $padding * 0.5 $padding * 0.5 0 $padding * 0.5;
+      padding: $padding * 0.5 0;
       @media (orientation: portrait) {
         padding: $padding $padding 0 $padding;
       }
-      h3 {
-        padding-top: 0;
-        margin-top: 0;
-        padding-bottom: $padding * 0.5;
-        margin-left: 1.2vw;
-        text-align: right;
-      }
+
       h5,
       h6 {
         color: rgba(var(--color2));
@@ -1444,7 +1438,8 @@ ul {
   }
   h2,
   h3,
-  h4 {
+  h4,
+  p {
     font-family: "FreeSans-JK";
     font-size: $fontSizeMicro;
     line-height: $lineHeightMicro;
@@ -1456,7 +1451,7 @@ ul {
       line-height: 1.2vw * $scaleFactor;
     }
   }
-  .title {
+  h2 {
     font-family: "FreeSerif-JK";
     font-size: $fontSize1 * $serifFactor;
   }
@@ -1473,7 +1468,7 @@ ul {
   }
   .artist {
   }
-  .title {
+  h2 {
     margin-top: 0;
     padding-top: $padding * 0.5;
     line-height: $lineHeight1;
@@ -1500,7 +1495,7 @@ ul {
       }
     }
   }
-  .EventTimetable .format {
+  .EventTimetable h3 {
     position: absolute;
     top: 0;
     right: 0;
@@ -1511,7 +1506,7 @@ ul {
     padding-bottom: $padding * 0.5;
     padding-top: $padding * 0.5;
   }
-  .format {
+  h3 {
     text-transform: capitalize;
     margin-top: 0;
     padding: 0 $padding * 0.5 0 0;
@@ -2149,105 +2144,6 @@ footer {
     @media (orientation: portrait) {
       font-size: $fontSize2 * $scaleFactor;
       line-height: $lineHeight1 * $scaleFactor * 1.8;
-    }
-  }
-}
-
-/*SOCKET */
-
-#status,
-.member {
-  display: inline-block;
-  background-color: rgba(var(--color1));
-  color: rgba(var(--color2));
-  transition: color 1s linear;
-  padding: $padding/2 $padding $padding/2 $padding;
-  font-size: $fontSize1;
-  line-height: $lineHeight1;
-  margin-left: $padding * 2;
-  margin-bottom: $padding;
-  @media (orientation: portrait) {
-    font-size: $fontSize1 * $scaleFactor;
-    line-height: $lineHeight1 * $scaleFactor;
-    margin-left: $padding * $scaleFactor;
-    margin-bottom: $padding * $scaleFactor;
-    padding: $padding/2 * $scaleFactor $padding * $scaleFactor $padding/2 *
-      $scaleFactor $padding * $scaleFactor;
-    border-radius: $lineHeight1 * $scaleFactor;
-  }
-}
-.cursor {
-  position: fixed;
-  z-index: 1000;
-  left: -10vw;
-  top: -10vw;
-  font-size: 2vw;
-  @media (orientation: portrait) {
-    font-size: $fontSize2 * $scaleFactor;
-  }
-  //transition: all 0.1s;
-}
-.meetingPoint {
-  position: fixed;
-  z-index: 20;
-}
-@keyframes emojiFly {
-  0% {
-    transform: translateY(-3000px);
-  }
-  1% {
-    transform: translateY(0px);
-  }
-  100% {
-    transform: translateY(-3000px);
-  }
-}
-.emoji {
-  position: absolute;
-  transform: translateX(0px);
-  animation: emojiFly 4s forwards;
-  font-size: 3vw;
-}
-
-#back {
-  display: none;
-  @media (orientation: portrait) {
-    width: 16vw;
-    height: 16vw;
-    align-items: center;
-    position: fixed;
-    left: 79.25vw;
-    bottom: 18vw;
-    z-index: 120;
-    cursor: pointer;
-    div {
-      background: rgba(var(--color2));
-      box-shadow: rgba(var(--color2)) 0 0 1vw;
-      transition: all 0.3s;
-      position: absolute;
-    }
-    div:nth-child(1) {
-      width: 15vw;
-      height: 2vw;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    div:nth-child(2) {
-      width: 10vw;
-      height: 2vw;
-      left: 0;
-      top: calc(50% - 0.5vw);
-      transform: rotate(-45deg);
-      transform-origin: left center;
-    }
-    div:nth-child(3) {
-      width: 10vw;
-      height: 2vw;
-      left: 0;
-      top: 6.5vw;
-      transform: rotate(45deg);
-      transform-origin: left center;
     }
   }
 }
