@@ -83,6 +83,8 @@ html(lang=language[0])
                                                             .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
                                                                 if(formatsTranslation[event.Format] !== undefined)
                                                                     h3.format=formatsTranslation[event.Format][languageParameter]
+                                                                if(event.Subformat && event.Subformat.trim())
+                                                                    h4=event.Subformat
                                                                 h2.title!='<span class="bullet">•</span>'+(eventTranslation(event, languageParameter).Title || '')
                                                                 //h2.artist=event.Artist
                                                                 - var hourEndDisplay = ('0' + (Math.floor(event.HourEnd) % 24)).slice(-2)

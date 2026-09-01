@@ -41,6 +41,50 @@ const server = app.listen(serverPort, () => {
 
 let events;
 
+// --- simple in-memory cache with short TTL --------------------------------
+// Collapses the per-request CMS fan-out: identical upstream calls within the
+// TTL window are served from memory instead of re-fetching Directus.
+const CACHE_TTL_MS = Number(process.env.CACHE_TTL_MS) || 30 * 1000;
+const _cache = new Map(); // key -> { expires:Number, value:any }
+
+function cacheSet(key, value) {
+  // keep the map from growing unbounded (e.g. slug-fuzzing bots)
+  if (_cache.size > 250) {
+    const now = Date.now();
+    for (const [k, v] of _cache) if (v.expires <= now) _cache.delete(k);
+    if (_cache.size > 250) _cache.clear();
+  }
+  _cache.set(key, { expires: Date.now() + CACHE_TTL_MS, value });
+}
+
+// For getters with no side effects: memoise their return value.
+// Failed/empty responses are not cached, so recovery is immediate.
+// Pass clone=true for results that route handlers mutate in place (page/event),
+// so the cached copy is never touched.
+async function cached(key, producer, clone) {
+  const hit = _cache.get(key);
+  if (hit && hit.expires > Date.now()) {
+    return clone ? structuredClone(hit.value) : hit.value;
+  }
+  const value = await producer();
+  if (value !== "" && value != null) cacheSet(key, value);
+  return clone && value !== "" && value != null ? structuredClone(value) : value;
+}
+
+// For the Events getters, which also populate the module-level `events`:
+// cache both the return value and the resulting `events` array, and restore
+// the global on a cache hit.
+async function cachedEvents(key, producer) {
+  const hit = _cache.get(key);
+  if (hit && hit.expires > Date.now()) {
+    events = hit.value.events;
+    return hit.value.data;
+  }
+  const data = await producer(); // sets the global `events` as a side effect
+  if (data !== "" && data != null) cacheSet(key, { data, events });
+  return data;
+}
+
 //Language
 function languageTransform(string) {
   if (string == "en") {
@@ -66,71 +110,63 @@ function langRemove(pathname) {
 
 //Venues
 async function getVenues() {
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Venues?fields[]=*.*",
-  );
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
+  return cached("venues", async () => {
+    const response = await fetch(
+      "https://env-9468449.appengine.flow.ch/items/Venues?fields[]=*.*",
+    );
+    if (!response.ok) {
+      console.log("Response not okay");
+      return "";
+    }
     const data = await response.json();
-    //console.log(data.data);
     let dataArray = new Array();
     for (const [key, value] of Object.entries(data.data)) {
-      //console.log(value);
-      //console.log(value.id);
       dataArray[value.id] = { id: value.id, Name: value.Name };
     }
-    //console.log('dataArray');
     data.data = dataArray;
     return data;
-  }
+  });
 }
 
 async function getVenuesOverview() {
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Venues/?filter[In_Overview][_eq]=true&fields[]=*.*",
-  );
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
-    const data = await response.json();
-    return data;
-  }
+  return cached("venuesOverview", async () => {
+    const response = await fetch(
+      "https://env-9468449.appengine.flow.ch/items/Venues/?filter[In_Overview][_eq]=true&fields[]=*.*",
+    );
+    if (!response.ok) {
+      console.log("Response not okay");
+      return "";
+    }
+    return await response.json();
+  });
 }
 
 //Navigation
 async function getNavigation() {
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Navigation_translations",
-  );
-
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
-    const data = await response.json();
-    return data;
-  }
+  return cached("navigation", async () => {
+    const response = await fetch(
+      "https://env-9468449.appengine.flow.ch/items/Navigation_translations",
+    );
+    if (!response.ok) {
+      console.log("Response not okay");
+      return "";
+    }
+    return await response.json();
+  });
 }
 
 //Hightlights
 async function getHighlights() {
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Highlights?fields[]=*.*",
-  );
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
-    const data = await response.json();
-    return data;
-  }
+  return cached("highlights", async () => {
+    const response = await fetch(
+      "https://env-9468449.appengine.flow.ch/items/Highlights?fields[]=*.*",
+    );
+    if (!response.ok) {
+      console.log("Response not okay");
+      return "";
+    }
+    return await response.json();
+  });
 }
 
 //News
@@ -149,35 +185,33 @@ async function getHighlights() {
 
 //Footer
 async function getFooter() {
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Footer_translations",
-  );
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
-    const data = await response.json();
-    return data;
-  }
+  return cached("footer", async () => {
+    const response = await fetch(
+      "https://env-9468449.appengine.flow.ch/items/Footer_translations",
+    );
+    if (!response.ok) {
+      console.log("Response not okay");
+      return "";
+    }
+    return await response.json();
+  });
 }
 
 //Timetable
 async function getAllEvents() {
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*&limit=1000",
-  );
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
+  return cachedEvents("allEvents", async () => {
+    const response = await fetch(
+      "https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*&limit=1000",
+    );
+    if (!response.ok) {
+      console.log("Response not okay");
+      events = [];
+      return "";
+    }
     const data = await response.json();
 
     events = data.data;
     let corrEvents;
-    let eventsTemp = [];
-    let eventsTemp2 = [];
 
     for (const [key, value] of Object.entries(events)) {
       if (value.Time == undefined) {
@@ -207,18 +241,16 @@ async function getAllEvents() {
           events[key] = rewriteDate(events[key], 0);
         }
       }
-      console.log(events[key].Artist);
     }
     events.sort((a, b) =>
       (a.DateToOrder || "").localeCompare(b.DateToOrder || ""),
     );
 
     return data;
-  }
+  });
 }
 
 function rewriteDate(event, subkey) {
-  console.log(event.Time[subkey].Start);
   if (event.Time[subkey].Start !== undefined) {
     event.Day = event.Time[subkey].Start.split("-")[2].substring(0, 2);
     event.Hour = event.Time[subkey].Start.split("-")[2].substring(3, 5);
@@ -285,14 +317,15 @@ app.get("/timetable/:language?/:format?", async function (req, res) {
 
 //Artists
 async function getAllArtists() {
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*.*&limit=1000",
-  );
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
+  return cachedEvents("allArtists", async () => {
+    const response = await fetch(
+      "https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*.*&limit=1000",
+    );
+    if (!response.ok) {
+      console.log("Response not okay");
+      events = [];
+      return "";
+    }
     const data = await response.json();
 
     events = data.data;
@@ -346,7 +379,7 @@ async function getAllArtists() {
     events = artists;
 
     return data;
-  }
+  });
 }
 
 app.get("/artists/:language?/", async function (req, res) {
@@ -385,14 +418,15 @@ app.get("/artists/:language?/", async function (req, res) {
 
 //Ausstellungen
 async function getAusstellungenArtists() {
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*.*&limit=1000",
-  );
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
+  return cachedEvents("ausstellungenArtists", async () => {
+    const response = await fetch(
+      "https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*.*&limit=1000",
+    );
+    if (!response.ok) {
+      console.log("Response not okay");
+      events = [];
+      return "";
+    }
     const data = await response.json();
 
     events = data.data;
@@ -439,7 +473,7 @@ async function getAusstellungenArtists() {
     events = artists;
 
     return data;
-  }
+  });
 }
 
 app.get("/ausstellungen/:language?/", async function (req, res) {
@@ -477,20 +511,19 @@ app.get("/ausstellungen/:language?/", async function (req, res) {
 
 //List
 async function getAllEventsList() {
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*&limit=1000",
-  );
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
+  return cachedEvents("allEventsList", async () => {
+    const response = await fetch(
+      "https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*&limit=1000",
+    );
+    if (!response.ok) {
+      console.log("Response not okay");
+      events = [];
+      return "";
+    }
     const data = await response.json();
 
     events = data.data;
     let corrEvents;
-    let eventsTemp = [];
-    let eventsTemp2 = [];
 
     for (const [key, value] of Object.entries(events)) {
       if (value.Time == undefined) {
@@ -520,14 +553,13 @@ async function getAllEventsList() {
           events[key] = rewriteDate(events[key], 0);
         }
       }
-      console.log(events[key].Artist);
     }
     events.sort((a, b) =>
       (a.DateToOrder || "").localeCompare(b.DateToOrder || ""),
     );
 
     return data;
-  }
+  });
 }
 
 app.get("/list/:language?/:format?", async function (req, res) {
@@ -569,19 +601,22 @@ app.get("/list/:language?/:format?", async function (req, res) {
 //Page
 async function getPage(pageSlug) {
   console.log(pageSlug);
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Pages/?filter[slug][_eq]=" +
-      pageSlug +
-      "&fields[]=*.*.*",
+  return cached(
+    "page:" + pageSlug,
+    async () => {
+      const response = await fetch(
+        "https://env-9468449.appengine.flow.ch/items/Pages/?filter[slug][_eq]=" +
+          pageSlug +
+          "&fields[]=*.*.*",
+      );
+      if (!response.ok) {
+        console.log("Response not okay");
+        return "";
+      }
+      return await response.json();
+    },
+    true, // route handler mutates result in place
   );
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
-    const data = await response.json();
-    return data;
-  }
 }
 
 app.get("/pages/:pageSlug/:language?", async function (req, res) {
@@ -639,19 +674,22 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
 //Event
 async function getEvent(eventSlug) {
   console.log(eventSlug);
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Events/?filter[slug][_eq]=" +
-      eventSlug +
-      "&fields[]=*.*.*",
+  return cached(
+    "event:" + eventSlug,
+    async () => {
+      const response = await fetch(
+        "https://env-9468449.appengine.flow.ch/items/Events/?filter[slug][_eq]=" +
+          eventSlug +
+          "&fields[]=*.*.*",
+      );
+      if (!response.ok) {
+        console.log("Response not okay");
+        return "";
+      }
+      return await response.json();
+    },
+    true, // route handler mutates result in place
   );
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
-    const data = await response.json();
-    return data;
-  }
 }
 
 app.get("/events/:eventSlug/:language?", async function (req, res) {
@@ -851,36 +889,93 @@ app.get("/generate-slides", function (req, res) {
   res.render("generate-slides");
 });
 
+// Per-day program poster (9:16), exportable as JPG
+app.get("/screens/:language?", async function (req, res) {
+  try {
+    const language = req.params.language || "de";
+    const langIdx = languageTransform(language);
+
+    await getAllEvents(); // populates the module-level `events` (cached)
+    const venuesResult = await getVenues();
+    const venuesData = (venuesResult && venuesResult.data) || [];
+
+    const screenEvents = (events || [])
+      .filter(
+        (e) =>
+          e &&
+          e.status === "published" &&
+          e.In_Timetable &&
+          e.Timetable_only !== "1" &&
+          e.Venues &&
+          e.Venues[0] &&
+          e.Day &&
+          e.Hour !== "" &&
+          e.Hour != null,
+      )
+      .map((e) => {
+        const tr =
+          (e.translations && (e.translations[langIdx] || e.translations[0])) ||
+          {};
+        const v = venuesData[e.Venues[0].Venues_id];
+        return {
+          day: String(e.Day),
+          format: e.Format || "",
+          subformat: e.Subformat || "",
+          title: tr.Title || "",
+          artist: e.Artist || "",
+          hourStart: parseInt(e.Hour, 10) || 0,
+          minStart: e.Minute ? parseInt(e.Minute, 10) : 0,
+          hourEnd:
+            e.HourEnd === "" || e.HourEnd == null ? null : Number(e.HourEnd),
+          minEnd: e.MinuteEnd ? parseInt(e.MinuteEnd, 10) : 0,
+          venue: v ? v.Name : "",
+        };
+      });
+
+    res.render("screens", {
+      screenEvents,
+      language: [language, langIdx],
+    });
+  } catch (err) {
+    console.error(err);
+    res.redirect("/");
+  }
+});
+
 //Startpage
 async function getStartpage() {
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Startpage?fields[]=*.*.*",
+  return cached(
+    "startpage",
+    async () => {
+      const response = await fetch(
+        "https://env-9468449.appengine.flow.ch/items/Startpage?fields[]=*.*.*",
+      );
+      if (!response.ok) {
+        console.log("Response not okay");
+        return "";
+      }
+      return await response.json();
+    },
+    true, // route handler mutates result in place
   );
-
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
-    const data = await response.json();
-    return data;
-  }
 }
 
 //Startpage Slider
 async function getSlides() {
-  const response = await fetch(
-    "https://env-9468449.appengine.flow.ch/items/Slides_Startpage?fields[]=*.*&fields[]=Link.item:Events.slug",
+  return cached(
+    "slides",
+    async () => {
+      const response = await fetch(
+        "https://env-9468449.appengine.flow.ch/items/Slides_Startpage?fields[]=*.*&fields[]=Link.item:Events.slug",
+      );
+      if (!response.ok) {
+        console.log("Response not okay");
+        return "";
+      }
+      return await response.json();
+    },
+    true, // route handler mutates slide objects in place
   );
-
-  if (!response.ok) {
-    console.log("Response not okay");
-    const data = "";
-    return data;
-  } else {
-    const data = await response.json();
-    return data;
-  }
 }
 
 app.get("/:language?", async function (req, res) {
@@ -1020,30 +1115,4 @@ function dateformat_de(dateIn) {
 //404
 app.all("*", (req, res) => {
   res.redirect("/");
-});
-
-// Websocket
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "http://localhost:8100",
-    methods: ["GET", "POST"],
-    transports: ["websocket", "polling"],
-    credentials: true,
-  },
-  allowEIO3: true,
-});
-
-io.on("connection", function (socket) {
-  var userId = socket.id;
-  // console.log('joined: '+userId);
-  socket.on("move", function (data) {
-    io.sockets.emit("moveTo", { id: userId, x: data.x, y: data.y });
-  });
-  socket.on("meeting", function (dataMeeting) {
-    console.log(dataMeeting);
-    io.sockets.emit("meetingSend", { x: dataMeeting.x, y: dataMeeting.y });
-  });
-  socket.on("disconnecting", function (socket) {
-    io.sockets.emit("left", userId);
-  });
 });
