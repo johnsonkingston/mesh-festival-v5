@@ -1,0 +1,358 @@
+doctype html
+html(lang="de")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(name="robots" content="noindex")
+        title Mesh – A4 Druck
+        link(rel="icon" type="image/png" sizes="32x32" href=baseURL+"static/img/favicon/favicon-32x32.png")
+        style#pageStyle.
+            @page{ size:A4 portrait; margin:0; }
+        style.
+            @font-face{font-family:"FreeSans-JK";src:url("#{baseURL}static/fonts/JK-MESH-Sans.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Sans.woff") format("woff");font-weight:700;font-display:swap;}
+            @font-face{font-family:"FreeSerif-JK";src:url("#{baseURL}static/fonts/JK-MESH-Serif.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Serif.woff") format("woff");font-weight:500;font-display:swap;}
+
+            :root{
+                --ink:#111;
+                --ui-bg:#fef7f6;
+                --ui-ink:#333;
+                --rule:rgba(51,51,51,.22);
+                --size-s:44pt;   /* klein */
+                --size-m:72pt;   /* mittel */
+                --size-l:100pt;  /* gross */
+                --size-xl:300pt; /* Icons – 3x gross */
+            }
+            *,*::before,*::after{box-sizing:border-box;}
+            html,body{margin:0;height:100%;}
+            body{
+                background:var(--ui-bg);color:var(--ui-ink);
+                font-family:"FreeSans-JK",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+                -webkit-font-smoothing:antialiased;
+            }
+            p{
+                margin-block-start: 0;
+                margin-block-end: 0;
+            }
+            .app{display:flex;flex-direction:column;min-height:100vh;}
+
+            .toolbar{
+                position:sticky;top:0;z-index:5;
+                display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;
+                padding:.7rem 1rem;background:var(--ui-bg);border-bottom:1px solid var(--rule);
+            }
+            .tb-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;opacity:.55;}
+            .tb-group{display:flex;gap:.3rem;}
+            .tb-btn{
+                font:inherit;font-weight:700;line-height:1;
+                background:#fff;color:var(--ui-ink);
+                border:1px solid var(--rule);border-radius:2px;
+                padding:.5rem .8rem;cursor:pointer;
+            }
+            .tb-btn.is-active{background:var(--ui-ink);color:var(--ui-bg);border-color:var(--ui-ink);}
+            .tb-btn.tb-serif{font-family:"FreeSerif-JK",Georgia,serif;font-weight:500;}
+            .tb-btn.tb-size-s{font-size:.8rem;padding:.5rem .7rem;}
+            .tb-btn.tb-size-m{font-size:1.02rem;padding:.42rem .7rem;}
+            .tb-btn.tb-size-l{font-size:1.3rem;padding:.32rem .7rem;}
+            .tb-btn.tb-size-xl{font-size:1.65rem;padding:.18rem .6rem;}
+            .tb-spacer{flex:1;}
+            .tb-print{background:var(--ui-ink);color:var(--ui-bg);border-color:var(--ui-ink);}
+            .subbar{
+                padding:.4rem 1rem .6rem;background:var(--ui-bg);
+                border-bottom:1px solid var(--rule);font-size:.78rem;opacity:.6;
+            }
+            .charbar{
+                display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem;
+                padding:.5rem 1rem .6rem;background:var(--ui-bg);border-bottom:1px solid var(--rule);
+            }
+            .cb-group{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem;}
+            .cb-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;opacity:.55;margin-right:.15rem;}
+            .char-btn{
+                font-family:-apple-system,BlinkMacSystemFont,"Segoe UI Symbol","Noto Sans Symbols2","Apple Color Emoji","Segoe UI Emoji",sans-serif;
+                font-size:1.05rem;line-height:1;
+                min-width:2rem;padding:.35rem .4rem;
+                background:#fff;color:var(--ui-ink);
+                border:1px solid var(--rule);border-radius:2px;cursor:pointer;
+            }
+            .char-btn:hover{background:var(--ui-ink);color:var(--ui-bg);}
+
+            .stage{
+                flex:1;display:flex;justify-content:center;align-items:flex-start;
+                padding:24px 16px 48px;overflow:auto;
+            }
+            .sheet-clip{overflow:hidden;background:#fff;box-shadow:0 2px 24px rgba(0,0,0,.18);}
+            .sheet{
+                position:relative;
+                width:210mm;height:297mm;background:#fff;
+                transform:scale(var(--scale,1));transform-origin:top left;
+                padding:3.5mm;overflow:hidden;
+            }
+            /* full-format A4 background artwork */
+            .sheet .p-bg{
+                position:absolute;inset:0;width:100%;height:100%;
+                object-fit:fill;display:block;pointer-events:none;
+            }
+
+            .sheet-inner{
+                position:relative;z-index:1;width:100%;min-height:100%;
+                text-align:left;outline:none;color:var(--ink);
+                padding-bottom:32mm; /* keep text clear of the artwork's footer band */
+            }
+            .sheet-inner .pp{
+                margin:0;
+                white-space:pre-wrap;overflow-wrap:break-word;hyphens:manual;
+                font-family:"FreeSans-JK",sans-serif;font-weight:700;
+                font-size:var(--size-l);line-height:1;
+            }
+            .sheet-inner .pp[data-family="sans"]{font-family:"FreeSans-JK",sans-serif;font-weight:700;}
+            .sheet-inner .pp[data-family="serif"]{font-family:"FreeSerif-JK",Georgia,serif;font-weight:500;}
+            .sheet-inner .pp[data-size="s"]{font-size:var(--size-s);}
+            .sheet-inner .pp[data-size="m"]{font-size:var(--size-m);}
+            .sheet-inner .pp[data-size="l"]{font-size:var(--size-l);}
+            .sheet-inner .pp[data-size="xl"]{font-size:var(--size-xl);}
+            .sheet-inner.is-empty::before{
+                content:attr(data-placeholder);
+                position:absolute;left:0;top:0;pointer-events:none;opacity:.22;
+                font:700 var(--size-s)/1.1 "FreeSans-JK",sans-serif;
+            }
+
+            @media print{
+                html,body{background:#fff !important;}
+                .app-chrome{display:none !important;}
+                .stage{display:block !important;padding:0 !important;overflow:visible !important;}
+                .sheet-clip{overflow:visible !important;box-shadow:none !important;width:auto !important;height:auto !important;}
+                .sheet{transform:none !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+            }
+    body
+        .app
+            .toolbar.app-chrome
+                span.tb-label Schrift
+                .tb-group#familyGroup
+                    button.tb-btn.is-active(type="button" data-family="sans") Sans
+                    button.tb-btn.tb-serif(type="button" data-family="serif") Serif
+                span.tb-label Grösse
+                .tb-group#sizeGroup
+                    button.tb-btn.tb-size-s(type="button" data-size="s" title="44 pt") A
+                    button.tb-btn.tb-size-m(type="button" data-size="m" title="72 pt") A
+                    button.tb-btn.tb-size-l.is-active(type="button" data-size="l" title="100 pt") A
+                    button.tb-btn.tb-size-xl(type="button" data-size="xl" title="Icons – 300 pt") A
+                span.tb-spacer
+                button.tb-btn.tb-print#printBtn(type="button") Drucken
+            .subbar.app-chrome Direkt in die Seite schreiben. Formatierung (Schrift / Grösse) gilt pro Absatz – Cursor in den Absatz setzen oder markieren. Tipp: im Druckdialog «Kopf- und Fusszeilen» deaktivieren.
+            .charbar.app-chrome#charbar
+            .stage#stage
+                .sheet-clip#sheetClip
+                    .sheet#sheet
+                        img.p-bg#pbg(src=baseURL+"static/img/MESH-PRINT.jpg" alt="")
+                        .sheet-inner#sheetInner(contenteditable="true" spellcheck="false" data-placeholder="Text eingeben …")
+        script.
+            (function(){
+                var MM = 96 / 25.4;
+                var toolbar = document.querySelector(".toolbar");
+                var stage = document.getElementById("stage");
+                var sheetClip = document.getElementById("sheetClip");
+                var sheet = document.getElementById("sheet");
+                var inner = document.getElementById("sheetInner");
+                var printBtn = document.getElementById("printBtn");
+                var familyGroup = document.getElementById("familyGroup");
+                var sizeGroup = document.getElementById("sizeGroup");
+                var charbar = document.getElementById("charbar");
+
+                // current defaults – applied to new paragraphs, follow the caret
+                var curFamily = "sans";
+                var curSize = "l";
+                var savedRange = null; // last caret position inside the sheet
+
+                // insertable glyphs – monochrome arrows / marks + festival pictograms
+                var GLYPHS = [
+                    ["Pfeile", ["←","→","↑","↓","↖","↗","↘","↙","↔","↕","⟵","⟶","⇐","⇒","➜","»"]],
+                    ["Zeichen", ["•","–","—","…","×","✓","✗","★","☆","⚠","№","§","°","€","„","“","”","‹","›"]],
+                    ["Icons", ["📍","🕐","🎟️","♿","🚻","🚹","🚺","🚭","🚫","⚠️","ℹ️","🅿️","🚪","🔊","🎤","🎧","🎸","🎪","⛺","☕","🍺","🥤","💧","🍔","🚑","🧯","🔦","🧭","📶","⚡","🧥","✅","❌"]]
+                ];
+
+                var STORE = "mesh-print-";
+                function load(k, def){
+                    try{ var v = localStorage.getItem(STORE + k); return v == null ? def : v; }
+                    catch(e){ return def; }
+                }
+                function save(k, v){ try{ localStorage.setItem(STORE + k, v); }catch(e){} }
+
+                function activate(group, attr, val){
+                    Array.prototype.forEach.call(group.children, function(b){
+                        b.classList.toggle("is-active", b.getAttribute(attr) === val);
+                    });
+                }
+
+                function mkP(){
+                    var p = document.createElement("p");
+                    p.className = "pp";
+                    p.dataset.family = curFamily;
+                    p.dataset.size = curSize;
+                    return p;
+                }
+
+                // Keep the editable as a flat list of <p class="pp"> paragraphs,
+                // each carrying its own data-family / data-size.
+                function normalize(){
+                    Array.prototype.slice.call(inner.childNodes).forEach(function(n){
+                        if(n.nodeType === 3){
+                            if(n.textContent === ""){ inner.removeChild(n); return; }
+                            var p = mkP();
+                            inner.insertBefore(p, n);
+                            p.appendChild(n);
+                        }
+                    });
+                    Array.prototype.slice.call(inner.children).forEach(function(c){
+                        if(!c.classList.contains("pp")) c.classList.add("pp");
+                        if(!c.dataset.family) c.dataset.family = curFamily;
+                        if(!c.dataset.size) c.dataset.size = curSize;
+                        if(!c.firstChild) c.appendChild(document.createElement("br"));
+                    });
+                    if(!inner.querySelector(".pp")){
+                        var p = mkP();
+                        p.appendChild(document.createElement("br"));
+                        inner.appendChild(p);
+                    }
+                }
+
+                function refreshEmpty(){
+                    inner.classList.toggle("is-empty", inner.textContent.replace(/ /g, " ").trim() === "");
+                }
+
+                function selectedParagraphs(){
+                    var sel = window.getSelection();
+                    if(!sel || !sel.rangeCount) return [];
+                    var range = sel.getRangeAt(0);
+                    var root = range.commonAncestorContainer;
+                    if(root !== inner && !inner.contains(root)) return [];
+                    return Array.prototype.filter.call(inner.querySelectorAll(".pp"), function(p){
+                        try{ return range.intersectsNode(p); }catch(e){ return false; }
+                    });
+                }
+
+                function applyFamily(val){
+                    curFamily = val;
+                    selectedParagraphs().forEach(function(p){ p.dataset.family = val; });
+                    activate(familyGroup, "data-family", val);
+                    save("family", val);
+                }
+                function applySize(val){
+                    curSize = val;
+                    selectedParagraphs().forEach(function(p){ p.dataset.size = val; });
+                    activate(sizeGroup, "data-size", val);
+                    save("size", val);
+                }
+
+                function buildCharbar(){
+                    GLYPHS.forEach(function(g){
+                        var grp = document.createElement("span");
+                        grp.className = "cb-group";
+                        var lab = document.createElement("span");
+                        lab.className = "cb-label";
+                        lab.textContent = g[0];
+                        grp.appendChild(lab);
+                        g[1].forEach(function(ch){
+                            var b = document.createElement("button");
+                            b.type = "button";
+                            b.className = "char-btn";
+                            b.textContent = ch;
+                            b.title = "einfügen: " + ch;
+                            b.addEventListener("click", function(){ insertGlyph(ch); });
+                            grp.appendChild(b);
+                        });
+                        charbar.appendChild(grp);
+                    });
+                    charbar.addEventListener("mousedown", function(e){
+                        if(e.target.closest(".char-btn")) e.preventDefault();
+                    });
+                }
+
+                function insertGlyph(ch){
+                    inner.focus();
+                    var sel = window.getSelection();
+                    if(savedRange && inner.contains(savedRange.commonAncestorContainer)){
+                        sel.removeAllRanges();
+                        sel.addRange(savedRange);
+                    } else {
+                        var last = inner.querySelector(".pp:last-child") || inner;
+                        var r = document.createRange();
+                        r.selectNodeContents(last);
+                        r.collapse(false);
+                        sel.removeAllRanges();
+                        sel.addRange(r);
+                    }
+                    document.execCommand("insertText", false, ch);
+                    if(sel.rangeCount) savedRange = sel.getRangeAt(0).cloneRange();
+                    normalize();
+                    refreshEmpty();
+                }
+
+                function syncToolbar(){
+                    var ps = selectedParagraphs();
+                    if(!ps.length) return;
+                    var fam = ps[0].dataset.family, size = ps[0].dataset.size;
+                    var mixedFam = ps.some(function(p){ return p.dataset.family !== fam; });
+                    var mixedSize = ps.some(function(p){ return p.dataset.size !== size; });
+                    curFamily = fam; curSize = size;
+                    activate(familyGroup, "data-family", mixedFam ? null : fam);
+                    activate(sizeGroup, "data-size", mixedSize ? null : size);
+                }
+
+                function fit(){
+                    var w = 210 * MM;
+                    var h = 297 * MM;
+                    var availW = stage.clientWidth - 32;
+                    var availH = stage.clientHeight - 48;
+                    var scale = Math.min(1, availW / w, availH / h);
+                    if(!isFinite(scale) || scale <= 0) scale = 1;
+                    sheet.style.setProperty("--scale", scale);
+                    sheetClip.style.width = (w * scale) + "px";
+                    sheetClip.style.height = (h * scale) + "px";
+                }
+
+                // keep the text selection alive when a toolbar button is pressed
+                toolbar.addEventListener("mousedown", function(e){
+                    if(e.target.closest(".tb-btn")) e.preventDefault();
+                });
+                familyGroup.addEventListener("click", function(e){
+                    var b = e.target.closest("[data-family]"); if(b) applyFamily(b.dataset.family);
+                });
+                sizeGroup.addEventListener("click", function(e){
+                    var b = e.target.closest("[data-size]"); if(b) applySize(b.dataset.size);
+                });
+                printBtn.addEventListener("click", function(){ window.print(); });
+
+                inner.addEventListener("input", function(){ normalize(); refreshEmpty(); });
+                inner.addEventListener("paste", function(e){
+                    e.preventDefault();
+                    var t = (e.clipboardData || window.clipboardData).getData("text/plain");
+                    document.execCommand("insertText", false, t);
+                });
+                document.addEventListener("selectionchange", function(){
+                    if(document.activeElement !== inner) return;
+                    syncToolbar();
+                    var s = window.getSelection();
+                    if(s.rangeCount && inner.contains(s.getRangeAt(0).commonAncestorContainer)){
+                        savedRange = s.getRangeAt(0).cloneRange();
+                    }
+                });
+                window.addEventListener("resize", fit);
+
+                // init
+                try{ document.execCommand("defaultParagraphSeparator", false, "p"); }catch(e){}
+                curFamily = load("family", "sans");
+                curSize = load("size", "l");
+                activate(familyGroup, "data-family", curFamily);
+                activate(sizeGroup, "data-size", curSize);
+                buildCharbar();
+                normalize();
+                refreshEmpty();
+                fit();
+                inner.focus();
+                var r = document.createRange();
+                r.selectNodeContents(inner.querySelector(".pp"));
+                r.collapse(true);
+                var s = window.getSelection();
+                s.removeAllRanges();
+                s.addRange(r);
+                savedRange = r.cloneRange();
+            })();

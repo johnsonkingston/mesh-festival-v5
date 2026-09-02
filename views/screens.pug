@@ -70,32 +70,27 @@ html(lang=language[0])
 
             /* ---- the exported poster: 1080 x 1920 (9:16), exported at 2x = 2160 x 3840 ---- */
             #poster{
+                position:relative;
                 width:1080px;height:1920px;background:var(--bg);color:var(--ink);
-                padding:48px 44px;overflow:hidden;
-                font-family:"FreeSans-JK",sans-serif;
+                overflow:hidden;font-family:"FreeSans-JK",sans-serif;
             }
-            #poster .p-head{
-                display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+            /* full-bleed day artwork (2160 x 3840) – it carries the header + footer */
+            #poster .p-bg{position:absolute;inset:0;width:100%;height:100%;display:block;}
+            /* the program table sits in the empty zone the artwork leaves free;
+               tune top / bottom to match the artwork's header / footer bands */
+            #poster .p-content{
+                position:absolute;left:0;right:0;top:120px;bottom:172px;
+                padding:0 24px;overflow:hidden;
             }
-            #poster .p-mesh{font-weight:700;font-size:60px;letter-spacing:-.02em;flex:0 0 auto;}
-            #poster .p-day{font-family:"FreeSerif-JK",serif;font-weight:500;font-size:52px;white-space:nowrap;flex:0 0 auto;}
-            #poster .p-date{font-weight:700;font-size:38px;white-space:nowrap;flex:0 0 auto;}
-            #poster .p-rule{height:3px;background:var(--ink);margin:16px 0 0;}
 
             #poster .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
-            #poster .p-table col.col-title{width:31%;}
-            #poster .p-table col.col-artist{width:27%;}
-            #poster .p-table col.col-time{width:21%;}
-            #poster .p-table col.col-venue{width:21%;}
-            #poster .p-table th{
-                text-align:left;font-size:14px;font-weight:700;
-                text-transform:uppercase;letter-spacing:.08em;opacity:.55;
-                padding:10px 10px 8px;border-bottom:1px solid var(--rule);
-                vertical-align:bottom;
-            }
+            #poster .p-table col.col-time{width:17%;}
+            #poster .p-table col.col-title{width:35%;}
+            #poster .p-table col.col-artist{width:26%;}
+            #poster .p-table col.col-venue{width:22%;}
             #poster .p-table td{
-                padding:9px 10px;border-bottom:1px solid var(--rule);
-                font-size:22px;line-height:1.3;vertical-align:top;
+                padding:11px 10px 11px 0px;border-bottom:1px solid var(--ink);
+                font-size:22px;line-height:1.1;vertical-align:top;
                 word-wrap:break-word;overflow-wrap:break-word;
             }
             #poster .p-table td.c-title{font-weight:700;}
@@ -119,35 +114,39 @@ html(lang=language[0])
                     div
                         p.ctl-label Tag
                         .days#days
+                    div
+                        p.ctl-label Blatt
+                        .days#sheets
                     button#exportBtn.btn(type="button") JPG herunterladen / Download JPG
                     p.hint 9:16 · 2160 × 3840 px · JPG
                 .preview
                     .stage-clip#stageClip
                         .stage#stage
                             #poster
-                                .p-head
-                                    .p-mesh Mesh
-                                    .p-day#phDay
-                                    .p-date#phDate
-                                .p-rule
-                                table.p-table
-                                    colgroup
-                                        col.col-title
-                                        col.col-artist
-                                        col.col-time
-                                        col.col-venue
-
-                                    tbody#tbody
+                                img.p-bg#bgImg(alt="")
+                                .p-content
+                                    table.p-table
+                                        colgroup
+                                            col.col-time
+                                            col.col-title
+                                            col.col-artist
+                                            col.col-venue
+                                        tbody#tbody
         script.
             (function(){
                 var EVENTS = !{JSON.stringify(screenEvents)};
                 var LANG = !{JSON.stringify(language)};
+                var BASE = "#{baseURL}";
 
-                var FORMAT_ORDER = ["ausstellungen","performances","screenings","konferenz","workshops","diskurs","clubnights"];
                 var FORMAT_LABEL = {
                     ausstellungen:"Ausstellungen", performances:"Performances", screenings:"Screenings",
                     konferenz:"Konferenz", workshops:"Workshops", diskurs:"Talks & Panels", clubnights:"Club Nights"
                 };
+                // Two output sheets per day: everything except exhibitions, and exhibitions only.
+                var SHEETS = [
+                    { id:"programm", label:"Programm", formats:["performances","screenings","konferenz","workshops","diskurs","clubnights"] },
+                    { id:"ausstellungen", label:"Ausstellungen", formats:["ausstellungen"] }
+                ];
                 var DAYS = [
                     ["14","Mittwoch","14.10.2026","Mi"],
                     ["15","Donnerstag","15.10.2026","Do"],
@@ -157,14 +156,16 @@ html(lang=language[0])
                 ];
 
                 var daysEl = document.getElementById("days");
+                var sheetsEl = document.getElementById("sheets");
                 var tbody = document.getElementById("tbody");
-                var phDay = document.getElementById("phDay");
-                var phDate = document.getElementById("phDate");
+                var bgImg = document.getElementById("bgImg");
                 var exportBtn = document.getElementById("exportBtn");
                 var stage = document.getElementById("stage");
                 var stageClip = document.getElementById("stageClip");
                 var poster = document.getElementById("poster");
                 var currentDay = null;
+                var currentSheet = SHEETS[0];
+                var bgReady = Promise.resolve();
 
                 function pad(n){ return (n < 10 ? "0" : "") + n; }
 
@@ -186,24 +187,29 @@ html(lang=language[0])
                     if(text != null) n.textContent = text;
                     return n;
                 }
+                function td(cls, text){ return el("td", cls, text); }
 
-                function td(cls, text){
-                    var c = document.createElement("td");
-                    if(cls) c.className = cls;
-                    if(text != null) c.textContent = text;
-                    return c;
+                function onceLoaded(img){
+                    return new Promise(function(resolve){
+                        if(img.complete && img.naturalWidth){ resolve(); return; }
+                        img.onload = function(){ resolve(); };
+                        img.onerror = function(){ resolve(); };
+                    });
+                }
+                function setBackground(code){
+                    var src = BASE + "static/img/screens/" + code + ".jpg";
+                    if(bgImg.getAttribute("src") !== src){ bgImg.src = src; }
+                    bgReady = onceLoaded(bgImg);
                 }
 
-                function buildPoster(code){
-                    currentDay = code;
-                    var meta = DAYS.filter(function(d){ return d[0] === code; })[0] || ["", "", "", ""];
-                    phDay.textContent = meta[1];
-                    phDate.textContent = meta[2];
+                function buildPoster(){
+                    var code = currentDay;
+                    setBackground(code);
 
                     tbody.innerHTML = "";
                     var any = false;
 
-                    FORMAT_ORDER.forEach(function(fmt){
+                    currentSheet.formats.forEach(function(fmt){
                         var evs = EVENTS.filter(function(e){ return e.day === code && e.format === fmt; });
                         if(!evs.length) return;
                         any = true;
@@ -211,8 +217,7 @@ html(lang=language[0])
                             return (a.hourStart * 60 + a.minStart) - (b.hourStart * 60 + b.minStart);
                         });
 
-                        var secTr = document.createElement("tr");
-                        secTr.className = "p-secrow";
+                        var secTr = el("tr", "p-secrow");
                         var secTd = document.createElement("td");
                         secTd.colSpan = 4;
                         secTd.appendChild(el("span", "p-pill", FORMAT_LABEL[fmt] || fmt));
@@ -221,12 +226,12 @@ html(lang=language[0])
 
                         evs.forEach(function(ev){
                             var tr = document.createElement("tr");
+                            tr.appendChild(td("c-time", fmtTime(ev)));
                             var cTitle = td("c-title");
                             cTitle.appendChild(document.createTextNode(ev.title || ""));
                             if(ev.subformat){ cTitle.appendChild(el("span", "c-sub", ev.subformat)); }
                             tr.appendChild(cTitle);
                             tr.appendChild(td("c-artist", ev.artist || ""));
-                            tr.appendChild(td("c-time", fmtTime(ev)));
                             tr.appendChild(td("c-venue", ev.venue || ""));
                             tbody.appendChild(tr);
                         });
@@ -236,7 +241,7 @@ html(lang=language[0])
                         var tr = document.createElement("tr");
                         var c = document.createElement("td");
                         c.colSpan = 4;
-                        c.appendChild(el("div", "p-empty", "Kein Programm an diesem Tag"));
+                        c.appendChild(el("div", "p-empty", "Kein Eintrag an diesem Tag"));
                         tr.appendChild(c);
                         tbody.appendChild(tr);
                     }
@@ -254,12 +259,30 @@ html(lang=language[0])
                         daysEl.appendChild(b);
                     });
                 }
+                function buildSheetButtons(){
+                    SHEETS.forEach(function(sh){
+                        var b = el("button", "day-btn");
+                        b.type = "button";
+                        b.dataset.sheet = sh.id;
+                        b.textContent = sh.label;
+                        b.addEventListener("click", function(){ selectSheet(sh.id); });
+                        sheetsEl.appendChild(b);
+                    });
+                }
 
                 function selectDay(code){
+                    currentDay = code;
                     Array.prototype.forEach.call(daysEl.children, function(b){
                         b.classList.toggle("is-active", b.dataset.day === code);
                     });
-                    buildPoster(code);
+                    buildPoster();
+                }
+                function selectSheet(id){
+                    currentSheet = SHEETS.filter(function(s){ return s.id === id; })[0] || SHEETS[0];
+                    Array.prototype.forEach.call(sheetsEl.children, function(b){
+                        b.classList.toggle("is-active", b.dataset.sheet === currentSheet.id);
+                    });
+                    buildPoster();
                 }
 
                 function fitStage(){
@@ -271,7 +294,7 @@ html(lang=language[0])
 
                 function fileName(){
                     var meta = DAYS.filter(function(d){ return d[0] === currentDay; })[0] || ["day", "day"];
-                    return "mesh-programm-" + meta[0] + "-" + String(meta[1]).toLowerCase() + ".jpg";
+                    return "mesh-" + currentSheet.id + "-" + meta[0] + "-" + String(meta[1]).toLowerCase() + ".jpg";
                 }
 
                 async function ensureFonts(){
@@ -279,7 +302,7 @@ html(lang=language[0])
                     try{
                         await Promise.all([
                             document.fonts.load('700 40px "FreeSans-JK"'),
-                            document.fonts.load('500 52px "FreeSerif-JK"')
+                            document.fonts.load('400 24px "FreeSans-JK"')
                         ]);
                         await document.fonts.ready;
                     }catch(e){ /* fall back to system fonts */ }
@@ -295,8 +318,8 @@ html(lang=language[0])
                     exportBtn.textContent = "Wird erstellt …";
 
                     // Render the poster un-transformed and off-screen so html2canvas
-                    // captures it at its true 1080 x 1920 (grid/table + CSS transforms
-                    // on ancestors confuse html2canvas otherwise).
+                    // captures it at its true 1080 x 1920 (a CSS transform on an
+                    // ancestor confuses html2canvas otherwise).
                     var saved = {
                         transform: stage.style.transform,
                         position: stageClip.style.position,
@@ -318,13 +341,16 @@ html(lang=language[0])
 
                     try{
                         await ensureFonts();
+                        await bgReady;
                         var canvas = await html2canvas(poster, {
                             scale: 2,
                             backgroundColor: "#fef7f6",
                             width: 1080,
                             height: 1920,
                             windowWidth: 1080,
-                            windowHeight: 1920
+                            windowHeight: 1920,
+                            useCORS: true,
+                            imageTimeout: 15000
                         });
                         await new Promise(function(resolve, reject){
                             canvas.toBlob(function(blob){
@@ -361,7 +387,11 @@ html(lang=language[0])
                 window.addEventListener("resize", fitStage);
 
                 buildDayButtons();
+                buildSheetButtons();
                 fitStage();
+                Array.prototype.forEach.call(sheetsEl.children, function(b){
+                    b.classList.toggle("is-active", b.dataset.sheet === currentSheet.id);
+                });
                 var firstWithEvents = DAYS.filter(function(d){ return dayHasEvents(d[0]); })[0];
                 selectDay(firstWithEvents ? firstWithEvents[0] : DAYS[0][0]);
             })();

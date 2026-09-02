@@ -889,6 +889,11 @@ app.get("/generate-slides", function (req, res) {
   res.render("generate-slides");
 });
 
+// Quick A4 print tool for small posters / notes
+app.get("/print", function (req, res) {
+  res.render("print");
+});
+
 // Per-day program poster (9:16), exportable as JPG
 app.get("/screens/:language?", async function (req, res) {
   try {
