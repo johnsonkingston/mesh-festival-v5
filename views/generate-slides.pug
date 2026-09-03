@@ -63,6 +63,20 @@ html(lang="de")
             .btn:hover{opacity:.88;}
             .btn:disabled{opacity:.5;cursor:default;}
             .hint{font-size:.8rem;opacity:.65;margin:0;}
+            .toggle{
+                font:inherit;font-weight:700;font-size:.95rem;
+                display:inline-flex;align-items:center;gap:.5rem;
+                background:#fff;color:#333;
+                border:1px solid rgba(51,51,51,.22);border-radius:2px;
+                padding:.55rem .85rem;cursor:pointer;align-self:flex-start;
+            }
+            .toggle::before{
+                content:"";width:.85rem;height:.85rem;flex:0 0 auto;
+                border:2px solid currentColor;border-radius:2px;
+            }
+            .toggle[aria-pressed="true"]{background:#333;color:#fef7f6;border-color:#333;}
+            .toggle[aria-pressed="true"]::before{background:currentColor;}
+            .toggle:disabled{opacity:.5;cursor:default;}
             .preview{width:100%;}
             .preview__frame{
                 width:100%;
@@ -94,6 +108,7 @@ html(lang="de")
                         label.radio
                             input(type="radio" name="res" value="3840")
                             span 3840 × 2160 (4K)
+                    button#logosToggle.toggle(type="button" aria-pressed="true") Logos
                     button#downloadBtn.btn(type="button") JPG herunterladen / Download JPG
                     p.hint Format 16:9, gespeichert als JPG.
                 .preview
@@ -105,12 +120,14 @@ html(lang="de")
                 var BASE = "#{baseURL}";
                 // Three background variants – one is picked at random per page load
                 // (stays the same for preview + download so they match 1:1; reload for a new one).
-                var IMG_VARIANTS = [
-                    "static/img/MESH-PRESENTATION-SLIDES1.jpg",
-                    "static/img/MESH-PRESENTATION-SLIDES2.jpg",
-                    "static/img/MESH-PRESENTATION-SLIDES3.jpg"
+                // The "Logos" toggle swaps between the normal file and its -NOLOGO version.
+                var VARIANTS = [
+                    "static/img/MESH-PRESENTATION-SLIDES1",
+                    "static/img/MESH-PRESENTATION-SLIDES2",
+                    "static/img/MESH-PRESENTATION-SLIDES3"
                 ];
-                var IMG_SRC = BASE + IMG_VARIANTS[Math.floor(Math.random() * IMG_VARIANTS.length)];
+                var variantIndex = Math.floor(Math.random() * VARIANTS.length);
+                var withLogos = true;
                 var DEFAULTS = { name: "Name", title: "Title" };
                 var PREVIEW_WIDTH = 1600;
 
@@ -131,14 +148,22 @@ html(lang="de")
                 var nameInput = document.getElementById("nameInput");
                 var titleInput = document.getElementById("titleInput");
                 var downloadBtn = document.getElementById("downloadBtn");
+                var logosToggle = document.getElementById("logosToggle");
                 var previewCanvas = document.getElementById("previewCanvas");
 
                 var bgImage = new Image();
-                var bgReady = new Promise(function(resolve, reject){
-                    bgImage.onload = resolve;
-                    bgImage.onerror = function(){ reject(new Error("Hintergrundbild konnte nicht geladen werden.")); };
-                });
-                bgImage.src = IMG_SRC;
+                var bgReady;
+                function loadBg(){
+                    var src = BASE + VARIANTS[variantIndex] + (withLogos ? "" : "-NOLOGO") + ".jpg";
+                    bgReady = new Promise(function(resolve, reject){
+                        if(bgImage.src === src && bgImage.complete && bgImage.naturalWidth){ resolve(); return; }
+                        bgImage.onload = function(){ resolve(); };
+                        bgImage.onerror = function(){ reject(new Error("Hintergrundbild konnte nicht geladen werden.")); };
+                        bgImage.src = src;
+                    });
+                    return bgReady;
+                }
+                loadBg();
 
                 function selectedRes(){
                     var checked = document.querySelector('input[name="res"]:checked');
@@ -256,10 +281,24 @@ html(lang="de")
                     el.addEventListener("input", function(){ el.dataset.touched = "1"; });
                 });
 
+                logosToggle.addEventListener("click", async function(){
+                    withLogos = !withLogos;
+                    logosToggle.setAttribute("aria-pressed", String(withLogos));
+                    logosToggle.disabled = true;
+                    try {
+                        await loadBg();
+                        if(previewReady) renderToCanvas(previewCanvas, PREVIEW_WIDTH);
+                    } catch(e){
+                        alert("Fehler: " + e.message);
+                    } finally {
+                        logosToggle.disabled = false;
+                    }
+                });
+
                 function fileName(){
                     var slug = (nameInput.value || "mesh").toLowerCase()
                         .replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-                    return "mesh-title-slide" + (slug ? "-" + slug : "") + ".jpg";
+                    return "mesh-title-slide" + (slug ? "-" + slug : "") + (withLogos ? "" : "-nologo") + ".jpg";
                 }
 
                 downloadBtn.addEventListener("click", async function(){
