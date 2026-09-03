@@ -10,8 +10,8 @@ html(lang=language[0])
 
         - var hourStart = 9;
         - var hoursPerDay = 17;
-        - var dayOutput = {14: ['Mittwoch, 14. Oktober', 'Wednesday'], 15: ['Donnerstag, 15. Oktober', 'Thursday'], 16: ['Freitag, 16. Oktober', 'Friday'], 17: ['Samstag, 17. Oktober', 'Saturday'], 18: ['Sonntag, 18. Oktober', 'Sunday']}
-        - var dayAbbr = {14: 'Mi', 15: 'Do', 16: 'Fr', 17: 'Sa', 18: 'So'};
+        - var dayOutput = {14: ['Mittwoch, 14. Oktober', 'Wednesday, 14 October'], 15: ['Donnerstag, 15. Oktober', 'Thursday, 15 October'], 16: ['Freitag, 16. Oktober', 'Friday, 16 October'], 17: ['Samstag, 17. Oktober', 'Saturday, 17 October'], 18: ['Sonntag, 18. Oktober', 'Sunday, 18 October']}
+        - var dayAbbr = {14: ['Mi','We'], 15: ['Do','Th'], 16: ['Fr','Fr'], 17: ['Sa','Sa'], 18: ['So','Su']};
         - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights'];
         - var formatsTranslation = {ausstellungen: ['Ausstellung','Exhibtion'], konferenz: ['Konferenz','Conference'],performances: ['Performance','Performance'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screening','Screening'], clubnights: ['Club Night','Club Night'], workshops: ['Workshop','Workshop'], workshop: ['Workshop','Workshop']};
 
@@ -37,8 +37,8 @@ html(lang=language[0])
             #dayNav
                 each day, dayIndex in [14,15,16,17,18]
                     .dayNavItem(class=dayIndex==0?'active':'',data-day-index=dayIndex,onclick="goToDay("+dayIndex+")")
-                        span.dayAbbr= dayAbbr[day]
-                        span.dayFull= dayOutput[day][0]
+                        span.dayAbbr= dayAbbr[day][languageParameter]
+                        span.dayFull= dayOutput[day][languageParameter]
             .timetableSlider
 
                 .timetableSliderTrack
