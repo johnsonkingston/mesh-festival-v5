@@ -142,19 +142,13 @@ body {
   overflow: hidden;
 }
 
-::-moz-selection {
-  color: rgba(var(--color1));
-  background: rgba(var(--color4));
-}
-
 ::selection {
   color: rgba(var(--color1));
   background: rgba(var(--color4));
 }
 
 a {
-  -webkit-text-decoration: dotted underline;
-          text-decoration: dotted underline;
+  text-decoration: dotted underline;
 }
 
 a:hover {
@@ -240,7 +234,6 @@ ul {
   background: rgba(var(--color1));
   color: rgba(var(--color2));
   text-align: center;
-  width: -moz-fit-content;
   width: fit-content;
 }
 @media (orientation: portrait) {
@@ -323,8 +316,7 @@ div.bubble {
   height: auto;
   mix-blend-mode: hard-light;
   max-height: calc(50vh - 10vw);
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .eventswrapper a .events .eventimg .label {
   background: rgba(var(--color1));
@@ -386,8 +378,7 @@ div.bubble {
   display: block;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .visit .splashImage {
@@ -412,8 +403,7 @@ div.bubble {
   display: block;
   width: 100%;
   aspect-ratio: 4/3;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .venueOverview .venueItem .venueTitle {
   margin-top: 0.25vw;
@@ -462,8 +452,7 @@ div.bubble {
   left: 0;
   width: 49%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   z-index: 2;
   box-shadow: black 0 0 1vw;
 }
@@ -479,8 +468,7 @@ div.bubble {
     top: auto;
     z-index: auto;
     box-shadow: rgba(var(--color2)) 0 0 2vw;
-    -o-object-position: left;
-       object-position: left;
+    object-position: left;
   }
 }
 .page main .mainimageCaption,
@@ -709,17 +697,6 @@ div.bubble {
   vertical-align: top;
   margin-bottom: 1.5vw;
   border-radius: 0.5vw;
-}
-@media (orientation: portrait) {
-  .page main .content .box-text,
-  .visit main .content .box-text {
-    width: 100%;
-    display: block;
-    border-radius: 1.25vw;
-  }
-}
-.page main .content .box-text,
-.visit main .content .box-text {
   color: white;
   padding: 0.5vw;
   margin-block-start: 0;
@@ -731,6 +708,14 @@ div.bubble {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: rgba(var(--color3));
   hyphens: auto;
+}
+@media (orientation: portrait) {
+  .page main .content .box-text,
+  .visit main .content .box-text {
+    width: 100%;
+    display: block;
+    border-radius: 1.25vw;
+  }
 }
 @media (orientation: portrait) {
   .page main .content .box-text,
@@ -882,18 +867,18 @@ div.bubble {
     line-height: 4.5vw;
   }
 }
+.page main .content .pill,
+.visit main .content .pill {
+  font-size: 1.2vw;
+  line-height: 1.4vw;
+  white-space: nowrap;
+}
 .page main .content .pill p,
 .visit main .content .pill p {
   display: inline;
   color: rgba(var(--color3));
   font-size: 1.2vw;
   line-height: 1.4vw;
-}
-.page main .content .pill,
-.visit main .content .pill {
-  font-size: 1.2vw;
-  line-height: 1.4vw;
-  white-space: nowrap;
 }
 @media (orientation: portrait) {
   .page main .content .pill,
@@ -1033,8 +1018,7 @@ div.bubble {
   .event main .mainimage {
     width: 100vw;
     margin-left: -1.25vw;
-    -o-object-position: center;
-       object-position: center;
+    object-position: center;
     box-shadow: rgba(var(--color2)) 0 0 2vw;
     margin-top: 2vw;
   }
@@ -1819,8 +1803,67 @@ ul {
 }
 
 /*ARTISTS */
+.artists .viewNav {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+  height: 3.2vw;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(var(--color1)) 80%, rgba(var(--color2)) 120%);
+  box-shadow: 0 0 1vw rgba(var(--color2));
+  margin-top: 3.2vw;
+}
+@media (orientation: portrait) {
+  .artists .viewNav {
+    height: auto;
+    flex-wrap: wrap;
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+    margin-top: 2vw;
+    padding: 2vw 3vw;
+    gap: 2vw;
+  }
+}
+.artists .viewNav a {
+  display: inline-block;
+  text-decoration: none;
+}
+.artists .viewNav a.bubble {
+  box-shadow: rgba(var(--color2)) 1vw 0 1vw;
+  border-radius: 0.5vw;
+  background: rgba(var(--color1));
+}
+@media (orientation: portrait) {
+  .artists .viewNav a.bubble {
+    font-size: 5vw;
+    line-height: 5.5vw;
+    padding: 0.4vw 3vw;
+    border-radius: 5vw;
+    box-shadow: rgba(var(--color2)) 0.6vw 0 0.6vw;
+  }
+}
+.artists .viewNav a.bubble.active {
+  background: rgba(var(--color2));
+  color: rgba(var(--color1));
+  animation: none;
+  filter: none;
+  text-shadow: none;
+  margin-left: -1vw;
+  padding-left: 1.5vw;
+}
+@media (orientation: portrait) {
+  .artists .viewNav a.bubble.active {
+    margin-left: 0;
+    padding-left: 3vw;
+  }
+}
+.artists .viewNav a.bubble.active:hover {
+  background: rgba(var(--color4));
+}
 .artists main {
-  padding-top: 4vw;
+  padding-top: 0.1vw;
   padding-bottom: 4.5vw;
   padding-left: 1vw;
   padding-right: 1vw;
@@ -2771,8 +2814,7 @@ body.startpage .columnVideo {
 }
 body.startpage .columnVideo video,
 body.startpage .columnVideo .mobileVideo {
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   height: 100vh;
   width: 100vw;
 }
@@ -2884,8 +2926,7 @@ body.startpage .editionTitle a:hover {
   text-shadow: none;
 }
 body.startpage .editionTitle a[href]:hover h1, body.startpage .editionTitle a[href]:hover h2 {
-  -webkit-text-decoration: dotted underline;
-          text-decoration: dotted underline;
+  text-decoration: dotted underline;
 }
 body.startpage .columnTitle {
   position: fixed;
@@ -3213,7 +3254,6 @@ body.startpage .logos .logobannerInner {
   transform: translateX(0);
   animation: startpage-move 10s linear infinite;
   display: inline-block;
-  width: -moz-fit-content;
   width: fit-content;
   white-space: nowrap;
 }
@@ -3223,9 +3263,25 @@ body.startpage .logos .logobannerInnerSecond {
 body.startpage .logos .logobannerOuter:hover .logobannerInner {
   animation-play-state: paused;
 }
+body.startpage .logos .logobannerThird {
+  column-count: 2;
+  margin-top: 1vw;
+  width: 30%;
+  margin-left: 35%;
+}
+@media (orientation: portrait) {
+  body.startpage .logos .logobannerThird {
+    width: 90%;
+    margin-left: 5%;
+    column-count: 1;
+  }
+}
 body.startpage .logos .logobannerThird p {
-  font-size: 1.2vw;
+  font-size: 1.32vw;
   line-height: 1.4vw;
+  font-family: "FreeSerif-JK";
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 @media (orientation: portrait) {
   body.startpage .logos .logobannerThird p {
@@ -3261,7 +3317,6 @@ body.startpage #calltoaction {
   position: absolute;
   right: 0.5vw;
   top: 18.5vw;
-  width: -moz-fit-content;
   width: fit-content;
   z-index: 10;
 }
@@ -3337,4 +3392,6 @@ body.startpage #cookieNotice button {
 
 .locations #map {
   display: block;
-}/*# sourceMappingURL=main.css.map */
+}
+
+/*# sourceMappingURL=main.css.map */

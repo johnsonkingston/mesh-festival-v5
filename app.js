@@ -348,6 +348,7 @@ async function getAllArtists() {
 
           artist.Name = valueArtist.Name;
           artist.Format = value.Format;
+          artist.Thema = value.Thema;
           artist.slug = value.slug;
           artist.Title =
             value.translations && value.translations[0]
@@ -359,22 +360,8 @@ async function getAllArtists() {
       }
     }
 
-    const formatOrder = [
-      "ausstellungen",
-      "screenings",
-      "diskurs",
-      "konferenz",
-      "performances",
-      "clubnights",
-    ];
-    artists.sort((a, b) => {
-      var aIndex = formatOrder.indexOf(a.Format);
-      var bIndex = formatOrder.indexOf(b.Format);
-      if (aIndex === -1) aIndex = formatOrder.length;
-      if (bIndex === -1) bIndex = formatOrder.length;
-      if (aIndex !== bIndex) return aIndex - bIndex;
-      return a.Name.localeCompare(b.Name);
-    });
+    // neutral base order (by name); the /artists route re-sorts per view
+    artists.sort((a, b) => (a.Name || "").localeCompare(b.Name || ""));
 
     events = artists;
 
@@ -382,16 +369,59 @@ async function getAllArtists() {
   });
 }
 
+// artist list view orderings: "formate" (by format), "themen" (by topic), "az" (name only)
+const ARTIST_FORMAT_ORDER = [
+  "ausstellungen",
+  "screenings",
+  "diskurs",
+  "konferenz",
+  "performances",
+  "clubnights",
+  "workshops",
+];
+function sortArtists(list, sort) {
+  var out = (list || []).slice();
+  if (sort === "themen") {
+    out.sort((a, b) => {
+      var at = (a.Thema || "").trim();
+      var bt = (b.Thema || "").trim();
+      var ae = at === "" ? 1 : 0;
+      var be = bt === "" ? 1 : 0;
+      if (ae !== be) return ae - be; // entries without a topic go last
+      if (at !== bt) return at.localeCompare(bt);
+      return (a.Name || "").localeCompare(b.Name || "");
+    });
+  } else if (sort === "az") {
+    out.sort(
+      (a, b) =>
+        (a.Name || "").localeCompare(b.Name || "") ||
+        (a.First_Name || "").localeCompare(b.First_Name || ""),
+    );
+  } else {
+    out.sort((a, b) => {
+      var ai = ARTIST_FORMAT_ORDER.indexOf(a.Format);
+      var bi = ARTIST_FORMAT_ORDER.indexOf(b.Format);
+      if (ai === -1) ai = ARTIST_FORMAT_ORDER.length;
+      if (bi === -1) bi = ARTIST_FORMAT_ORDER.length;
+      if (ai !== bi) return ai - bi;
+      return (a.Name || "").localeCompare(b.Name || "");
+    });
+  }
+  return out;
+}
+
 app.get("/artists/:language?/", async function (req, res) {
   var pathname = req.originalUrl;
   language = req.params.language || "de";
   languageObject = [language, languageTransform(language)];
 
+  var sort = req.query.sort;
+  if (sort !== "themen" && sort !== "az") sort = "formate";
+
   try {
     result = await getAllArtists();
     navigation = await getNavigation();
     footer = await getFooter();
-    // = await getNews();
     venues = await getVenues();
 
     language = req.params.language || "de";
@@ -401,7 +431,8 @@ app.get("/artists/:language?/", async function (req, res) {
     if (result.data[0]) {
       res.render("artists", {
         data: result.data[0],
-        events: events,
+        events: sortArtists(events, sort),
+        sort: sort,
         navigation: navigation.data,
         footer: footer.data,
         language: languageObject,
@@ -416,97 +447,10 @@ app.get("/artists/:language?/", async function (req, res) {
   }
 });
 
-//Ausstellungen
-async function getAusstellungenArtists() {
-  return cachedEvents("ausstellungenArtists", async () => {
-    const response = await fetch(
-      "https://env-9468449.appengine.flow.ch/items/Events?fields[]=*.*.*&limit=1000",
-    );
-    if (!response.ok) {
-      console.log("Response not okay");
-      events = [];
-      return "";
-    }
-    const data = await response.json();
-
-    events = data.data;
-    let artists = [];
-
-    for (const [key, value] of Object.entries(events)) {
-      if (
-        events[key].Artists_in_List !== null &&
-        events[key].status == "published"
-        //&&
-        //events[key].Format == "ausstellungen"
-      ) {
-        var artist = [];
-        for (const [keyArtist, valueArtist] of Object.entries(
-          events[key].Artists_in_List,
-        )) {
-          if (valueArtist.First_name == undefined) {
-            artist.First_Name = "";
-          } else {
-            artist.First_Name = valueArtist.First_name;
-          }
-
-          artist.Name = valueArtist.Name;
-          artist.Format = value.Format;
-          artist.Thema = value.Thema;
-          artist.slug = value.slug;
-          artist.Title =
-            value.translations && value.translations[0]
-              ? value.translations[0].Title
-              : "";
-          artist.Venues = value.Venues;
-          artists.push(structuredClone(artist));
-        }
-      }
-    }
-
-    artists.sort((a, b) => {
-      var aThema = a.Thema || "";
-      var bThema = b.Thema || "";
-      if (aThema !== bThema) return aThema.localeCompare(bThema);
-      return a.Name.localeCompare(b.Name);
-    });
-
-    events = artists;
-
-    return data;
-  });
-}
-
-app.get("/ausstellungen/:language?/", async function (req, res) {
-  var pathname = req.originalUrl;
-  language = req.params.language || "de";
-  languageObject = [language, languageTransform(language)];
-
-  try {
-    result = await getAusstellungenArtists();
-    navigation = await getNavigation();
-    footer = await getFooter();
-    venues = await getVenues();
-
-    language = req.params.language || "de";
-
-    result.data[0].pathname = langRemove(pathname);
-
-    if (result.data[0]) {
-      res.render("ausstellungen", {
-        data: result.data[0],
-        events: events,
-        navigation: navigation.data,
-        footer: footer.data,
-        language: languageObject,
-        highlights: [],
-        venues: venues.data,
-        format: [],
-        slides: [],
-      });
-    }
-  } catch (err) {
-    console.error(err);
-  }
+// the exhibitions page is gone – it is now the "Themen" view of /artists
+app.get(["/ausstellungen", "/ausstellungen/:language?"], function (req, res) {
+  var lang = req.params.language === "en" ? "/en" : "";
+  res.redirect("/artists" + lang + "?sort=themen");
 });
 
 //List

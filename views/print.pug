@@ -14,7 +14,7 @@ html(lang="de")
             @font-face{font-family:"FreeSerif-JK";src:url("#{baseURL}static/fonts/JK-MESH-Serif.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Serif.woff") format("woff");font-weight:500;font-display:swap;}
 
             :root{
-                --ink:#111;
+                --ink:#464646;
                 --ui-bg:#fef7f6;
                 --ui-ink:#333;
                 --rule:rgba(51,51,51,.22);
@@ -115,12 +115,12 @@ html(lang="de")
             }
             .sheet-inner .pp[data-family="sans"]{font-family:"FreeSans-JK",sans-serif;font-weight:700;}
             .sheet-inner .pp[data-family="serif"]{font-family:"FreeSerif-JK",Georgia,serif;font-weight:500;}
-            .sheet-inner .pp[data-size="s"]{font-size:var(--size-s);}
-            .sheet-inner .pp[data-size="m"]{font-size:var(--size-m);}
-            .sheet-inner .pp[data-size="l"]{font-size:var(--size-l);}
-            .sheet-inner .pp[data-size="xl"]{font-size:var(--size-xl);}
-            /* QR-Code block – a graphic, sized in mm regardless of the text size */
-            .sheet-inner .pp.qr{font-size:0;line-height:0;}
+            .sheet-inner .pp[data-size="s"]{font-size:var(--size-s);filter:blur(1px);}
+            .sheet-inner .pp[data-size="m"]{font-size:var(--size-m);filter:blur(1px);}
+            .sheet-inner .pp[data-size="l"]{font-size:var(--size-l);filter:blur(2px);}
+            .sheet-inner .pp[data-size="xl"]{font-size:var(--size-xl);filter:blur(2px);}
+            /* QR-Code block – a graphic, sized in mm regardless of the text size (never blurred) */
+            .sheet-inner .pp.qr{font-size:0;line-height:0;filter:none;}
             .sheet-inner .pp.qr img{display:block;width:var(--qr,40mm);height:auto;}
             .sheet-inner .pp.qr[data-size="s"]{--qr:22mm;}
             .sheet-inner .pp.qr[data-size="m"]{--qr:40mm;}

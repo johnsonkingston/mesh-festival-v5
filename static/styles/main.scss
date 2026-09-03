@@ -1618,8 +1618,69 @@ ul {
 
 /*ARTISTS */
 .artists {
+  // sub-navigation for the list grouping (Formate / Themen / A–Z) –
+  // identical to the main navigation (#startpageNav / a.bubble), minus position:fixed
+  .viewNav {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    height: 3.2vw;
+    overflow: hidden;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--color1)) 80%,
+      rgba(var(--color2)) 120%
+    );
+    box-shadow: 0 0 1vw rgba(var(--color2));
+    margin-top: 3.2vw; // sits flush below the fixed main nav
+    @media (orientation: portrait) {
+      height: auto;
+      flex-wrap: wrap;
+      overflow: visible;
+      background: transparent;
+      box-shadow: none;
+      margin-top: 2vw;
+      padding: 2vw 3vw;
+      gap: 2vw;
+    }
+
+    a {
+      display: inline-block;
+      text-decoration: none;
+    }
+    a.bubble {
+      box-shadow: rgba(var(--color2)) 1vw 0 1vw;
+      border-radius: 0.5vw;
+      background: rgba(var(--color1));
+      @media (orientation: portrait) {
+        font-size: 5vw;
+        line-height: 5.5vw;
+        padding: 0.4vw 3vw;
+        border-radius: 5vw;
+        box-shadow: rgba(var(--color2)) 0.6vw 0 0.6vw;
+      }
+    }
+    a.bubble.active {
+      background: rgba(var(--color2));
+      color: rgba(var(--color1));
+      animation: none;
+      filter: none;
+      text-shadow: none;
+      margin-left: -1vw;
+      padding-left: 1.5vw;
+      @media (orientation: portrait) {
+        margin-left: 0;
+        padding-left: 3vw;
+      }
+    }
+    a.bubble.active:hover {
+      background: rgba(var(--color4));
+    }
+  }
+
   main {
-    padding-top: 4vw;
+    padding-top: 0.1vw;
     padding-bottom: 4.5vw;
     padding-left: 1vw;
     padding-right: 1vw;
@@ -2876,9 +2937,21 @@ body.startpage {
       animation-play-state: paused;
     }
     .logobannerThird {
+      column-count: 2;
+      margin-top: 1vw;
+      width: 30%;
+      margin-left: 35%;
+      @media (orientation: portrait) {
+        width: 90%;
+        margin-left: 5%;
+        column-count: 1;
+      }
       p {
-        font-size: $fontSize1;
+        font-size: $fontSize1 * $serifFactor;
         line-height: $lineHeight1;
+        font-family: "FreeSerif-JK";
+        margin-block-start: 0;
+        margin-block-end: 0;
         @media (orientation: portrait) {
           font-size: $fontSize2 * $scaleFactor;
           line-height: $lineHeight2 * $scaleFactor;

@@ -5,59 +5,55 @@ html(lang=language[0])
 
     body.artists
         include includes/sitenav.pug
-        //pre#debugLog(style="position:fixed;top:0;left:0;z-index:999;background:rgba(0,0,0,0.85);color:#0f0;font-size:12px;padding:1em;max-height:100vh;overflow:auto;")
-            - if(events && events.length > 0)
-                | events[0] fields (total: #{events.length})
-                br
-                - for(var k in events[0])
-                    | #{k}: #{typeof events[0][k] === 'object' ? JSON.stringify(events[0][k]) : events[0][k]}
-                    br
-            - else
-                | events array is empty
-        - var char = ''
-        - var nameBefore = ''
-        - var formatBefore = ''
+
+        //- translatable labels: [ de, en ] – indexed by languageParameter
+        -
+          var labels = {
+            views: {
+              formate: ['Formate', 'Formats'],
+              themen: ['Themen', 'Topics'],
+              az: ['A–Z', 'A–Z']
+            },
+            withoutTopic: ['Weitere Events', 'More events'],
+            formats: {
+              ausstellungen: ['Ausstellungen', 'Exhibitions'],
+              konferenz: ['Konferenz', 'Conference'],
+              performances: ['Performances', 'Performances'],
+              diskurs: ['Talks & Panels', 'Talks & Panels'],
+              screenings: ['Screenings', 'Screenings'],
+              clubnights: ['Club Nights', 'Club Nights'],
+              workshops: ['Workshops', 'Workshops']
+            }
+          };
+
+        - var formatBefore = null
+        - var themaBefore = null
         - var n = 0
         - function truncateWords(text, maxLen) { if (!text || text.length <= maxLen) return text; var cut = text.substr(0, maxLen); var lastSpace = cut.lastIndexOf(' '); if (lastSpace > 0) cut = cut.substr(0, lastSpace); return cut + '…'; }
-        - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights'];
-        - var formatsTranslation = {ausstellungen: ['Ausstellungen','Exhibtions'], konferenz: ['Konferenz','Conference'],performances: ['Performances','Performances'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screenings','Screenings'], clubnights: ['Club Nights','Club Nights']};
+        - var basePath = baseURL + 'artists' + (language[0] == 'en' ? '/en' : '')
 
-            
+        nav.viewNav
+            each mode, index in ['formate','themen','az']
+                a.bubble(href=basePath + (mode == 'formate' ? '' : '?sort=' + mode), class=(sort == mode ? 'active' : null), style="z-index:"+(3 - index))= labels.views[mode][languageParameter]
+
         main
-
             each event in events
-                //if(char !== event.Name.substr(0,1).toUpperCase())
-                    h3.char=event.Name.substr(0,1)
-                if(formatBefore !== event.Format)
-                    if(formatsTranslation[event.Format] !== undefined)
-                        h2.formatHeader.blurOrganic1=formatsTranslation[event.Format][languageParameter]
-                a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format).artistLine
+                if(sort == 'formate' && formatBefore !== event.Format)
+                    if(labels.formats[event.Format] !== undefined)
+                        h2.formatHeader.blurOrganic1= labels.formats[event.Format][languageParameter]
+                if(sort == 'themen')
+                    - var thema = (event.Thema || '').trim()
+                    if(themaBefore !== thema)
+                        h2.formatHeader.blurOrganic1= thema || labels.withoutTopic[languageParameter]
+                    - themaBefore = thema
+                a(href=baseURL+'events/'+event.slug+'/'+language[0], class=event.Format).artistLine
                     .artist
-                        //.left
                         .middle
-                            //a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format)
-                            h3='• '+(event.First_Name || '')+' '+(event.Name || '')
-                            h4=truncateWords(event.Title, 40)
-                        //.right 
-                            a(href=baseURL+'events/'+event.slug+'/'+language[0],class=event.Format)
-                                if(formatsTranslation[event.Format] !== undefined)
-                                    h4.format=formatsTranslation[event.Format][languageParameter]
-                                    if(event.Venues.length > 0)
-                                        if(venues[event.Venues[0].Venues_id] !== undefined)
-                                            h4.venue=venues[event.Venues[0].Venues_id].Name
-                            if(events[n+1] !== undefined)        
-                                a(href=baseURL+'events/'+events[n+1].slug+'/'+language[0],class=events[n+1].Format)    
-                                    if(events[n+1].First_Name+events[n+1].Name == event.First_Name+event.Name)
-                                        if(formatsTranslation[events[n+1].Format] !== undefined)
-                                            h4.format=formatsTranslation[events[n+1].Format][languageParameter]
-                                        if(events[n+1].Venues.length > 0)
-                                            if(venues[events[n+1].Venues[0].Venues_id] !== undefined)
-                                                h4.venue=venues[events[n+1].Venues[0].Venues_id].Name                                    
-
-                                
-                - char = (event.Name || '').substr(0,1).toUpperCase()
-                - nameBefore = ((event.First_Name || '')+(event.Name || ''))
+                            if(sort !== 'formate' && labels.formats[event.Format] !== undefined)
+                                h4.format= labels.formats[event.Format][languageParameter]
+                            h3= '• '+(event.First_Name || '')+' '+(event.Name || '')
+                            h4= truncateWords(event.Title, 40)
                 - formatBefore = event.Format
-                -n++
+                - n++
 
         include includes/footer.pug
