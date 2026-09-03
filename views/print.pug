@@ -6,6 +6,7 @@ html(lang="de")
         meta(name="robots" content="noindex")
         title Mesh – A4 Druck
         link(rel="icon" type="image/png" sizes="32x32" href=baseURL+"static/img/favicon/favicon-32x32.png")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.js")
         style#pageStyle.
             @page{ size:A4 portrait; margin:0; }
         style.
@@ -74,6 +75,15 @@ html(lang="de")
                 border:1px solid var(--rule);border-radius:2px;cursor:pointer;
             }
             .char-btn:hover{background:var(--ui-ink);color:var(--ui-bg);}
+            .qrbar{
+                display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;
+                padding:.5rem 1rem .6rem;background:var(--ui-bg);border-bottom:1px solid var(--rule);
+            }
+            .qrbar input{
+                font:inherit;padding:.45rem .6rem;border:1px solid var(--rule);border-radius:2px;
+                min-width:min(360px,55vw);flex:1;background:#fff;color:var(--ui-ink);
+            }
+            .qrbar input:focus{outline:2px solid var(--ui-ink);outline-offset:1px;}
 
             .stage{
                 flex:1;display:flex;justify-content:center;align-items:flex-start;
@@ -109,6 +119,13 @@ html(lang="de")
             .sheet-inner .pp[data-size="m"]{font-size:var(--size-m);}
             .sheet-inner .pp[data-size="l"]{font-size:var(--size-l);}
             .sheet-inner .pp[data-size="xl"]{font-size:var(--size-xl);}
+            /* QR-Code block – a graphic, sized in mm regardless of the text size */
+            .sheet-inner .pp.qr{font-size:0;line-height:0;}
+            .sheet-inner .pp.qr img{display:block;width:var(--qr,40mm);height:auto;}
+            .sheet-inner .pp.qr[data-size="s"]{--qr:22mm;}
+            .sheet-inner .pp.qr[data-size="m"]{--qr:40mm;}
+            .sheet-inner .pp.qr[data-size="l"]{--qr:64mm;}
+            .sheet-inner .pp.qr[data-size="xl"]{--qr:104mm;}
             .sheet-inner.is-empty::before{
                 content:attr(data-placeholder);
                 position:absolute;left:0;top:0;pointer-events:none;opacity:.22;
@@ -139,6 +156,10 @@ html(lang="de")
                 button.tb-btn.tb-print#printBtn(type="button") Drucken
             .subbar.app-chrome Direkt in die Seite schreiben. Formatierung (Schrift / Grösse) gilt pro Absatz – Cursor in den Absatz setzen oder markieren. Tipp: im Druckdialog «Kopf- und Fusszeilen» deaktivieren.
             .charbar.app-chrome#charbar
+            .qrbar.app-chrome#qrbar
+                span.cb-label QR-Code
+                input#qrUrl(type="url" inputmode="url" spellcheck="false" placeholder="https://meshfestival.ch/…")
+                button.tb-btn#qrBtn(type="button") einfügen
             .stage#stage
                 .sheet-clip#sheetClip
                     .sheet#sheet
@@ -156,6 +177,8 @@ html(lang="de")
                 var familyGroup = document.getElementById("familyGroup");
                 var sizeGroup = document.getElementById("sizeGroup");
                 var charbar = document.getElementById("charbar");
+                var qrUrl = document.getElementById("qrUrl");
+                var qrBtn = document.getElementById("qrBtn");
 
                 // current defaults – applied to new paragraphs, follow the caret
                 var curFamily = "sans";
@@ -286,6 +309,67 @@ html(lang="de")
                     refreshEmpty();
                 }
 
+                function paragraphOf(node){
+                    while(node && node !== inner){
+                        if(node.nodeType === 1 && node.classList.contains("pp")) return node;
+                        node = node.parentNode;
+                    }
+                    return null;
+                }
+
+                function insertQR(){
+                    var url = (qrUrl.value || "").trim();
+                    if(!url) return;
+                    if(!/^[a-z][\w+.-]*:/i.test(url)) url = "https://" + url;
+                    if(typeof qrcode === "undefined"){
+                        alert("QR-Bibliothek konnte nicht geladen werden (CDN blockiert?).");
+                        return;
+                    }
+
+                    var qr = qrcode(0, "M");
+                    qr.addData(url);
+                    qr.make();
+                    var svg = qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+                    var img = document.createElement("img");
+                    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+                    img.alt = "QR-Code: " + url;
+
+                    var block = document.createElement("p");
+                    block.className = "pp qr";
+                    block.dataset.qr = url;
+                    block.dataset.size = curSize === "xl" ? "l" : curSize; // sensible mm default
+                    block.appendChild(img);
+
+                    var anchor = (savedRange && inner.contains(savedRange.commonAncestorContainer))
+                        ? paragraphOf(savedRange.commonAncestorContainer) : null;
+                    anchor = anchor || inner.querySelector(".pp:last-child");
+                    if(anchor && anchor.parentNode === inner){
+                        inner.insertBefore(block, anchor.nextSibling);
+                    } else {
+                        inner.appendChild(block);
+                    }
+
+                    // trailing empty paragraph so typing can continue below the code
+                    var after = document.createElement("p");
+                    after.className = "pp";
+                    after.dataset.family = curFamily;
+                    after.dataset.size = curSize;
+                    after.appendChild(document.createElement("br"));
+                    inner.insertBefore(after, block.nextSibling);
+
+                    inner.focus();
+                    var r = document.createRange();
+                    r.selectNodeContents(after);
+                    r.collapse(true);
+                    var sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(r);
+                    savedRange = r.cloneRange();
+
+                    normalize();
+                    refreshEmpty();
+                }
+
                 function syncToolbar(){
                     var ps = selectedParagraphs();
                     if(!ps.length) return;
@@ -320,6 +404,10 @@ html(lang="de")
                     var b = e.target.closest("[data-size]"); if(b) applySize(b.dataset.size);
                 });
                 printBtn.addEventListener("click", function(){ window.print(); });
+                qrBtn.addEventListener("click", insertQR);
+                qrUrl.addEventListener("keydown", function(e){
+                    if(e.key === "Enter"){ e.preventDefault(); insertQR(); }
+                });
 
                 inner.addEventListener("input", function(){ normalize(); refreshEmpty(); });
                 inner.addEventListener("paste", function(e){
