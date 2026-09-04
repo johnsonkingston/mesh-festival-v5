@@ -21,6 +21,20 @@ html(lang=language[0])
         - events.forEach(function(e){ if(e.status == 'published' && e.In_Timetable && e.Thema && themaList.indexOf(e.Thema) === -1){ themaList.push(e.Thema); } });
         - themaList.sort().reverse();
 
+        //- ---- Spalten-Konfiguration ----
+        //- Events mit diesem Format bekommen immer eine eigene Spalte, unabhaengig vom Thema.
+        - var exhibitionFormat = 'ausstellungen';
+        - var exhibitionColumnId = 'ausstellungen';
+        - var exhibitionColumnLabel = [' ', ' '];
+        //- columnOrder steuert die Reihenfolge der Spalten. Eintraege koennen sein:
+        //- exhibitionColumnId ('ausstellungen'), ein Thema-Slug oder der exakte Thema-Text.
+        //- Nicht aufgefuehrte Spalten werden danach in der bestehenden (alphabetischen) Reihenfolge angehaengt.
+        - var columnOrder = ['ausstellungen'];
+        - var themeColumns = themaList.map(function(t){ return { id: themaSlug(t), label: t, thema: t, isExhibition: false }; });
+        - var allColumns = [{ id: exhibitionColumnId, label: exhibitionColumnLabel[languageParameter], isExhibition: true }].concat(themeColumns);
+        - var columnRank = function(c){ var i = columnOrder.indexOf(c.id); if(i === -1){ i = columnOrder.indexOf(c.label); } return i === -1 ? columnOrder.length : i; };
+        - allColumns = allColumns.map(function(c, i){ return { col: c, i: i }; }).sort(function(a, b){ return (columnRank(a.col) - columnRank(b.col)) || (a.i - b.i); }).map(function(x){ return x.col; });
+
         - var id = 1;
         //#filters
             .bubble#filteropen(onclick="toggleFilter()") Filter
@@ -59,14 +73,14 @@ html(lang=language[0])
                                 #time
 
                             .timetableSpalteWrap
-                                //thema
-                                each thema in themaList
-                                    - var dayEvents = events.filter(function(e){ return e.Venues[0] !== undefined && e.status == 'published' && e.In_Timetable && e.Thema == thema && e.Hour !== '' && e.Day == day; })
+                                //- Spalten in der via columnOrder definierten Reihenfolge
+                                each column in allColumns
+                                    - var dayEvents = events.filter(function(e){ if(e.Venues[0] === undefined || e.status != 'published' || !e.In_Timetable || e.Hour === '' || e.Day != day){ return false; } if(column.isExhibition){ return e.Format == exhibitionFormat; } return e.Thema == column.thema && e.Format != exhibitionFormat; })
                                     if dayEvents.length > 0
                                         - var hourBefore = hourStart
                                         - var firstEventInColumn = true
-                                        .timetableSpalte(class="timetableSpalte"+themaSlug(thema))
-                                            .timetableSpalteLabel= thema
+                                        .timetableSpalte(class="timetableSpalte"+column.id)
+                                            .timetableSpalteLabel= column.label
                                             each event in dayEvents
                                                 - var eventHour = parseInt(event.Hour) + (parseInt(event.Minute)/60)
                                                 - var effHour = eventHour < hourStart ? hourStart : eventHour
@@ -74,12 +88,12 @@ html(lang=language[0])
                                                 - if(firstEventInColumn) var hourMargin = effHour - hourStart
                                                 - else var hourMargin = effHour - hourBefore
                                                 if(event.Timetable_only == '1')
-                                                    .EventTimetableA(class='A'+event.Format+' EventTimetableTimetableOnly',style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-column=themaSlug(thema),data-id=id,id="Event-"+id)
+                                                    .EventTimetableA(class='A'+event.Format+' EventTimetableTimetableOnly',style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-column=column.id,data-id=id,id="Event-"+id)
                                                         .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
                                                             .EventTimetableContent !{eventTranslation(event, languageParameter).Content}
                                                 else
                                                     a(href=baseURL+'events/'+event.slug+'/'+language[0])
-                                                        .EventTimetableA(class='A'+event.Format,style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-column=themaSlug(thema),data-id=id,id="Event-"+id)
+                                                        .EventTimetableA(class='A'+event.Format,style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-column=column.id,data-id=id,id="Event-"+id)
                                                             .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
                                                                 if(formatsTranslation[event.Format] !== undefined)
                                                                     h3.format=formatsTranslation[event.Format][languageParameter]

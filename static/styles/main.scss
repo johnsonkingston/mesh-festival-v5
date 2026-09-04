@@ -392,7 +392,10 @@ div.bubble {
     overflow-x: scroll;
     img {
       height: 100%;
-      width: auto;
+      width: 100vw;
+      @media (orientation: portrait) {
+        width: auto;
+      }
     }
   }
 }

@@ -94,6 +94,10 @@ function languageTransform(string) {
   }
 }
 function langRemove(pathname) {
+  var queryIndex = pathname.indexOf("?");
+  if (queryIndex !== -1) {
+    pathname = pathname.substring(0, queryIndex);
+  }
   if (
     pathname.substr(pathname.length - 3) == "/en" ||
     pathname.substr(pathname.length - 3) == "/de"
