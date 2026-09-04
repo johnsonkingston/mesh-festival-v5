@@ -288,7 +288,6 @@ div.bubble {
 }
 
 .blur {
-  filter: blur(10px);
 }
 
 .eventswrapper {
@@ -1638,14 +1637,14 @@ ul {
     box-shadow: 0 0 1vw rgba(var(--color2));
     margin-top: 3.2vw; // sits flush below the fixed main nav
     @media (orientation: portrait) {
-      height: auto;
-      flex-wrap: wrap;
-      overflow: visible;
-      background: transparent;
-      box-shadow: none;
-      margin-top: 2vw;
-      padding: 2vw 3vw;
-      gap: 2vw;
+      // match the desktop main navigation bar: a solid bar with inset bubbles,
+      // instead of free-floating rounded pills
+      height: 8vw;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      margin-top: 0; // flush to the top, like the fixed desktop nav
+      padding: 0;
+      gap: 0;
     }
 
     a {
@@ -1658,10 +1657,10 @@ ul {
       background: rgba(var(--color1));
       @media (orientation: portrait) {
         font-size: 5vw;
-        line-height: 5.5vw;
-        padding: 0.4vw 3vw;
-        border-radius: 5vw;
-        box-shadow: rgba(var(--color2)) 0.6vw 0 0.6vw;
+        line-height: 8vw; // vertically centre in the bar
+        padding: 0 2.5vw;
+        border-radius: 1.25vw;
+        box-shadow: rgba(var(--color2)) 2.5vw 0 2.5vw;
       }
     }
     a.bubble.active {
@@ -1673,12 +1672,20 @@ ul {
       margin-left: -1vw;
       padding-left: 1.5vw;
       @media (orientation: portrait) {
-        margin-left: 0;
-        padding-left: 3vw;
+        margin-left: -2.5vw;
+        padding-left: 4vw;
       }
     }
     a.bubble.active:hover {
       background: rgba(var(--color4));
+    }
+  }
+
+  // the hamburger sat right against the bottom edge (1vw) on this page,
+  // crammed into the footer – lift it so it reads as its own control
+  #hamburger {
+    @media (orientation: portrait) {
+      bottom: 5vw;
     }
   }
 
@@ -2351,6 +2358,10 @@ footer {
   &.open {
     @media (orientation: portrait) {
       display: block;
+      overflow: scroll;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
     }
   }
 

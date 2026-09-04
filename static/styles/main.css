@@ -278,10 +278,6 @@ div.bubble {
   color: rgba(var(--color4));
 }
 
-.blur {
-  filter: blur(10px);
-}
-
 .eventswrapper {
   display: block;
   width: 100%;
@@ -1837,14 +1833,12 @@ ul {
 }
 @media (orientation: portrait) {
   .artists .viewNav {
-    height: auto;
-    flex-wrap: wrap;
-    overflow: visible;
-    background: transparent;
-    box-shadow: none;
-    margin-top: 2vw;
-    padding: 2vw 3vw;
-    gap: 2vw;
+    height: 8vw;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    margin-top: 0;
+    padding: 0;
+    gap: 0;
   }
 }
 .artists .viewNav a {
@@ -1859,10 +1853,10 @@ ul {
 @media (orientation: portrait) {
   .artists .viewNav a.bubble {
     font-size: 5vw;
-    line-height: 5.5vw;
-    padding: 0.4vw 3vw;
-    border-radius: 5vw;
-    box-shadow: rgba(var(--color2)) 0.6vw 0 0.6vw;
+    line-height: 8vw;
+    padding: 0 2.5vw;
+    border-radius: 1.25vw;
+    box-shadow: rgba(var(--color2)) 2.5vw 0 2.5vw;
   }
 }
 .artists .viewNav a.bubble.active {
@@ -1876,12 +1870,17 @@ ul {
 }
 @media (orientation: portrait) {
   .artists .viewNav a.bubble.active {
-    margin-left: 0;
-    padding-left: 3vw;
+    margin-left: -2.5vw;
+    padding-left: 4vw;
   }
 }
 .artists .viewNav a.bubble.active:hover {
   background: rgba(var(--color4));
+}
+@media (orientation: portrait) {
+  .artists #hamburger {
+    bottom: 5vw;
+  }
 }
 .artists main {
   padding-top: 0.1vw;
@@ -2663,6 +2662,10 @@ footer a {
 @media (orientation: portrait) {
   #startpageNav.open {
     display: block;
+    overflow: scroll;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
   }
 }
 #startpageNav a.bubble,
