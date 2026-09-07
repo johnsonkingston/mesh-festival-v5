@@ -1155,7 +1155,7 @@ ul {
   background: rgba(var(--color3));
   font-size: 1.3vh;
   @media (orientation: portrait) {
-    font-size: 1.8vh;
+    font-size: 4vw;
   }
   a:hover {
     text-shadow: rgba(var(--color4)) 0 0 5px;
@@ -1278,7 +1278,7 @@ ul {
     overflow-y: auto;
     scroll-snap-align: start;
     @media (orientation: portrait) {
-      padding-top: 6vw;
+      padding-top: 0vw;
       padding-bottom: 12vw;
     }
   }

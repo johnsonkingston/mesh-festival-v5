@@ -1334,7 +1334,7 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable {
-    font-size: 1.8vh;
+    font-size: 4vw;
   }
 }
 .timetable a:hover {
@@ -1470,7 +1470,7 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable .timetableDaySlide {
-    padding-top: 6vw;
+    padding-top: 0vw;
     padding-bottom: 12vw;
   }
 }
