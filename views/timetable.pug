@@ -15,25 +15,11 @@ html(lang=language[0])
         - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights','opening'];
         - var formatsTranslation = {ausstellungen: ['Ausstellung','Exhibtion'], konferenz: ['Konferenz','Conference'],performances: ['Performance','Performance'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screening','Screening'], clubnights: ['Club Night','Club Night'], workshops: ['Workshop','Workshop'], opening: ['Opening','Opening']};
 
-        - var themaSlug = function(thema){ var slug = thema.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); return slug || 'other'; };
         - var eventTranslation = function(evt, langParam){ var t = evt.translations || []; return t[langParam] || t[0] || {}; };
-        - var themaList = [];
-        - events.forEach(function(e){ if(e.status == 'published' && e.In_Timetable && e.Thema && themaList.indexOf(e.Thema) === -1){ themaList.push(e.Thema); } });
-        - themaList.sort().reverse();
 
         //- ---- Spalten-Konfiguration ----
-        //- Events mit diesem Format bekommen immer eine eigene Spalte, unabhaengig vom Thema.
-        - var exhibitionFormat = 'ausstellungen';
-        - var exhibitionColumnId = 'ausstellungen';
-        - var exhibitionColumnLabel = [' ', ' '];
-        //- columnOrder steuert die Reihenfolge der Spalten. Eintraege koennen sein:
-        //- exhibitionColumnId ('ausstellungen'), ein Thema-Slug oder der exakte Thema-Text.
-        //- Nicht aufgefuehrte Spalten werden danach in der bestehenden (alphabetischen) Reihenfolge angehaengt.
-        - var columnOrder = ['ausstellungen'];
-        - var themeColumns = themaList.map(function(t){ return { id: themaSlug(t), label: t, thema: t, isExhibition: false }; });
-        - var allColumns = [{ id: exhibitionColumnId, label: exhibitionColumnLabel[languageParameter], isExhibition: true }].concat(themeColumns);
-        - var columnRank = function(c){ var i = columnOrder.indexOf(c.id); if(i === -1){ i = columnOrder.indexOf(c.label); } return i === -1 ? columnOrder.length : i; };
-        - allColumns = allColumns.map(function(c, i){ return { col: c, i: i }; }).sort(function(a, b){ return (columnRank(a.col) - columnRank(b.col)) || (a.i - b.i); }).map(function(x){ return x.col; });
+        //- Spalten entsprechen den Werten 1-7 des Feldes Row_in_Timetable.
+        - var allColumns = [1,2,3,4,5,6,7].map(function(row){ return { id: row, label: ' ', row: row }; });
 
         - var id = 1;
         //#filters
@@ -73,9 +59,9 @@ html(lang=language[0])
                                 #time
 
                             .timetableSpalteWrap
-                                //- Spalten in der via columnOrder definierten Reihenfolge
+                                //- Spalten in aufsteigender Row_in_Timetable-Reihenfolge (1-7)
                                 each column in allColumns
-                                    - var dayEvents = events.filter(function(e){ if(e.Venues[0] === undefined || e.status != 'published' || !e.In_Timetable || e.Hour === '' || e.Day != day){ return false; } if(column.isExhibition){ return e.Format == exhibitionFormat; } return e.Thema == column.thema && e.Format != exhibitionFormat; })
+                                    - var dayEvents = events.filter(function(e){ if(e.Venues[0] === undefined || e.status != 'published' || !e.In_Timetable || e.Hour === '' || e.Day != day){ return false; } return Number(e.Row_in_Timetable) === column.row; })
                                     if dayEvents.length > 0
                                         - var hourBefore = hourStart
                                         - var firstEventInColumn = true
@@ -97,9 +83,10 @@ html(lang=language[0])
                                                             .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
                                                                 if(formatsTranslation[event.Format] !== undefined)
                                                                     h3.format=formatsTranslation[event.Format][languageParameter]
-                                                                if(event.Subformat && event.Subformat.trim())
-                                                                    h4=event.Subformat
-                                                                h2.title!='<span class="bullet">•</span>'+(eventTranslation(event, languageParameter).Title || '')
+                                                                - var hasSubformat = event.Subformat && event.Subformat.trim()
+                                                                if(hasSubformat)
+                                                                    h4.subformat=event.Subformat
+                                                                h2.title(class=hasSubformat ? '' : 'title-narrow')!='<span class="bullet">•</span>'+(eventTranslation(event, languageParameter).Title || '')
                                                                 //h2.artist=event.Artist
                                                                 - var hourEndDisplay = ('0' + (Math.floor(event.HourEnd) % 24)).slice(-2)
                                                                 if(venues[event.Venues[0].Venues_id] !== undefined)

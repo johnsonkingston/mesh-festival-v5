@@ -1499,7 +1499,7 @@ ul {
   background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
   border-radius: 0.5vw;
   position: relative;
-  width: 14.3vw;
+  width: 18.2vw;
   box-shadow: 0 0 10px rgba(var(--color2));
   margin-right: 0.25vw;
   margin-left: 0.25vw;
@@ -1656,15 +1656,18 @@ ul {
     line-height: 3.5vw;
   }
 }
+.timetable .subformat {
+  padding-bottom: 0;
+}
 .timetable h2 {
   margin-top: 0;
   padding-top: 0.25vw;
   line-height: 1.4vw;
 }
-.timetable h2::before {
+.timetable h2.title-narrow::before {
   content: "";
   float: right;
-  width: 45%;
+  width: 35%;
   height: 1.4vw;
 }
 @media (orientation: portrait) {
@@ -1672,7 +1675,7 @@ ul {
     font-size: 4.5vw;
     line-height: 4.5vw;
   }
-  .timetable h2::before {
+  .timetable h2.title-narrow::before {
     height: 3.5vw;
   }
 }
@@ -2598,8 +2601,8 @@ footer a {
 
 #eventOverlayClose {
   position: fixed;
-  top: 0.6vw;
-  right: 1vw;
+  top: 4.6vw;
+  right: 5vw;
   z-index: 2001;
   width: 3vw;
   height: 3vw;
@@ -2905,7 +2908,7 @@ body.startpage .columnVideo .meshSlider .swiper-pagination-bullet.swiper-paginat
 }
 body.startpage .editionTitle {
   position: absolute;
-  width: 20vw;
+  width: 30vw;
   top: 14vw;
   left: 1vw;
   z-index: 90;
@@ -2950,6 +2953,7 @@ body.startpage .editionTitle a {
   display: block;
   color: rgba(var(--color2));
   text-decoration: none;
+  text-shadow: 0 0 1vw white;
 }
 body.startpage .editionTitle a[href] {
   cursor: pointer;

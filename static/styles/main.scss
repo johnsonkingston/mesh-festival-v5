@@ -1311,7 +1311,7 @@ ul {
     );
     border-radius: $padding;
     position: relative;
-    width: 14.3vw;
+    width: 18.2vw;
     box-shadow: 0 0 10px rgba(var(--color2));
     margin-right: $padding * 0.5;
     margin-left: $padding * 0.5;
@@ -1468,22 +1468,23 @@ ul {
       line-height: $lineHeight1 * $scaleFactor;
     }
   }
-  .artist {
+  .subformat {
+    padding-bottom: 0;
   }
   h2 {
     margin-top: 0;
     padding-top: $padding * 0.5;
     line-height: $lineHeight1;
-    &::before {
+    &.title-narrow::before {
       content: "";
       float: right;
-      width: 45%;
+      width: 35%;
       height: $lineHeight1;
     }
     @media (orientation: portrait) {
       font-size: 4.5vw;
       line-height: 4.5vw;
-      &::before {
+      &.title-narrow::before {
         height: $lineHeight1 * $scaleFactor;
       }
     }
@@ -2299,8 +2300,8 @@ footer {
 }
 #eventOverlayClose {
   position: fixed;
-  top: 0.6vw;
-  right: 1vw;
+  top: 4.6vw;
+  right: 5vw;
   z-index: 2001;
   width: 3vw;
   height: 3vw;
@@ -2598,7 +2599,7 @@ body.startpage {
   }
   .editionTitle {
     position: absolute;
-    width: 20vw;
+    width: 30vw;
     top: 14vw;
     left: 1vw;
     z-index: 90;
@@ -2634,6 +2635,7 @@ body.startpage {
       display: block;
       color: rgba(var(--color2));
       text-decoration: none;
+      text-shadow: 0 0 1vw white;
       &[href] {
         cursor: pointer;
       }
