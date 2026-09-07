@@ -12,8 +12,8 @@ html(lang=language[0])
         - var hoursPerDay = 17;
         - var dayOutput = {14: ['Mittwoch, 14. Oktober', 'Wednesday, 14 October'], 15: ['Donnerstag, 15. Oktober', 'Thursday, 15 October'], 16: ['Freitag, 16. Oktober', 'Friday, 16 October'], 17: ['Samstag, 17. Oktober', 'Saturday, 17 October'], 18: ['Sonntag, 18. Oktober', 'Sunday, 18 October']}
         - var dayAbbr = {14: ['Mi','We'], 15: ['Do','Th'], 16: ['Fr','Fr'], 17: ['Sa','Sa'], 18: ['So','Su']};
-        - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights'];
-        - var formatsTranslation = {ausstellungen: ['Ausstellung','Exhibtion'], konferenz: ['Konferenz','Conference'],performances: ['Performance','Performance'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screening','Screening'], clubnights: ['Club Night','Club Night'], workshops: ['Workshop','Workshop'], workshop: ['Workshop','Workshop']};
+        - var formats = ['ausstellungen','screenings','diskurs','konferenz','performances','clubnights','opening'];
+        - var formatsTranslation = {ausstellungen: ['Ausstellung','Exhibtion'], konferenz: ['Konferenz','Conference'],performances: ['Performance','Performance'],  diskurs: ['Talks & Panels','Talks & Panels'], screenings: ['Screening','Screening'], clubnights: ['Club Night','Club Night'], workshops: ['Workshop','Workshop'], opening: ['Opening','Opening']};
 
         - var themaSlug = function(thema){ var slug = thema.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); return slug || 'other'; };
         - var eventTranslation = function(evt, langParam){ var t = evt.translations || []; return t[langParam] || t[0] || {}; };

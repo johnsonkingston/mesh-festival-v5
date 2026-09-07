@@ -7,6 +7,7 @@ html(lang="de")
         title Mesh – A4 Druck
         link(rel="icon" type="image/png" sizes="32x32" href=baseURL+"static/img/favicon/favicon-32x32.png")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.js")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer")
         style#pageStyle.
             @page{ size:A4 portrait; margin:0; }
         style.
@@ -22,6 +23,7 @@ html(lang="de")
                 --size-m:72pt;   /* mittel */
                 --size-l:100pt;  /* gross */
                 --size-xl:300pt; /* Icons – 3x gross */
+                --size-xxl:740px; /* Icons/QR – zentriert */
             }
             *,*::before,*::after{box-sizing:border-box;}
             html,body{margin:0;height:100%;}
@@ -55,6 +57,7 @@ html(lang="de")
             .tb-btn.tb-size-m{font-size:1.02rem;padding:.42rem .7rem;}
             .tb-btn.tb-size-l{font-size:1.3rem;padding:.32rem .7rem;}
             .tb-btn.tb-size-xl{font-size:1.65rem;padding:.18rem .6rem;}
+            .tb-btn.tb-size-xxl{font-size:1.9rem;padding:.1rem .5rem;}
             .tb-spacer{flex:1;}
             .tb-print{background:var(--ui-ink);color:var(--ui-bg);border-color:var(--ui-ink);}
             .subbar{
@@ -75,6 +78,8 @@ html(lang="de")
                 border:1px solid var(--rule);border-radius:2px;cursor:pointer;
             }
             .char-btn:hover{background:var(--ui-ink);color:var(--ui-bg);}
+            /* Font Awesome pictograms – always render in the current ink colour, never coloured emoji */
+            .pp-icon{vertical-align:-.08em;}
             .qrbar{
                 display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;
                 padding:.5rem 1rem .6rem;background:var(--ui-bg);border-bottom:1px solid var(--rule);
@@ -119,6 +124,7 @@ html(lang="de")
             .sheet-inner .pp[data-size="m"]{font-size:var(--size-m);filter:blur(1px);}
             .sheet-inner .pp[data-size="l"]{font-size:var(--size-l);filter:blur(2px);}
             .sheet-inner .pp[data-size="xl"]{font-size:var(--size-xl);filter:blur(2px);}
+            .sheet-inner .pp[data-size="xxl"]{font-size:var(--size-xxl);filter:blur(2px);text-align:center;}
             /* QR-Code block – a graphic, sized in mm regardless of the text size (never blurred) */
             .sheet-inner .pp.qr{font-size:0;line-height:0;filter:none;}
             .sheet-inner .pp.qr img{display:block;width:var(--qr,40mm);height:auto;}
@@ -126,6 +132,8 @@ html(lang="de")
             .sheet-inner .pp.qr[data-size="m"]{--qr:40mm;}
             .sheet-inner .pp.qr[data-size="l"]{--qr:64mm;}
             .sheet-inner .pp.qr[data-size="xl"]{--qr:104mm;}
+            .sheet-inner .pp.qr[data-size="xxl"]{--qr:600px;}
+            .sheet-inner .pp.qr[data-size="xxl"] img{margin-left:auto;margin-right:auto;}
             .sheet-inner.is-empty::before{
                 content:attr(data-placeholder);
                 position:absolute;left:0;top:0;pointer-events:none;opacity:.22;
@@ -152,6 +160,7 @@ html(lang="de")
                     button.tb-btn.tb-size-m(type="button" data-size="m" title="72 pt") A
                     button.tb-btn.tb-size-l.is-active(type="button" data-size="l" title="100 pt") A
                     button.tb-btn.tb-size-xl(type="button" data-size="xl" title="Icons – 300 pt") A
+                    button.tb-btn.tb-size-xxl(type="button" data-size="xxl" title="Icons/QR – 740px, zentriert") A
                 span.tb-spacer
                 button.tb-btn.tb-print#printBtn(type="button") Drucken
             .subbar.app-chrome Direkt in die Seite schreiben. Formatierung (Schrift / Grösse) gilt pro Absatz – Cursor in den Absatz setzen oder markieren. Tipp: im Druckdialog «Kopf- und Fusszeilen» deaktivieren.
@@ -185,11 +194,46 @@ html(lang="de")
                 var curSize = "l";
                 var savedRange = null; // last caret position inside the sheet
 
-                // insertable glyphs – monochrome arrows / marks + festival pictograms
+                // insertable glyphs – monochrome arrows / marks
                 var GLYPHS = [
                     ["Pfeile", ["←","→","↑","↓","↖","↗","↘","↙","↔","↕","⟵","⟶","⇐","⇒","➜","»"]],
-                    ["Zeichen", ["•","–","—","…","×","✓","✗","★","☆","⚠","№","§","°","€","„","“","”","‹","›"]],
-                    ["Icons", ["📍","🕐","🎟️","♿","🚻","🚹","🚺","🚭","🚫","⚠️","ℹ️","🅿️","🚪","🔊","🎤","🎧","🎸","🎪","⛺","☕","🍺","🥤","💧","🍔","🚑","🧯","🔦","🧭","📶","⚡","🧥","✅","❌"]]
+                    ["Zeichen", ["•","–","—","…","×","✓","✗","★","☆","⚠","№","§","°","€","„","“","”","‹","›"]]
+                ];
+
+                // festival pictograms – Font Awesome (Free Solid) icons, always rendered in the ink colour
+                var ICONS = [
+                    ["fa-location-dot","Standort"],
+                    ["fa-clock","Uhrzeit"],
+                    ["fa-ticket","Ticket"],
+                    ["fa-wheelchair","Rollstuhl"],
+                    ["fa-restroom","WC"],
+                    ["fa-person-half-dress","WC"],
+                    ["fa-ban-smoking","Rauchen verboten"],
+                    ["fa-ban","Verboten"],
+                    ["fa-triangle-exclamation","Achtung"],
+                    ["fa-circle-info","Info"],
+                    ["fa-square-parking","Parkplatz"],
+                    ["fa-door-open","Ausgang"],
+                    ["fa-volume-high","Lautsprecher"],
+                    ["fa-microphone","Mikrofon"],
+                    ["fa-headphones","Kopfhörer"],
+                    ["fa-guitar","Gitarre"],
+                    ["fa-tent","Zirkuszelt"],
+                    ["fa-campground","Camping"],
+                    ["fa-mug-hot","Kaffee"],
+                    ["fa-beer","Bier"],
+                    ["fa-glass-water","Getränk"],
+                    ["fa-droplet","Wasser"],
+                    ["fa-burger","Essen"],
+                    ["fa-truck-medical","Sanität"],
+                    ["fa-fire-extinguisher","Feuerlöscher"],
+                    ["fa-lightbulb","Licht"],
+                    ["fa-compass","Kompass"],
+                    ["fa-wifi","WLAN"],
+                    ["fa-bolt","Strom"],
+                    ["fa-shirt","Garderobe"],
+                    ["fa-circle-check","OK"],
+                    ["fa-circle-xmark","Nicht ok"]
                 ];
 
                 var STORE = "mesh-print-";
@@ -284,12 +328,33 @@ html(lang="de")
                         });
                         charbar.appendChild(grp);
                     });
+
+                    var iconGrp = document.createElement("span");
+                    iconGrp.className = "cb-group";
+                    var iconLab = document.createElement("span");
+                    iconLab.className = "cb-label";
+                    iconLab.textContent = "Icons";
+                    iconGrp.appendChild(iconLab);
+                    ICONS.forEach(function(entry){
+                        var faClass = entry[0], label = entry[1];
+                        var b = document.createElement("button");
+                        b.type = "button";
+                        b.className = "char-btn";
+                        b.title = "einfügen: " + label;
+                        var i = document.createElement("i");
+                        i.className = "fa-solid " + faClass;
+                        b.appendChild(i);
+                        b.addEventListener("click", function(){ insertIcon(faClass, label); });
+                        iconGrp.appendChild(b);
+                    });
+                    charbar.appendChild(iconGrp);
+
                     charbar.addEventListener("mousedown", function(e){
                         if(e.target.closest(".char-btn")) e.preventDefault();
                     });
                 }
 
-                function insertGlyph(ch){
+                function restoreCaret(){
                     inner.focus();
                     var sel = window.getSelection();
                     if(savedRange && inner.contains(savedRange.commonAncestorContainer)){
@@ -303,7 +368,29 @@ html(lang="de")
                         sel.removeAllRanges();
                         sel.addRange(r);
                     }
+                    return sel;
+                }
+
+                function insertGlyph(ch){
+                    var sel = restoreCaret();
                     document.execCommand("insertText", false, ch);
+                    if(sel.rangeCount) savedRange = sel.getRangeAt(0).cloneRange();
+                    normalize();
+                    refreshEmpty();
+                }
+
+                function insertIcon(faClass, label){
+                    var sel = restoreCaret();
+                    var icon = document.createElement("i");
+                    icon.className = "fa-solid " + faClass + " pp-icon";
+                    icon.setAttribute("aria-label", label);
+                    var range = sel.getRangeAt(0);
+                    range.deleteContents();
+                    range.insertNode(icon);
+                    range.setStartAfter(icon);
+                    range.setEndAfter(icon);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
                     if(sel.rangeCount) savedRange = sel.getRangeAt(0).cloneRange();
                     normalize();
                     refreshEmpty();
