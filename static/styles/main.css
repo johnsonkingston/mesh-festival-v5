@@ -1334,7 +1334,7 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable {
-    font-size: 1.7vh;
+    font-size: 1.8vh;
   }
 }
 .timetable a:hover {
@@ -1343,6 +1343,7 @@ ul {
 }
 .timetable main {
   height: calc(100vh - 4.5vw);
+  height: calc(100dvh - 4.5vw);
   margin-top: 4.5vw;
   display: flex;
   flex-direction: column;
@@ -1350,6 +1351,7 @@ ul {
 @media (orientation: portrait) {
   .timetable main {
     height: calc(100vh - 2vw);
+    height: calc(100dvh - 2vw);
     margin-top: 2vw;
   }
 }
@@ -1461,6 +1463,7 @@ ul {
   width: 100%;
   height: 100%;
   padding-top: 1.2vw;
+  padding-bottom: 1.2vw;
   overflow-x: auto;
   overflow-y: auto;
   scroll-snap-align: start;
@@ -1468,6 +1471,7 @@ ul {
 @media (orientation: portrait) {
   .timetable .timetableDaySlide {
     padding-top: 6vw;
+    padding-bottom: 12vw;
   }
 }
 .timetable .timetableDaySlide::-webkit-scrollbar {
