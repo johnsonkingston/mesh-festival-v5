@@ -1752,7 +1752,7 @@ ul {
     line-height: 4.5vw;
   }
   .timetable h2.title-narrow::before {
-    height: 3.5vw;
+    height: 5vw;
   }
 }
 .timetable h2 .bullet {

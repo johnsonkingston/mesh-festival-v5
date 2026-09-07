@@ -1553,7 +1553,7 @@ ul {
       font-size: 4.5vw;
       line-height: 4.5vw;
       &.title-narrow::before {
-        height: $lineHeight1 * $scaleFactor;
+        height: 5vw;
       }
     }
     .bullet {
