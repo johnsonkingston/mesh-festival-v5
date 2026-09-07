@@ -10,7 +10,18 @@ html(lang=language[0])
             
             if data.Main_Image == null
                 img.mainimage(src=imgURL+'5a7095f3-d054-4527-8bb8-998de11e6d28.png')
-            else 
+            else if data.Main_Image.type && data.Main_Image.type.indexOf('video/') === 0
+                .mainimageWrap
+                    video.mainimage#mainVideo(src=imgURL+data.Main_Image.filename_disk, autoplay, muted, loop, playsinline)
+                    button.unmuteBtn.is-muted#unmuteBtn(type="button", onclick="toggleMainVideoSound()", aria-label="Ton aktivieren")
+                        svg.iconMuted(viewBox="0 0 24 24" width="20" height="20" aria-hidden="true")
+                            path(d="M4 9v6h4l5 5V4L8 9H4z", fill="currentColor")
+                            path(d="M16.5 8.5l6 6M22.5 8.5l-6 6", stroke="currentColor", stroke-width="2", stroke-linecap="round")
+                        svg.iconUnmuted(viewBox="0 0 24 24" width="20" height="20" aria-hidden="true")
+                            path(d="M4 9v6h4l5 5V4L8 9H4z", fill="currentColor")
+                            path(d="M16 8a5 5 0 010 8M19 5a9 9 0 010 14", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round")
+                .mainimageCaption !{data.Main_Image.description}
+            else
                 picture
                     source(media="min-width:650px",srcset=imgURL+data.Main_Image.filename_disk+'?key=content')
                     img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen', alt=data.Main_Image.title)
@@ -32,21 +43,7 @@ html(lang=language[0])
                         a(href=baseURL+'pages/locations/'+language[0], target="_top")
                             p= data.Venues[0].Venues_id.Name
                     //p= data.translations[languageParameter].Price
-                
-                .eventHeaderColumn
-                    //if data.translations[languageParameter].Seats_available !== ''
-                        p= data.translations[languageParameter].Seats_available
-                    //p= data.translations[languageParameter].Audience
-                    //p= data.translations[languageParameter].Language
-                    //if data.Ticketlink !== null
-                        if data.Format == 'konferenz'
-                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","show",false);').smallpill Buy Conference Ticket
-                        else if data.Format == 'ausstellungen'
-                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","auto",true);').smallpill Get Ticket
-                        else
-                            #ticketlink(onclick='openticket("'+data.Ticketlink+'","show",true);').smallpill Buy Day Pass
-                            a(href=baseURL+'pages/tickets')
-                                #ticketlink2.smallpill Buy Festival Pass
+
 
 
 
@@ -57,3 +54,36 @@ html(lang=language[0])
                 div
                 div
                 div
+        script.
+            function toggleMainVideoSound(){
+                var v = document.getElementById('mainVideo');
+                var b = document.getElementById('unmuteBtn');
+                if(!v) return;
+                v.muted = !v.muted;
+                if(b){
+                    b.classList.toggle('is-muted', v.muted);
+                    b.setAttribute('aria-label', v.muted ? 'Ton aktivieren' : 'Ton stummschalten');
+                }
+            }
+
+            //- this page is loaded inside the overlay iframe on the timetable/artists pages;
+            //- links here (including ones from CMS rich-text content) must escape the iframe
+            //- instead of loading a full nested page (with its own nav) inside it.
+            if(window.top !== window.self){
+                document.addEventListener('click', function(e){
+                    if(e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                    var a = e.target.closest && e.target.closest('a[href]');
+                    if(!a || a.target === '_top' || a.target === '_blank') return;
+                    var raw = a.getAttribute('href') || '';
+                    if(raw.charAt(0) === '#' || raw.indexOf('mailto:') === 0 || raw.indexOf('tel:') === 0) return;
+
+                    e.preventDefault();
+                    var match = raw.match(/events\/([^\/?#]+)(?:\/(de|en))?/);
+                    if(match && typeof window.top.openEventOverlay === 'function'){
+                        var overlayUrl = window.top.location.origin + '/events/' + match[1] + (match[2] ? '/' + match[2] : '');
+                        window.top.openEventOverlay(overlayUrl);
+                    } else {
+                        window.top.location.href = a.href;
+                    }
+                });
+            }

@@ -460,6 +460,7 @@ div.bubble {
       object-fit: cover;
       z-index: 2;
       box-shadow: black 0 0 1vw;
+      padding-left: 0;
       @media (orientation: portrait) {
         position: relative;
         width: 100vw;
@@ -471,6 +472,51 @@ div.bubble {
         z-index: auto;
         box-shadow: rgba(var(--color2)) 0 0 2vw;
         object-position: left;
+      }
+    }
+    .mainimageWrap {
+      position: relative;
+    }
+    .unmuteBtn {
+      position: fixed;
+      right: calc(51% + $padding);
+      bottom: $padding;
+      z-index: 3;
+      width: 2.2vw;
+      height: 2.2vw;
+      min-width: 32px;
+      min-height: 32px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: rgba(var(--color3));
+      color: rgba(var(--color2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: black 0 0 0.5vw;
+      svg {
+        width: 55%;
+        height: 55%;
+      }
+      .iconUnmuted {
+        display: none;
+      }
+      &:not(.is-muted) {
+        .iconMuted {
+          display: none;
+        }
+        .iconUnmuted {
+          display: block;
+        }
+      }
+      @media (orientation: portrait) {
+        position: absolute;
+        right: $padding * $scaleFactor;
+        bottom: $padding * $scaleFactor;
+        width: 9vw;
+        height: 9vw;
       }
     }
     .mainimageCaption {
@@ -901,7 +947,7 @@ div.bubble {
   .eventHeader {
     margin: $padding * 4 0;
     .eventHeaderColumn {
-      width: 47%;
+      width: 66%;
       margin-right: 3%;
       display: inline-block;
       vertical-align: top;
@@ -1033,6 +1079,15 @@ li {
 ul {
   background-color: rgba(var(--color1));
   margin-left: 0;
+}
+.event {
+  main {
+    .content {
+      ul {
+        text-indent: 2vw hanging;
+      }
+    }
+  }
 }
 .accordeon-title + .accordeon::before {
   content: "";

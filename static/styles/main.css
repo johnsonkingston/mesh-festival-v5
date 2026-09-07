@@ -467,6 +467,7 @@ div.bubble {
      object-fit: cover;
   z-index: 2;
   box-shadow: black 0 0 1vw;
+  padding-left: 0;
 }
 @media (orientation: portrait) {
   .page main .mainimage,
@@ -482,6 +483,58 @@ div.bubble {
     box-shadow: rgba(var(--color2)) 0 0 2vw;
     -o-object-position: left;
        object-position: left;
+  }
+}
+.page main .mainimageWrap,
+.visit main .mainimageWrap {
+  position: relative;
+}
+.page main .unmuteBtn,
+.visit main .unmuteBtn {
+  position: fixed;
+  right: calc(51% + 0.5vw);
+  bottom: 0.5vw;
+  z-index: 3;
+  width: 2.2vw;
+  height: 2.2vw;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(var(--color3));
+  color: rgba(var(--color2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: black 0 0 0.5vw;
+}
+.page main .unmuteBtn svg,
+.visit main .unmuteBtn svg {
+  width: 55%;
+  height: 55%;
+}
+.page main .unmuteBtn .iconUnmuted,
+.visit main .unmuteBtn .iconUnmuted {
+  display: none;
+}
+.page main .unmuteBtn:not(.is-muted) .iconMuted,
+.visit main .unmuteBtn:not(.is-muted) .iconMuted {
+  display: none;
+}
+.page main .unmuteBtn:not(.is-muted) .iconUnmuted,
+.visit main .unmuteBtn:not(.is-muted) .iconUnmuted {
+  display: block;
+}
+@media (orientation: portrait) {
+  .page main .unmuteBtn,
+  .visit main .unmuteBtn {
+    position: absolute;
+    right: 1.25vw;
+    bottom: 1.25vw;
+    width: 9vw;
+    height: 9vw;
   }
 }
 .page main .mainimageCaption,
@@ -1056,7 +1109,7 @@ div.bubble {
   margin: 2vw 0;
 }
 .event .eventHeader .eventHeaderColumn {
-  width: 47%;
+  width: 66%;
   margin-right: 3%;
   display: inline-block;
   vertical-align: top;
@@ -1207,6 +1260,10 @@ li {
 ul {
   background-color: rgba(var(--color1));
   margin-left: 0;
+}
+
+.event main .content ul {
+  text-indent: 2vw hanging;
 }
 
 .accordeon-title + .accordeon::before {

@@ -381,7 +381,9 @@ const ARTIST_FORMAT_ORDER = [
   "konferenz",
   "performances",
   "clubnights",
-  "workshops",
+  "opening",
+  "workshop",
+  "welcomming",
 ];
 function sortArtists(list, sort) {
   var out = (list || []).slice();
@@ -776,18 +778,22 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
       performances: "Performance",
       screenings: "Screening",
       konferenz: "Konferenz",
-      workshops: "Workshops",
+      workshop: "Workshop",
       clubnights: "Club Nights",
       diskurs: "Talks & Panels",
+      opening: "Opening",
+      welcomming: "Welcomming",
     };
     const formatTranslationEN = {
       ausstellungen: "Exhibitions",
       performances: "Performances",
       screenings: "Screenings",
       konferenz: "Conference",
-      workshops: "Workshops",
+      workshop: "Workshop",
       clubnights: "Club Nights",
       diskurs: "Talks & Panels",
+      opening: "Opening",
+      welcomming: "Welcomming",
     };
     result.data[0].formatTranslation = [
       formatTranslationDE[formatSlug],
