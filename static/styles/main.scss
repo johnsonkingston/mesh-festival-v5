@@ -602,6 +602,10 @@ div.bubble {
         margin-block-start: 0.5em;
         margin-block-end: 0;
         font-family: "FreeSerif-JK";
+        @media (orientation: portrait) {
+          font-size: $fontSize3 * $serifFactor * $scaleFactor;
+          line-height: $lineHeight3 * $scaleFactor;
+        }
       }
       h6 {
         font-size: $fontSize1;
@@ -1537,6 +1541,9 @@ ul {
       float: right;
       width: 35%;
       height: $lineHeight1;
+      @media (orientation: portrait) {
+        width: 100%;
+      }
     }
     @media (orientation: portrait) {
       font-size: 4.5vw;
@@ -1583,6 +1590,7 @@ ul {
       border-radius: $padding * 2;
       margin-top: 1vw;
       margin-right: 1vw;
+      margin-bottom: 1vw;
     }
   }
   .timetableHourlineWrap {

@@ -651,6 +651,13 @@ div.bubble {
   margin-block-end: 0;
   font-family: "FreeSerif-JK";
 }
+@media (orientation: portrait) {
+  .page main .content h5,
+  .visit main .content h5 {
+    font-size: 8.25vw;
+    line-height: 8.25vw;
+  }
+}
 .page main .content h6,
 .visit main .content h6 {
   font-size: 1.2vw;
@@ -1731,6 +1738,11 @@ ul {
   height: 1.4vw;
 }
 @media (orientation: portrait) {
+  .timetable h2.title-narrow::before {
+    width: 100%;
+  }
+}
+@media (orientation: portrait) {
   .timetable h2 {
     font-size: 4.5vw;
     line-height: 4.5vw;
@@ -1780,6 +1792,7 @@ ul {
     border-radius: 1vw;
     margin-top: 1vw;
     margin-right: 1vw;
+    margin-bottom: 1vw;
   }
 }
 .timetable .timetableHourlineWrap {
