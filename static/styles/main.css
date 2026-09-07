@@ -1833,12 +1833,13 @@ ul {
 }
 @media (orientation: portrait) {
   .artists .viewNav {
-    height: 8vw;
+    height: 10vw;
     flex-wrap: nowrap;
     overflow: hidden;
     margin-top: 0;
     padding: 0;
     gap: 0;
+    box-shdow: rgba(var(--color2)) 1vw 0 1vw;
   }
 }
 .artists .viewNav a {
@@ -1852,11 +1853,17 @@ ul {
 }
 @media (orientation: portrait) {
   .artists .viewNav a.bubble {
-    font-size: 5vw;
-    line-height: 8vw;
-    padding: 0 2.5vw;
+    font-size: 7.5vw;
+    line-height: 8.25vw;
+    padding: 1vw 2.5vw;
     border-radius: 1.25vw;
     box-shadow: rgba(var(--color2)) 2.5vw 0 2.5vw;
+  }
+}
+@media (orientation: portrait) {
+  .artists .viewNav a:first-child {
+    margin-left: -2vw;
+    padding-left: 4vw;
   }
 }
 .artists .viewNav a.bubble.active {
@@ -1978,6 +1985,7 @@ ul {
   border-radius: 0.25vw;
   display: inline-block;
   float: right;
+  font-family: "FreeSans-JK";
 }
 @media (orientation: portrait) {
   .artists main .artist .left .format,

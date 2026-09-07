@@ -1637,14 +1637,13 @@ ul {
     box-shadow: 0 0 1vw rgba(var(--color2));
     margin-top: 3.2vw; // sits flush below the fixed main nav
     @media (orientation: portrait) {
-      // match the desktop main navigation bar: a solid bar with inset bubbles,
-      // instead of free-floating rounded pills
-      height: 8vw;
+      height: 10vw;
       flex-wrap: nowrap;
       overflow: hidden;
-      margin-top: 0; // flush to the top, like the fixed desktop nav
+      margin-top: 0;
       padding: 0;
       gap: 0;
+      box-shdow: rgba(var(--color2)) 1vw 0 1vw;
     }
 
     a {
@@ -1656,11 +1655,17 @@ ul {
       border-radius: 0.5vw;
       background: rgba(var(--color1));
       @media (orientation: portrait) {
-        font-size: 5vw;
-        line-height: 8vw; // vertically centre in the bar
-        padding: 0 2.5vw;
+        font-size: $fontSize3 * $scaleFactor;
+        line-height: $lineHeight3 * $scaleFactor; // vertically centre in the bar
+        padding: 1vw 2.5vw;
         border-radius: 1.25vw;
         box-shadow: rgba(var(--color2)) 2.5vw 0 2.5vw;
+      }
+    }
+    a:first-child {
+      @media (orientation: portrait) {
+        margin-left: -2vw;
+        padding-left: 4vw;
       }
     }
     a.bubble.active {
@@ -1766,6 +1771,7 @@ ul {
           border-radius: $padding * 0.5;
           display: inline-block;
           float: right;
+          font-family: "FreeSans-JK";
           @media (orientation: portrait) {
             font-size: $fontSizeMicro * $scaleFactor;
             line-height: $lineHeightMicro * $scaleFactor;
