@@ -8,6 +8,23 @@ function historyBack() {
     history.back();
 }
 
+// CMS rich-text images (.content/.lead) carry the file library's title as
+// their alt text (auto-filled by the Directus editor on insert) - reuse it
+// as a caption underneath each image instead of fetching it separately.
+function captionContentImages(scope) {
+    (scope || document).querySelectorAll('.content img[alt], .lead img[alt]').forEach(function(img) {
+        if (img.dataset.captioned) return;
+        img.dataset.captioned = '1';
+        var alt = (img.getAttribute('alt') || '').trim();
+        if (!alt) return;
+        var block = img.closest('p') || img.parentElement;
+        var caption = document.createElement('p');
+        caption.className = 'mediaCaption';
+        caption.textContent = alt;
+        block.insertAdjacentElement('afterend', caption);
+    });
+}
+
 function toggleNav() {
     $('#startpageNav').toggleClass('open');
     $('main').toggleClass('blur');
@@ -65,6 +82,7 @@ function initAccordeon() {
 //Links
 $( document ).ready(function() {
     initAccordeon();
+    captionContentImages();
 
      $('.logobannerInner').each(function( index ) {
         $(this).clone().appendTo($(this).parent()).addClass('clone');

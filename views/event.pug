@@ -57,6 +57,25 @@ html(lang=language[0])
                 div
                 div
         script.
+            //- CMS rich-text images (.content/.lead) carry the file library's title as
+            //- their alt text (auto-filled by the Directus editor on insert) - reuse it
+            //- as a caption underneath each image instead of fetching it separately.
+            //- (event.pug doesn't include footer.pug/main.js, so this is duplicated here.)
+            function captionContentImages(scope){
+                (scope || document).querySelectorAll('.content img[alt], .lead img[alt]').forEach(function(img){
+                    if(img.dataset.captioned) return;
+                    img.dataset.captioned = '1';
+                    var alt = (img.getAttribute('alt') || '').trim();
+                    if(!alt) return;
+                    var block = img.closest('p') || img.parentElement;
+                    var caption = document.createElement('p');
+                    caption.className = 'mediaCaption';
+                    caption.textContent = alt;
+                    block.insertAdjacentElement('afterend', caption);
+                });
+            }
+            captionContentImages();
+
             function toggleMainVideoSound(){
                 var v = document.getElementById('mainVideo');
                 var b = document.getElementById('unmuteBtn');
