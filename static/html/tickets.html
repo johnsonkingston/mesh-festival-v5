@@ -61,6 +61,20 @@
       content="TNAoxn34J4XEOzd8PTJtXvliDdC8DqZFmlmGiJ4_IxQ"
     />
     <style>
+      body {
+        margin: 0;
+      }
+      .mobile-only {
+        display: none;
+      }
+      @media (max-width: 768px) {
+        .desktop-only {
+          display: none;
+        }
+        .mobile-only {
+          display: block;
+        }
+      }
       h1,
       h2 {
         margin-block-end: 0.4em;
@@ -82,11 +96,22 @@
           padding-bottom: 0;
         }
       }
+      iframe {
+        box-shadow: 0 0 2vw black;
+      }
     </style>
   </head>
   <body>
-    <h2>Mesh<br />14. – 18. Oktober 2026</h2>
-
+    <img
+      src="static/img/mesh_ticket_head.jpg"
+      class="desktop-only"
+      style="width: 100%; margin: 0"
+    />
+    <img
+      src="static/img/mesh_ticket_head_mobile.jpg"
+      class="mobile-only"
+      style="width: 100%; margin: 0"
+    />
     <script src="https://embed.ticketpark.ch/v1/"></script>
     <div id="mesh-ticket-shop"></div>
     <script>
