@@ -7,6 +7,8 @@ html(lang=language[0])
         if data.Main_Image
             .splashImage
                 img(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen', alt=data.Main_Image.title)
+                if data.Main_Image.title
+                    .splashImageCaption.mediaCaption= data.Main_Image.title
 
         main
             if data.translations.length > 0

@@ -20,12 +20,14 @@ html(lang=language[0])
                         svg.iconUnmuted(viewBox="0 0 24 24" width="20" height="20" aria-hidden="true")
                             path(d="M4 9v6h4l5 5V4L8 9H4z", fill="currentColor")
                             path(d="M16 8a5 5 0 010 8M19 5a9 9 0 010 14", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round")
-                .mainimageCaption !{data.Main_Image.description}
+                if data.Main_Image.title
+                    .mainimageCaption.mediaCaption= data.Main_Image.title
             else
                 picture
                     source(media="min-width:650px",srcset=imgURL+data.Main_Image.filename_disk+'?key=content')
                     img.mainimage(src=imgURL+data.Main_Image.filename_disk+'?key=fullscreen', alt=data.Main_Image.title)
-                .mainimageCaption !{data.Main_Image.description}
+                if data.Main_Image.title
+                    .mainimageCaption.mediaCaption= data.Main_Image.title
 
 
             .eventHeader 
