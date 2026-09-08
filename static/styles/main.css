@@ -135,6 +135,7 @@ body {
   scrollbar-width: none;
   background: rgba(var(--color1));
   color: rgba(var(--color2));
+  font-weight: 800;
 }
 
 .block {
@@ -179,7 +180,6 @@ h6 {
   margin-inline-start: 0;
   margin-inline-end: 0;
   padding-inline-start: 0;
-  font-weight: normal !important;
 }
 
 p {
@@ -265,7 +265,8 @@ ul {
 }
 
 a.bubble,
-div.bubble {
+div.bubble,
+input.bubble {
   font-size: 3vw;
   line-height: 3.2vw;
   color: rgba(var(--color2));
@@ -274,7 +275,8 @@ div.bubble {
 }
 @media (orientation: portrait) {
   a.bubble,
-  div.bubble {
+  div.bubble,
+  input.bubble {
     font-size: 9vw;
     line-height: 9vw;
     padding: 0;
@@ -508,10 +510,9 @@ div.bubble {
 .visit main .mainimageWrap {
   position: relative;
 }
-.page main .unmuteBtn,
-.visit main .unmuteBtn {
+.page main .mediaBtn,
+.visit main .mediaBtn {
   position: fixed;
-  right: calc(51% + 0.5vw);
   bottom: 0.5vw;
   z-index: 3;
   width: 2.2vw;
@@ -529,10 +530,23 @@ div.bubble {
   cursor: pointer;
   box-shadow: black 0 0 0.5vw;
 }
-.page main .unmuteBtn svg,
-.visit main .unmuteBtn svg {
+.page main .mediaBtn svg,
+.visit main .mediaBtn svg {
   width: 55%;
   height: 55%;
+}
+@media (orientation: portrait) {
+  .page main .mediaBtn,
+  .visit main .mediaBtn {
+    position: absolute;
+    bottom: 1.25vw;
+    width: 9vw;
+    height: 9vw;
+  }
+}
+.page main .unmuteBtn,
+.visit main .unmuteBtn {
+  right: calc(51% + 0.5vw);
 }
 .page main .unmuteBtn .iconUnmuted,
 .visit main .unmuteBtn .iconUnmuted {
@@ -549,11 +563,29 @@ div.bubble {
 @media (orientation: portrait) {
   .page main .unmuteBtn,
   .visit main .unmuteBtn {
-    position: absolute;
     right: 1.25vw;
-    bottom: 1.25vw;
-    width: 9vw;
-    height: 9vw;
+  }
+}
+.page main .playPauseBtn,
+.visit main .playPauseBtn {
+  right: calc(51% + 1vw + 2.2vw);
+}
+.page main .playPauseBtn .iconPlay,
+.visit main .playPauseBtn .iconPlay {
+  display: none;
+}
+.page main .playPauseBtn.is-paused .iconPause,
+.visit main .playPauseBtn.is-paused .iconPause {
+  display: none;
+}
+.page main .playPauseBtn.is-paused .iconPlay,
+.visit main .playPauseBtn.is-paused .iconPlay {
+  display: block;
+}
+@media (orientation: portrait) {
+  .page main .playPauseBtn,
+  .visit main .playPauseBtn {
+    right: 11.5vw;
   }
 }
 .page main .mainimageCaption,
@@ -619,6 +651,25 @@ div.bubble {
 .page main .content h3,
 .visit main .content h3 {
   margin-top: 1.5vw;
+}
+.page main .content h3:has(+ .bio-wrapper),
+.page main .content h4:has(+ .bio-wrapper),
+.visit main .content h3:has(+ .bio-wrapper),
+.visit main .content h4:has(+ .bio-wrapper) {
+  font-family: "FreeSans-JK";
+  font-size: 1.8vw;
+  line-height: 2.1vw;
+  width: 66%;
+}
+@media (orientation: portrait) {
+  .page main .content h3:has(+ .bio-wrapper),
+  .page main .content h4:has(+ .bio-wrapper),
+  .visit main .content h3:has(+ .bio-wrapper),
+  .visit main .content h4:has(+ .bio-wrapper) {
+    width: 100%;
+    font-size: 4.5vw;
+    line-height: 5.25vw;
+  }
 }
 .page main .content h2,
 .visit main .content h2 {
@@ -1592,7 +1643,7 @@ ul {
   background: linear-gradient(0deg, rgba(var(--color1)) 0%, rgba(var(--color3)) 50%);
   border-radius: 0.5vw;
   position: relative;
-  width: 18.2vw;
+  width: 15.2vw;
   box-shadow: 0 0 10px rgba(var(--color2));
   margin-right: 0.25vw;
   margin-left: 0.25vw;
@@ -1948,13 +1999,17 @@ ul {
   display: inline-block;
   text-decoration: none;
 }
-.artists .viewNav a.bubble {
+.artists .viewNav a.bubble,
+.artists .viewNav input.bubble {
   box-shadow: rgba(var(--color2)) 1vw 0 1vw;
   border-radius: 0.5vw;
   background: rgba(var(--color1));
+  margin-left: -1vw;
+  padding-left: 1.5vw;
 }
 @media (orientation: portrait) {
-  .artists .viewNav a.bubble {
+  .artists .viewNav a.bubble,
+  .artists .viewNav input.bubble {
     font-size: 7.5vw;
     line-height: 8.25vw;
     padding: 1vw 2.5vw;
@@ -1967,6 +2022,31 @@ ul {
     margin-left: -2vw;
     padding-left: 4vw;
   }
+}
+.artists .viewNav input.bubble {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  cursor: text;
+  width: 15vw;
+  padding-block: 0;
+}
+@media (orientation: portrait) {
+  .artists .viewNav input.bubble {
+    display: none;
+  }
+}
+.artists .viewNav input.bubble::-moz-placeholder {
+  color: rgba(var(--color2));
+}
+.artists .viewNav input.bubble::placeholder {
+  color: rgba(var(--color2));
+}
+.artists .viewNav input.bubble::-webkit-search-cancel-button {
+  -webkit-appearance: none;
 }
 .artists .viewNav a.bubble.active {
   background: rgba(var(--color2));
@@ -3357,7 +3437,7 @@ body.startpage .logos span {
   }
 }
 body.startpage .logos a:hover {
-  text-shadow: 0 0 10px rgba(var(--color4));
+  filter: drop-shadow(0 0 10px rgba(var(--color4)));
   color: rgba(var(--color4));
 }
 @media (orientation: portrait) {

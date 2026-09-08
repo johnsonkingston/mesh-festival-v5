@@ -29,8 +29,23 @@ function filterTimetableAll(){
 }
 
 
+function filterArtistsSearch(query) {
+    query = (query || '').trim().toLowerCase();
+    $('.artistLine').each(function() {
+        var match = !query || ($(this).attr('data-search') || '').indexOf(query) !== -1;
+        $(this).toggle(match);
+    });
+    // hide a group header (Format/Thema) if none of its entries are visible
+    $('.formatHeader').each(function() {
+        var hasVisible = $(this).nextUntil('.formatHeader', '.artistLine').filter(':visible').length > 0;
+        $(this).toggle(hasVisible);
+    });
+}
+
 $( document ).ready(function() {
 
-
+    $('#artistSearch').on('input', function() {
+        filterArtistsSearch($(this).val());
+    });
 
 });

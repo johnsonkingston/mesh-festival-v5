@@ -147,6 +147,7 @@ body {
   scrollbar-width: none;
   background: rgba(var(--color1));
   color: rgba(var(--color2));
+  font-weight: 800;
 }
 .block {
   height: 100vh;
@@ -179,7 +180,6 @@ h6 {
   margin-inline-start: 0;
   margin-inline-end: 0;
   padding-inline-start: 0;
-  font-weight: normal !important;
 }
 p {
   margin-block-start: 0.5em;
@@ -277,7 +277,8 @@ ul {
 //     border: 1px solid rgba(var(--color4));
 // }
 a.bubble,
-div.bubble {
+div.bubble,
+input.bubble {
   font-size: $fontSize3;
   line-height: 3.2vw;
   color: rgba(var(--color2));
@@ -496,9 +497,8 @@ div.bubble {
     .mainimageWrap {
       position: relative;
     }
-    .unmuteBtn {
+    .mediaBtn {
       position: fixed;
-      right: calc(51% + $padding);
       bottom: $padding;
       z-index: 3;
       width: 2.2vw;
@@ -519,6 +519,15 @@ div.bubble {
         width: 55%;
         height: 55%;
       }
+      @media (orientation: portrait) {
+        position: absolute;
+        bottom: $padding * $scaleFactor;
+        width: 9vw;
+        height: 9vw;
+      }
+    }
+    .unmuteBtn {
+      right: calc(51% + $padding);
       .iconUnmuted {
         display: none;
       }
@@ -531,11 +540,24 @@ div.bubble {
         }
       }
       @media (orientation: portrait) {
-        position: absolute;
         right: $padding * $scaleFactor;
-        bottom: $padding * $scaleFactor;
-        width: 9vw;
-        height: 9vw;
+      }
+    }
+    .playPauseBtn {
+      right: calc(51% + $padding * 2 + 2.2vw);
+      .iconPlay {
+        display: none;
+      }
+      &.is-paused {
+        .iconPause {
+          display: none;
+        }
+        .iconPlay {
+          display: block;
+        }
+      }
+      @media (orientation: portrait) {
+        right: calc($padding * $scaleFactor * 2 + 9vw);
       }
     }
     .mainimageCaption {
@@ -583,6 +605,18 @@ div.bubble {
       }
       h3 {
         margin-top: $padding * 3;
+      }
+      h3:has(+ .bio-wrapper),
+      h4:has(+ .bio-wrapper) {
+        font-family: "FreeSans-JK";
+        font-size: $fontSize2;
+        line-height: $lineHeight2;
+        width: 66%;
+        @media (orientation: portrait) {
+          width: 100%;
+          font-size: $fontSize2 * $scaleFactor;
+          line-height: $lineHeight2 * $scaleFactor;
+        }
       }
       h2 {
         font-size: $fontSize4 * $serifFactor;
@@ -1398,7 +1432,7 @@ ul {
     );
     border-radius: $padding;
     position: relative;
-    width: 18.2vw;
+    width: 15.2vw;
     box-shadow: 0 0 10px rgba(var(--color2));
     margin-right: $padding * 0.5;
     margin-left: $padding * 0.5;
@@ -1742,10 +1776,13 @@ ul {
       display: inline-block;
       text-decoration: none;
     }
-    a.bubble {
+    a.bubble,
+    input.bubble {
       box-shadow: rgba(var(--color2)) 1vw 0 1vw;
       border-radius: 0.5vw;
       background: rgba(var(--color1));
+      margin-left: -1vw;
+      padding-left: 1.5vw;
       @media (orientation: portrait) {
         font-size: $fontSize3 * $scaleFactor;
         line-height: $lineHeight3 * $scaleFactor; // vertically centre in the bar
@@ -1758,6 +1795,25 @@ ul {
       @media (orientation: portrait) {
         margin-left: -2vw;
         padding-left: 4vw;
+      }
+    }
+    input.bubble {
+      -webkit-appearance: none;
+      appearance: none;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      cursor: text;
+      width: 15vw;
+      padding-block: 0;
+      @media (orientation: portrait) {
+        display: none;
+      }
+      &::placeholder {
+        color: rgba(var(--color2));
+      }
+      &::-webkit-search-cancel-button {
+        -webkit-appearance: none;
       }
     }
     a.bubble.active {
@@ -3005,7 +3061,10 @@ body.startpage {
       }
     }
     a:hover {
-      text-shadow: 0 0 10px rgba(var(--color4));
+      // filter (unlike text-shadow) never affects layout in any browser,
+      // including Safari - avoids reflow at column-break boundaries in
+      // .logobannerThird's column-count:2 layout
+      filter: drop-shadow(0 0 10px rgba(var(--color4)));
       color: rgba(var(--color4));
     }
     span {

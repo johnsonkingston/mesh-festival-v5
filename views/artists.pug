@@ -12,7 +12,8 @@ html(lang=language[0])
             views: {
               formate: ['Formate', 'Formats'],
               themen: ['Themen', 'Topics'],
-              az: ['A–Z', 'A–Z']
+              az: ['A–Z', 'A–Z'],
+              search: ['Suche', 'Search']
             },
             withoutTopic: ['Mehr', 'More'],
             formats: {
@@ -36,6 +37,7 @@ html(lang=language[0])
         nav.viewNav
             each mode, index in ['formate','themen','az']
                 a.bubble(href=basePath + (mode == 'formate' ? '' : '?sort=' + mode), class=(sort == mode ? 'active' : null), style="z-index:"+(3 - index))= labels.views[mode][languageParameter]
+            input.bubble#artistSearch(type="search", placeholder=labels.views.search[languageParameter], autocomplete="off", style="z-index:0")
 
         main
             each event in events
@@ -47,7 +49,8 @@ html(lang=language[0])
                     if(themaBefore !== thema)
                         h2.formatHeader.blurOrganic1= thema || labels.withoutTopic[languageParameter]
                     - themaBefore = thema
-                a(href=baseURL+'events/'+event.slug+'/'+language[0], class=event.Format).artistLine
+                - var searchText = ((event.Title || '') + ' ' + (event.Name || '') + ' ' + (event.First_Name || '')).toLowerCase()
+                a(href=baseURL+'events/'+event.slug+'/'+language[0], class=event.Format, data-search=searchText).artistLine
                     .artist
                         .middle
                             if(sort !== 'formate' && labels.formats[event.Format] !== undefined)

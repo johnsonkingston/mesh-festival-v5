@@ -13,13 +13,18 @@ html(lang=language[0])
             else if data.Main_Image.type && data.Main_Image.type.indexOf('video/') === 0
                 .mainimageWrap
                     video.mainimage#mainVideo(src=imgURL+data.Main_Image.filename_disk, autoplay, muted, loop, playsinline)
-                    button.unmuteBtn.is-muted#unmuteBtn(type="button", onclick="toggleMainVideoSound()", aria-label="Ton aktivieren")
+                    button.unmuteBtn.mediaBtn.is-muted#unmuteBtn(type="button", onclick="toggleMainVideoSound()", aria-label="Ton aktivieren")
                         svg.iconMuted(viewBox="0 0 24 24" width="20" height="20" aria-hidden="true")
                             path(d="M4 9v6h4l5 5V4L8 9H4z", fill="currentColor")
                             path(d="M16.5 8.5l6 6M22.5 8.5l-6 6", stroke="currentColor", stroke-width="2", stroke-linecap="round")
                         svg.iconUnmuted(viewBox="0 0 24 24" width="20" height="20" aria-hidden="true")
                             path(d="M4 9v6h4l5 5V4L8 9H4z", fill="currentColor")
                             path(d="M16 8a5 5 0 010 8M19 5a9 9 0 010 14", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round")
+                    button.playPauseBtn.mediaBtn#playPauseBtn(type="button", aria-label="Pause")
+                        svg.iconPause(viewBox="0 0 24 24" width="20" height="20" aria-hidden="true")
+                            path(d="M6 5h4v14H6zM14 5h4v14h-4z", fill="currentColor")
+                        svg.iconPlay(viewBox="0 0 24 24" width="20" height="20" aria-hidden="true")
+                            path(d="M7 4l13 8-13 8V4z", fill="currentColor")
                 if data.Main_Image.title
                     .mainimageCaption.mediaCaption= data.Main_Image.title
             else
@@ -86,6 +91,22 @@ html(lang=language[0])
                     b.setAttribute('aria-label', v.muted ? 'Ton aktivieren' : 'Ton stummschalten');
                 }
             }
+
+            (function(){
+                var v = document.getElementById('mainVideo');
+                var b = document.getElementById('playPauseBtn');
+                if(!v || !b) return;
+                function syncPlayPause(){
+                    b.classList.toggle('is-paused', v.paused);
+                    b.setAttribute('aria-label', v.paused ? 'Abspielen' : 'Pause');
+                }
+                v.addEventListener('play', syncPlayPause);
+                v.addEventListener('pause', syncPlayPause);
+                syncPlayPause();
+                b.addEventListener('click', function(){
+                    if(v.paused){ v.play(); } else { v.pause(); }
+                });
+            })();
 
             //- this page is loaded inside the overlay iframe on the timetable/artists pages;
             //- links here (including ones from CMS rich-text content) must escape the iframe
