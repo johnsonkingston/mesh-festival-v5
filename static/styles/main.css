@@ -1802,6 +1802,7 @@ ul {
 }
 .timetable .subformat {
   padding-bottom: 0;
+  padding-top: 0.75vw;
 }
 .timetable h2 {
   margin-top: 0;
@@ -1865,7 +1866,7 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable h3 {
-    padding: 0.1vw 0.8vw 0vw 0.8vw;
+    padding: 0.3vw 0.8vw 0vw 0.8vw;
     border-radius: 1vw;
     margin-top: 1vw;
     margin-right: 1vw;

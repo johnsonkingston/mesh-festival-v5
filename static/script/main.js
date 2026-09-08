@@ -8,13 +8,28 @@ function historyBack() {
     history.back();
 }
 
-// CMS rich-text images (.content/.lead) carry the file library's title as
-// their alt text (auto-filled by the Directus editor on insert) - reuse it
-// as a caption underneath each image instead of fetching it separately.
+// CMS rich-text images (.content/.lead): lazy-load them, reserve their layout
+// space up front (avoids CLS) using the width/height Directus already encodes
+// in the URL from the original upload, and reuse the file library's title -
+// auto-filled as alt text by the Directus editor on insert - as a caption.
 function captionContentImages(scope) {
-    (scope || document).querySelectorAll('.content img[alt], .lead img[alt]').forEach(function(img) {
+    (scope || document).querySelectorAll('.content img, .lead img').forEach(function(img) {
         if (img.dataset.captioned) return;
         img.dataset.captioned = '1';
+
+        img.loading = 'lazy';
+        if (!img.getAttribute('width') && !img.getAttribute('height')) {
+            try {
+                var url = new URL(img.src, window.location.href);
+                var w = url.searchParams.get('width');
+                var h = url.searchParams.get('height');
+                if (w && h) {
+                    img.setAttribute('width', w);
+                    img.setAttribute('height', h);
+                }
+            } catch (e) {}
+        }
+
         var alt = (img.getAttribute('alt') || '').trim();
         if (!alt) return;
         var block = img.closest('p') || img.parentElement;

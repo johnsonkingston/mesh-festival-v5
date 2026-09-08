@@ -18,7 +18,7 @@ html(lang=language[0])
                 each venue in venues
                     .venueItem
                         if venue.image
-                            img(src=imgURL+venue.image.filename_disk+'?key=content', alt=venue.Name)
+                            img(src=imgURL+venue.image.filename_disk+'?key=content', alt=venue.Name, loading="lazy")
                             if venue.image.title
                                 .mediaCaption= venue.image.title
                         .caption.venueTitle= venue.Name

@@ -587,6 +587,10 @@ input.bubble {
     .content {
       overflow: hidden;
 
+      img {
+        max-width: 100%;
+        height: auto;
+      }
       ul {
         text-indent: -$lineHeight2;
         margin-left: 0;
@@ -1003,6 +1007,10 @@ input.bubble {
       @media (orientation: portrait) {
         font-size: $fontSize2 * $scaleFactor;
         line-height: $lineHeight2 * $scaleFactor;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
       }
     }
   }
@@ -1591,6 +1599,7 @@ ul {
   }
   .subformat {
     padding-bottom: 0;
+    padding-top: 0.75vw;
   }
   h2 {
     margin-top: 0;
@@ -1646,7 +1655,7 @@ ul {
     border-radius: $padding * 0.5;
     padding: $padding * 0.2 $padding * 0.4;
     @media (orientation: portrait) {
-      padding: 0.1vw 0.8vw 0vw 0.8vw;
+      padding: 0.3vw 0.8vw 0vw 0.8vw;
       border-radius: $padding * 2;
       margin-top: 1vw;
       margin-right: 1vw;

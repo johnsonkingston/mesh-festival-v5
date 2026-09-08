@@ -63,16 +63,46 @@ function cacheSet(key, value) {
 
 // For getters with no side effects: memoise their return value.
 // Failed/empty responses are not cached, so recovery is immediate.
-// Pass clone=true for results that route handlers mutate in place (page/event),
-// so the cached copy is never touched.
+// Pass clone=true (structuredClone) or a cheaper custom clone function for
+// results that route handlers mutate in place (page/event), so the cached
+// copy is never touched. This clone runs on EVERY request for that key, hit
+// or miss, so prefer the narrowest function that's still safe.
 async function cached(key, producer, clone) {
+  const cloneFn = typeof clone === "function" ? clone : clone ? structuredClone : null;
   const hit = _cache.get(key);
   if (hit && hit.expires > Date.now()) {
-    return clone ? structuredClone(hit.value) : hit.value;
+    return cloneFn ? cloneFn(hit.value) : hit.value;
   }
   const value = await producer();
   if (value !== "" && value != null) cacheSet(key, value);
-  return clone && value !== "" && value != null ? structuredClone(value) : value;
+  return cloneFn && value !== "" && value != null ? cloneFn(value) : value;
+}
+
+// getPage/getEvent route handlers only ever mutate the top-level CMS item
+// (adding pathname/derived fields), the order of its `translations` array,
+// and properties on the translation objects themselves (Price/Audience/...) -
+// never the deeper relations (Main_Image, Venues, Artists_in_List, etc).
+// A full structuredClone of that whole *.*.* tree on every single request
+// is wasted CPU; this only copies the parts that actually get mutated.
+function shallowCloneItem(value) {
+  if (!value || !Array.isArray(value.data) || !value.data[0]) return value;
+  const item = { ...value.data[0] };
+  if (Array.isArray(item.translations)) {
+    item.translations = item.translations.map((t) => (t ? { ...t } : t));
+  }
+  return { ...value, data: [item] };
+}
+
+// getStartpage's route handler aliases data.translations = data.title, then
+// reorders that array in place - clone data.title so the shared cache entry
+// is never touched by the alias.
+function shallowCloneStartpage(value) {
+  if (!value || !value.data) return value;
+  const data = { ...value.data };
+  if (Array.isArray(data.title)) {
+    data.title = [...data.title];
+  }
+  return { ...value, data };
 }
 
 // For the Events getters, which also populate the module-level `events`:
@@ -219,7 +249,6 @@ async function getAllEvents() {
     const data = await response.json();
 
     events = data.data;
-    let corrEvents;
 
     for (const [key, value] of Object.entries(events)) {
       if (value.Time == undefined) {
@@ -233,17 +262,13 @@ async function getAllEvents() {
         events[key].HourEnd = "";
       } else {
         if (value.Time.length > 1) {
-          corrEvents = [];
           for (let i = 0; i < value.Time.length; i++) {
-            var corrEvent = {};
-            corrEvent = structuredClone(events[key]);
-            corrEvent.Time[0] = structuredClone(corrEvent.Time[i]);
+            // corrEvent is a fresh clone owned only by this loop, so
+            // repointing Time[0] and pushing it need no further cloning
+            var corrEvent = structuredClone(events[key]);
+            corrEvent.Time[0] = corrEvent.Time[i];
             corrEvent = rewriteDate(corrEvent, 0);
-            corrEvents.push(corrEvent);
-          }
-
-          for (let j = 0; j < corrEvents.length; j++) {
-            events.push(structuredClone(corrEvents[j]));
+            events.push(corrEvent);
           }
         } else {
           events[key] = rewriteDate(events[key], 0);
@@ -290,11 +315,12 @@ async function renderTimetable(req, res, extraLocals) {
   languageObject = [language, languageTransform(language)];
   format = extraLocals.format || req.params.format || "none";
 
-  result = await getAllEvents();
-  navigation = await getNavigation();
-  footer = await getFooter();
-  //news = await getNews();
-  venues = await getVenues();
+  [result, navigation, footer, venues] = await Promise.all([
+    getAllEvents(),
+    getNavigation(),
+    getFooter(),
+    getVenues(),
+  ]);
 
   result.data[0].pathname = langRemove(pathname);
 
@@ -429,10 +455,12 @@ app.get("/artists/:language?/", async function (req, res) {
   if (sort !== "themen" && sort !== "az") sort = "formate";
 
   try {
-    result = await getAllArtists();
-    navigation = await getNavigation();
-    footer = await getFooter();
-    venues = await getVenues();
+    [result, navigation, footer, venues] = await Promise.all([
+      getAllArtists(),
+      getNavigation(),
+      getFooter(),
+      getVenues(),
+    ]);
 
     language = req.params.language || "de";
 
@@ -477,7 +505,6 @@ async function getAllEventsList() {
     const data = await response.json();
 
     events = data.data;
-    let corrEvents;
 
     for (const [key, value] of Object.entries(events)) {
       if (value.Time == undefined) {
@@ -491,17 +518,13 @@ async function getAllEventsList() {
         events[key].HourEnd = "";
       } else {
         if (value.Time.length > 1) {
-          corrEvents = [];
           for (let i = 0; i < value.Time.length; i++) {
-            var corrEvent = {};
-            corrEvent = structuredClone(events[key]);
-            corrEvent.Time[0] = structuredClone(corrEvent.Time[i]);
+            // corrEvent is a fresh clone owned only by this loop, so
+            // repointing Time[0] and pushing it need no further cloning
+            var corrEvent = structuredClone(events[key]);
+            corrEvent.Time[0] = corrEvent.Time[i];
             corrEvent = rewriteDate(corrEvent, 0);
-            corrEvents.push(corrEvent);
-          }
-
-          for (let j = 0; j < corrEvents.length; j++) {
-            events.push(structuredClone(corrEvents[j]));
+            events.push(corrEvent);
           }
         } else {
           events[key] = rewriteDate(events[key], 0);
@@ -523,11 +546,12 @@ app.get("/list/:language?/:format?", async function (req, res) {
   format = req.params.format || "none";
 
   try {
-    result = await getAllEvents();
-    navigation = await getNavigation();
-    footer = await getFooter();
-    //news = await getNews();
-    venues = await getVenues();
+    [result, navigation, footer, venues] = await Promise.all([
+      getAllEvents(),
+      getNavigation(),
+      getFooter(),
+      getVenues(),
+    ]);
 
     language = req.params.language || "de";
 
@@ -569,7 +593,7 @@ async function getPage(pageSlug) {
       }
       return await response.json();
     },
-    true, // route handler mutates result in place
+    shallowCloneItem,
   );
 }
 
@@ -580,10 +604,11 @@ app.get("/pages/:pageSlug/:language?", async function (req, res) {
     language = req.params.language || "de";
 
     console.log(language);
-    result = await getPage(pageSlug);
-
-    navigation = await getNavigation();
-    footer = await getFooter();
+    [result, navigation, footer] = await Promise.all([
+      getPage(pageSlug),
+      getNavigation(),
+      getFooter(),
+    ]);
 
     result.data[0].pathname = langRemove(pathname);
 
@@ -642,7 +667,7 @@ async function getEvent(eventSlug) {
       }
       return await response.json();
     },
-    true, // route handler mutates result in place
+    shallowCloneItem,
   );
 }
 
@@ -659,10 +684,11 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
     }
 
     console.log(language);
-    result = await getEvent(eventSlug);
-    navigation = await getNavigation();
-    footer = await getFooter();
-    //news = await getNews();
+    [result, navigation, footer] = await Promise.all([
+      getEvent(eventSlug),
+      getNavigation(),
+      getFooter(),
+    ]);
     //console.log(result.data[0]);
 
     result.data[0].pathname = langRemove(pathname);
@@ -858,8 +884,10 @@ app.get("/screens/:language?", async function (req, res) {
     const language = req.params.language || "de";
     const langIdx = languageTransform(language);
 
-    await getAllEvents(); // populates the module-level `events` (cached)
-    const venuesResult = await getVenues();
+    const [, venuesResult] = await Promise.all([
+      getAllEvents(), // populates the module-level `events` (cached)
+      getVenues(),
+    ]);
     const venuesData = (venuesResult && venuesResult.data) || [];
 
     const screenEvents = (events || [])
@@ -919,7 +947,7 @@ async function getStartpage() {
       }
       return await response.json();
     },
-    true, // route handler mutates result in place
+    shallowCloneStartpage,
   );
 }
 
@@ -947,11 +975,13 @@ app.get("/:language?", async function (req, res) {
   try {
     language = req.params.language || "de";
 
-    result = await getStartpage();
-    navigation = await getNavigation();
-    footer = await getFooter();
-    highlights = await getHighlights();
-    slidesResult = await getSlides();
+    [result, navigation, footer, highlights, slidesResult] = await Promise.all([
+      getStartpage(),
+      getNavigation(),
+      getFooter(),
+      getHighlights(),
+      getSlides(),
+    ]);
 
     languageObject = [language, languageTransform(language)];
 
