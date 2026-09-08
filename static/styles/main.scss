@@ -202,8 +202,6 @@ ul {
 .mediaCaption {
   font-size: $fontSizeMicro;
   line-height: $lineHeightMicro;
-  opacity: 0.7;
-  margin-block-start: 0;
   @media (orientation: portrait) {
     font-size: $fontSizeMicro * $scaleFactor;
     line-height: $lineHeightMicro * $scaleFactor;
@@ -549,6 +547,7 @@ div.bubble {
       background: rgba(var(--color1));
       border-radius: 2px;
       padding: 0.1vw 0.2vw 0 0.2vw;
+      margin-block-start: 0;
     }
     ul,
     p,
@@ -676,7 +675,7 @@ div.bubble {
       img,
       video {
         width: 100%;
-        margin-bottom: $padding;
+        margin-bottom: -1vw;
       }
       video {
         height: 28vw;
