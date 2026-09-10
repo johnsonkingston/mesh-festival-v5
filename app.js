@@ -948,6 +948,120 @@ app.get("/screens/:language?", async function (req, res) {
   }
 });
 
+// Printed accordion-fold program (Leporello), A3 landscape, day program without exhibitions
+const LEPORELLO_DAYS = [
+  { code: "14", labelDE: "Mittwoch", labelEN: "Wednesday", date: "14.10.2026" },
+  { code: "15", labelDE: "Donnerstag", labelEN: "Thursday", date: "15.10.2026" },
+  { code: "16", labelDE: "Freitag", labelEN: "Friday", date: "16.10.2026" },
+  { code: "17", labelDE: "Samstag", labelEN: "Saturday", date: "17.10.2026" },
+  { code: "18", labelDE: "Sonntag", labelEN: "Sunday", date: "18.10.2026" },
+];
+
+function leporelloPad(n) {
+  return (n < 10 ? "0" : "") + n;
+}
+function leporelloFormatTime(hourStart, minStart, hourEnd, minEnd) {
+  var s = leporelloPad(hourStart % 24) + ":" + leporelloPad(minStart);
+  if (hourEnd != null && !isNaN(hourEnd)) {
+    s += " – " + leporelloPad(Math.floor(hourEnd) % 24) + ":" + leporelloPad(minEnd);
+  }
+  return s;
+}
+
+// same format set/order/labels as the screens.pug "programm" sheet (exhibitions excluded)
+const LEPORELLO_FORMATS = [
+  "performances",
+  "screenings",
+  "konferenz",
+  "workshops",
+  "diskurs",
+  "clubnights",
+];
+const LEPORELLO_FORMAT_LABEL = {
+  performances: "Performances",
+  screenings: "Screenings",
+  konferenz: "Konferenz",
+  workshops: "Workshops",
+  diskurs: "Talks & Panels",
+  clubnights: "Club Nights",
+};
+
+app.get("/leporello/:language?", async function (req, res) {
+  try {
+    const language = req.params.language || "de";
+    const langIdx = languageTransform(language);
+
+    const [, venuesResult] = await Promise.all([
+      getAllEvents(), // populates the module-level `events` (cached)
+      getVenues(),
+    ]);
+    const venuesData = (venuesResult && venuesResult.data) || [];
+
+    const leporelloEvents = (events || [])
+      .filter(
+        (e) =>
+          e &&
+          e.status === "published" &&
+          e.In_Timetable &&
+          e.Timetable_only !== "1" &&
+          LEPORELLO_FORMATS.includes(e.Format) &&
+          e.Venues &&
+          e.Venues[0] &&
+          e.Day &&
+          e.Hour !== "" &&
+          e.Hour != null,
+      )
+      .map((e) => {
+        const tr =
+          (e.translations && (e.translations[langIdx] || e.translations[0])) ||
+          {};
+        const v = venuesData[e.Venues[0].Venues_id];
+        const hourStart = parseInt(e.Hour, 10) || 0;
+        const minStart = e.Minute ? parseInt(e.Minute, 10) : 0;
+        const hourEnd =
+          e.HourEnd === "" || e.HourEnd == null ? null : Number(e.HourEnd);
+        const minEnd = e.MinuteEnd ? parseInt(e.MinuteEnd, 10) : 0;
+        return {
+          day: String(e.Day),
+          format: e.Format,
+          time: leporelloFormatTime(hourStart, minStart, hourEnd, minEnd),
+          sortKey: hourStart * 60 + minStart,
+          title: tr.Title || "",
+          artist: e.Artist || "",
+          venue: v ? v.Name : "",
+        };
+      });
+
+    const buildSections = (dayCode) =>
+      LEPORELLO_FORMATS.map((fmt) => ({
+        label: LEPORELLO_FORMAT_LABEL[fmt] || fmt,
+        items: leporelloEvents
+          .filter((ev) => ev.day === dayCode && ev.format === fmt)
+          .sort((a, b) => a.sortKey - b.sortKey),
+      })).filter((section) => section.items.length);
+
+    const buildPanel = (day) =>
+      day && {
+        label: langIdx === 1 ? day.labelEN : day.labelDE,
+        date: day.date,
+        sections: buildSections(day.code),
+      };
+
+    const sheets = [
+      LEPORELLO_DAYS.slice(0, 4).map(buildPanel),
+      [buildPanel(LEPORELLO_DAYS[4]), null, null, null],
+    ];
+
+    res.render("leporello", {
+      sheets,
+      language: [language, langIdx],
+    });
+  } catch (err) {
+    console.error(err);
+    res.redirect("/");
+  }
+});
+
 //Startpage
 async function getStartpage() {
   return cached(

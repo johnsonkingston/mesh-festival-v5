@@ -1,0 +1,209 @@
+doctype html
+html(lang=language[0])
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(name="robots" content="noindex")
+        title Mesh – Programm Leporello
+        link(rel="icon" type="image/png" sizes="32x32" href=baseURL+"static/img/favicon/favicon-32x32.png")
+        style#pageStyle.
+            @page{ size:420mm 297mm; margin:0; }
+        style.
+            @font-face{font-family:"FreeSans-JK";src:url("#{baseURL}static/fonts/JK-MESH-Sans.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Sans.woff") format("woff");font-weight:700;font-display:swap;}
+            @font-face{font-family:"FreeSerif-JK";src:url("#{baseURL}static/fonts/JK-MESH-Serif.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Serif.woff") format("woff");font-weight:500;font-display:swap;}
+
+            :root{
+                --bg:#ffffff;
+                --ink:#000;
+                --rule:rgba(51,51,51,.22);
+            }
+            *,*::before,*::after{box-sizing:border-box;}
+            html,body{margin:0;}
+            body{
+                background:#dcdcdc;color:var(--ink);
+                font-family:"FreeSans-JK",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+                -webkit-font-smoothing:antialiased;
+            }
+
+            .toolbar{
+                position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:.8rem;
+                padding:.7rem 1rem;background:var(--bg);border-bottom:1px solid var(--rule);
+            }
+            .toolbar span{font-size:.85rem;opacity:.7;}
+            .tb-btn{
+                font:inherit;font-weight:700;background:var(--ink);color:var(--bg);
+                border:none;border-radius:2px;padding:.55rem 1rem;cursor:pointer;margin-left:auto;
+            }
+            .tb-btn:hover{opacity:.88;}
+
+            .stage{padding:24px 16px 48px;display:flex;flex-direction:column;align-items:center;gap:24px;overflow:auto;}
+            .sheet-clip{overflow:hidden;background:#fff;box-shadow:0 2px 24px rgba(0,0,0,.18);}
+            .sheet{
+                position:relative;width:420mm;height:297mm;background:var(--bg);
+                display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:297mm;
+                transform:scale(var(--scale,1));transform-origin:top left;
+            }
+
+            /* ---- panels: headers and fold shadows are generated with CSS, not artwork ---- */
+            .panel{position:relative;display:flex;flex-direction:column;overflow:hidden;padding:0 3mm 10mm;}
+            .panel + .panel{border-left:.35mm dashed var(--rule);}
+            .panel::before{
+                content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+                background:linear-gradient(90deg, rgba(51,51,51,.16) 0, transparent 6mm, transparent calc(100% - 6mm), rgba(51,51,51,.16) 100%);
+                opacity:.6;
+            }
+            .panel:first-child::before{background:linear-gradient(90deg, transparent calc(100% - 6mm), rgba(51,51,51,.16) 100%);}
+            .panel:last-child::before{background:linear-gradient(90deg, rgba(51,51,51,.16) 0, transparent 6mm);}
+
+            .panel__head{
+                position:relative;
+                display:flex;flex-direction:column;gap:1mm;
+                padding: 0;
+                background:#fff;color:#000;
+                box-shadow:0 3mm 3mm -3mm rgba(51,51,51,1);
+                height: 18mm;
+                overflow: hidden;
+            }
+
+            .panel__day{font-family:"FreeSans-JK",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:700;font-size:15mm;line-height:19mm;margin:0;color:#000;letter-spacing:-1mm;}
+
+            /* programme table – same columns/structure as screens.pug's #poster .p-table */
+            .panel__list{position:relative;z-index:1;overflow:hidden;}
+            .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
+            .p-table col.col-time{width:13%;}
+            .p-table col.col-title{width:29%;}
+            .p-table col.col-artist{width:36%;}
+            .p-table col.col-venue{width:22%;}
+            .p-table td{
+                padding:calc(1.6mm * var(--tscale,1)) calc(1.4mm * var(--tscale,1)) calc(1.6mm * var(--tscale,1)) 0;
+                border-bottom:.2mm solid var(--ink);
+                font-size:calc(3mm * var(--tscale,1));line-height:1.15;vertical-align:top;
+                word-wrap:break-word;overflow-wrap:break-word;
+            }
+            .p-table td.c-title{font-weight:700;}
+            /* narrower than screens.pug's 1080px poster – "hh:mm – hh:mm" needs to
+               wrap onto two lines here instead of forcing nowrap, or it overlaps c-title */
+            .p-table tr.p-secrow td{
+                border-bottom:none;padding:calc(4mm * var(--tscale,1)) 0 calc(1.4mm * var(--tscale,1));text-align:center;
+            }
+            .p-table .p-pill{
+                display:inline-block;background:var(--ink);color:var(--bg);
+                border-radius:1.2mm;padding:.15em .5em;font-weight:500;font-size:calc(3mm * var(--tscale,1));
+            }
+            .panel__empty{margin-top:14mm;text-align:center;font-size:4mm;opacity:.5;}
+            .panel__blank{flex:1;}
+            /* full-bleed cover – ignores the panel's own padding, sits under the fold shadow */
+            .panel__cover{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;display:block;}
+            /* screen-only QA flag: content still overflows after auto-shrink hit its floor */
+            .panel.is-overflowing{outline:1.5mm solid #e0203c;outline-offset:-1.5mm;}
+            .panel.is-overflowing::after{
+                content:"Läuft über – kürzen";
+                position:absolute;z-index:3;bottom:2mm;left:50%;transform:translateX(-50%);
+                background:#e0203c;color:#fff;font-size:3mm;font-weight:700;
+                padding:.6mm 2mm;border-radius:1mm;white-space:nowrap;
+            }
+
+            @media print{
+                html,body{background:#fff !important;}
+                .toolbar{display:none !important;}
+                .panel.is-overflowing{outline:none;}
+                .panel.is-overflowing::after{display:none;}
+                .stage{display:block !important;padding:0 !important;overflow:visible !important;gap:0 !important;}
+                .sheet-clip{overflow:visible !important;box-shadow:none !important;width:auto !important;height:auto !important;}
+                .sheet-clip + .sheet-clip{page-break-before:always;}
+                .sheet{transform:none !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+            }
+    body
+        .toolbar
+            span Leporello · A3 quer · Zickzackfalz · 4 Panels je Seite
+            button#printBtn.tb-btn(type="button") Drucken
+        .stage#stage
+            each sheet, sheetIndex in sheets
+                .sheet-clip
+                    .sheet
+                        each panel, panelIndex in sheet
+                            .panel
+                                if sheetIndex === 1 && panelIndex === 3
+                                    img.panel__cover(src=baseURL+"static/img/MESH-LEPORELLO-COVER.jpg" alt="")
+                                else if panel
+                                    .panel__head
+                                        h2.panel__day= panel.label
+                                    .panel__list
+                                        if panel.sections.length
+                                            table.p-table
+                                                colgroup
+                                                    col.col-time
+                                                    col.col-title
+                                                    col.col-artist
+                                                    col.col-venue
+                                                tbody
+                                                    each section in panel.sections
+                                                        tr.p-secrow
+                                                            td(colspan="4")
+                                                                span.p-pill= section.label
+                                                        each item in section.items
+                                                            tr
+                                                                td.c-time= item.time
+                                                                td.c-title= item.title
+                                                                td.c-artist= item.artist
+                                                                td.c-venue= item.venue
+                                        else
+                                            .panel__empty Kein Eintrag
+                                else
+                                    .panel__blank
+        script.
+            (function(){
+                var MM = 96 / 25.4;
+                var stage = document.getElementById("stage");
+                var printBtn = document.getElementById("printBtn");
+
+                function fit(){
+                    var w = 420 * MM, h = 297 * MM;
+                    var availW = stage.clientWidth - 32;
+                    var scale = Math.min(1, availW / w);
+                    if(!isFinite(scale) || scale <= 0) scale = 1;
+                    Array.prototype.forEach.call(document.querySelectorAll(".sheet"), function(s){
+                        s.style.setProperty("--scale", scale);
+                    });
+                    Array.prototype.forEach.call(document.querySelectorAll(".sheet-clip"), function(c){
+                        c.style.width = (w * scale) + "px";
+                        c.style.height = (h * scale) + "px";
+                    });
+                }
+
+                // Auto-shrink a panel's item text until its content fits the fixed
+                // A3 panel height – silently clipping a printed program is worse
+                // than a slightly smaller font, and .is-overflowing flags the rest.
+                function shrinkPanels(){
+                    Array.prototype.forEach.call(document.querySelectorAll(".panel"), function(panel){
+                        var list = panel.querySelector(".panel__list");
+                        if(!list) return;
+                        var scale = 1;
+                        panel.style.setProperty("--tscale", scale);
+                        panel.classList.remove("is-overflowing");
+                        var guard = 0;
+                        // .panel__list flex-shrinks to fit .panel (overflow:hidden gives it an
+                        // automatic min-height of 0), so it silently clips its own content
+                        // without ever making .panel itself report an overflow - check the
+                        // list's own scrollHeight/clientHeight instead.
+                        while(list.scrollHeight > list.clientHeight && scale > 0.62 && guard < 40){
+                            scale = Math.round((scale - 0.02) * 100) / 100;
+                            panel.style.setProperty("--tscale", scale);
+                            guard++;
+                        }
+                        if(list.scrollHeight > list.clientHeight){
+                            panel.classList.add("is-overflowing");
+                        }
+                    });
+                }
+
+                printBtn.addEventListener("click", function(){ window.print(); });
+                window.addEventListener("resize", fit);
+                fit();
+                shrinkPanels();
+                // custom fonts load async (font-display:swap) and reflow text after
+                // the first pass, which can silently reopen an overflow – re-check.
+                if(document.fonts && document.fonts.ready){
+                    document.fonts.ready.then(shrinkPanels);
+                }
+            })();
