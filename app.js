@@ -68,7 +68,8 @@ function cacheSet(key, value) {
 // copy is never touched. This clone runs on EVERY request for that key, hit
 // or miss, so prefer the narrowest function that's still safe.
 async function cached(key, producer, clone) {
-  const cloneFn = typeof clone === "function" ? clone : clone ? structuredClone : null;
+  const cloneFn =
+    typeof clone === "function" ? clone : clone ? structuredClone : null;
   const hit = _cache.get(key);
   if (hit && hit.expires > Date.now()) {
     return cloneFn ? cloneFn(hit.value) : hit.value;
@@ -384,10 +385,20 @@ async function getAllArtists() {
           artist.Format = value.Format;
           artist.Thema = value.Thema;
           artist.slug = value.slug;
-          artist.Title =
-            value.translations && value.translations[0]
-              ? value.translations[0].Title
-              : "";
+          var translations = value.translations || [];
+          var titleDE =
+            translations.find(
+              (t) => t && t.languages_code && t.languages_code.code === "de",
+            ) ||
+            translations[0] ||
+            {};
+          var titleEN =
+            translations.find(
+              (t) => t && t.languages_code && t.languages_code.code === "en",
+            ) ||
+            translations[1] ||
+            titleDE;
+          artist.Title = [titleDE.Title || "", titleEN.Title || ""];
           artist.Venues = value.Venues;
           artists.push(structuredClone(artist));
         }
@@ -812,7 +823,9 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
       clubnights: "Club Nights",
       diskurs: "Talks & Panels",
       opening: "Opening",
-      welcomming: "Welcomming",
+      welcomming: "Welcome",
+      welcoming: "Welcome",
+      guided_tour: "Führung",
     };
     const formatTranslationEN = {
       ausstellungen: "Exhibitions",
@@ -823,7 +836,9 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
       clubnights: "Club Nights",
       diskurs: "Talks & Panels",
       opening: "Opening",
-      welcomming: "Welcomming",
+      welcomming: "Welcome",
+      welcoming: "Welcome",
+      guided_tour: "Guided Tour",
     };
     result.data[0].formatTranslation = [
       formatTranslationDE[formatSlug],

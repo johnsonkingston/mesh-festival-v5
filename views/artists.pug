@@ -23,8 +23,9 @@ html(lang=language[0])
               screenings: ['Screening', 'Screening'],
               clubnights: ['Club Night', 'Club Night'],
               welcomming: ['Welcoming','Welcoming'],
-              welcoming: ['Welcoming','Welcoming'],
+              welcoming: ['Welcome','Welcome'],
               workshop: ['Workshop', 'Workshop'],
+              guided_tour: ['Führung', 'Guided Tour']
             }
           };
 
@@ -49,14 +50,14 @@ html(lang=language[0])
                     if(themaBefore !== thema)
                         h2.formatHeader.blurOrganic1= thema || labels.withoutTopic[languageParameter]
                     - themaBefore = thema
-                - var searchText = ((event.Title || '') + ' ' + (event.Name || '') + ' ' + (event.First_Name || '')).toLowerCase()
+                - var searchText = ((Array.isArray(event.Title) ? event.Title.join(' ') : (event.Title || '')) + ' ' + (event.Name || '') + ' ' + (event.First_Name || '')).toLowerCase()
                 a(href=baseURL+'events/'+event.slug+'/'+language[0], class=event.Format, data-search=searchText).artistLine
                     .artist
                         .middle
                             if(sort !== 'formate' && labels.formats[event.Format] !== undefined)
                                 h4.format= labels.formats[event.Format][languageParameter]
                             h3= '• '+(event.First_Name || '')+' '+(event.Name || '')
-                            h4= truncateWords(event.Title, 40)
+                            h4= truncateWords(event.Title[languageParameter], 40)
                 - formatBefore = event.Format
                 - n++
 
