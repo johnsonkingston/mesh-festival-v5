@@ -968,22 +968,23 @@ function leporelloFormatTime(hourStart, minStart, hourEnd, minEnd) {
   return s;
 }
 
-// same format set/order/labels as the screens.pug "programm" sheet (exhibitions excluded)
-const LEPORELLO_FORMATS = [
-  "performances",
-  "screenings",
-  "konferenz",
-  "workshops",
-  "diskurs",
-  "clubnights",
-];
+// known format labels for section pills; any other CMS format value still
+// gets a section, just labelled with its raw slug (see buildSections below) -
+// this way a format never silently drops off the leporello if the CMS
+// introduces a new one or spells an existing one differently (e.g. "workshop"
+// vs "workshops").
 const LEPORELLO_FORMAT_LABEL = {
   performances: "Performances",
   screenings: "Screenings",
   konferenz: "Konferenz",
+  workshop: "Workshop",
   workshops: "Workshops",
   diskurs: "Talks & Panels",
   clubnights: "Club Nights",
+  opening: "Opening",
+  welcomming: "Welcoming",
+  welcoming: "Welcoming",
+  guided_tour: "Führung",
 };
 
 app.get("/leporello/:language?", async function (req, res) {
@@ -1004,7 +1005,8 @@ app.get("/leporello/:language?", async function (req, res) {
           e.status === "published" &&
           e.In_Timetable &&
           e.Timetable_only !== "1" &&
-          LEPORELLO_FORMATS.includes(e.Format) &&
+          e.Format &&
+          e.Format !== "ausstellungen" &&
           e.Venues &&
           e.Venues[0] &&
           e.Day &&
@@ -1032,13 +1034,24 @@ app.get("/leporello/:language?", async function (req, res) {
         };
       });
 
-    const buildSections = (dayCode) =>
-      LEPORELLO_FORMATS.map((fmt) => ({
-        label: LEPORELLO_FORMAT_LABEL[fmt] || fmt,
-        items: leporelloEvents
-          .filter((ev) => ev.day === dayCode && ev.format === fmt)
-          .sort((a, b) => a.sortKey - b.sortKey),
-      })).filter((section) => section.items.length);
+    const buildSections = (dayCode) => {
+      const byFormat = {};
+      leporelloEvents
+        .filter((ev) => ev.day === dayCode)
+        .forEach((ev) => {
+          (byFormat[ev.format] = byFormat[ev.format] || []).push(ev);
+        });
+      return Object.keys(byFormat)
+        .map((fmt) => {
+          const items = byFormat[fmt].sort((a, b) => a.sortKey - b.sortKey);
+          return {
+            label: LEPORELLO_FORMAT_LABEL[fmt] || fmt,
+            items,
+            firstStart: items[0].sortKey,
+          };
+        })
+        .sort((a, b) => a.firstStart - b.firstStart);
+    };
 
     const buildPanel = (day) =>
       day && {
