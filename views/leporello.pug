@@ -16,6 +16,7 @@ html(lang=language[0])
                 --bg:#ffffff;
                 --ink:#000;
                 --rule:rgba(51,51,51,.22);
+                --tscale:0.81;
             }
             *,*::before,*::after{box-sizing:border-box;}
             html,body{margin:0;}
@@ -60,7 +61,6 @@ html(lang=language[0])
                 display:flex;flex-direction:column;gap:1mm;
                 padding: 0;
                 background:#fff;color:#000;
-                box-shadow:0 3mm 3mm -3mm rgba(51,51,51,1);
                 height: 18mm;
                 overflow: hidden;
             }
@@ -68,27 +68,43 @@ html(lang=language[0])
             .panel__day{font-family:"FreeSans-JK",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:700;font-size:15mm;line-height:19mm;margin:0;color:#000;letter-spacing:-1mm;}
 
             /* programme table – same columns/structure as screens.pug's #poster .p-table */
+            /* the header's drop shadow is a gradient overlay, not box-shadow: PDF export
+               engines can rasterize a blurred box-shadow as a solid black bar instead of
+               a soft fade, while a plain gradient always prints exactly as it looks on screen. */
             .panel__list{position:relative;z-index:1;overflow:hidden;}
+            .panel__list::before{
+                content:"";position:absolute;top:0;left:0;right:0;height:4mm;z-index:5;pointer-events:none;
+                background:linear-gradient(to bottom, rgba(51,51,51,.45), rgba(51,51,51,0));
+            }
             .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
             .p-table col.col-time{width:13%;}
             .p-table col.col-title{width:29%;}
             .p-table col.col-artist{width:36%;}
             .p-table col.col-venue{width:22%;}
+            /* exhibitions have no fixed time slot – their list drops the time column
+               and redistributes its width across the remaining three */
+            .p-table--noTime col.col-title{width:34%;}
+            .p-table--noTime col.col-artist{width:41%;}
+            .p-table--noTime col.col-venue{width:25%;}
+            .panel__note{
+                margin:6mm 0 2mm;text-align:center;
+                font-size:calc(3mm * var(--tscale,0.82));line-height:1.15;
+            }
             .p-table td{
-                padding:calc(1.6mm * var(--tscale,1)) calc(1.4mm * var(--tscale,1)) calc(1.6mm * var(--tscale,1)) 0;
+                padding:calc(1mm * var(--tscale,0.82)) calc(1mm * var(--tscale,0.82)) calc(1mm * var(--tscale,0.82)) 0;
                 border-bottom:.2mm solid var(--ink);
-                font-size:calc(3mm * var(--tscale,1));line-height:1.15;vertical-align:top;
+                font-size:calc(3mm * var(--tscale,0.82));line-height:1.15;vertical-align:top;
                 word-wrap:break-word;overflow-wrap:break-word;
             }
             .p-table td.c-title{font-weight:700;}
             /* narrower than screens.pug's 1080px poster – "hh:mm – hh:mm" needs to
                wrap onto two lines here instead of forcing nowrap, or it overlaps c-title */
             .p-table tr.p-secrow td{
-                border-bottom:none;padding:calc(4mm * var(--tscale,1)) 0 calc(1.4mm * var(--tscale,1));text-align:center;
+                border-bottom:none;padding:calc(2mm * var(--tscale,0.82)) 0 calc(1.4mm * var(--tscale,0.82));text-align:center;
             }
             .p-table .p-pill{
                 display:inline-block;background:var(--ink);color:var(--bg);
-                border-radius:1.2mm;padding:.15em .5em;font-weight:500;font-size:calc(3mm * var(--tscale,1));
+                border-radius:1.2mm;padding:.15em .5em;font-weight:500;font-size:calc(3mm * var(--tscale,0.82));
             }
             .panel__empty{margin-top:14mm;text-align:center;font-size:4mm;opacity:.5;}
             .panel__blank{flex:1;}
@@ -129,7 +145,23 @@ html(lang=language[0])
                                     .panel__head
                                         h2.panel__day= panel.label
                                     .panel__list
-                                        if panel.sections.length
+                                        if panel.isExhibition
+                                            p.panel__note= panel.note
+                                            if panel.items.length
+                                                table.p-table.p-table--noTime
+                                                    colgroup
+                                                        col.col-title
+                                                        col.col-artist
+                                                        col.col-venue
+                                                    tbody
+                                                        each item in panel.items
+                                                            tr
+                                                                td.c-title= item.title
+                                                                td.c-artist= item.artist
+                                                                td.c-venue= item.venue
+                                            else
+                                                .panel__empty Kein Eintrag
+                                        else if panel.sections.length
                                             table.p-table
                                                 colgroup
                                                     col.col-time
@@ -171,26 +203,18 @@ html(lang=language[0])
                     });
                 }
 
-                // Auto-shrink a panel's item text until its content fits the fixed
-                // A3 panel height – silently clipping a printed program is worse
-                // than a slightly smaller font, and .is-overflowing flags the rest.
-                function shrinkPanels(){
+                // Font size is fixed (--tscale is a constant, no per-panel scaling) –
+                // this only flags panels whose content still overflows at that size,
+                // it never changes the scale.
+                function flagOverflow(){
                     Array.prototype.forEach.call(document.querySelectorAll(".panel"), function(panel){
                         var list = panel.querySelector(".panel__list");
                         if(!list) return;
-                        var scale = 1;
-                        panel.style.setProperty("--tscale", scale);
                         panel.classList.remove("is-overflowing");
-                        var guard = 0;
                         // .panel__list flex-shrinks to fit .panel (overflow:hidden gives it an
                         // automatic min-height of 0), so it silently clips its own content
                         // without ever making .panel itself report an overflow - check the
                         // list's own scrollHeight/clientHeight instead.
-                        while(list.scrollHeight > list.clientHeight && scale > 0.62 && guard < 40){
-                            scale = Math.round((scale - 0.02) * 100) / 100;
-                            panel.style.setProperty("--tscale", scale);
-                            guard++;
-                        }
                         if(list.scrollHeight > list.clientHeight){
                             panel.classList.add("is-overflowing");
                         }
@@ -200,10 +224,10 @@ html(lang=language[0])
                 printBtn.addEventListener("click", function(){ window.print(); });
                 window.addEventListener("resize", fit);
                 fit();
-                shrinkPanels();
+                flagOverflow();
                 // custom fonts load async (font-display:swap) and reflow text after
                 // the first pass, which can silently reopen an overflow – re-check.
                 if(document.fonts && document.fonts.ready){
-                    document.fonts.ready.then(shrinkPanels);
+                    document.fonts.ready.then(flagOverflow);
                 }
             })();

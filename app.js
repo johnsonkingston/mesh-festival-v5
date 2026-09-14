@@ -987,6 +987,21 @@ const LEPORELLO_FORMAT_LABEL = {
   guided_tour: "Führung",
 };
 
+// fixed section order requested for the leporello (not chronological); any
+// format not listed here falls back to sorting by its first start time so
+// it still shows up rather than disappearing.
+const LEPORELLO_FORMAT_ORDER = [
+  "welcomming",
+  "welcoming",
+  "konferenz",
+  "performances",
+  "screenings",
+  "workshop",
+  "workshops",
+  "guided_tour",
+  "clubnights",
+];
+
 app.get("/leporello/:language?", async function (req, res) {
   try {
     const language = req.params.language || "de";
@@ -1044,13 +1059,15 @@ app.get("/leporello/:language?", async function (req, res) {
       return Object.keys(byFormat)
         .map((fmt) => {
           const items = byFormat[fmt].sort((a, b) => a.sortKey - b.sortKey);
+          const rank = LEPORELLO_FORMAT_ORDER.indexOf(fmt);
           return {
             label: LEPORELLO_FORMAT_LABEL[fmt] || fmt,
             items,
+            rank: rank === -1 ? LEPORELLO_FORMAT_ORDER.length : rank,
             firstStart: items[0].sortKey,
           };
         })
-        .sort((a, b) => a.firstStart - b.firstStart);
+        .sort((a, b) => a.rank - b.rank || a.firstStart - b.firstStart);
     };
 
     const buildPanel = (day) =>
@@ -1060,9 +1077,57 @@ app.get("/leporello/:language?", async function (req, res) {
         sections: buildSections(day.code),
       };
 
+    // exhibitions run for the whole festival rather than at a single day/time,
+    // so they get their own list (no time column) instead of being repeated
+    // across every day panel.
+    // id 241 ("diverse-artists-ausstellung") is a generic CMS placeholder
+    // entry, not a real exhibition - it must not show up in the leporello.
+    const LEPORELLO_EXHIBITION_EXCLUDE_IDS = [241];
+    const buildExhibitionPanel = () => {
+      const seenIds = {};
+      const items = (events || [])
+        .filter((e) => {
+          if (
+            !e ||
+            e.status !== "published" ||
+            e.Format !== "ausstellungen" ||
+            !e.Venues ||
+            !e.Venues[0] ||
+            LEPORELLO_EXHIBITION_EXCLUDE_IDS.includes(e.id) ||
+            seenIds[e.id]
+          ) {
+            return false;
+          }
+          seenIds[e.id] = true;
+          return true;
+        })
+        .map((e) => {
+          const tr =
+            (e.translations && (e.translations[langIdx] || e.translations[0])) ||
+            {};
+          const v = venuesData[e.Venues[0].Venues_id];
+          return {
+            title: tr.Title || "",
+            artist: e.Artist || "",
+            venue: v ? v.Name : "",
+          };
+        })
+        .sort((a, b) => a.title.localeCompare(b.title));
+
+      return {
+        label: langIdx === 1 ? "Exhibitions" : "Ausstellungen",
+        note:
+          langIdx === 1
+            ? "Open Wednesday – Sunday, 14:00 – 17:00"
+            : "Geöffnet Mittwoch – Sonntag, jeweils 14:00 – 17:00",
+        isExhibition: true,
+        items,
+      };
+    };
+
     const sheets = [
       LEPORELLO_DAYS.slice(0, 4).map(buildPanel),
-      [buildPanel(LEPORELLO_DAYS[4]), null, null, null],
+      [buildPanel(LEPORELLO_DAYS[4]), buildExhibitionPanel(), null, null],
     ];
 
     res.render("leporello", {
