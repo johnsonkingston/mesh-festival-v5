@@ -367,10 +367,9 @@ async function getAllArtists() {
     let artists = [];
 
     for (const [key, value] of Object.entries(events)) {
-      if (
-        events[key].Artists_in_List !== null &&
-        events[key].status == "published"
-      ) {
+      if (events[key].status !== "published") continue;
+
+      if (events[key].Artists_in_List !== null) {
         var artist = [];
         for (const [keyArtist, valueArtist] of Object.entries(
           events[key].Artists_in_List,
@@ -402,6 +401,32 @@ async function getAllArtists() {
           artist.Venues = value.Venues;
           artists.push(structuredClone(artist));
         }
+      } else if (value.Format === "guided_tour") {
+        // guided tours aren't tied to a per-person Artists_in_List entry in
+        // the CMS - synthesize one from the event's own Artist field so the
+        // tour still shows up in the artists/Formate view.
+        var tourTranslations = value.translations || [];
+        var tourTitleDE =
+          tourTranslations.find(
+            (t) => t && t.languages_code && t.languages_code.code === "de",
+          ) ||
+          tourTranslations[0] ||
+          {};
+        var tourTitleEN =
+          tourTranslations.find(
+            (t) => t && t.languages_code && t.languages_code.code === "en",
+          ) ||
+          tourTranslations[1] ||
+          tourTitleDE;
+        artists.push({
+          First_Name: "",
+          Name: value.Artist || "",
+          Format: value.Format,
+          Thema: value.Thema,
+          slug: value.slug,
+          Title: [tourTitleDE.Title || "", tourTitleEN.Title || ""],
+          Venues: value.Venues,
+        });
       }
     }
 
@@ -424,7 +449,18 @@ const ARTIST_FORMAT_ORDER = [
   "clubnights",
   "opening",
   "workshop",
-  "welcomming",
+  "welcoming",
+];
+// fixed order requested for the "Themen" view (not alphabetical); any Thema
+// not listed here still shows up, sorted after these by name.
+const ARTIST_THEMA_ORDER = [
+  "Commons of Connection",
+  "Memory Machines",
+  "Future Playgrounds",
+  "Wild Cities",
+  "Circular Systems",
+  "Non-Public Publics",
+  "Urban Actions | Spatial Utopias",
 ];
 function sortArtists(list, sort) {
   var out = (list || []).slice();
@@ -435,6 +471,11 @@ function sortArtists(list, sort) {
       var ae = at === "" ? 1 : 0;
       var be = bt === "" ? 1 : 0;
       if (ae !== be) return ae - be; // entries without a topic go last
+      var ai = ARTIST_THEMA_ORDER.indexOf(at);
+      var bi = ARTIST_THEMA_ORDER.indexOf(bt);
+      if (ai === -1) ai = ARTIST_THEMA_ORDER.length;
+      if (bi === -1) bi = ARTIST_THEMA_ORDER.length;
+      if (ai !== bi) return ai - bi;
       if (at !== bt) return at.localeCompare(bt);
       return (a.Name || "").localeCompare(b.Name || "");
     });
@@ -823,9 +864,8 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
       clubnights: "Club Nights",
       diskurs: "Talks & Panels",
       opening: "Opening",
-      welcomming: "Welcome",
       welcoming: "Welcome",
-      guided_tour: "Führung",
+      guided_tour: "Rundgang",
     };
     const formatTranslationEN = {
       ausstellungen: "Exhibitions",
@@ -836,7 +876,6 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
       clubnights: "Club Nights",
       diskurs: "Talks & Panels",
       opening: "Opening",
-      welcomming: "Welcome",
       welcoming: "Welcome",
       guided_tour: "Guided Tour",
     };
@@ -951,7 +990,12 @@ app.get("/screens/:language?", async function (req, res) {
 // Printed accordion-fold program (Leporello), A3 landscape, day program without exhibitions
 const LEPORELLO_DAYS = [
   { code: "14", labelDE: "Mittwoch", labelEN: "Wednesday", date: "14.10.2026" },
-  { code: "15", labelDE: "Donnerstag", labelEN: "Thursday", date: "15.10.2026" },
+  {
+    code: "15",
+    labelDE: "Donnerstag",
+    labelEN: "Thursday",
+    date: "15.10.2026",
+  },
   { code: "16", labelDE: "Freitag", labelEN: "Friday", date: "16.10.2026" },
   { code: "17", labelDE: "Samstag", labelEN: "Saturday", date: "17.10.2026" },
   { code: "18", labelDE: "Sonntag", labelEN: "Sunday", date: "18.10.2026" },
@@ -963,7 +1007,11 @@ function leporelloPad(n) {
 function leporelloFormatTime(hourStart, minStart, hourEnd, minEnd) {
   var s = leporelloPad(hourStart % 24) + ":" + leporelloPad(minStart);
   if (hourEnd != null && !isNaN(hourEnd)) {
-    s += " – " + leporelloPad(Math.floor(hourEnd) % 24) + ":" + leporelloPad(minEnd);
+    s +=
+      " – " +
+      leporelloPad(Math.floor(hourEnd) % 24) +
+      ":" +
+      leporelloPad(minEnd);
   }
   return s;
 }
@@ -982,7 +1030,6 @@ const LEPORELLO_FORMAT_LABEL = {
   diskurs: "Talks & Panels",
   clubnights: "Club Nights",
   opening: "Opening",
-  welcomming: "Welcoming",
   welcoming: "Welcoming",
   guided_tour: "Führung",
 };
@@ -991,7 +1038,6 @@ const LEPORELLO_FORMAT_LABEL = {
 // format not listed here falls back to sorting by its first start time so
 // it still shows up rather than disappearing.
 const LEPORELLO_FORMAT_ORDER = [
-  "welcomming",
   "welcoming",
   "konferenz",
   "performances",
@@ -1103,7 +1149,8 @@ app.get("/leporello/:language?", async function (req, res) {
         })
         .map((e) => {
           const tr =
-            (e.translations && (e.translations[langIdx] || e.translations[0])) ||
+            (e.translations &&
+              (e.translations[langIdx] || e.translations[0])) ||
             {};
           const v = venuesData[e.Venues[0].Venues_id];
           return {
