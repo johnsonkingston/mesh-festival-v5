@@ -204,8 +204,8 @@ ul {
 }
 @media (orientation: portrait) {
   .mediaCaption {
-    font-size: 2vw;
-    line-height: 2.5vw;
+    font-size: 3vw;
+    line-height: 3.75vw;
   }
 }
 
@@ -600,6 +600,12 @@ input.bubble {
   padding: 0.1vw 0.2vw 0 0.2vw;
   margin-block-start: 0;
 }
+@media screen {
+  .page main .mainimageCaption,
+  .visit main .mainimageCaption {
+    position: relative;
+  }
+}
 .page main ul,
 .page main p,
 .page main h1,
@@ -627,6 +633,11 @@ input.bubble {
 .page main .content,
 .visit main .content {
   overflow: hidden;
+}
+.page main .content img,
+.visit main .content img {
+  max-width: 100%;
+  height: auto;
 }
 .page main .content ul,
 .visit main .content ul {
@@ -667,8 +678,8 @@ input.bubble {
   .visit main .content h3:has(+ .bio-wrapper),
   .visit main .content h4:has(+ .bio-wrapper) {
     width: 100%;
-    font-size: 4.5vw;
-    line-height: 5.25vw;
+    font-size: 7.5vw;
+    line-height: 8.25vw;
   }
 }
 .page main .content h2,
@@ -1188,6 +1199,10 @@ input.bubble {
     line-height: 5.25vw;
   }
 }
+.event main .lead img {
+  max-width: 100%;
+  height: auto;
+}
 .event .eventHeader {
   margin: 2vw 0;
 }
@@ -1347,6 +1362,11 @@ ul {
 
 .event main .content ul {
   text-indent: 2vw hanging;
+}
+@media screen {
+  .event main .content ul {
+    text-indent: 5vw hanging;
+  }
 }
 
 .accordeon-title + .accordeon::before {

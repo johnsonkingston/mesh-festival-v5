@@ -203,8 +203,8 @@ ul {
   font-size: $fontSizeMicro;
   line-height: $lineHeightMicro;
   @media (orientation: portrait) {
-    font-size: $fontSizeMicro * $scaleFactor;
-    line-height: $lineHeightMicro * $scaleFactor;
+    font-size: $fontSizeMicro * $scaleFactor * 1.5;
+    line-height: $lineHeightMicro * $scaleFactor * 1.5;
   }
 }
 .smallpill {
@@ -570,6 +570,9 @@ input.bubble {
       border-radius: 2px;
       padding: 0.1vw 0.2vw 0 0.2vw;
       margin-block-start: 0;
+      @media screen {
+        position: relative;
+      }
     }
     ul,
     p,
@@ -618,8 +621,8 @@ input.bubble {
         width: 66%;
         @media (orientation: portrait) {
           width: 100%;
-          font-size: $fontSize2 * $scaleFactor;
-          line-height: $lineHeight2 * $scaleFactor;
+          font-size: $fontSize3 * $scaleFactor;
+          line-height: $lineHeight3 * $scaleFactor;
         }
       }
       h2 {
@@ -1155,6 +1158,9 @@ ul {
     .content {
       ul {
         text-indent: 2vw hanging;
+        @media screen {
+          text-indent: 5vw hanging;
+        }
       }
     }
   }

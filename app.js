@@ -23,6 +23,9 @@ app.use("/node_modules", express.static("node_modules"));
 app.get("/ticketshop", function (req, res) {
   res.sendFile(path.join(__dirname, "static/html/tickets.html"));
 });
+app.get("/ticketshop/en", function (req, res) {
+  res.sendFile(path.join(__dirname, "static/html/tickets-en.html"));
+});
 
 app.use((req, res, next) => {
   const protocol = req.headers["x-forwarded-proto"] || req.protocol;
@@ -884,6 +887,21 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
       formatTranslationEN[formatSlug],
     ];
 
+    // Content images: the Directus rich-text editor inserts asset URLs with
+    // the original upload's raw pixel size (?width=1894&height=1894, varies
+    // per image), which skips Directus' image transforms entirely - swap
+    // that query string for the "content" transform preset so these images
+    // are always served pre-sized/optimized instead of at full upload res.
+    var CONTENT_IMAGE_SIZE_PARAMS =
+      /\?(?:width=\d+&(?:amp;)?height=\d+|height=\d+&(?:amp;)?width=\d+)/g;
+    [0, 1].forEach(function (i) {
+      if (result.data[0].translations[i].Content) {
+        result.data[0].translations[i].Content = result.data[0].translations[
+          i
+        ].Content.replace(CONTENT_IMAGE_SIZE_PARAMS, "?key=content");
+      }
+    });
+
     //Time Frontend
     // console.log(result.data[0].translations[0].Time_frontend );
     if (result.data[0].translations[0].Time_frontend !== null) {
@@ -1116,7 +1134,7 @@ app.get("/leporello/:language?", async function (req, res) {
         .sort((a, b) => a.rank - b.rank || a.firstStart - b.firstStart);
     };
 
-    const buildPanel = (day) =>
+    const buildDayBlock = (day) =>
       day && {
         label: langIdx === 1 ? day.labelEN : day.labelDE,
         date: day.date,
@@ -1129,7 +1147,7 @@ app.get("/leporello/:language?", async function (req, res) {
     // id 241 ("diverse-artists-ausstellung") is a generic CMS placeholder
     // entry, not a real exhibition - it must not show up in the leporello.
     const LEPORELLO_EXHIBITION_EXCLUDE_IDS = [241];
-    const buildExhibitionPanel = () => {
+    const buildExhibitionBlock = () => {
       const seenIds = {};
       const items = (events || [])
         .filter((e) => {
@@ -1172,9 +1190,24 @@ app.get("/leporello/:language?", async function (req, res) {
       };
     };
 
+    // layout: Mi+Do stacked in one panel, Fr and Sa each get their own panel,
+    // So+Ausstellungen stacked in the last panel of the first (only) sheet -
+    // the second sheet now only carries the cover.
     const sheets = [
-      LEPORELLO_DAYS.slice(0, 4).map(buildPanel),
-      [buildPanel(LEPORELLO_DAYS[4]), buildExhibitionPanel(), null, null],
+      [
+        {
+          blocks: [
+            buildDayBlock(LEPORELLO_DAYS[0]),
+            buildDayBlock(LEPORELLO_DAYS[1]),
+          ],
+        },
+        { blocks: [buildDayBlock(LEPORELLO_DAYS[2])] },
+        { blocks: [buildDayBlock(LEPORELLO_DAYS[3])] },
+        {
+          blocks: [buildDayBlock(LEPORELLO_DAYS[4]), buildExhibitionBlock()],
+        },
+      ],
+      [null, null, null, null],
     ];
 
     res.render("leporello", {

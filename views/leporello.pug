@@ -77,8 +77,8 @@ html(lang=language[0])
                 background:linear-gradient(to bottom, rgba(51,51,51,.45), rgba(51,51,51,0));
             }
             .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
-            .p-table col.col-time{width:13%;}
-            .p-table col.col-title{width:29%;}
+            .p-table col.col-time{width:10%;}
+            .p-table col.col-title{width:32%;}
             .p-table col.col-artist{width:36%;}
             .p-table col.col-venue{width:22%;}
             /* exhibitions have no fixed time slot – their list drops the time column
@@ -141,46 +141,47 @@ html(lang=language[0])
                             .panel
                                 if sheetIndex === 1 && panelIndex === 3
                                     img.panel__cover(src=baseURL+"static/img/MESH-LEPORELLO-COVER.jpg" alt="")
-                                else if panel
-                                    .panel__head
-                                        h2.panel__day= panel.label
-                                    .panel__list
-                                        if panel.isExhibition
-                                            p.panel__note= panel.note
-                                            if panel.items.length
-                                                table.p-table.p-table--noTime
+                                else if panel && panel.blocks && panel.blocks.length
+                                    each block in panel.blocks
+                                        .panel__head
+                                            h2.panel__day= block.label
+                                        .panel__list
+                                            if block.isExhibition
+                                                p.panel__note= block.note
+                                                if block.items.length
+                                                    table.p-table.p-table--noTime
+                                                        colgroup
+                                                            col.col-title
+                                                            col.col-artist
+                                                            col.col-venue
+                                                        tbody
+                                                            each item in block.items
+                                                                tr
+                                                                    td.c-title= item.title
+                                                                    td.c-artist= item.artist
+                                                                    td.c-venue= item.venue
+                                                else
+                                                    .panel__empty Kein Eintrag
+                                            else if block.sections.length
+                                                table.p-table
                                                     colgroup
+                                                        col.col-time
                                                         col.col-title
                                                         col.col-artist
                                                         col.col-venue
                                                     tbody
-                                                        each item in panel.items
-                                                            tr
-                                                                td.c-title= item.title
-                                                                td.c-artist= item.artist
-                                                                td.c-venue= item.venue
+                                                        each section in block.sections
+                                                            tr.p-secrow
+                                                                td(colspan="4")
+                                                                    span.p-pill= section.label
+                                                            each item in section.items
+                                                                tr
+                                                                    td.c-time= item.time
+                                                                    td.c-title= item.title
+                                                                    td.c-artist= item.artist
+                                                                    td.c-venue= item.venue
                                             else
                                                 .panel__empty Kein Eintrag
-                                        else if panel.sections.length
-                                            table.p-table
-                                                colgroup
-                                                    col.col-time
-                                                    col.col-title
-                                                    col.col-artist
-                                                    col.col-venue
-                                                tbody
-                                                    each section in panel.sections
-                                                        tr.p-secrow
-                                                            td(colspan="4")
-                                                                span.p-pill= section.label
-                                                        each item in section.items
-                                                            tr
-                                                                td.c-time= item.time
-                                                                td.c-title= item.title
-                                                                td.c-artist= item.artist
-                                                                td.c-venue= item.venue
-                                        else
-                                            .panel__empty Kein Eintrag
                                 else
                                     .panel__blank
         script.
@@ -208,14 +209,19 @@ html(lang=language[0])
                 // it never changes the scale.
                 function flagOverflow(){
                     Array.prototype.forEach.call(document.querySelectorAll(".panel"), function(panel){
-                        var list = panel.querySelector(".panel__list");
-                        if(!list) return;
+                        // a panel can stack more than one day/exhibition block, each with
+                        // its own .panel__list - flag the panel if any of them overflows.
+                        var lists = panel.querySelectorAll(".panel__list");
+                        if(!lists.length) return;
                         panel.classList.remove("is-overflowing");
                         // .panel__list flex-shrinks to fit .panel (overflow:hidden gives it an
                         // automatic min-height of 0), so it silently clips its own content
-                        // without ever making .panel itself report an overflow - check the
+                        // without ever making .panel itself report an overflow - check each
                         // list's own scrollHeight/clientHeight instead.
-                        if(list.scrollHeight > list.clientHeight){
+                        var overflowing = Array.prototype.some.call(lists, function(list){
+                            return list.scrollHeight > list.clientHeight;
+                        });
+                        if(overflowing){
                             panel.classList.add("is-overflowing");
                         }
                     });
