@@ -12,7 +12,7 @@ html(lang=language[0])
             @font-face{font-family:"FreeSerif-JK";src:url("#{baseURL}static/fonts/JK-MESH-Serif.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Serif.woff") format("woff");font-weight:500;font-display:swap;}
 
             :root{
-                --bg:#fef7f6;
+                --bg:#ffffff;
                 --ink:#333;
                 --rule:rgba(51,51,51,.22);
             }
@@ -85,8 +85,8 @@ html(lang=language[0])
 
             #poster .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
             #poster .p-table col.col-time{width:17%;}
-            #poster .p-table col.col-title{width:35%;}
-            #poster .p-table col.col-artist{width:26%;}
+            #poster .p-table col.col-title{width:18%;}
+            #poster .p-table col.col-artist{width:43%;}
             #poster .p-table col.col-venue{width:22%;}
             #poster .p-table td{
                 padding:11px 10px 11px 0px;border-bottom:1px solid var(--ink);
@@ -94,10 +94,9 @@ html(lang=language[0])
                 word-wrap:break-word;overflow-wrap:break-word;
             }
             #poster .p-table td.c-title{font-weight:700;}
-            #poster .p-table .c-sub{display:block;font-weight:400;font-size:15px;opacity:.6;margin-top:2px;}
             #poster .p-table td.c-time{white-space:nowrap;}
             #poster .p-table tr.p-secrow td{
-                border-bottom:none;padding:34px 0 10px;text-align:center;
+                border-bottom:none;padding:20px 0 5px;text-align:center;
             }
             #poster .p-table .p-pill{
                 display:inline-block;background:var(--ink);color:var(--bg);
@@ -140,11 +139,14 @@ html(lang=language[0])
 
                 var FORMAT_LABEL = {
                     ausstellungen:"Ausstellungen", performances:"Performances", screenings:"Screenings",
-                    konferenz:"Konferenz", workshops:"Workshops", diskurs:"Talks & Panels", clubnights:"Club Nights"
+                    konferenz:"Konferenz", workshop:"Workshop", workshops:"Workshops", diskurs:"Talks & Panels",
+                    clubnights:"Club Nights", guided_tour:"Rundgang", welcoming:"Welcome", welcomming:"Welcoming"
                 };
                 // Two output sheets per day: everything except exhibitions, and exhibitions only.
+                // "workshop" (singular) is the actual CMS value - "workshops" is kept only as
+                // a defensive fallback in case the CMS spelling ever changes.
                 var SHEETS = [
-                    { id:"programm", label:"Programm", formats:["performances","screenings","konferenz","workshops","diskurs","clubnights"] },
+                    { id:"programm", label:"Programm", formats:["welcoming","welcomming","performances","screenings","konferenz","workshop","workshops","guided_tour","diskurs","clubnights"] },
                     { id:"ausstellungen", label:"Ausstellungen", formats:["ausstellungen"] }
                 ];
                 var DAYS = [
@@ -229,7 +231,6 @@ html(lang=language[0])
                             tr.appendChild(td("c-time", fmtTime(ev)));
                             var cTitle = td("c-title");
                             cTitle.appendChild(document.createTextNode(ev.title || ""));
-                            if(ev.subformat){ cTitle.appendChild(el("span", "c-sub", ev.subformat)); }
                             tr.appendChild(cTitle);
                             tr.appendChild(td("c-artist", ev.artist || ""));
                             tr.appendChild(td("c-venue", ev.venue || ""));
