@@ -242,7 +242,10 @@ html(lang="de")
                 }
 
                 function drawFrame(ctx){
-                    ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+                    // no clearRect: the background video fills the whole canvas every
+                    // frame anyway, and clearing first means a single frame where the
+                    // looping video's readyState briefly dips (right at the loop seam)
+                    // flashes black instead of just holding the previous frame.
                     if(bgVideo.readyState >= 2){
                         ctx.drawImage(bgVideo, 0, 0, CANVAS_W, CANVAS_H);
                     }
