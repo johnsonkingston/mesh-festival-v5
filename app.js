@@ -1001,8 +1001,44 @@ app.get("/screens/:language?", async function (req, res) {
         };
       });
 
+    // exhibitions run for the whole festival rather than at a single day/time
+    // (most aren't even flagged In_Timetable), so they can't come from the
+    // day/hour-based filter above - queried separately, with a pseudo day
+    // ("ausstellungen") the client already matches against for that sheet.
+    // The "Diverse Artists" entry is a generic CMS placeholder, not a real
+    // exhibition, and must not show up here.
+    const exhibitionScreenEvents = (events || [])
+      .filter(
+        (e) =>
+          e &&
+          e.status === "published" &&
+          e.Format === "ausstellungen" &&
+          e.Artist !== "Diverse Artists" &&
+          e.Venues &&
+          e.Venues[0],
+      )
+      .map((e) => {
+        const tr =
+          (e.translations && (e.translations[langIdx] || e.translations[0])) ||
+          {};
+        const v = venuesData[e.Venues[0].Venues_id];
+        return {
+          day: "ausstellungen",
+          format: "ausstellungen",
+          subformat: "",
+          title: tr.Title || "",
+          artist: e.Artist || "",
+          hourStart: null,
+          minStart: 0,
+          hourEnd: null,
+          minEnd: 0,
+          venue: v ? v.Name : "",
+        };
+      })
+      .sort((a, b) => a.title.localeCompare(b.title));
+
     res.render("screens", {
-      screenEvents,
+      screenEvents: screenEvents.concat(exhibitionScreenEvents),
       language: [language, langIdx],
     });
   } catch (err) {

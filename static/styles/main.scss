@@ -570,7 +570,7 @@ input.bubble {
       border-radius: 2px;
       padding: 0.1vw 0.2vw 0 0.2vw;
       margin-block-start: 0;
-      @media screen {
+      @media (orientation: portrait) {
         position: relative;
       }
     }

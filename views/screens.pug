@@ -84,10 +84,17 @@ html(lang=language[0])
             }
 
             #poster .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
-            #poster .p-table col.col-time{width:17%;}
+            #poster .p-table col.col-time{width:15%;}
             #poster .p-table col.col-title{width:18%;}
-            #poster .p-table col.col-artist{width:43%;}
-            #poster .p-table col.col-venue{width:22%;}
+            #poster .p-table col.col-artist{width:47%;}
+            #poster .p-table col.col-venue{width:20%;}
+            /* exhibitions have no fixed time slot - drop that column and
+               redistribute its width across the remaining three */
+            #poster .p-table--noTime col.col-time{display:none;}
+            #poster .p-table--noTime td.c-time{display:none;}
+            #poster .p-table--noTime col.col-title{width:21%;}
+            #poster .p-table--noTime col.col-artist{width:55%;}
+            #poster .p-table--noTime col.col-venue{width:24%;}
             #poster .p-table td{
                 padding:11px 10px 11px 0px;border-bottom:1px solid var(--ink);
                 font-size:22px;line-height:1.1;vertical-align:top;
@@ -124,7 +131,7 @@ html(lang=language[0])
                             #poster
                                 img.p-bg#bgImg(alt="")
                                 .p-content
-                                    table.p-table
+                                    table.p-table#posterTable
                                         colgroup
                                             col.col-time
                                             col.col-title
@@ -159,6 +166,7 @@ html(lang=language[0])
 
                 var daysEl = document.getElementById("days");
                 var sheetsEl = document.getElementById("sheets");
+                var posterTable = document.getElementById("posterTable");
                 var tbody = document.getElementById("tbody");
                 var bgImg = document.getElementById("bgImg");
                 var exportBtn = document.getElementById("exportBtn");
@@ -172,6 +180,7 @@ html(lang=language[0])
                 function pad(n){ return (n < 10 ? "0" : "") + n; }
 
                 function fmtTime(ev){
+                    if(ev.hourStart == null) return ""; // exhibitions run all festival long, no fixed slot
                     var s = pad(ev.hourStart % 24) + ":" + pad(ev.minStart);
                     if(ev.hourEnd != null && !isNaN(ev.hourEnd)){
                         s += " – " + pad(Math.floor(ev.hourEnd) % 24) + ":" + pad(ev.minEnd);
@@ -205,8 +214,15 @@ html(lang=language[0])
                 }
 
                 function buildPoster(){
-                    var code = currentDay;
+                    // the "Ausstellungen" sheet has its own fixed artwork, independent
+                    // of the selected day - every other sheet uses the day's own image.
+                    var isAusstellungen = currentSheet.id === "ausstellungen";
+                    var code = isAusstellungen ? "ausstellungen" : currentDay;
                     setBackground(code);
+
+                    // exhibitions have no fixed time slot (drop that column) and are the
+                    // only format on that sheet (skip the redundant section header/pill).
+                    posterTable.classList.toggle("p-table--noTime", isAusstellungen);
 
                     tbody.innerHTML = "";
                     var any = false;
@@ -216,15 +232,21 @@ html(lang=language[0])
                         if(!evs.length) return;
                         any = true;
                         evs.sort(function(a, b){
+                            // exhibitions have no time slot to sort by - alphabetical instead
+                            if(a.hourStart == null || b.hourStart == null){
+                                return (a.title || "").localeCompare(b.title || "");
+                            }
                             return (a.hourStart * 60 + a.minStart) - (b.hourStart * 60 + b.minStart);
                         });
 
-                        var secTr = el("tr", "p-secrow");
-                        var secTd = document.createElement("td");
-                        secTd.colSpan = 4;
-                        secTd.appendChild(el("span", "p-pill", FORMAT_LABEL[fmt] || fmt));
-                        secTr.appendChild(secTd);
-                        tbody.appendChild(secTr);
+                        if(!isAusstellungen){
+                            var secTr = el("tr", "p-secrow");
+                            var secTd = document.createElement("td");
+                            secTd.colSpan = 4;
+                            secTd.appendChild(el("span", "p-pill", FORMAT_LABEL[fmt] || fmt));
+                            secTr.appendChild(secTd);
+                            tbody.appendChild(secTr);
+                        }
 
                         evs.forEach(function(ev){
                             var tr = document.createElement("tr");

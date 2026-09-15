@@ -600,7 +600,7 @@ input.bubble {
   padding: 0.1vw 0.2vw 0 0.2vw;
   margin-block-start: 0;
 }
-@media screen {
+@media (orientation: portrait) {
   .page main .mainimageCaption,
   .visit main .mainimageCaption {
     position: relative;
