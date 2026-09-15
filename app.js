@@ -945,6 +945,12 @@ app.get("/generate-slides", function (req, res) {
   res.render("generate-slides");
 });
 
+// Title-video generator tool: fixed background video + editable text overlay,
+// exported as a video (WebM, via canvas + MediaRecorder).
+app.get("/generate-video", function (req, res) {
+  res.render("generate-video");
+});
+
 // Quick A4 print tool for small posters / notes
 app.get("/print", function (req, res) {
   res.render("print");

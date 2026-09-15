@@ -1,0 +1,430 @@
+doctype html
+html(lang="de")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(name="robots" content="noindex")
+        title Mesh – Title-Video Generator
+        link(rel="icon" type="image/png" sizes="32x32" href=baseURL+"static/img/favicon/favicon-32x32.png")
+        style.
+            @font-face{font-family:"FreeSans-JK";src:url("#{baseURL}static/fonts/JK-MESH-Sans.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Sans.woff") format("woff");font-weight:700;font-display:swap;}
+            @font-face{font-family:"FreeSerif-JK";src:url("#{baseURL}static/fonts/JK-MESH-Serif.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Serif.woff") format("woff");font-weight:500;font-display:swap;}
+
+            *,*::before,*::after{box-sizing:border-box;}
+            html,body{margin:0;}
+            body{
+                background:#fef7f6;
+                color:#333;
+                font-family:"FreeSans-JK",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+                -webkit-font-smoothing:antialiased;
+                line-height:1.45;
+            }
+            .tool{max-width:1180px;margin:0 auto;padding:clamp(1.25rem,4vw,3rem);}
+            .tool__head{margin-bottom:2.25rem;}
+            .tool__head h1{
+                font-family:"FreeSerif-JK",Georgia,serif;
+                font-weight:500;
+                font-size:clamp(1.9rem,4vw,2.9rem);
+                margin:0 0 .5rem;
+            }
+            .tool__head p{margin:0;max-width:62ch;opacity:.82;}
+            .tool__grid{
+                display:grid;
+                grid-template-columns:340px minmax(0,1fr);
+                gap:clamp(1.5rem,4vw,3rem);
+                align-items:start;
+            }
+            @media (max-width:860px){ .tool__grid{grid-template-columns:1fr;} }
+            .controls{display:flex;flex-direction:column;gap:1.35rem;}
+            .field{display:flex;flex-direction:column;gap:.45rem;}
+            .field label{font-weight:700;font-size:.95rem;}
+            .field input,.field textarea{
+                font:inherit;
+                color:#333;
+                background:#fff;
+                border:1px solid rgba(51,51,51,.22);
+                border-radius:2px;
+                padding:.6rem .7rem;
+                width:100%;
+            }
+            .field textarea{min-height:3.4rem;resize:vertical;}
+            .field input:focus,.field textarea:focus{outline:2px solid #333;outline-offset:1px;}
+            .btn{
+                font:inherit;font-weight:700;
+                background:#333;color:#fef7f6;
+                border:none;border-radius:2px;
+                padding:.85rem 1.3rem;
+                cursor:pointer;
+                align-self:flex-start;
+            }
+            .btn:hover{opacity:.88;}
+            .btn:disabled{opacity:.5;cursor:default;}
+            .hint{font-size:.8rem;opacity:.65;margin:0;}
+            .preview{width:100%;}
+            .preview__frame{
+                position:relative;
+                width:100%;
+                aspect-ratio:16/9;
+                border:1px solid rgba(51,51,51,.18);
+                background:#000;
+                overflow:hidden;
+            }
+            #previewCanvas{display:block;width:100%;height:100%;}
+            .preview__meta{font-size:.8rem;opacity:.65;margin:.65rem 0 0;}
+    body
+        main.tool
+            header.tool__head
+                h1 Title-Video Generator
+                p Erstelle ein personalisiertes Ankündigungs-Video über dem Screening-Hintergrund: Angaben eingeben, dann als Video exportieren. — Create a personalised announcement video over the screening background, then export it as a video.
+            .tool__grid
+                .controls
+                    .field
+                        label(for="labelInput") Format-Label
+                        input#labelInput(type="text" spellcheck="false")
+                    .field
+                        label(for="titleInput") Titel / Title
+                        textarea#titleInput(rows="2" spellcheck="false")
+                    .field
+                        label(for="artistsInput") Beteiligte / Artists
+                        textarea#artistsInput(rows="3" spellcheck="false")
+                    button#exportBtn.btn(type="button") Video exportieren / Export video
+                    p.hint Format 16:9, 1920 × 1080 (Videoauflösung), Export als WebM ohne Ton.
+                .preview
+                    .preview__frame
+                        canvas#previewCanvas
+                        video#bgVideo(src=baseURL+"static/videos/Mesh-2026-Screenings.mp4" muted loop playsinline autoplay preload="auto" style="display:none;")
+                        //- optional foreground layer: white shapes on black, screen-blended over
+                        //- the text so they read as drifting in front of it. Missing file = no-op.
+                        video#cloudsVideo(src=baseURL+"static/videos/Mesh-2026-Screenings-Clouds.mp4" muted loop playsinline autoplay preload="auto" style="display:none;")
+                    p.preview__meta Live-Vorschau – die exportierte Datei entspricht 1:1 der Vorschau, in voller Auflösung.
+        script.
+            (function(){
+                var CANVAS_W = 1920, CANVAS_H = 1080;
+                var INK = "#464646";
+
+                // Layout, tuned to match the reference mockup: a small format label
+                // top-left, a large serif title below it (both left-aligned, same
+                // margin), and a large bold centered artists block lower in the frame.
+                var L = {
+                    marginX: 29,
+                    labelY: 255,
+                    labelSize: 30,
+                    titleGap: 0,        // gap between label baseline and title top
+                    titleBaseSize: 100,
+                    titleMinSize: 40,
+                    titleLineHeight: 1,
+                    titleZoneHeight: 260, // max height the (possibly wrapped) title may use
+                    artistsZoneTop: 430,
+                    artistsZoneHeight: 340,
+                    artistsBaseSize: 95,
+                    artistsMinSize: 30,
+                    artistsLineHeight: 1,
+                    artistsMaxWidthRatio: 0.9,
+                    artistsShadowColor: "#ffffff",
+                    artistsShadowBlur: 50,
+                    textBlur: 2 // soft-focus blur applied to all text (label, title, artists)
+                };
+
+                var labelInput = document.getElementById("labelInput");
+                var titleInput = document.getElementById("titleInput");
+                var artistsInput = document.getElementById("artistsInput");
+                var exportBtn = document.getElementById("exportBtn");
+                var previewCanvas = document.getElementById("previewCanvas");
+                var bgVideo = document.getElementById("bgVideo");
+                var cloudsVideo = document.getElementById("cloudsVideo");
+
+                // the clouds layer is optional (produced separately) - if the file
+                // 404s or fails to decode, drawFrame just skips it silently.
+                var cloudsAvailable = false;
+                cloudsVideo.addEventListener("loadeddata", function(){ cloudsAvailable = true; });
+                cloudsVideo.addEventListener("error", function(){ cloudsAvailable = false; });
+
+                var DEFAULTS = {
+                    label: "Screenings",
+                    title: "Non-Public Publics",
+                    artists: "Anna Puigjaner & Ethel Baraona Pohl, Teresa Dillon, Jan Stricker & Moritz Ahlert"
+                };
+
+                function wrapText(ctx, text, maxWidth){
+                    var lines = [];
+                    String(text).split("\n").forEach(function(paragraph){
+                        var words = paragraph.split(/\s+/).filter(Boolean);
+                        if(!words.length){ lines.push(""); return; }
+                        var current = words[0];
+                        for(var i = 1; i < words.length; i++){
+                            var test = current + " " + words[i];
+                            if(ctx.measureText(test).width <= maxWidth){
+                                current = test;
+                            } else {
+                                lines.push(current);
+                                current = words[i];
+                            }
+                        }
+                        lines.push(current);
+                    });
+                    return lines;
+                }
+
+                // Shrinks a block of text (as one unit) until it fits maxWidth x maxHeight.
+                function fitBlock(ctx, text, opts){
+                    var scale = 1;
+                    var size, lines;
+                    while(true){
+                        size = opts.baseSize * scale;
+                        ctx.font = opts.weight + ' ' + size + 'px "' + opts.family + '", ' + opts.generic;
+                        lines = wrapText(ctx, text, opts.maxWidth);
+                        var blockH = lines.length * size * opts.lineHeight;
+                        if(blockH <= opts.maxHeight || size <= opts.minSize) break;
+                        scale *= 0.95;
+                    }
+                    return { size: size, lines: lines };
+                }
+
+                function drawText(ctx){
+                    var label = (labelInput.value || "").trim();
+                    var title = (titleInput.value || "").trim();
+                    var artists = (artistsInput.value || "").trim();
+
+                    ctx.fillStyle = INK;
+                    ctx.textBaseline = "top";
+                    // soft-focus blur on all text - reset after, or it would also
+                    // blur the clouds layer drawn right after drawText() returns.
+                    ctx.filter = L.textBlur ? "blur(" + L.textBlur + "px)" : "none";
+
+                    var y = L.labelY;
+                    if(label){
+                        ctx.textAlign = "left";
+                        ctx.font = '700 ' + L.labelSize + 'px "FreeSans-JK", sans-serif';
+                        ctx.fillText(label, L.marginX, y);
+                        y += L.labelSize + L.titleGap;
+                    }
+
+                    if(title){
+                        ctx.textAlign = "left";
+                        var fit = fitBlock(ctx, title, {
+                            weight: "500", family: "FreeSerif-JK", generic: "serif",
+                            baseSize: L.titleBaseSize, minSize: L.titleMinSize,
+                            maxWidth: CANVAS_W - L.marginX * 2,
+                            maxHeight: L.titleZoneHeight,
+                            lineHeight: L.titleLineHeight
+                        });
+                        ctx.font = '500 ' + fit.size + 'px "FreeSerif-JK", serif';
+                        fit.lines.forEach(function(line){
+                            ctx.fillText(line, L.marginX, y);
+                            y += fit.size * L.titleLineHeight;
+                        });
+                    }
+
+                    if(artists){
+                        ctx.textAlign = "center";
+                        var afit = fitBlock(ctx, artists, {
+                            weight: "700", family: "FreeSans-JK", generic: "sans-serif",
+                            baseSize: L.artistsBaseSize, minSize: L.artistsMinSize,
+                            maxWidth: CANVAS_W * L.artistsMaxWidthRatio,
+                            maxHeight: L.artistsZoneHeight,
+                            lineHeight: L.artistsLineHeight
+                        });
+                        ctx.font = '700 ' + afit.size + 'px "FreeSans-JK", sans-serif';
+                        var blockH = afit.lines.length * afit.size * L.artistsLineHeight;
+                        var startY = L.artistsZoneTop + Math.max(0, (L.artistsZoneHeight - blockH) / 2);
+                        // soft white glow for legibility over the busy background - reset
+                        // right after, or it would also bleed into the clouds layer drawn next.
+                        ctx.shadowColor = L.artistsShadowColor;
+                        ctx.shadowBlur = L.artistsShadowBlur;
+                        afit.lines.forEach(function(line, i){
+                            ctx.fillText(line, CANVAS_W / 2, startY + i * afit.size * L.artistsLineHeight);
+                        });
+                        ctx.shadowColor = "transparent";
+                        ctx.shadowBlur = 0;
+                    }
+
+                    ctx.filter = "none";
+                }
+
+                function drawFrame(ctx){
+                    ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+                    if(bgVideo.readyState >= 2){
+                        ctx.drawImage(bgVideo, 0, 0, CANVAS_W, CANVAS_H);
+                    }
+                    drawText(ctx);
+                    // clouds layer: white shapes on black, screen-blended so black
+                    // stays invisible and only the bright shapes show up, drifting
+                    // in front of the text underneath.
+                    if(cloudsAvailable && cloudsVideo.readyState >= 2){
+                        ctx.globalCompositeOperation = "screen";
+                        ctx.drawImage(cloudsVideo, 0, 0, CANVAS_W, CANVAS_H);
+                        ctx.globalCompositeOperation = "source-over";
+                    }
+                }
+
+                async function ensureFonts(){
+                    if(!document.fonts || !document.fonts.load) return;
+                    try {
+                        await Promise.all([
+                            document.fonts.load('700 ' + L.labelSize + 'px "FreeSans-JK"'),
+                            document.fonts.load('500 ' + L.titleBaseSize + 'px "FreeSerif-JK"'),
+                            document.fonts.load('700 ' + L.artistsBaseSize + 'px "FreeSans-JK"')
+                        ]);
+                        await document.fonts.ready;
+                    } catch(e){ /* fall back to system fonts */ }
+                }
+
+                // --- live preview loop -------------------------------------------------
+                previewCanvas.width = CANVAS_W;
+                previewCanvas.height = CANVAS_H;
+                var previewCtx = previewCanvas.getContext("2d");
+                var previewLoopId = null;
+                function previewLoop(){
+                    drawFrame(previewCtx);
+                    previewLoopId = requestAnimationFrame(previewLoop);
+                }
+
+                [labelInput, titleInput, artistsInput].forEach(function(el){
+                    el.addEventListener("focus", function(){ if(!el.dataset.touched){ el.select(); } });
+                    el.addEventListener("input", function(){ el.dataset.touched = "1"; });
+                });
+
+                // --- export: re-play the background video once, recording the canvas --
+                function fileName(){
+                    var slug = (titleInput.value || "mesh").toLowerCase()
+                        .replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+                    return "mesh-title-video" + (slug ? "-" + slug : "") + ".webm";
+                }
+
+                function pickMimeType(){
+                    var candidates = [
+                        "video/webm;codecs=vp9",
+                        "video/webm;codecs=vp8",
+                        "video/webm"
+                    ];
+                    for(var i = 0; i < candidates.length; i++){
+                        if(window.MediaRecorder && MediaRecorder.isTypeSupported(candidates[i])){
+                            return candidates[i];
+                        }
+                    }
+                    return "";
+                }
+
+                async function exportVideo(){
+                    if(!window.MediaRecorder){
+                        alert("Dieser Browser unterstützt keine Videoaufnahme (MediaRecorder fehlt).");
+                        return;
+                    }
+                    var label = exportBtn.textContent;
+                    exportBtn.disabled = true;
+
+                    if(previewLoopId){ cancelAnimationFrame(previewLoopId); previewLoopId = null; }
+
+                    try {
+                        await ensureFonts();
+
+                        var exportCanvas = document.createElement("canvas");
+                        exportCanvas.width = CANVAS_W;
+                        exportCanvas.height = CANVAS_H;
+                        var exportCtx = exportCanvas.getContext("2d");
+
+                        var canvasStream = exportCanvas.captureStream();
+                        // best-effort: carry the background video's own audio track along,
+                        // if the browser exposes one - export stays silent otherwise.
+                        try {
+                            if(typeof bgVideo.captureStream === "function"){
+                                var videoStream = bgVideo.captureStream();
+                                videoStream.getAudioTracks().forEach(function(track){
+                                    canvasStream.addTrack(track);
+                                });
+                            }
+                        } catch(e){ /* no audio track available - export silently */ }
+
+                        var chunks = [];
+                        var mimeType = pickMimeType();
+                        var recorder = new MediaRecorder(canvasStream, {
+                            mimeType: mimeType || undefined,
+                            videoBitsPerSecond: 12000000
+                        });
+                        recorder.ondataavailable = function(e){ if(e.data && e.data.size) chunks.push(e.data); };
+
+                        var recordingDone = new Promise(function(resolve, reject){
+                            recorder.onstop = resolve;
+                            recorder.onerror = function(e){ reject(e.error || new Error("Aufnahmefehler")); };
+                        });
+
+                        bgVideo.pause();
+                        bgVideo.loop = false; // must fire 'ended' once, not loop, so the recording knows when to stop
+                        if(bgVideo.currentTime > 0.01){
+                            await new Promise(function(resolve){
+                                bgVideo.onseeked = function(){ resolve(); };
+                                bgVideo.currentTime = 0;
+                            });
+                        } else {
+                            bgVideo.currentTime = 0;
+                        }
+                        // clouds layer stays on loop and isn't the timing master (bgVideo's
+                        // 'ended' event stops the recording) - just line its start up too.
+                        if(cloudsAvailable){
+                            cloudsVideo.pause();
+                            try { cloudsVideo.currentTime = 0; } catch(e){}
+                        }
+
+                        var drawLoopId = null;
+                        function exportDrawLoop(){
+                            drawFrame(exportCtx);
+                            var pct = bgVideo.duration ? Math.min(100, Math.round((bgVideo.currentTime / bgVideo.duration) * 100)) : 0;
+                            exportBtn.textContent = "Wird exportiert … " + pct + "%";
+                            drawLoopId = requestAnimationFrame(exportDrawLoop);
+                        }
+
+                        var ended = new Promise(function(resolve){
+                            bgVideo.onended = resolve;
+                        });
+
+                        recorder.start();
+                        drawLoopId = requestAnimationFrame(exportDrawLoop);
+                        await bgVideo.play();
+                        if(cloudsAvailable){ cloudsVideo.play().catch(function(){}); }
+                        await ended;
+
+                        cancelAnimationFrame(drawLoopId);
+                        recorder.stop();
+                        await recordingDone;
+
+                        var blob = new Blob(chunks, { type: mimeType || "video/webm" });
+                        var url = URL.createObjectURL(blob);
+                        var a = document.createElement("a");
+                        a.href = url;
+                        a.download = fileName();
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+                    } catch(err){
+                        alert("Fehler: " + (err && err.message ? err.message : err));
+                    } finally {
+                        bgVideo.onended = null;
+                        bgVideo.onseeked = null;
+                        bgVideo.loop = true;
+                        bgVideo.play().catch(function(){});
+                        if(cloudsAvailable){
+                            cloudsVideo.currentTime = 0;
+                            cloudsVideo.play().catch(function(){});
+                        }
+                        if(!previewLoopId){ previewLoopId = requestAnimationFrame(previewLoop); }
+                        exportBtn.disabled = false;
+                        exportBtn.textContent = label;
+                    }
+                }
+
+                exportBtn.addEventListener("click", exportVideo);
+
+                labelInput.value = DEFAULTS.label;
+                titleInput.value = DEFAULTS.title;
+                artistsInput.value = DEFAULTS.artists;
+
+                bgVideo.addEventListener("loadeddata", function(){
+                    if(!previewLoopId){ previewLoopId = requestAnimationFrame(previewLoop); }
+                });
+                bgVideo.play().catch(function(){});
+                cloudsVideo.play().catch(function(){});
+                if(document.fonts && document.fonts.ready){
+                    document.fonts.ready.then(function(){ /* next rAF tick will pick up the loaded fonts */ });
+                }
+            })();
