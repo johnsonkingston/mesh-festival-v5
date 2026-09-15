@@ -82,6 +82,9 @@ $serifFactor: 1.1;
     -webkit-mask-repeat: no-repeat;
     mask-origin: border;
     -webkit-mask-origin: border;
+    @media (orientation: portrait) {
+      backdrop-filter: blur(5px);
+    }
   }
 }
 .blurOrganic1-5,
@@ -103,6 +106,9 @@ body.startpage .statement h2 {
     -webkit-mask-repeat: no-repeat;
     mask-origin: border;
     -webkit-mask-origin: border;
+    @media (orientation: portrait) {
+      backdrop-filter: blur(3px);
+    }
   }
 }
 .blurOrganic1,
@@ -132,6 +138,9 @@ body.visit .content h4 {
     -webkit-mask-repeat: no-repeat;
     mask-origin: border;
     -webkit-mask-origin: border;
+    @media (orientation: portrait) {
+      backdrop-filter: blur(3px);
+    }
   }
 }
 html {
@@ -2799,6 +2808,9 @@ body.startpage {
       color: rgba(var(--color2));
       text-decoration: none;
       text-shadow: 0 0 1vw white;
+      @media (orientation: portrait) {
+        text-shadow: 0 0 8vw rgba(255, 255, 255, 1);
+      }
       &[href] {
         cursor: pointer;
       }

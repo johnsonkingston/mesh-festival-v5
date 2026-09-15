@@ -1091,7 +1091,6 @@ const LEPORELLO_FORMAT_LABEL = {
   clubnights: "Club Nights",
   opening: "Opening",
   welcoming: "Welcoming",
-  guided_tour: "Führung",
 };
 
 // fixed section order requested for the leporello (not chronological); any
@@ -1104,7 +1103,6 @@ const LEPORELLO_FORMAT_ORDER = [
   "screenings",
   "workshop",
   "workshops",
-  "guided_tour",
   "clubnights",
 ];
 
@@ -1128,6 +1126,9 @@ app.get("/leporello/:language?", async function (req, res) {
           e.Timetable_only !== "1" &&
           e.Format &&
           e.Format !== "ausstellungen" &&
+          // guided tours get their own collected block (like exhibitions),
+          // not scattered across every day panel - see buildTourBlock below.
+          e.Format !== "guided_tour" &&
           e.Venues &&
           e.Venues[0] &&
           e.Day &&
@@ -1232,9 +1233,64 @@ app.get("/leporello/:language?", async function (req, res) {
       };
     };
 
+    // guided tours happen once each on several different days rather than
+    // running the whole festival, so - unlike exhibitions - each entry keeps
+    // its own day + time (day abbreviation prefixed onto the formatted time).
+    const buildTourBlock = () => {
+      const items = (events || [])
+        .filter(
+          (e) =>
+            e &&
+            e.status === "published" &&
+            e.In_Timetable &&
+            e.Timetable_only !== "1" &&
+            e.Format === "guided_tour" &&
+            e.Venues &&
+            e.Venues[0] &&
+            e.Day &&
+            e.Hour !== "" &&
+            e.Hour != null,
+        )
+        .map((e) => {
+          const tr =
+            (e.translations &&
+              (e.translations[langIdx] || e.translations[0])) ||
+            {};
+          const v = venuesData[e.Venues[0].Venues_id];
+          const hourStart = parseInt(e.Hour, 10) || 0;
+          const minStart = e.Minute ? parseInt(e.Minute, 10) : 0;
+          const hourEnd =
+            e.HourEnd === "" || e.HourEnd == null ? null : Number(e.HourEnd);
+          const minEnd = e.MinuteEnd ? parseInt(e.MinuteEnd, 10) : 0;
+          const day = String(e.Day);
+          const dayMeta = LEPORELLO_DAYS.find((d) => d.code === day);
+          const dayAbbrev = dayMeta
+            ? (langIdx === 1 ? dayMeta.labelEN : dayMeta.labelDE).slice(0, 2)
+            : "";
+          return {
+            day,
+            sortKey: day + "-" + String(hourStart * 60 + minStart).padStart(4, "0"),
+            time:
+              (dayAbbrev ? dayAbbrev + " " : "") +
+              leporelloFormatTime(hourStart, minStart, hourEnd, minEnd),
+            title: tr.Title || "",
+            artist: e.Artist || "",
+            venue: v ? v.Name : "",
+          };
+        })
+        .sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+
+      return {
+        label: langIdx === 1 ? "Guided Tour" : "Rundgang",
+        isTourList: true,
+        items,
+      };
+    };
+
     // layout: Mi+Do stacked in one panel, Fr and Sa each get their own panel,
-    // So+Ausstellungen stacked in the last panel of the first (only) sheet -
-    // the second sheet now only carries the cover.
+    // So+Ausstellungen stacked in the last panel of the first sheet, and the
+    // collected Rundgang block follows right after on the second sheet
+    // (which otherwise only carries the cover).
     const sheets = [
       [
         {
@@ -1249,7 +1305,7 @@ app.get("/leporello/:language?", async function (req, res) {
           blocks: [buildDayBlock(LEPORELLO_DAYS[4]), buildExhibitionBlock()],
         },
       ],
-      [null, null, null, null],
+      [{ blocks: [buildTourBlock()] }, null, null, null],
     ];
 
     res.render("leporello", {
@@ -1298,13 +1354,15 @@ async function getSlides() {
   );
 }
 
-app.get("/:language?", async function (req, res) {
+// shared by "/" (startpage) and "/civic" (on-site display, same content
+// minus the hamburger/pagination chrome) - both render the same CMS data,
+// just through a different template.
+async function buildStartpageLocals(req) {
   var pathname = req.originalUrl;
+  var language = req.params.language || "de";
 
-  try {
-    language = req.params.language || "de";
-
-    [result, navigation, footer, highlights, slidesResult] = await Promise.all([
+  var [result, navigation, footer, highlights, slidesResult] =
+    await Promise.all([
       getStartpage(),
       getNavigation(),
       getFooter(),
@@ -1312,91 +1370,107 @@ app.get("/:language?", async function (req, res) {
       getSlides(),
     ]);
 
-    languageObject = [language, languageTransform(language)];
+  var languageObject = [language, languageTransform(language)];
 
-    //console.log(result);
-    //console.log(language);
-    result.data.pathname = langRemove(pathname);
-    result.data.translations = result.data.title;
+  result.data.pathname = langRemove(pathname);
+  result.data.translations = result.data.title;
 
-    if (result.data.translations && result.data.translations.length > 0) {
-      if (result.data.translations[0].languages_code.code !== "de") {
-        var deContent = result.data.translations[1];
-        result.data.translations[1] = result.data.translations[0];
-        result.data.translations[0] = deContent;
-      }
+  if (result.data.translations && result.data.translations.length > 0) {
+    if (result.data.translations[0].languages_code.code !== "de") {
+      var deContent = result.data.translations[1];
+      result.data.translations[1] = result.data.translations[0];
+      result.data.translations[0] = deContent;
     }
+  }
 
-    var translation = result.data.translations
-      ? result.data.translations[languageObject[1]]
-      : null;
+  var translation = result.data.translations
+    ? result.data.translations[languageObject[1]]
+    : null;
 
-    var slideLangCode = function (translation) {
-      if (!translation) return null;
-      return translation.languages_code && translation.languages_code.code
-        ? translation.languages_code.code
-        : translation.languages_code;
-    };
+  var slideLangCode = function (translation) {
+    if (!translation) return null;
+    return translation.languages_code && translation.languages_code.code
+      ? translation.languages_code.code
+      : translation.languages_code;
+  };
 
-    var slides = ((slidesResult && slidesResult.data) || [])
-      .filter((slide) => slide.status === "published" && slide.File)
-      .map((slide) => {
-        if (slide.translations && slide.translations.length > 1) {
-          if (slideLangCode(slide.translations[0]) !== "de") {
-            var deSlide = slide.translations[1];
-            slide.translations[1] = slide.translations[0];
-            slide.translations[0] = deSlide;
-          }
+  var slides = ((slidesResult && slidesResult.data) || [])
+    .filter((slide) => slide.status === "published" && slide.File)
+    .map((slide) => {
+      if (slide.translations && slide.translations.length > 1) {
+        if (slideLangCode(slide.translations[0]) !== "de") {
+          var deSlide = slide.translations[1];
+          slide.translations[1] = slide.translations[0];
+          slide.translations[0] = deSlide;
         }
-        var eventLink =
-          slide.Link &&
-          slide.Link[0] &&
-          slide.Link[0].collection === "Events" &&
-          slide.Link[0].item &&
-          slide.Link[0].item.slug
-            ? slide.Link[0].item.slug
-            : null;
-        slide.eventSlug = eventLink;
-        return slide;
-      })
-      .sort((a, b) => {
-        var sortA = a.sort === null || a.sort === undefined ? 0 : a.sort;
-        var sortB = b.sort === null || b.sort === undefined ? 0 : b.sort;
-        return sortA - sortB;
-      });
+      }
+      var eventLink =
+        slide.Link &&
+        slide.Link[0] &&
+        slide.Link[0].collection === "Events" &&
+        slide.Link[0].item &&
+        slide.Link[0].item.slug
+          ? slide.Link[0].item.slug
+          : null;
+      slide.eventSlug = eventLink;
+      return slide;
+    })
+    .sort((a, b) => {
+      var sortA = a.sort === null || a.sort === undefined ? 0 : a.sort;
+      var sortB = b.sort === null || b.sort === undefined ? 0 : b.sort;
+      return sortA - sortB;
+    });
 
-    var mapLogos = (entries) =>
-      (entries || [])
-        .map((entry) => entry.directus_files_id)
-        .filter((file) => file)
-        .map((file) => ({
-          src: "https://env-9468449.appengine.flow.ch/assets/" + file.id,
-          href: file.description || null,
-          title: file.title || file.filename_download || "",
-          tags: file.tags || [],
-        }));
+  var mapLogos = (entries) =>
+    (entries || [])
+      .map((entry) => entry.directus_files_id)
+      .filter((file) => file)
+      .map((file) => ({
+        src: "https://env-9468449.appengine.flow.ch/assets/" + file.id,
+        href: file.description || null,
+        title: file.title || file.filename_download || "",
+        tags: file.tags || [],
+      }));
 
-    if (result) {
-      res.render("startpage", {
-        data: result.data,
-        navigation: navigation.data,
-        footer: footer.data,
-        highlights: highlights.data,
-        language: languageObject,
-        events: [],
-        venues: [],
-        slides: slides,
-        format: [],
-        initiative: translation ? translation.Logos_Line_1_Title : null,
-        sponsor: translation ? translation.Logos_Line_2_Title : null,
-        logosLine1: mapLogos(result.data.Logos_Line_1),
-        logosLine2: mapLogos(result.data.Logos_Line_2),
-        logosLine3: result.data.Logos_Line_3 || null,
-        logosLine3Title: translation ? translation.Logos_Line_3_Title : null,
-        newsContent:
-          result.data.Show_News && translation ? translation.News : null,
-      });
-    }
+  return {
+    data: result.data,
+    navigation: navigation.data,
+    footer: footer.data,
+    highlights: highlights.data,
+    language: languageObject,
+    events: [],
+    venues: [],
+    slides: slides,
+    format: [],
+    initiative: translation ? translation.Logos_Line_1_Title : null,
+    sponsor: translation ? translation.Logos_Line_2_Title : null,
+    logosLine1: mapLogos(result.data.Logos_Line_1),
+    logosLine2: mapLogos(result.data.Logos_Line_2),
+    logosLine3: result.data.Logos_Line_3 || null,
+    logosLine3Title: translation ? translation.Logos_Line_3_Title : null,
+    newsContent:
+      result.data.Show_News && translation ? translation.News : null,
+  };
+}
+
+// On-site display page for a large screen: same content as the startpage,
+// primarily showing the slider, without the (mobile-only) hamburger menu
+// or the slider's pagination dots - registered before the "/:language?"
+// catch-all below so "/civic" isn't swallowed as a language code.
+app.get("/civic/:language?", async function (req, res) {
+  try {
+    const locals = await buildStartpageLocals(req);
+    res.render("civic", locals);
+  } catch (err) {
+    console.error(err);
+    res.redirect("/");
+  }
+});
+
+app.get("/:language?", async function (req, res) {
+  try {
+    const locals = await buildStartpageLocals(req);
+    res.render("startpage", locals);
   } catch (err) {
     console.error(err);
     res.redirect("/");

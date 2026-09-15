@@ -162,6 +162,23 @@ html(lang=language[0])
                                                                     td.c-venue= item.venue
                                                 else
                                                     .panel__empty Kein Eintrag
+                                            else if block.isTourList
+                                                if block.items.length
+                                                    table.p-table
+                                                        colgroup
+                                                            col.col-time
+                                                            col.col-title
+                                                            col.col-artist
+                                                            col.col-venue
+                                                        tbody
+                                                            each item in block.items
+                                                                tr
+                                                                    td.c-time= item.time
+                                                                    td.c-title= item.title
+                                                                    td.c-artist= item.artist
+                                                                    td.c-venue= item.venue
+                                                else
+                                                    .panel__empty Kein Eintrag
                                             else if block.sections.length
                                                 table.p-table
                                                     colgroup
