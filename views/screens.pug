@@ -25,7 +25,7 @@ html(lang=language[0])
                 -webkit-font-smoothing:antialiased;
                 line-height:1.45;
             }
-            .tool{max-width:1180px;margin:0 auto;padding:clamp(1.25rem,4vw,3rem);}
+            .tool{max-width:1500px;margin:0 auto;padding:clamp(1.25rem,4vw,3rem);}
             .tool__head{margin-bottom:1.75rem;}
             .tool__head h1{
                 font-family:"FreeSerif-JK",Georgia,serif;font-weight:500;
@@ -33,7 +33,7 @@ html(lang=language[0])
             }
             .tool__head p{margin:0;max-width:62ch;opacity:.82;}
             .tool__grid{
-                display:grid;grid-template-columns:300px minmax(0,1fr);
+                display:grid;grid-template-columns:260px minmax(0,1fr);
                 gap:clamp(1.5rem,4vw,3rem);align-items:start;
             }
             @media (max-width:860px){ .tool__grid{grid-template-columns:1fr;} }
@@ -57,9 +57,12 @@ html(lang=language[0])
             .btn:disabled{opacity:.5;cursor:default;}
             .hint{font-size:.8rem;opacity:.65;margin:0;}
 
-            .preview{width:100%;}
+            .preview{display:flex;flex-wrap:wrap;gap:1.5rem;width:100%;}
+            .slide{display:flex;flex-direction:column;gap:.6rem;flex:0 1 320px;max-width:320px;}
+            .slide__title{font-weight:700;font-size:.9rem;margin:0;}
+            .slide__export{align-self:flex-start;}
             .stage-clip{
-                width:100%;max-width:460px;
+                width:100%;
                 border:1px solid var(--rule);background:var(--bg);
                 overflow:hidden;
             }
@@ -69,75 +72,104 @@ html(lang=language[0])
             }
 
             /* ---- the exported poster: 1080 x 1920 (9:16), exported at 2x = 2160 x 3840 ---- */
-            #poster{
+            .poster-frame{
                 position:relative;
                 width:1080px;height:1920px;background:var(--bg);color:var(--ink);
                 overflow:hidden;font-family:"FreeSans-JK",sans-serif;
             }
             /* full-bleed day artwork (2160 x 3840) – it carries the header + footer */
-            #poster .p-bg{position:absolute;inset:0;width:100%;height:100%;display:block;}
+            .poster-frame .p-bg{position:absolute;inset:0;width:100%;height:100%;display:block;}
             /* the program table sits in the empty zone the artwork leaves free;
                tune top / bottom to match the artwork's header / footer bands */
-            #poster .p-content{
-                position:absolute;left:0;right:0;top:120px;bottom:172px;
+            .poster-frame .p-content{
+                position:absolute;left:0;right:0;top:132px;bottom:172px;
                 padding:0 24px;overflow:hidden;
             }
 
-            #poster .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
-            #poster .p-table col.col-time{width:15%;}
-            #poster .p-table col.col-title{width:18%;}
-            #poster .p-table col.col-artist{width:47%;}
-            #poster .p-table col.col-venue{width:20%;}
+            .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
+            .p-table col.col-time{width:15%;}
+            .p-table col.col-title{width:28%;}
+            .p-table col.col-artist{width:37%;}
+            .p-table col.col-venue{width:20%;}
             /* exhibitions have no fixed time slot - drop that column and
                redistribute its width across the remaining three */
-            #poster .p-table--noTime col.col-time{display:none;}
-            #poster .p-table--noTime td.c-time{display:none;}
-            #poster .p-table--noTime col.col-title{width:21%;}
-            #poster .p-table--noTime col.col-artist{width:55%;}
-            #poster .p-table--noTime col.col-venue{width:24%;}
-            #poster .p-table td{
+            .p-table--noTime col.col-time{display:none;}
+            .p-table--noTime td.c-time{display:none;}
+            .p-table--noTime col.col-title{width:31%;}
+            .p-table--noTime col.col-artist{width:45%;}
+            .p-table--noTime col.col-venue{width:24%;}
+            .p-table td{
                 padding:11px 10px 11px 0px;border-bottom:1px solid var(--ink);
                 font-size:22px;line-height:1.1;vertical-align:top;
                 word-wrap:break-word;overflow-wrap:break-word;
             }
-            #poster .p-table td.c-title{font-weight:700;}
-            #poster .p-table td.c-time{white-space:nowrap;}
-            #poster .p-table tr.p-secrow td{
+            .p-table td.c-title{font-weight:700;}
+            .p-table td.c-time{white-space:nowrap;}
+            .p-table tr.p-secrow td{
                 border-bottom:none;padding:20px 0 5px;text-align:center;
             }
-            #poster .p-table .p-pill{
+            .p-table .p-pill{
                 display:inline-block;background:var(--ink);color:var(--bg);
                 border-radius:8px;padding:.1em .28em;font-weight:500;font-size:22px;
             }
-            #poster .p-empty{margin-top:130px;text-align:center;font-size:26px;opacity:.55;}
+            .p-empty{margin-top:130px;text-align:center;font-size:26px;opacity:.55;}
     body
         main.tool
             header.tool__head
                 h1 Programm-Screens
-                p Tages­programm als Hochkant-Poster (9:16), geordnet nach Format und innerhalb jedes Formats nach Zeit. Tag wählen, dann als JPG (2160 × 3840) herunterladen.
+                p Drei Hochkant-Poster (9:16) gleichzeitig in der Vorschau – Performances &amp; Konferenz, restliches Programm, Ausstellungen – geordnet nach Format und innerhalb jedes Formats nach Zeit. Tag wählen, dann jedes Poster einzeln als JPG (2160 × 3840) herunterladen.
             .tool__grid
                 .controls
                     div
                         p.ctl-label Tag
                         .days#days
-                    div
-                        p.ctl-label Blatt
-                        .days#sheets
-                    button#exportBtn.btn(type="button") JPG herunterladen / Download JPG
                     p.hint 9:16 · 2160 × 3840 px · JPG
                 .preview
-                    .stage-clip#stageClip
-                        .stage#stage
-                            #poster
-                                img.p-bg#bgImg(alt="")
-                                .p-content
-                                    table.p-table#posterTable
-                                        colgroup
-                                            col.col-time
-                                            col.col-title
-                                            col.col-artist
-                                            col.col-venue
-                                        tbody#tbody
+                    .slide
+                        h2.slide__title Slide 1 · Performances &amp; Konferenz
+                        .stage-clip#stageClip1
+                            .stage#stage1
+                                .poster-frame#poster1
+                                    img.p-bg#bgImg1(alt="")
+                                    .p-content
+                                        table.p-table#posterTable1
+                                            colgroup
+                                                col.col-time
+                                                col.col-title
+                                                col.col-artist
+                                                col.col-venue
+                                            tbody#tbody1
+                        button.btn.slide__export(type="button" data-slide-index="0") JPG herunterladen / Download JPG
+                    .slide
+                        h2.slide__title Slide 2 · Programm
+                        .stage-clip#stageClip2
+                            .stage#stage2
+                                .poster-frame#poster2
+                                    img.p-bg#bgImg2(alt="")
+                                    .p-content
+                                        table.p-table#posterTable2
+                                            colgroup
+                                                col.col-time
+                                                col.col-title
+                                                col.col-artist
+                                                col.col-venue
+                                            tbody#tbody2
+                        button.btn.slide__export(type="button" data-slide-index="1") JPG herunterladen / Download JPG
+                    .slide
+                        h2.slide__title Slide 3 · Ausstellungen
+                        .stage-clip#stageClip3
+                            .stage#stage3
+                                .poster-frame#poster3
+                                    img.p-bg#bgImg3(alt="")
+                                    .p-content
+                                        table.p-table#posterTable3
+                                            colgroup
+                                                col.col-time
+                                                col.col-title
+                                                col.col-artist
+                                                col.col-venue
+                                            tbody#tbody3
+                        button.btn.slide__export(type="button" data-slide-index="2") JPG herunterladen / Download JPG
         script.
             (function(){
                 var EVENTS = !{JSON.stringify(screenEvents)};
@@ -149,12 +181,17 @@ html(lang=language[0])
                     konferenz:"Konferenz", workshop:"Workshop", workshops:"Workshops", satellite:"Satellite", diskurs:"Talks & Panels",
                     clubnights:"Club Nights", guided_tour:"Rundgang", welcoming:"Welcome", welcomming:"Welcoming"
                 };
-                // Two output sheets per day: everything except exhibitions, and exhibitions only.
+
+                // Three simultaneous slides, each its own poster:
+                // 1) Performances & Konferenz, 2) the rest of the timed programme
+                // (except exhibitions), 3) exhibitions only (own fixed artwork,
+                // no day-specific time slots - see "dayIndependent" below).
                 // "workshop" (singular) is the actual CMS value - "workshops" is kept only as
                 // a defensive fallback in case the CMS spelling ever changes.
-                var SHEETS = [
-                    { id:"programm", label:"Programm", formats:["welcoming","welcomming","performances","screenings","konferenz","workshop","workshops","satellite","guided_tour","diskurs","clubnights"] },
-                    { id:"ausstellungen", label:"Ausstellungen", formats:["ausstellungen"] }
+                var SLIDES = [
+                    { id:"performances-konferenz", label:"Performances & Konferenz", formats:["performances","konferenz"], dayIndependent:false },
+                    { id:"programm", label:"Programm", formats:["welcoming","welcomming","screenings","workshop","workshops","satellite","guided_tour","diskurs","clubnights"], dayIndependent:false },
+                    { id:"ausstellungen", label:"Ausstellungen", formats:["ausstellungen"], dayIndependent:true }
                 ];
                 var DAYS = [
                     ["14","Mittwoch","14.10.2026","Mi"],
@@ -165,17 +202,21 @@ html(lang=language[0])
                 ];
 
                 var daysEl = document.getElementById("days");
-                var sheetsEl = document.getElementById("sheets");
-                var posterTable = document.getElementById("posterTable");
-                var tbody = document.getElementById("tbody");
-                var bgImg = document.getElementById("bgImg");
-                var exportBtn = document.getElementById("exportBtn");
-                var stage = document.getElementById("stage");
-                var stageClip = document.getElementById("stageClip");
-                var poster = document.getElementById("poster");
                 var currentDay = null;
-                var currentSheet = SHEETS[0];
-                var bgReady = Promise.resolve();
+
+                SLIDES.forEach(function(slide, i){
+                    var n = i + 1;
+                    slide.els = {
+                        stageClip: document.getElementById("stageClip" + n),
+                        stage: document.getElementById("stage" + n),
+                        poster: document.getElementById("poster" + n),
+                        bgImg: document.getElementById("bgImg" + n),
+                        posterTable: document.getElementById("posterTable" + n),
+                        tbody: document.getElementById("tbody" + n),
+                        exportBtn: document.querySelector('.slide__export[data-slide-index="' + i + '"]')
+                    };
+                    slide.bgReady = Promise.resolve();
+                });
 
                 function pad(n){ return (n < 10 ? "0" : "") + n; }
 
@@ -207,27 +248,26 @@ html(lang=language[0])
                         img.onerror = function(){ resolve(); };
                     });
                 }
-                function setBackground(code){
+                function setBackground(slide, code){
                     var src = BASE + "static/img/screens/" + code + ".jpg";
-                    if(bgImg.getAttribute("src") !== src){ bgImg.src = src; }
-                    bgReady = onceLoaded(bgImg);
+                    if(slide.els.bgImg.getAttribute("src") !== src){ slide.els.bgImg.src = src; }
+                    slide.bgReady = onceLoaded(slide.els.bgImg);
                 }
 
-                function buildPoster(){
-                    // the "Ausstellungen" sheet has its own fixed artwork, independent
-                    // of the selected day - every other sheet uses the day's own image.
-                    var isAusstellungen = currentSheet.id === "ausstellungen";
-                    var code = isAusstellungen ? "ausstellungen" : currentDay;
-                    setBackground(code);
+                function buildPoster(slide){
+                    // the "Ausstellungen" slide has its own fixed artwork, independent
+                    // of the selected day - every other slide uses the day's own image.
+                    var code = slide.dayIndependent ? "ausstellungen" : currentDay;
+                    setBackground(slide, code);
 
                     // exhibitions have no fixed time slot (drop that column) and are the
-                    // only format on that sheet (skip the redundant section header/pill).
-                    posterTable.classList.toggle("p-table--noTime", isAusstellungen);
+                    // only format on that slide (skip the redundant section header/pill).
+                    slide.els.posterTable.classList.toggle("p-table--noTime", slide.dayIndependent);
 
-                    tbody.innerHTML = "";
+                    slide.els.tbody.innerHTML = "";
                     var any = false;
 
-                    currentSheet.formats.forEach(function(fmt){
+                    slide.formats.forEach(function(fmt){
                         var evs = EVENTS.filter(function(e){ return e.day === code && e.format === fmt; });
                         if(!evs.length) return;
                         any = true;
@@ -239,13 +279,13 @@ html(lang=language[0])
                             return (a.hourStart * 60 + a.minStart) - (b.hourStart * 60 + b.minStart);
                         });
 
-                        if(!isAusstellungen){
+                        if(!slide.dayIndependent){
                             var secTr = el("tr", "p-secrow");
                             var secTd = document.createElement("td");
                             secTd.colSpan = 4;
                             secTd.appendChild(el("span", "p-pill", FORMAT_LABEL[fmt] || fmt));
                             secTr.appendChild(secTd);
-                            tbody.appendChild(secTr);
+                            slide.els.tbody.appendChild(secTr);
                         }
 
                         evs.forEach(function(ev){
@@ -256,7 +296,7 @@ html(lang=language[0])
                             tr.appendChild(cTitle);
                             tr.appendChild(td("c-artist", ev.artist || ""));
                             tr.appendChild(td("c-venue", ev.venue || ""));
-                            tbody.appendChild(tr);
+                            slide.els.tbody.appendChild(tr);
                         });
                     });
 
@@ -266,8 +306,12 @@ html(lang=language[0])
                         c.colSpan = 4;
                         c.appendChild(el("div", "p-empty", "Kein Eintrag an diesem Tag"));
                         tr.appendChild(c);
-                        tbody.appendChild(tr);
+                        slide.els.tbody.appendChild(tr);
                     }
+                }
+
+                function buildAllPosters(){
+                    SLIDES.forEach(buildPoster);
                 }
 
                 function buildDayButtons(){
@@ -282,42 +326,29 @@ html(lang=language[0])
                         daysEl.appendChild(b);
                     });
                 }
-                function buildSheetButtons(){
-                    SHEETS.forEach(function(sh){
-                        var b = el("button", "day-btn");
-                        b.type = "button";
-                        b.dataset.sheet = sh.id;
-                        b.textContent = sh.label;
-                        b.addEventListener("click", function(){ selectSheet(sh.id); });
-                        sheetsEl.appendChild(b);
-                    });
-                }
 
                 function selectDay(code){
                     currentDay = code;
                     Array.prototype.forEach.call(daysEl.children, function(b){
                         b.classList.toggle("is-active", b.dataset.day === code);
                     });
-                    buildPoster();
-                }
-                function selectSheet(id){
-                    currentSheet = SHEETS.filter(function(s){ return s.id === id; })[0] || SHEETS[0];
-                    Array.prototype.forEach.call(sheetsEl.children, function(b){
-                        b.classList.toggle("is-active", b.dataset.sheet === currentSheet.id);
-                    });
-                    buildPoster();
+                    buildAllPosters();
                 }
 
-                function fitStage(){
-                    var w = stageClip.clientWidth;
+                function fitStage(slide){
+                    var w = slide.els.stageClip.clientWidth;
                     var s = w / 1080;
-                    stage.style.setProperty("--scale", s);
-                    stageClip.style.height = (1920 * s) + "px";
+                    slide.els.stage.style.setProperty("--scale", s);
+                    slide.els.stageClip.style.height = (1920 * s) + "px";
                 }
+                function fitAllStages(){ SLIDES.forEach(fitStage); }
 
-                function fileName(){
+                function fileName(slide){
+                    if(slide.dayIndependent){
+                        return "mesh-" + slide.id + ".jpg";
+                    }
                     var meta = DAYS.filter(function(d){ return d[0] === currentDay; })[0] || ["day", "day"];
-                    return "mesh-" + currentSheet.id + "-" + meta[0] + "-" + String(meta[1]).toLowerCase() + ".jpg";
+                    return "mesh-" + slide.id + "-" + meta[0] + "-" + String(meta[1]).toLowerCase() + ".jpg";
                 }
 
                 async function ensureFonts(){
@@ -331,18 +362,21 @@ html(lang=language[0])
                     }catch(e){ /* fall back to system fonts */ }
                 }
 
-                async function exportJPG(){
+                async function exportJPG(slide){
                     if(typeof html2canvas === "undefined"){
                         alert("html2canvas konnte nicht geladen werden (CDN blockiert?).");
                         return;
                     }
-                    var label = exportBtn.textContent;
-                    exportBtn.disabled = true;
-                    exportBtn.textContent = "Wird erstellt …";
+                    var btn = slide.els.exportBtn;
+                    var label = btn.textContent;
+                    btn.disabled = true;
+                    btn.textContent = "Wird erstellt …";
 
                     // Render the poster un-transformed and off-screen so html2canvas
                     // captures it at its true 1080 x 1920 (a CSS transform on an
                     // ancestor confuses html2canvas otherwise).
+                    var stage = slide.els.stage;
+                    var stageClip = slide.els.stageClip;
                     var saved = {
                         transform: stage.style.transform,
                         position: stageClip.style.position,
@@ -364,8 +398,8 @@ html(lang=language[0])
 
                     try{
                         await ensureFonts();
-                        await bgReady;
-                        var canvas = await html2canvas(poster, {
+                        await slide.bgReady;
+                        var canvas = await html2canvas(slide.els.poster, {
                             scale: 2,
                             backgroundColor: "#fef7f6",
                             width: 1080,
@@ -381,7 +415,7 @@ html(lang=language[0])
                                 var url = URL.createObjectURL(blob);
                                 var a = document.createElement("a");
                                 a.href = url;
-                                a.download = fileName();
+                                a.download = fileName(slide);
                                 document.body.appendChild(a);
                                 a.click();
                                 a.remove();
@@ -400,21 +434,19 @@ html(lang=language[0])
                         stageClip.style.height = saved.height;
                         stageClip.style.maxWidth = saved.maxWidth;
                         stageClip.style.width = saved.width;
-                        fitStage();
-                        exportBtn.disabled = false;
-                        exportBtn.textContent = label;
+                        fitStage(slide);
+                        btn.disabled = false;
+                        btn.textContent = label;
                     }
                 }
 
-                exportBtn.addEventListener("click", exportJPG);
-                window.addEventListener("resize", fitStage);
+                SLIDES.forEach(function(slide){
+                    slide.els.exportBtn.addEventListener("click", function(){ exportJPG(slide); });
+                });
+                window.addEventListener("resize", fitAllStages);
 
                 buildDayButtons();
-                buildSheetButtons();
-                fitStage();
-                Array.prototype.forEach.call(sheetsEl.children, function(b){
-                    b.classList.toggle("is-active", b.dataset.sheet === currentSheet.id);
-                });
+                fitAllStages();
                 var firstWithEvents = DAYS.filter(function(d){ return dayHasEvents(d[0]); })[0];
                 selectDay(firstWithEvents ? firstWithEvents[0] : DAYS[0][0]);
             })();
