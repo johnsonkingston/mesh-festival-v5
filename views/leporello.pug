@@ -7,7 +7,7 @@ html(lang=language[0])
         title Mesh – Programm Leporello
         link(rel="icon" type="image/png" sizes="32x32" href=baseURL+"static/img/favicon/favicon-32x32.png")
         style#pageStyle.
-            @page{ size:420mm 297mm; margin:0; }
+            @page{ size:525mm 297mm; margin:0; }
         style.
             @font-face{font-family:"FreeSans-JK";src:url("#{baseURL}static/fonts/JK-MESH-Sans.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Sans.woff") format("woff");font-weight:700;font-display:swap;}
             @font-face{font-family:"FreeSerif-JK";src:url("#{baseURL}static/fonts/JK-MESH-Serif.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Serif.woff") format("woff");font-weight:500;font-display:swap;}
@@ -39,43 +39,45 @@ html(lang=language[0])
 
             .stage{padding:24px 16px 48px;display:flex;flex-direction:column;align-items:center;gap:24px;overflow:auto;}
             .sheet-clip{overflow:hidden;background:#fff;box-shadow:0 2px 24px rgba(0,0,0,.18);}
+            /* the sheet's own background is the pre-designed full-bleed artwork (site
+               map, title, sponsors) - both files are laid out at the sheet's exact
+               525x297mm, with the panel columns that carry dynamic content (day/
+               exhibition tables) left blank in the artwork itself, so the HTML table
+               overlay and the background never fight for the same space. */
             .sheet{
-                position:relative;width:420mm;height:297mm;background:var(--bg);
-                display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:297mm;
+                position:relative;width:525mm;height:297mm;background:var(--bg) no-repeat center/100% 100%;
+                display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:297mm;
                 transform:scale(var(--scale,1));transform-origin:top left;
             }
+            .sheet--front{background-image:url("#{baseURL}static/img/leporello/MESH-LEPORELLO-VS.png");}
+            .sheet--back{background-image:url("#{baseURL}static/img/leporello/MESH-LEPORELLO-RS.png");}
 
-            /* ---- panels: headers and fold shadows are generated with CSS, not artwork ---- */
-            .panel{position:relative;display:flex;flex-direction:column;overflow:hidden;padding:0 3mm 10mm;}
+            /* ---- panels: headers are generated with CSS, fold guides are just a dashed rule ---- */
+            /* min-height:0 forces this grid item to respect its 297mm row track instead of
+               growing to fit overflowing content - some print engines (Safari in particular)
+               otherwise ignore overflow:hidden here and spill extra pages instead of clipping. */
+            .panel{position:relative;display:flex;flex-direction:column;overflow:hidden;padding:3mm 3mm 10mm;min-height:0;}
             .panel + .panel{border-left:.35mm dashed var(--rule);}
-            .panel::before{
-                content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
-                background:linear-gradient(90deg, rgba(51,51,51,.16) 0, transparent 6mm, transparent calc(100% - 6mm), rgba(51,51,51,.16) 100%);
-                opacity:.6;
-            }
-            .panel:first-child::before{background:linear-gradient(90deg, transparent calc(100% - 6mm), rgba(51,51,51,.16) 100%);}
-            .panel:last-child::before{background:linear-gradient(90deg, rgba(51,51,51,.16) 0, transparent 6mm);}
 
             .panel__head{
                 position:relative;
                 display:flex;flex-direction:column;gap:1mm;
                 padding: 0;
                 background:#fff;color:#000;
-                height: 18mm;
+                height: 13.6mm;
                 overflow: hidden;
+                margin-left: -1mm;
             }
 
-            .panel__day{font-family:"FreeSans-JK",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:700;font-size:15mm;line-height:19mm;margin:0;color:#000;letter-spacing:-1mm;}
+            .panel__day{font-family:"FreeSans-JK",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:700;font-size:15mm;line-height:17mm;margin:0; margin-top:-2mm;color:#000;letter-spacing:-1mm;}
+            /* a day heading inside the flowing table (see layoutFlow() below) instead of
+               a fixed .panel__head - days run straight on from one another, so the next
+               day's heading can land anywhere in a column, not just at its top. */
+            .p-table tr.p-dayrow td{border-bottom:none;padding:4mm 0 2mm;}
+            .p-table tr.p-dayrow:first-child td{padding-top:0;}
 
             /* programme table – same columns/structure as screens.pug's #poster .p-table */
-            /* the header's drop shadow is a gradient overlay, not box-shadow: PDF export
-               engines can rasterize a blurred box-shadow as a solid black bar instead of
-               a soft fade, while a plain gradient always prints exactly as it looks on screen. */
             .panel__list{position:relative;z-index:1;overflow:hidden;}
-            .panel__list::before{
-                content:"";position:absolute;top:0;left:0;right:0;height:4mm;z-index:5;pointer-events:none;
-                background:linear-gradient(to bottom, rgba(51,51,51,.45), rgba(51,51,51,0));
-            }
             .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
             .p-table col.col-time{width:10%;}
             .p-table col.col-title{width:32%;}
@@ -108,8 +110,6 @@ html(lang=language[0])
             }
             .panel__empty{margin-top:14mm;text-align:center;font-size:4mm;opacity:.5;}
             .panel__blank{flex:1;}
-            /* full-bleed cover – ignores the panel's own padding, sits under the fold shadow */
-            .panel__cover{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;display:block;}
             /* screen-only QA flag: content still overflows after auto-shrink hit its floor */
             .panel.is-overflowing{outline:1.5mm solid #e0203c;outline-offset:-1.5mm;}
             .panel.is-overflowing::after{
@@ -131,16 +131,23 @@ html(lang=language[0])
             }
     body
         .toolbar
-            span Leporello · A3 quer · Zickzackfalz · 4 Panels je Seite
+            span Leporello · 525×297mm quer · Zickzackfalz · 5 Panels je Seite
             button#printBtn.tb-btn(type="button") Drucken
         .stage#stage
             each sheet, sheetIndex in sheets
                 .sheet-clip
-                    .sheet
+                    .sheet(class=sheetIndex === 0 ? "sheet--front" : "sheet--back")
                         each panel, panelIndex in sheet
                             .panel
-                                if sheetIndex === 1 && panelIndex === 3
-                                    img.panel__cover(src=baseURL+"static/img/MESH-LEPORELLO-COVER.jpg" alt="")
+                                if panel && panel.isFlow
+                                    .panel__list(data-flow-index=panel.flowIndex)
+                                        table.p-table
+                                            colgroup
+                                                col.col-time
+                                                col.col-title
+                                                col.col-artist
+                                                col.col-venue
+                                            tbody
                                 else if panel && panel.blocks && panel.blocks.length
                                     each block in panel.blocks
                                         .panel__head
@@ -157,23 +164,6 @@ html(lang=language[0])
                                                         tbody
                                                             each item in block.items
                                                                 tr
-                                                                    td.c-title= item.title
-                                                                    td.c-artist= item.artist
-                                                                    td.c-venue= item.venue
-                                                else
-                                                    .panel__empty Kein Eintrag
-                                            else if block.isTourList
-                                                if block.items.length
-                                                    table.p-table
-                                                        colgroup
-                                                            col.col-time
-                                                            col.col-title
-                                                            col.col-artist
-                                                            col.col-venue
-                                                        tbody
-                                                            each item in block.items
-                                                                tr
-                                                                    td.c-time= item.time
                                                                     td.c-title= item.title
                                                                     td.c-artist= item.artist
                                                                     td.c-venue= item.venue
@@ -206,9 +196,116 @@ html(lang=language[0])
                 var MM = 96 / 25.4;
                 var stage = document.getElementById("stage");
                 var printBtn = document.getElementById("printBtn");
+                var FLOW_ROWS = !{JSON.stringify(flowRows)};
+
+                function el(tag, cls, text){
+                    var n = document.createElement(tag);
+                    if(cls) n.className = cls;
+                    if(text != null) n.textContent = text;
+                    return n;
+                }
+                function td(cls, text){ return el("td", cls, text); }
+
+                function buildFlowRow(row){
+                    if(row.type === "day"){
+                        var tr = el("tr", "p-dayrow");
+                        var c = document.createElement("td");
+                        c.colSpan = 4;
+                        c.appendChild(el("h2", "panel__day", row.label));
+                        tr.appendChild(c);
+                        return tr;
+                    }
+                    if(row.type === "section"){
+                        var tr = el("tr", "p-secrow");
+                        var c = document.createElement("td");
+                        c.colSpan = 4;
+                        c.appendChild(el("span", "p-pill", row.label));
+                        tr.appendChild(c);
+                        return tr;
+                    }
+                    if(row.type === "empty"){
+                        var tr = document.createElement("tr");
+                        var c = document.createElement("td");
+                        c.colSpan = 4;
+                        c.appendChild(el("div", "panel__empty", "Kein Eintrag"));
+                        tr.appendChild(c);
+                        return tr;
+                    }
+                    var tr = document.createElement("tr");
+                    tr.appendChild(td("c-time", row.time));
+                    var cTitle = td("c-title");
+                    cTitle.appendChild(document.createTextNode(row.title || ""));
+                    tr.appendChild(cTitle);
+                    tr.appendChild(td("c-artist", row.artist || ""));
+                    tr.appendChild(td("c-venue", row.venue || ""));
+                    return tr;
+                }
+
+                // Pours FLOW_ROWS through the 4 day panels (front sheet, panels 1-4 - panel
+                // 5 is artwork) in order, filling each one until the next row would overflow
+                // it, then continuing in the next panel - so a day runs on directly from the
+                // previous one and can start, split, or end anywhere in a column. A heading/
+                // section pill is never left dangling alone at the bottom of a column: if the
+                // row after it doesn't fit, the heading/pill moves down to the next column too.
+                function layoutFlow(){
+                    var lists = Array.prototype.slice.call(document.querySelectorAll(".panel__list[data-flow-index]"));
+                    lists.sort(function(a, b){ return Number(a.dataset.flowIndex) - Number(b.dataset.flowIndex); });
+                    if(!lists.length) return;
+
+                    var idx = 0;
+                    lists.forEach(function(list){
+                        var tbody = list.querySelector("tbody");
+                        tbody.innerHTML = "";
+                        if(idx >= FLOW_ROWS.length) return;
+
+                        var pendingStart = null; // idx of the first not-yet-confirmed heading/pill in this column
+
+                        while(idx < FLOW_ROWS.length){
+                            var row = FLOW_ROWS[idx];
+                            var tr = buildFlowRow(row);
+                            tbody.appendChild(tr);
+
+                            if(row.type === "day" || row.type === "section"){
+                                if(pendingStart === null) pendingStart = idx;
+                            } else {
+                                pendingStart = null; // an event row confirms any pending heading/pill
+                            }
+
+                            if(list.scrollHeight > list.clientHeight){
+                                if(tbody.children.length === 1){
+                                    // a single row already overflows an empty column - keep it
+                                    // rather than bounce it from column to column forever.
+                                    idx++;
+                                    break;
+                                }
+                                tbody.removeChild(tr);
+                                if(pendingStart !== null){
+                                    var removeCount = idx - pendingStart;
+                                    for(var k = 0; k < removeCount; k++){
+                                        tbody.removeChild(tbody.lastChild);
+                                    }
+                                    idx = pendingStart;
+                                }
+                                break;
+                            }
+
+                            idx++;
+                        }
+                    });
+
+                    // ran out of panels before running out of rows (shouldn't normally
+                    // happen) - dump the rest into the last panel rather than lose them
+                    // silently; flagOverflow() below will flag it red for a manual trim.
+                    if(idx < FLOW_ROWS.length){
+                        var lastTbody = lists[lists.length - 1].querySelector("tbody");
+                        for(; idx < FLOW_ROWS.length; idx++){
+                            lastTbody.appendChild(buildFlowRow(FLOW_ROWS[idx]));
+                        }
+                    }
+                }
 
                 function fit(){
-                    var w = 420 * MM, h = 297 * MM;
+                    var w = 525 * MM, h = 297 * MM;
                     var availW = stage.clientWidth - 32;
                     var scale = Math.min(1, availW / w);
                     if(!isFinite(scale) || scale <= 0) scale = 1;
@@ -236,6 +333,11 @@ html(lang=language[0])
                         // without ever making .panel itself report an overflow - check each
                         // list's own scrollHeight/clientHeight instead.
                         var overflowing = Array.prototype.some.call(lists, function(list){
+                            var tbody = list.querySelector("tbody");
+                            // an empty flow column (every day already fit earlier) has no rows
+                            // to overflow - skip it rather than flag it from stray box-model
+                            // rounding on an empty table.
+                            if(tbody && !tbody.children.length) return false;
                             return list.scrollHeight > list.clientHeight;
                         });
                         if(overflowing){
@@ -244,13 +346,19 @@ html(lang=language[0])
                     });
                 }
 
+                function runLayout(){
+                    layoutFlow();
+                    flagOverflow();
+                }
+
                 printBtn.addEventListener("click", function(){ window.print(); });
                 window.addEventListener("resize", fit);
                 fit();
-                flagOverflow();
+                runLayout();
                 // custom fonts load async (font-display:swap) and reflow text after
-                // the first pass, which can silently reopen an overflow – re-check.
+                // the first pass, which can silently invalidate where rows were split -
+                // lay out and re-check again once real metrics are available.
                 if(document.fonts && document.fonts.ready){
-                    document.fonts.ready.then(flagOverflow);
+                    document.fonts.ready.then(runLayout);
                 }
             })();

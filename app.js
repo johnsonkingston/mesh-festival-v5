@@ -1117,6 +1117,7 @@ const LEPORELLO_FORMAT_LABEL = {
   clubnights: "Club Nights",
   opening: "Opening",
   welcoming: "Welcoming",
+  guided_tour: "Rundgang",
 };
 
 // fixed section order requested for the leporello (not chronological); any
@@ -1130,6 +1131,7 @@ const LEPORELLO_FORMAT_ORDER = [
   "workshop",
   "workshops",
   "satellite",
+  "guided_tour",
   "clubnights",
 ];
 
@@ -1153,9 +1155,6 @@ app.get("/leporello/:language?", async function (req, res) {
           e.Timetable_only !== "1" &&
           e.Format &&
           e.Format !== "ausstellungen" &&
-          // guided tours get their own collected block (like exhibitions),
-          // not scattered across every day panel - see buildTourBlock below.
-          e.Format !== "guided_tour" &&
           e.Venues &&
           e.Venues[0] &&
           e.Day &&
@@ -1260,83 +1259,63 @@ app.get("/leporello/:language?", async function (req, res) {
       };
     };
 
-    // guided tours happen once each on several different days rather than
-    // running the whole festival, so - unlike exhibitions - each entry keeps
-    // its own day + time (day abbreviation prefixed onto the formatted time).
-    const buildTourBlock = () => {
-      const items = (events || [])
-        .filter(
-          (e) =>
-            e &&
-            e.status === "published" &&
-            e.In_Timetable &&
-            e.Timetable_only !== "1" &&
-            e.Format === "guided_tour" &&
-            e.Venues &&
-            e.Venues[0] &&
-            e.Day &&
-            e.Hour !== "" &&
-            e.Hour != null,
-        )
-        .map((e) => {
-          const tr =
-            (e.translations &&
-              (e.translations[langIdx] || e.translations[0])) ||
-            {};
-          const v = venuesData[e.Venues[0].Venues_id];
-          const hourStart = parseInt(e.Hour, 10) || 0;
-          const minStart = e.Minute ? parseInt(e.Minute, 10) : 0;
-          const hourEnd =
-            e.HourEnd === "" || e.HourEnd == null ? null : Number(e.HourEnd);
-          const minEnd = e.MinuteEnd ? parseInt(e.MinuteEnd, 10) : 0;
-          const day = String(e.Day);
-          const dayMeta = LEPORELLO_DAYS.find((d) => d.code === day);
-          const dayAbbrev = dayMeta
-            ? (langIdx === 1 ? dayMeta.labelEN : dayMeta.labelDE).slice(0, 2)
-            : "";
-          return {
-            day,
-            sortKey: day + "-" + String(hourStart * 60 + minStart).padStart(4, "0"),
-            time:
-              (dayAbbrev ? dayAbbrev + " " : "") +
-              leporelloFormatTime(hourStart, minStart, hourEnd, minEnd),
-            title: tr.Title || "",
-            artist: e.Artist || "",
-            venue: v ? v.Name : "",
-          };
-        })
-        .sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+    // one continuous, ordered stream of rows for all 5 days (day heading,
+    // then that day's section pills and events, then straight on to the
+    // next day's heading) - the client flows this across the 5 day panels
+    // (front 1-4 + back 1) itself, breaking wherever a panel actually runs
+    // out of room instead of pinning one day per panel, so e.g. Thursday
+    // continues directly under Wednesday and spills into the next column
+    // mid-day if it has to. See layoutFlow() in leporello.pug.
+    const flowRows = [];
+    LEPORELLO_DAYS.forEach((day) => {
+      const block = buildDayBlock(day);
+      flowRows.push({ type: "day", label: block.label });
+      if (!block.sections.length) {
+        flowRows.push({ type: "empty" });
+      } else {
+        block.sections.forEach((section) => {
+          flowRows.push({ type: "section", label: section.label });
+          section.items.forEach((item) => {
+            flowRows.push({
+              type: "event",
+              time: item.time,
+              title: item.title,
+              artist: item.artist,
+              venue: item.venue,
+            });
+          });
+        });
+      }
+    });
 
-      return {
-        label: langIdx === 1 ? "Guided Tour" : "Rundgang",
-        isTourList: true,
-        items,
-      };
-    };
-
-    // layout: Mi+Do stacked in one panel, Fr and Sa each get their own panel,
-    // So+Ausstellungen stacked in the last panel of the first sheet, and the
-    // collected Rundgang block follows right after on the second sheet
-    // (which otherwise only carries the cover).
+    // sheet is 525mm wide - 5 panels of 105mm each. The front sheet's 5th
+    // panel and the back sheet's panels 2-5 are pure artwork (title/sponsors
+    // resp. site map + wordmark) baked into MESH-LEPORELLO-VS/RS.png, which
+    // is rendered full-bleed as the sheet's own background - those panels
+    // get no block/flow content of their own, just null (blank pug branch),
+    // so the artwork shows through. Exhibitions get their own dedicated
+    // panel on the back sheet (they run the whole festival rather than on
+    // one day, so they don't belong in the day flow).
     const sheets = [
       [
-        {
-          blocks: [
-            buildDayBlock(LEPORELLO_DAYS[0]),
-            buildDayBlock(LEPORELLO_DAYS[1]),
-          ],
-        },
-        { blocks: [buildDayBlock(LEPORELLO_DAYS[2])] },
-        { blocks: [buildDayBlock(LEPORELLO_DAYS[3])] },
-        {
-          blocks: [buildDayBlock(LEPORELLO_DAYS[4]), buildExhibitionBlock()],
-        },
+        { isFlow: true, flowIndex: 0 },
+        { isFlow: true, flowIndex: 1 },
+        { isFlow: true, flowIndex: 2 },
+        { isFlow: true, flowIndex: 3 },
+        null,
       ],
-      [{ blocks: [buildTourBlock()] }, null, null, null],
+      [
+        { blocks: [buildExhibitionBlock()] },
+        null,
+        null,
+        null,
+        null,
+      ],
     ];
 
     res.render("leporello", {
       sheets,
+      flowRows,
       language: [language, langIdx],
     });
   } catch (err) {
