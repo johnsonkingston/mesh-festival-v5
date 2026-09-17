@@ -255,6 +255,17 @@ async function getAllEvents() {
     events = data.data;
 
     for (const [key, value] of Object.entries(events)) {
+      if (
+        Array.isArray(value.translations) &&
+        value.translations[0] &&
+        value.translations[0].languages_code !== "de" &&
+        value.translations[1]
+      ) {
+        var deTranslation = value.translations[1];
+        value.translations[1] = value.translations[0];
+        value.translations[0] = deTranslation;
+      }
+
       if (value.Time == undefined) {
         events[key].Time = [{}];
         events[key].Time[0].Start = "";
@@ -452,6 +463,7 @@ const ARTIST_FORMAT_ORDER = [
   "clubnights",
   "opening",
   "workshop",
+  "satellite",
   "welcoming",
 ];
 // fixed order requested for the "Themen" view (not alphabetical); any Thema
@@ -562,6 +574,17 @@ async function getAllEventsList() {
     events = data.data;
 
     for (const [key, value] of Object.entries(events)) {
+      if (
+        Array.isArray(value.translations) &&
+        value.translations[0] &&
+        value.translations[0].languages_code !== "de" &&
+        value.translations[1]
+      ) {
+        var deTranslation = value.translations[1];
+        value.translations[1] = value.translations[0];
+        value.translations[0] = deTranslation;
+      }
+
       if (value.Time == undefined) {
         events[key].Time = [{}];
         events[key].Time[0].Start = "";
@@ -864,6 +887,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
       screenings: "Screening",
       konferenz: "Konferenz",
       workshop: "Workshop",
+      satellite: "Satellit",
       clubnights: "Club Nights",
       diskurs: "Talks & Panels",
       opening: "Opening",
@@ -876,6 +900,7 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
       screenings: "Screenings",
       konferenz: "Conference",
       workshop: "Workshop",
+      satellite: "Satellite",
       clubnights: "Club Nights",
       diskurs: "Talks & Panels",
       opening: "Opening",
@@ -1087,6 +1112,7 @@ const LEPORELLO_FORMAT_LABEL = {
   konferenz: "Konferenz",
   workshop: "Workshop",
   workshops: "Workshops",
+  satellite: "Satellite",
   diskurs: "Talks & Panels",
   clubnights: "Club Nights",
   opening: "Opening",
@@ -1103,6 +1129,7 @@ const LEPORELLO_FORMAT_ORDER = [
   "screenings",
   "workshop",
   "workshops",
+  "satellite",
   "clubnights",
 ];
 

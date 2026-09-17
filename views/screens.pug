@@ -146,14 +146,14 @@ html(lang=language[0])
 
                 var FORMAT_LABEL = {
                     ausstellungen:"Ausstellungen", performances:"Performances", screenings:"Screenings",
-                    konferenz:"Konferenz", workshop:"Workshop", workshops:"Workshops", diskurs:"Talks & Panels",
+                    konferenz:"Konferenz", workshop:"Workshop", workshops:"Workshops", satellite:"Satellite", diskurs:"Talks & Panels",
                     clubnights:"Club Nights", guided_tour:"Rundgang", welcoming:"Welcome", welcomming:"Welcoming"
                 };
                 // Two output sheets per day: everything except exhibitions, and exhibitions only.
                 // "workshop" (singular) is the actual CMS value - "workshops" is kept only as
                 // a defensive fallback in case the CMS spelling ever changes.
                 var SHEETS = [
-                    { id:"programm", label:"Programm", formats:["welcoming","welcomming","performances","screenings","konferenz","workshop","workshops","guided_tour","diskurs","clubnights"] },
+                    { id:"programm", label:"Programm", formats:["welcoming","welcomming","performances","screenings","konferenz","workshop","workshops","satellite","guided_tour","diskurs","clubnights"] },
                     { id:"ausstellungen", label:"Ausstellungen", formats:["ausstellungen"] }
                 ];
                 var DAYS = [
