@@ -79,15 +79,15 @@ html(lang=language[0])
             /* programme table – same columns/structure as screens.pug's #poster .p-table */
             .panel__list{position:relative;z-index:1;overflow:hidden;}
             .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
-            .p-table col.col-time{width:10%;}
-            .p-table col.col-title{width:32%;}
+            .p-table col.col-time{width:12%;}
+            .p-table col.col-title{width:30%;}
             .p-table col.col-artist{width:36%;}
             .p-table col.col-venue{width:22%;}
             /* exhibitions have no fixed time slot – their list drops the time column
                and redistributes its width across the remaining three */
-            .p-table--noTime col.col-title{width:34%;}
+            .p-table--noTime col.col-title{width:32%;}
             .p-table--noTime col.col-artist{width:41%;}
-            .p-table--noTime col.col-venue{width:25%;}
+            .p-table--noTime col.col-venue{width:27%;}
             .panel__note{
                 margin:6mm 0 2mm;text-align:center;
                 font-size:calc(3mm * var(--tscale,0.82));line-height:1.15;
@@ -95,7 +95,7 @@ html(lang=language[0])
             .p-table td{
                 padding:calc(1mm * var(--tscale,0.82)) calc(1mm * var(--tscale,0.82)) calc(1mm * var(--tscale,0.82)) 0;
                 border-bottom:.2mm solid var(--ink);
-                font-size:calc(3mm * var(--tscale,0.82));line-height:1.15;vertical-align:top;
+                font-size:calc(3.5mm * var(--tscale,0.82));line-height:1.15;vertical-align:top;
                 word-wrap:break-word;overflow-wrap:break-word;
             }
             .p-table td.c-title{font-weight:700;}
@@ -154,7 +154,6 @@ html(lang=language[0])
                                             h2.panel__day= block.label
                                         .panel__list
                                             if block.isExhibition
-                                                p.panel__note= block.note
                                                 if block.items.length
                                                     table.p-table.p-table--noTime
                                                         colgroup

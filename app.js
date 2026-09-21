@@ -1089,6 +1089,20 @@ const LEPORELLO_DAYS = [
 function leporelloPad(n) {
   return (n < 10 ? "0" : "") + n;
 }
+// Keeps each name in an artist list ("Anna Puigjaner & Ethel Baraona Pohl,
+// Teresa Dillon") from wrapping between its first and last name: joins the
+// words within each comma/&-separated name with a non-breaking space, but
+// leaves the separators themselves as normal breakable spaces, so the line
+// still wraps between different people. A name only breaks internally if it
+// alone is wider than the column - overflow-wrap on the table cell still
+// applies as a fallback then.
+function leporelloKeepNamesTogether(str) {
+  if (!str) return str;
+  return str
+    .split(/(\s*[,&]\s*)/)
+    .map((part, i) => (i % 2 === 1 ? part : part.replace(/ /g, " ")))
+    .join("");
+}
 function leporelloFormatTime(hourStart, minStart, hourEnd, minEnd) {
   var s = leporelloPad(hourStart % 24) + ":" + leporelloPad(minStart);
   if (hourEnd != null && !isNaN(hourEnd)) {
@@ -1177,7 +1191,7 @@ app.get("/leporello/:language?", async function (req, res) {
           time: leporelloFormatTime(hourStart, minStart, hourEnd, minEnd),
           sortKey: hourStart * 60 + minStart,
           title: tr.Title || "",
-          artist: e.Artist || "",
+          artist: leporelloKeepNamesTogether(e.Artist || ""),
           venue: v ? v.Name : "",
         };
       });
@@ -1242,11 +1256,14 @@ app.get("/leporello/:language?", async function (req, res) {
           const v = venuesData[e.Venues[0].Venues_id];
           return {
             title: tr.Title || "",
-            artist: e.Artist || "",
+            artist: leporelloKeepNamesTogether(e.Artist || ""),
             venue: v ? v.Name : "",
           };
         })
-        .sort((a, b) => a.title.localeCompare(b.title));
+        .sort(
+          (a, b) =>
+            a.venue.localeCompare(b.venue) || a.title.localeCompare(b.title),
+        );
 
       return {
         label: langIdx === 1 ? "Exhibitions" : "Ausstellungen",
@@ -1289,12 +1306,12 @@ app.get("/leporello/:language?", async function (req, res) {
     });
 
     // sheet is 630mm wide - 6 panels of 105mm each. The front sheet is pure
-    // day flow, all 6 panels. The back sheet's panel 1 and panels 3-6 are
-    // pure artwork (title/sponsors resp. site map + wordmark) baked into
+    // day flow, all 6 panels. The back sheet's panels 1-2 and 4-6 are pure
+    // artwork (title/sponsors resp. site map + wordmark) baked into
     // MESH-LEPORELLO-RS.png, which is rendered full-bleed as the sheet's
     // own background - those panels get no block/flow content of their
     // own, just null (blank pug branch), so the artwork shows through.
-    // Exhibitions get their own dedicated panel (back, panel 2) - they run
+    // Exhibitions get their own dedicated panel (back, panel 3) - they run
     // the whole festival rather than on one day, so they don't belong in
     // the day flow.
     const sheets = [
@@ -1308,8 +1325,8 @@ app.get("/leporello/:language?", async function (req, res) {
       ],
       [
         null,
-        { blocks: [buildExhibitionBlock()] },
         null,
+        { blocks: [buildExhibitionBlock()] },
         null,
         null,
         null,
