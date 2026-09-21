@@ -1016,7 +1016,7 @@ app.get("/screens/:language?", async function (req, res) {
           format: e.Format || "",
           subformat: e.Subformat || "",
           title: tr.Title || "",
-          artist: e.Artist || "",
+          artist: keepNamesTogether(e.Artist || ""),
           hourStart: parseInt(e.Hour, 10) || 0,
           minStart: e.Minute ? parseInt(e.Minute, 10) : 0,
           hourEnd:
@@ -1052,7 +1052,7 @@ app.get("/screens/:language?", async function (req, res) {
           format: "ausstellungen",
           subformat: "",
           title: tr.Title || "",
-          artist: e.Artist || "",
+          artist: keepNamesTogether(e.Artist || ""),
           hourStart: null,
           minStart: 0,
           hourEnd: null,
@@ -1060,7 +1060,10 @@ app.get("/screens/:language?", async function (req, res) {
           venue: v ? v.Name : "",
         };
       })
-      .sort((a, b) => a.title.localeCompare(b.title));
+      .sort(
+        (a, b) =>
+          a.venue.localeCompare(b.venue) || a.title.localeCompare(b.title),
+      );
 
     res.render("screens", {
       screenEvents: screenEvents.concat(exhibitionScreenEvents),
@@ -1095,8 +1098,9 @@ function leporelloPad(n) {
 // leaves the separators themselves as normal breakable spaces, so the line
 // still wraps between different people. A name only breaks internally if it
 // alone is wider than the column - overflow-wrap on the table cell still
-// applies as a fallback then.
-function leporelloKeepNamesTogether(str) {
+// applies as a fallback then. Used wherever an artist list is rendered as a
+// table cell (leporello, screens).
+function keepNamesTogether(str) {
   if (!str) return str;
   return str
     .split(/(\s*[,&]\s*)/)
@@ -1191,7 +1195,7 @@ app.get("/leporello/:language?", async function (req, res) {
           time: leporelloFormatTime(hourStart, minStart, hourEnd, minEnd),
           sortKey: hourStart * 60 + minStart,
           title: tr.Title || "",
-          artist: leporelloKeepNamesTogether(e.Artist || ""),
+          artist: keepNamesTogether(e.Artist || ""),
           venue: v ? v.Name : "",
         };
       });
@@ -1256,7 +1260,7 @@ app.get("/leporello/:language?", async function (req, res) {
           const v = venuesData[e.Venues[0].Venues_id];
           return {
             title: tr.Title || "",
-            artist: leporelloKeepNamesTogether(e.Artist || ""),
+            artist: keepNamesTogether(e.Artist || ""),
             venue: v ? v.Name : "",
           };
         })
