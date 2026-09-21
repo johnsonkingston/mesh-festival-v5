@@ -1288,23 +1288,26 @@ app.get("/leporello/:language?", async function (req, res) {
       }
     });
 
-    // sheet is 525mm wide - 5 panels of 105mm each. The front sheet's 5th
-    // panel and the back sheet's panels 2-5 are pure artwork (title/sponsors
-    // resp. site map + wordmark) baked into MESH-LEPORELLO-VS/RS.png, which
-    // is rendered full-bleed as the sheet's own background - those panels
-    // get no block/flow content of their own, just null (blank pug branch),
-    // so the artwork shows through. Exhibitions get their own dedicated
-    // panel on the back sheet (they run the whole festival rather than on
-    // one day, so they don't belong in the day flow).
+    // sheet is 630mm wide - 6 panels of 105mm each. The front sheet is pure
+    // day flow, all 6 panels. The back sheet's panel 1 and panels 3-6 are
+    // pure artwork (title/sponsors resp. site map + wordmark) baked into
+    // MESH-LEPORELLO-RS.png, which is rendered full-bleed as the sheet's
+    // own background - those panels get no block/flow content of their
+    // own, just null (blank pug branch), so the artwork shows through.
+    // Exhibitions get their own dedicated panel (back, panel 2) - they run
+    // the whole festival rather than on one day, so they don't belong in
+    // the day flow.
     const sheets = [
       [
         { isFlow: true, flowIndex: 0 },
         { isFlow: true, flowIndex: 1 },
         { isFlow: true, flowIndex: 2 },
         { isFlow: true, flowIndex: 3 },
-        null,
+        { isFlow: true, flowIndex: 4 },
+        { isFlow: true, flowIndex: 5 },
       ],
       [
+        null,
         { blocks: [buildExhibitionBlock()] },
         null,
         null,

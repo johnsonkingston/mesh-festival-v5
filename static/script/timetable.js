@@ -92,7 +92,7 @@ let LastestEvent = {};
 var shrinkHeight = 1.3;
 var originalHeight = hourHeight;
 var reductionHeight = originalHeight - shrinkHeight;
-var rowWidth = 16;
+var rowWidth = 15.1;
 if ($(window).width() < $(window).outerHeight()) {
   var rowWidth = 39;
 }

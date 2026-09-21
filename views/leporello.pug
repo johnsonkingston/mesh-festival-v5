@@ -7,7 +7,7 @@ html(lang=language[0])
         title Mesh – Programm Leporello
         link(rel="icon" type="image/png" sizes="32x32" href=baseURL+"static/img/favicon/favicon-32x32.png")
         style#pageStyle.
-            @page{ size:525mm 297mm; margin:0; }
+            @page{ size:630mm 297mm; margin:0; }
         style.
             @font-face{font-family:"FreeSans-JK";src:url("#{baseURL}static/fonts/JK-MESH-Sans.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Sans.woff") format("woff");font-weight:700;font-display:swap;}
             @font-face{font-family:"FreeSerif-JK";src:url("#{baseURL}static/fonts/JK-MESH-Serif.woff2") format("woff2"),url("#{baseURL}static/fonts/JK-MESH-Serif.woff") format("woff");font-weight:500;font-display:swap;}
@@ -41,12 +41,12 @@ html(lang=language[0])
             .sheet-clip{overflow:hidden;background:#fff;box-shadow:0 2px 24px rgba(0,0,0,.18);}
             /* the sheet's own background is the pre-designed full-bleed artwork (site
                map, title, sponsors) - both files are laid out at the sheet's exact
-               525x297mm, with the panel columns that carry dynamic content (day/
+               630x297mm, with the panel columns that carry dynamic content (day/
                exhibition tables) left blank in the artwork itself, so the HTML table
                overlay and the background never fight for the same space. */
             .sheet{
-                position:relative;width:525mm;height:297mm;background:var(--bg) no-repeat center/100% 100%;
-                display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:297mm;
+                position:relative;width:630mm;height:297mm;background:var(--bg) no-repeat center/100% 100%;
+                display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:297mm;
                 transform:scale(var(--scale,1));transform-origin:top left;
             }
             .sheet--front{background-image:url("#{baseURL}static/img/leporello/MESH-LEPORELLO-VS.png");}
@@ -131,7 +131,7 @@ html(lang=language[0])
             }
     body
         .toolbar
-            span Leporello · 525×297mm quer · Zickzackfalz · 5 Panels je Seite
+            span Leporello · 630×297mm quer · Zickzackfalz · 6 Panels je Seite
             button#printBtn.tb-btn(type="button") Drucken
         .stage#stage
             each sheet, sheetIndex in sheets
@@ -241,12 +241,12 @@ html(lang=language[0])
                     return tr;
                 }
 
-                // Pours FLOW_ROWS through the 4 day panels (front sheet, panels 1-4 - panel
-                // 5 is artwork) in order, filling each one until the next row would overflow
-                // it, then continuing in the next panel - so a day runs on directly from the
-                // previous one and can start, split, or end anywhere in a column. A heading/
-                // section pill is never left dangling alone at the bottom of a column: if the
-                // row after it doesn't fit, the heading/pill moves down to the next column too.
+                // Pours FLOW_ROWS through the 6 day panels (the whole front sheet) in order,
+                // filling each one until the next row would overflow it, then continuing in
+                // the next panel - so a day runs on directly from the previous one and can
+                // start, split, or end anywhere in a column. A heading/section pill is never
+                // left dangling alone at the bottom of a column: if the row after it doesn't
+                // fit, the heading/pill moves down to the next column too.
                 function layoutFlow(){
                     var lists = Array.prototype.slice.call(document.querySelectorAll(".panel__list[data-flow-index]"));
                     lists.sort(function(a, b){ return Number(a.dataset.flowIndex) - Number(b.dataset.flowIndex); });
@@ -305,7 +305,7 @@ html(lang=language[0])
                 }
 
                 function fit(){
-                    var w = 525 * MM, h = 297 * MM;
+                    var w = 630 * MM, h = 297 * MM;
                     var availW = stage.clientWidth - 32;
                     var scale = Math.min(1, availW / w);
                     if(!isFinite(scale) || scale <= 0) scale = 1;
