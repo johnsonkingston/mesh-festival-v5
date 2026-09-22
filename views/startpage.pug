@@ -84,6 +84,15 @@ html(lang=language[0])
                         span=initiative
                         div.logobannerOuter
                             div.logobannerInner
+                                //- rendered twice back-to-back so the animation loop (see
+                                //- @keyframes startpage-move in main.scss) can wrap seamlessly
+                                //- at -50% instead of jumping from a full -100% back to 0%
+                                each logo in logosLine1
+                                    if logo.href
+                                        a(href=logo.href,target="_blank")
+                                            img(src=logo.src,alt=logo.title,class=logo.tags)
+                                    else
+                                        img(src=logo.src,alt=logo.title,class=logo.tags)
                                 each logo in logosLine1
                                     if logo.href
                                         a(href=logo.href,target="_blank")
@@ -94,6 +103,13 @@ html(lang=language[0])
                         span=sponsor
                         div.logobannerOuter
                             div.logobannerInner.logobannerInnerSecond
+                                //- rendered twice back-to-back, see comment above
+                                each logo in logosLine2
+                                    if logo.href
+                                        a(href=logo.href,target="_blank")
+                                            img(src=logo.src,alt=logo.title,class=logo.tags).logofooter
+                                    else
+                                        img(src=logo.src,alt=logo.title,class=logo.tags).logofooter
                                 each logo in logosLine2
                                     if logo.href
                                         a(href=logo.href,target="_blank")

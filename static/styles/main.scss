@@ -3138,17 +3138,27 @@ body.startpage {
         display: block;
       }
     }
+    // .logobannerInner renders its logo set twice back-to-back (see
+    // startpage.pug) so the loop can wrap seamlessly: -50% of the
+    // doubled track is exactly one original set's width, so the frame
+    // right after the loop restarts is pixel-identical to the frame
+    // right before it. Without the duplicate, animating a single copy
+    // all the way to -100% and snapping back to 0% swaps in a
+    // completely different set of logos at the same position in one
+    // frame - on a loaded/slower device (or exactly when hover freezes
+    // the animation via animation-play-state) that swap can be caught
+    // mid-composite, showing two unrelated logos overlaid.
     @keyframes startpage-move {
       from {
         transform: translateX(0);
       }
       to {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
       }
     }
     @keyframes move2 {
       from {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
       }
       to {
         transform: translateX(0%);
