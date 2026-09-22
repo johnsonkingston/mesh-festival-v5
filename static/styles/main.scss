@@ -1234,7 +1234,11 @@ ul {
   background: rgba(var(--color3));
   font-size: 1.3vh;
   @media (orientation: portrait) {
-    font-size: 4vw;
+    // controls the "em" unit that both the hourline grid height and every
+    // event's height/top/margin (set inline from hourHeight, see
+    // timetable.pug/timetable.js) scale off of - raising it stretches the
+    // whole mobile hour grid taller while keeping events aligned to it.
+    font-size: 4.5vw;
   }
   a:hover {
     text-shadow: rgba(var(--color4)) 0 0 5px;

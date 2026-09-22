@@ -1452,7 +1452,7 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable {
-    font-size: 4vw;
+    font-size: 4.5vw;
   }
 }
 .timetable a:hover {
