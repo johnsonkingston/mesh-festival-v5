@@ -60,7 +60,7 @@
 }
 @media (orientation: portrait) {
   .blurOrganic2::after {
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(1px);
   }
 }
 
@@ -89,7 +89,7 @@ body.startpage .statement h2::after {
 @media (orientation: portrait) {
   .blurOrganic1-5::after,
   body.startpage .statement h2::after {
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(1px);
   }
 }
 

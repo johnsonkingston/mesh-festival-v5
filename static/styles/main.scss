@@ -83,7 +83,7 @@ $serifFactor: 1.1;
     mask-origin: border;
     -webkit-mask-origin: border;
     @media (orientation: portrait) {
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(1px);
     }
   }
 }
@@ -107,7 +107,7 @@ body.startpage .statement h2 {
     mask-origin: border;
     -webkit-mask-origin: border;
     @media (orientation: portrait) {
-      backdrop-filter: blur(3px);
+      backdrop-filter: blur(1px);
     }
   }
 }
