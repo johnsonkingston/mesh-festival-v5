@@ -1388,7 +1388,7 @@ ul {
 .event main .content ul {
   text-indent: 2vw hanging;
 }
-@media screen {
+@media (orientation: portrait) {
   .event main .content ul {
     text-indent: 5vw hanging;
   }
@@ -1772,6 +1772,39 @@ ul {
 }
 .timetable .Aclubnights {
   height: 11em !important;
+}
+.timetable .EventTimetableRotated.EventTimetable {
+  width: 2.4vw;
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+}
+.timetable .EventTimetableRotated.EventTimetable h2,
+.timetable .EventTimetableRotated.EventTimetable h3,
+.timetable .EventTimetableRotated.EventTimetable h4 {
+  display: inline;
+  position: static;
+  float: none;
+  white-space: nowrap;
+  margin: 0 0.15vw;
+  line-height: 2.5vw;
+  padding-top: 0.5vw;
+}
+@media (orientation: portrait) {
+  .timetable .EventTimetableRotated.EventTimetable h2,
+  .timetable .EventTimetableRotated.EventTimetable h3,
+  .timetable .EventTimetableRotated.EventTimetable h4 {
+    line-height: 5.5vw;
+    padding-top: 1vw;
+  }
+}
+.timetable .EventTimetableRotated.EventTimetable .format,
+.timetable .EventTimetableRotated.EventTimetable .time {
+  display: none;
+}
+@media (orientation: portrait) {
+  .timetable .EventTimetableRotated.EventTimetable {
+    width: 6vw;
+  }
 }
 .timetable .EventTimetablePaid .EventTimetable {
   background: linear-gradient(180deg, rgba(var(--color2)) 65%, rgba(var(--color3)) 100%);

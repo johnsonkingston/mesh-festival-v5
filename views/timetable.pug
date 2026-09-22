@@ -73,14 +73,15 @@ html(lang=language[0])
                                                 - var minuteOffset = effHour - Math.floor(effHour)
                                                 - if(firstEventInColumn) var hourMargin = effHour - hourStart
                                                 - else var hourMargin = effHour - hourBefore
+                                                - var rotatedClass = event.slug === 'diverse-artists-ausstellung' ? ' EventTimetableRotated' : ''
                                                 if(event.Timetable_only == '1')
-                                                    .EventTimetableA(class='A'+event.Format+' EventTimetableTimetableOnly',style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-column=column.id,data-id=id,id="Event-"+id)
-                                                        .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
+                                                    .EventTimetableA(class='A'+event.Format+' EventTimetableTimetableOnly'+rotatedClass,style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-column=column.id,data-id=id,id="Event-"+id)
+                                                        .EventTimetable(class=event.Format+rotatedClass,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
                                                             .EventTimetableContent !{eventTranslation(event, languageParameter).Content}
                                                 else
                                                     a(href=baseURL+'events/'+event.slug+'/'+language[0])
-                                                        .EventTimetableA(class='A'+event.Format,style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-column=column.id,data-id=id,id="Event-"+id)
-                                                            .EventTimetable(class=event.Format,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
+                                                        .EventTimetableA(class='A'+event.Format+rotatedClass,style="height:"+((event.HourEnd - effHour)*hourHeight)+"em;margin-top:"+(minuteOffset*hourHeight)+"em;top:"+(hourMargin*hourHeight)+"em;",data-day=event.Day,data-end=event.HourEnd,data-hour=effHour,data-top=hourMargin*hourHeight,data-topedit=hourMargin*hourHeight,data-column=column.id,data-id=id,id="Event-"+id)
+                                                            .EventTimetable(class=event.Format+rotatedClass,style="min-height:"+((event.HourEnd - parseInt(event.Hour) - (parseInt(event.Minute)/60))*hourHeight)+"em;")
                                                                 if(formatsTranslation[event.Format] !== undefined)
                                                                     h3.format=formatsTranslation[event.Format][languageParameter]
                                                                 - var hasSubformat = event.Subformat && event.Subformat.trim()

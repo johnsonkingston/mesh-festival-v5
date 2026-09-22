@@ -1167,7 +1167,7 @@ ul {
     .content {
       ul {
         text-indent: 2vw hanging;
-        @media screen {
+        @media (orientation: portrait) {
           text-indent: 5vw hanging;
         }
       }
@@ -1535,6 +1535,39 @@ ul {
   }
   .Aclubnights {
     height: 11em !important;
+  }
+  // Special case for the "Diverse Artists Ausstellung" placeholder: height
+  // still comes from the inline style (opening hours, unchanged), but the
+  // text is rotated 90° into a single vertical run, so the box needs far
+  // less width than a normal event card. The heading elements are switched
+  // to inline so they merge into that one run instead of each becoming
+  // its own stacked column under the vertical writing mode.
+  .EventTimetableRotated.EventTimetable {
+    width: 2.4vw;
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+    h2,
+    h3,
+    h4 {
+      display: inline;
+      position: static;
+      float: none;
+      white-space: nowrap;
+      margin: 0 $padding * 0.3;
+      line-height: 2.5vw;
+      padding-top: 0.5vw;
+      @media (orientation: portrait) {
+        line-height: 5.5vw;
+        padding-top: 1vw;
+      }
+    }
+    .format,
+    .time {
+      display: none;
+    }
+    @media (orientation: portrait) {
+      width: 6vw;
+    }
   }
   .EventTimetablePaid {
     .EventTimetable {
