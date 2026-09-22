@@ -4,7 +4,7 @@ html(lang=language[0])
         meta(charset="utf-8")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         meta(name="robots" content="noindex")
-        title Mesh – Programm Leporello
+        title= labels.pageTitle
         link(rel="icon" type="image/png" sizes="32x32" href=baseURL+"static/img/favicon/favicon-32x32.png")
         style#pageStyle.
             @page{ size:630mm 297mm; margin:0; }
@@ -15,7 +15,7 @@ html(lang=language[0])
             :root{
                 --bg:#ffffff;
                 --ink:#000;
-                --rule:rgba(51,51,51,.22);
+                --rule:rgba(51,51,51,0);
                 --tscale:0.81;
             }
             *,*::before,*::after{box-sizing:border-box;}
@@ -31,11 +31,14 @@ html(lang=language[0])
                 padding:.7rem 1rem;background:var(--bg);border-bottom:1px solid var(--rule);
             }
             .toolbar span{font-size:.85rem;opacity:.7;}
+            .toolbar__actions{margin-left:auto;display:flex;align-items:center;gap:.5rem;}
             .tb-btn{
                 font:inherit;font-weight:700;background:var(--ink);color:var(--bg);
-                border:none;border-radius:2px;padding:.55rem 1rem;cursor:pointer;margin-left:auto;
+                border:none;border-radius:2px;padding:.55rem 1rem;cursor:pointer;
+                text-decoration:none;display:inline-block;
             }
             .tb-btn:hover{opacity:.88;}
+            .tb-btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--ink);}
 
             .stage{padding:24px 16px 48px;display:flex;flex-direction:column;align-items:center;gap:24px;overflow:auto;}
             .sheet-clip{overflow:hidden;background:#fff;box-shadow:0 2px 24px rgba(0,0,0,.18);}
@@ -49,8 +52,8 @@ html(lang=language[0])
                 display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:297mm;
                 transform:scale(var(--scale,1));transform-origin:top left;
             }
-            .sheet--front{background-image:url("#{baseURL}static/img/leporello/MESH-LEPORELLO-VS.png");}
-            .sheet--back{background-image:url("#{baseURL}static/img/leporello/MESH-LEPORELLO-RS.png");}
+            .sheet--front{background-image:url("#{baseURL}static/img/leporello/#{vsImage}");}
+            .sheet--back{background-image:url("#{baseURL}static/img/leporello/#{rsImage}");}
 
             /* ---- panels: headers are generated with CSS, fold guides are just a dashed rule ---- */
             /* min-height:0 forces this grid item to respect its 297mm row track instead of
@@ -64,7 +67,6 @@ html(lang=language[0])
                 display:flex;flex-direction:column;gap:1mm;
                 padding: 0;
                 background:#fff;color:#000;
-                height: 13.6mm;
                 overflow: hidden;
                 margin-left: -1mm;
             }
@@ -80,23 +82,24 @@ html(lang=language[0])
             .panel__list{position:relative;z-index:1;overflow:hidden;}
             .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
             .p-table col.col-time{width:12%;}
-            .p-table col.col-title{width:30%;}
-            .p-table col.col-artist{width:36%;}
-            .p-table col.col-venue{width:22%;}
+            .p-table col.col-title{width:28%;}
+            .p-table col.col-artist{width:44%;}
+            .p-table col.col-venue{width:16%;}
             /* exhibitions have no fixed time slot – their list drops the time column
                and redistributes its width across the remaining three */
             .p-table--noTime col.col-title{width:32%;}
-            .p-table--noTime col.col-artist{width:41%;}
-            .p-table--noTime col.col-venue{width:27%;}
+            .p-table--noTime col.col-artist{width:43%;}
+            .p-table--noTime col.col-venue{width:25%;}
             .panel__note{
                 margin:6mm 0 2mm;text-align:center;
                 font-size:calc(3mm * var(--tscale,0.82));line-height:1.15;
             }
             .p-table td{
                 padding:calc(1mm * var(--tscale,0.82)) calc(1mm * var(--tscale,0.82)) calc(1mm * var(--tscale,0.82)) 0;
-                border-bottom:.2mm solid var(--ink);
+                border-bottom:.01mm solid var(--ink);
                 font-size:calc(3.5mm * var(--tscale,0.82));line-height:1.15;vertical-align:top;
                 word-wrap:break-word;overflow-wrap:break-word;
+                letter-spacing:-.02em;
             }
             .p-table td.c-title{font-weight:700;}
             /* narrower than screens.pug's 1080px poster – "hh:mm – hh:mm" needs to
@@ -106,7 +109,7 @@ html(lang=language[0])
             }
             .p-table .p-pill{
                 display:inline-block;background:var(--ink);color:var(--bg);
-                border-radius:1.2mm;padding:.15em .5em;font-weight:500;font-size:calc(3mm * var(--tscale,0.82));
+                border-radius:1.2mm;padding:.15em .5em;font-weight:500;font-size:calc(3.5mm * var(--tscale,0.82));
             }
             .panel__empty{margin-top:14mm;text-align:center;font-size:4mm;opacity:.5;}
             .panel__blank{flex:1;}
@@ -130,9 +133,12 @@ html(lang=language[0])
                 .sheet{transform:none !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
             }
     body
+        - var newLang = language[0] == 'en' ? 'de' : 'en'
         .toolbar
-            span Leporello · 630×297mm quer · Zickzackfalz · 6 Panels je Seite
-            button#printBtn.tb-btn(type="button") Drucken
+            span= labels.toolbarInfo
+            .toolbar__actions
+                a.tb-btn.tb-btn--ghost(href=baseURL+"leporello/"+newLang)= newLang.toUpperCase()
+                button#printBtn.tb-btn(type="button")= labels.print
         .stage#stage
             each sheet, sheetIndex in sheets
                 .sheet-clip
@@ -167,7 +173,7 @@ html(lang=language[0])
                                                                     td.c-artist= item.artist
                                                                     td.c-venue= item.venue
                                                 else
-                                                    .panel__empty Kein Eintrag
+                                                    .panel__empty= labels.emptyEntry
                                             else if block.sections.length
                                                 table.p-table
                                                     colgroup
@@ -187,7 +193,7 @@ html(lang=language[0])
                                                                     td.c-artist= item.artist
                                                                     td.c-venue= item.venue
                                             else
-                                                .panel__empty Kein Eintrag
+                                                .panel__empty= labels.emptyEntry
                                 else
                                     .panel__blank
         script.
@@ -226,7 +232,7 @@ html(lang=language[0])
                         var tr = document.createElement("tr");
                         var c = document.createElement("td");
                         c.colSpan = 4;
-                        c.appendChild(el("div", "panel__empty", "Kein Eintrag"));
+                        c.appendChild(el("div", "panel__empty", row.label));
                         tr.appendChild(c);
                         return tr;
                     }
@@ -264,11 +270,12 @@ html(lang=language[0])
                             var tr = buildFlowRow(row);
                             tbody.appendChild(tr);
 
-                            if(row.type === "day" || row.type === "section"){
-                                if(pendingStart === null) pendingStart = idx;
-                            } else {
-                                pendingStart = null; // an event row confirms any pending heading/pill
-                            }
+                            // decide the overflow break using the pending state from BEFORE
+                            // this row - if this row is the item that confirms a heading/pill,
+                            // that heading/pill must not have been cleared yet, or an
+                            // overflowing item here would strand its heading alone at the
+                            // bottom of the column instead of pulling it down too.
+                            var pendingBeforeRow = pendingStart;
 
                             if(list.scrollHeight > list.clientHeight){
                                 if(tbody.children.length === 1){
@@ -278,14 +285,20 @@ html(lang=language[0])
                                     break;
                                 }
                                 tbody.removeChild(tr);
-                                if(pendingStart !== null){
-                                    var removeCount = idx - pendingStart;
+                                if(pendingBeforeRow !== null){
+                                    var removeCount = idx - pendingBeforeRow;
                                     for(var k = 0; k < removeCount; k++){
                                         tbody.removeChild(tbody.lastChild);
                                     }
-                                    idx = pendingStart;
+                                    idx = pendingBeforeRow;
                                 }
                                 break;
+                            }
+
+                            if(row.type === "day" || row.type === "section"){
+                                if(pendingStart === null) pendingStart = idx;
+                            } else {
+                                pendingStart = null; // an event row confirms any pending heading/pill
                             }
 
                             idx++;

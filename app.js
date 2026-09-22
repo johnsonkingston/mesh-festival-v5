@@ -1104,7 +1104,14 @@ function keepNamesTogether(str) {
   if (!str) return str;
   return str
     .split(/(\s*[,&]\s*)/)
-    .map((part, i) => (i % 2 === 1 ? part : part.replace(/ /g, " ")))
+    .map((part, i) => {
+      if (i % 2 === 1) return part;
+      // a first+last name longer than 30 characters together is left with
+      // normal breakable spaces, so it can wrap instead of forcing the
+      // whole cell to overflow.
+      if (part.trim().length > 30) return part;
+      return part.replace(/ /g, " ");
+    })
     .join("");
 }
 function leporelloFormatTime(hourStart, minStart, hourEnd, minEnd) {
@@ -1123,8 +1130,9 @@ function leporelloFormatTime(hourStart, minStart, hourEnd, minEnd) {
 // gets a section, just labelled with its raw slug (see buildSections below) -
 // this way a format never silently drops off the leporello if the CMS
 // introduces a new one or spells an existing one differently (e.g. "workshop"
-// vs "workshops").
-const LEPORELLO_FORMAT_LABEL = {
+// vs "workshops"). Wording mirrors the DE/EN dictionaries used for
+// event.formatTranslation in the /events/:eventSlug route.
+const LEPORELLO_FORMAT_LABEL_DE = {
   performances: "Performances",
   screenings: "Screenings",
   konferenz: "Konferenz",
@@ -1134,8 +1142,21 @@ const LEPORELLO_FORMAT_LABEL = {
   diskurs: "Talks & Panels",
   clubnights: "Club Nights",
   opening: "Opening",
-  welcoming: "Welcoming",
+  welcoming: "Welcome",
   guided_tour: "Rundgang",
+};
+const LEPORELLO_FORMAT_LABEL_EN = {
+  performances: "Performances",
+  screenings: "Screenings",
+  konferenz: "Conference",
+  workshop: "Workshop",
+  workshops: "Workshops",
+  satellite: "Satellite",
+  diskurs: "Talks & Panels",
+  clubnights: "Club Nights",
+  opening: "Opening",
+  welcoming: "Welcome",
+  guided_tour: "Guided Tour",
 };
 
 // fixed section order requested for the leporello (not chronological); any
@@ -1200,6 +1221,9 @@ app.get("/leporello/:language?", async function (req, res) {
         };
       });
 
+    const leporelloFormatLabel =
+      langIdx === 1 ? LEPORELLO_FORMAT_LABEL_EN : LEPORELLO_FORMAT_LABEL_DE;
+
     const buildSections = (dayCode) => {
       const byFormat = {};
       leporelloEvents
@@ -1212,7 +1236,7 @@ app.get("/leporello/:language?", async function (req, res) {
           const items = byFormat[fmt].sort((a, b) => a.sortKey - b.sortKey);
           const rank = LEPORELLO_FORMAT_ORDER.indexOf(fmt);
           return {
-            label: LEPORELLO_FORMAT_LABEL[fmt] || fmt,
+            label: leporelloFormatLabel[fmt] || fmt,
             items,
             rank: rank === -1 ? LEPORELLO_FORMAT_ORDER.length : rank,
             firstStart: items[0].sortKey,
@@ -1287,12 +1311,14 @@ app.get("/leporello/:language?", async function (req, res) {
     // out of room instead of pinning one day per panel, so e.g. Thursday
     // continues directly under Wednesday and spills into the next column
     // mid-day if it has to. See layoutFlow() in leporello.pug.
+    const leporelloEmptyLabel = langIdx === 1 ? "No entries" : "Kein Eintrag";
+
     const flowRows = [];
     LEPORELLO_DAYS.forEach((day) => {
       const block = buildDayBlock(day);
       flowRows.push({ type: "day", label: block.label });
       if (!block.sections.length) {
-        flowRows.push({ type: "empty" });
+        flowRows.push({ type: "empty", label: leporelloEmptyLabel });
       } else {
         block.sections.forEach((section) => {
           flowRows.push({ type: "section", label: section.label });
@@ -1312,12 +1338,30 @@ app.get("/leporello/:language?", async function (req, res) {
     // sheet is 630mm wide - 6 panels of 105mm each. The front sheet is pure
     // day flow, all 6 panels. The back sheet's panels 1-2 and 4-6 are pure
     // artwork (title/sponsors resp. site map + wordmark) baked into
-    // MESH-LEPORELLO-RS.png, which is rendered full-bleed as the sheet's
-    // own background - those panels get no block/flow content of their
-    // own, just null (blank pug branch), so the artwork shows through.
+    // MESH-LEPORELLO-RS(-EN).png, which is rendered full-bleed as the
+    // sheet's own background - those panels get no block/flow content of
+    // their own, just null (blank pug branch), so the artwork shows
+    // through. Both the front (VS) and back (RS) artwork have an EN
+    // variant for the language-dependent text baked into them.
     // Exhibitions get their own dedicated panel (back, panel 3) - they run
     // the whole festival rather than on one day, so they don't belong in
     // the day flow.
+    const vsImage =
+      langIdx === 1 ? "MESH-LEPORELLO-VS-EN.png" : "MESH-LEPORELLO-VS.png";
+    const rsImage =
+      langIdx === 1 ? "MESH-LEPORELLO-RS-EN.png" : "MESH-LEPORELLO-RS.png";
+
+    const leporelloLabels = {
+      pageTitle:
+        langIdx === 1 ? "Mesh – Programme Leporello" : "Mesh – Programm Leporello",
+      toolbarInfo:
+        langIdx === 1
+          ? "Leporello · 630×297mm landscape · zigzag fold · 6 panels per sheet"
+          : "Leporello · 630×297mm quer · Zickzackfalz · 6 Panels je Seite",
+      print: langIdx === 1 ? "Print" : "Drucken",
+      emptyEntry: leporelloEmptyLabel,
+    };
+
     const sheets = [
       [
         { isFlow: true, flowIndex: 0 },
@@ -1340,6 +1384,9 @@ app.get("/leporello/:language?", async function (req, res) {
     res.render("leporello", {
       sheets,
       flowRows,
+      vsImage,
+      rsImage,
+      labels: leporelloLabels,
       language: [language, langIdx],
     });
   } catch (err) {
