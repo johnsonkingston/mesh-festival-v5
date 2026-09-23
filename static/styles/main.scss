@@ -1251,9 +1251,11 @@ ul {
     display: flex;
     flex-direction: column;
     @media (orientation: portrait) {
-      height: calc(100vh - 2vw);
-      height: calc(100dvh - 2vw);
-      margin-top: 2vw;
+      // mobile: the page itself (incl. footer) is the vertical scroll
+      // container - main grows with its content instead of being
+      // viewport-high with an inner vertical scroller
+      height: auto;
+      margin-top: 0;
     }
   }
   #dayNav {
@@ -1266,6 +1268,12 @@ ul {
     @media (orientation: portrait) {
       gap: $padding * $scaleFactor * 0.5;
       padding: $padding * $scaleFactor * 0.5 0;
+      // stays pinned to the top while the page scrolls vertically
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(var(--color3));
+      box-shadow: 0 0 10px rgba(var(--color2));
     }
     .dayNavItem {
       cursor: pointer;
@@ -1336,6 +1344,9 @@ ul {
     position: relative;
     flex: 1 1 0;
     min-height: 0;
+    @media (orientation: portrait) {
+      flex: 0 0 auto;
+    }
   }
   .timetableSliderTrack {
     display: flex;
@@ -1346,6 +1357,11 @@ ul {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    @media (orientation: portrait) {
+      // height follows the active day (set in timetable.js)
+      height: auto;
+      align-items: flex-start;
+    }
   }
   .timetableSliderTrack::-webkit-scrollbar {
     display: none;
@@ -1361,6 +1377,8 @@ ul {
     overflow-y: auto;
     scroll-snap-align: start;
     @media (orientation: portrait) {
+      height: auto;
+      overflow-y: hidden;
       padding-top: 0vw;
       padding-bottom: 12vw;
     }
@@ -1471,7 +1489,7 @@ ul {
       margin-right: $padding * 0.5 * $scaleFactor;
       margin-left: $padding * 0.5 * $scaleFactor;
       border-radius: $padding * $scaleFactor;
-      overflow: scroll;
+      overflow: hidden;
     }
     .EventTimetableContent {
       padding: $padding * 0.5 0;
@@ -1739,7 +1757,9 @@ ul {
           height: 100%;
           box-sizing: border-box;
           display: flex;
-          align-items: center;
+          // label sits on the hour's grid line (top of the row), where
+          // events starting at that hour begin
+          align-items: flex-start;
           justify-content: flex-end;
           position: sticky;
           left: 0;

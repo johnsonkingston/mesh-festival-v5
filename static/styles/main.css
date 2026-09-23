@@ -1468,9 +1468,8 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable main {
-    height: calc(100vh - 2vw);
-    height: calc(100dvh - 2vw);
-    margin-top: 2vw;
+    height: auto;
+    margin-top: 0;
   }
 }
 .timetable #dayNav {
@@ -1485,6 +1484,11 @@ ul {
   .timetable #dayNav {
     gap: 0.625vw;
     padding: 0.625vw 0;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(var(--color3));
+    box-shadow: 0 0 10px rgba(var(--color2));
   }
 }
 .timetable #dayNav .dayNavItem {
@@ -1562,6 +1566,11 @@ ul {
   flex: 1 1 0;
   min-height: 0;
 }
+@media (orientation: portrait) {
+  .timetable .timetableSlider {
+    flex: 0 0 auto;
+  }
+}
 .timetable .timetableSliderTrack {
   display: flex;
   height: 100%;
@@ -1571,6 +1580,12 @@ ul {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+}
+@media (orientation: portrait) {
+  .timetable .timetableSliderTrack {
+    height: auto;
+    align-items: flex-start;
+  }
 }
 .timetable .timetableSliderTrack::-webkit-scrollbar {
   display: none;
@@ -1588,6 +1603,8 @@ ul {
 }
 @media (orientation: portrait) {
   .timetable .timetableDaySlide {
+    height: auto;
+    overflow-y: hidden;
     padding-top: 0vw;
     padding-bottom: 12vw;
   }
@@ -1702,7 +1719,7 @@ ul {
     margin-right: 0.625vw;
     margin-left: 0.625vw;
     border-radius: 1.25vw;
-    overflow: scroll;
+    overflow: hidden;
   }
 }
 .timetable .EventTimetable .EventTimetableContent {
@@ -1984,7 +2001,7 @@ ul {
     height: 100%;
     box-sizing: border-box;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-end;
     position: sticky;
     left: 0;
@@ -3536,12 +3553,12 @@ body.startpage .logos a:hover {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 @keyframes move2 {
   from {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
   to {
     transform: translateX(0%);

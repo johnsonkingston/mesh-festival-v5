@@ -38,6 +38,24 @@ function filterTimetableAll() {
 function setActiveDayNav(index) {
   $(".dayNavItem").removeClass("active");
   $('.dayNavItem[data-day-index="' + index + '"]').addClass("active");
+  syncTrackHeight(index);
+}
+
+// Mobile: the page is the vertical scroll container, so the slider track
+// takes the height of the active day instead of the tallest one.
+function syncTrackHeight(index) {
+  var track = $(".timetableSliderTrack");
+  if (!track.length) return;
+  if ($(window).width() >= $(window).outerHeight()) {
+    track.css("height", "");
+    return;
+  }
+  if (index === undefined) {
+    var active = $(".dayNavItem.active").attr("data-day-index");
+    index = active !== undefined ? parseInt(active) : 0;
+  }
+  var slide = track.find('.timetableDaySlide[data-day-index="' + index + '"]');
+  if (slide.length) track.css("height", slide.outerHeight() + "px");
 }
 
 function slideDay(direction) {
@@ -244,6 +262,7 @@ function shrink() {
   });
 
   syncHourlineWidth();
+  syncTrackHeight();
 }
 
 // Widens each day's hour-line grid to match the full scrollable width of
