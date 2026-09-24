@@ -226,11 +226,15 @@ ul {
 .mediaCaption {
   font-size: 0.8vw;
   line-height: 1vw;
+  opacity: 0.5;
 }
 @media (orientation: portrait) {
   .mediaCaption {
     font-size: 3vw;
     line-height: 3.75vw;
+    margin-block-start: 0;
+    margin-top: -1.5vw;
+    color: rgba(var(--color2));
   }
 }
 
@@ -702,7 +706,7 @@ input.bubble {
   .page main .content h4:has(+ .bio-wrapper),
   .visit main .content h3:has(+ .bio-wrapper),
   .visit main .content h4:has(+ .bio-wrapper) {
-    width: 100%;
+    width: 80%;
     font-size: 7.5vw;
     line-height: 8.25vw;
   }
@@ -1082,9 +1086,9 @@ input.bubble {
 @media (orientation: portrait) {
   .page main .content .bio-wrapper,
   .visit main .content .bio-wrapper {
-    font-size: 4.5vw;
-    line-height: 5.25vw;
-    width: 100%;
+    font-size: 3.5vw;
+    line-height: 4vw;
+    width: 80%;
   }
 }
 .page main .content h4.bio-wrapper,
@@ -1391,6 +1395,7 @@ ul {
 @media (orientation: portrait) {
   .event main .content ul {
     text-indent: 5vw hanging;
+    padding-left: 4vw;
   }
 }
 
