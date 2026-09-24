@@ -676,8 +676,10 @@ input.bubble {
 @media (orientation: portrait) {
   .page main .content ul,
   .visit main .content ul {
-    text-indent: -5.25vw;
+    text-indent: 5.25vw hanging;
     margin-left: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }
 .page main .content li:before,
@@ -1257,6 +1259,7 @@ input.bubble {
 @media (orientation: portrait) {
   .event .eventHeader .eventHeaderColumn {
     width: 90%;
+    margin-left: 5%;
   }
 }
 .event .eventHeader .eventHeaderColumn #ticketlink,

@@ -611,8 +611,10 @@ input.bubble {
         text-indent: -$lineHeight2;
         margin-left: 0;
         @media (orientation: portrait) {
-          text-indent: -$lineHeight2 * $scaleFactor;
+          text-indent: 5.25vw hanging;
           margin-left: 0;
+          padding-top: 0;
+          padding-bottom: 0;
         }
       }
       li:before {
@@ -1050,6 +1052,7 @@ input.bubble {
       }
       @media (orientation: portrait) {
         width: 90%;
+        margin-left: 5%;
       }
       #ticketlink,
       #ticketlink2 {
