@@ -220,6 +220,19 @@ ul {
     color: rgba(var(--color2));
   }
 }
+.visit {
+  .mediaCaption {
+    opacity: 1;
+    margin-top: $padding * 0.5;
+    font-size: $fontSize1;
+    line-height: $lineHeight1;
+    @media (orientation: portrait) {
+      font-size: $fontSize1 * $scaleFactor;
+      line-height: $lineHeight1 * $scaleFactor;
+      margin-top: $padding * 0.5 * $scaleFactor;
+    }
+  }
+}
 .smallpill {
   font-size: $fontSize1;
   line-height: $lineHeight1;

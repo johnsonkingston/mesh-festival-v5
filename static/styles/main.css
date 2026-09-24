@@ -238,6 +238,20 @@ ul {
   }
 }
 
+.visit .mediaCaption {
+  opacity: 1;
+  margin-top: 0.25vw;
+  font-size: 1.2vw;
+  line-height: 1.4vw;
+}
+@media (orientation: portrait) {
+  .visit .mediaCaption {
+    font-size: 3vw;
+    line-height: 3.5vw;
+    margin-top: 0.625vw;
+  }
+}
+
 .smallpill {
   font-size: 1.2vw;
   line-height: 1.4vw;
