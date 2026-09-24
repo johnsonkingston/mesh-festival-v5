@@ -1,0 +1,209 @@
+doctype html
+html(lang="de")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(name="robots" content="noindex")
+        title Leporello-Check
+        style.
+            :root{
+                --bg:#f4f4f1;--card:#fff;--ink:#111;--muted:#6b6b6b;--line:#e2e2dc;
+                --ok:#1f8a4c;--warn:#b86e00;--err:#d11f3a;--info:#6b6b6b;
+            }
+            @media (prefers-color-scheme: dark){
+                :root{--bg:#141414;--card:#1e1e1e;--ink:#eee;--muted:#9a9a9a;--line:#333;
+                      --ok:#4cc27d;--warn:#f0a53a;--err:#ff5c73;--info:#9a9a9a;}
+            }
+            *{box-sizing:border-box;}
+            body{margin:0;background:var(--bg);color:var(--ink);
+                 font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}
+            main{max-width:920px;margin:0 auto;padding:24px 16px 64px;}
+            h1{font-size:26px;margin:0 0 4px;}
+            .meta{color:var(--muted);margin:0 0 20px;}
+            .meta a{color:inherit;}
+            .summary{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 28px;}
+            .pill{padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-weight:600;}
+            .pill.err{color:var(--err);border-color:var(--err);}
+            .pill.warn{color:var(--warn);border-color:var(--warn);}
+            .pill.ok{color:var(--ok);border-color:var(--ok);}
+            h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:32px 0 10px;}
+            .group{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 10px;}
+            .group h3{font-size:15px;margin:0 0 8px;}
+            .group.has-err{border-left:4px solid var(--err);}
+            .group.has-warn{border-left:4px solid var(--warn);}
+            ul{list-style:none;margin:0;padding:0;}
+            li{padding:3px 0 3px 24px;position:relative;overflow-wrap:anywhere;}
+            li::before{position:absolute;left:0;top:3px;font-weight:700;width:18px;text-align:center;}
+            li.ok::before{content:"✓";color:var(--ok);}
+            li.warn::before{content:"!";color:var(--warn);}
+            li.err::before{content:"✗";color:var(--err);}
+            li.info::before{content:"·";color:var(--info);}
+            li.info{color:var(--muted);}
+            table{border-collapse:collapse;margin-top:10px;font-variant-numeric:tabular-nums;}
+            th,td{padding:4px 14px 4px 0;text-align:left;border-bottom:1px solid var(--line);}
+            th{font-weight:600;color:var(--muted);}
+            tr.bad td{color:var(--err);font-weight:700;}
+            .error{background:var(--card);border:1px solid var(--err);color:var(--err);border-radius:10px;padding:14px 16px;}
+            .frame-host{position:absolute;left:-20000px;top:0;width:2600px;height:1400px;overflow:hidden;}
+            .frame-host iframe{width:2600px;height:1400px;border:0;}
+    body
+        main
+            h1 Leporello-Check
+            p.meta
+                | Vergleicht Timetable und Leporello (DE + EN) und prüft das Spaltenlayout.
+                if result
+                    |  Stand: #{result.checkedAt.toLocaleString("de-CH", {timeZone: "Europe/Zurich"})}
+                |  ·
+                a(href="") neu prüfen
+                |  ·
+                a(href="/leporello/de") Leporello DE
+                |  ·
+                a(href="/leporello/en") Leporello EN
+
+            if error
+                .error Check fehlgeschlagen: #{error}
+            else
+                .summary
+                    span.pill#sumErr(class=result.errors ? "err" : "ok") #{result.errors} Fehler
+                    span.pill#sumWarn(class=result.warnings ? "warn" : "ok") #{result.warnings} Warnungen
+                    span.pill#sumLayout Layout wird geprüft …
+
+                - var scope = null
+                - var n = 0
+                each g in result.groups
+                    if g.scope !== scope
+                        - scope = g.scope
+                        h2= scope
+                    - n++
+                    - var hasErr = g.items.some(function(i){ return i.level === "err"; })
+                    - var hasWarn = g.items.some(function(i){ return i.level === "warn"; })
+                    .group(class=hasErr ? "has-err" : (hasWarn ? "has-warn" : null))
+                        h3 #{n}. #{g.title}
+                        ul
+                            each it in g.items
+                                li(class=it.level)= it.msg
+                        if g.table
+                            table
+                                tr
+                                    each h in g.table.head
+                                        th= h
+                                each r in g.table.rows
+                                    tr(class=r.bad ? "bad" : null)
+                                        each c in r.cells
+                                            td= c
+
+                h2 Layout (im Browser gerendert)
+                .group#layout-de
+                    h3 Leporello DE
+                    ul
+                        li.info wird geprüft …
+                .group#layout-en
+                    h3 Leporello EN
+                    ul
+                        li.info wird geprüft …
+
+                .frame-host#frameHost
+
+                script.
+                    (function(){
+                        var COUNTS = !{JSON.stringify(result.counts)};
+                        var serverErrors = #{result.errors};
+                        var layoutErrors = 0;
+
+                        function wait(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+                        function text(el){ return (el ? el.textContent : "").replace(/\s+/g, " ").trim(); }
+                        function rowLabel(tr){
+                            var t = [text(tr.querySelector(".c-time")), text(tr.querySelector(".c-title"))].filter(Boolean).join(" ");
+                            return t || text(tr);
+                        }
+
+                        function render(lang, items){
+                            var box = document.getElementById("layout-" + lang);
+                            var ul = box.querySelector("ul");
+                            ul.innerHTML = "";
+                            var hasErr = false, hasWarn = false;
+                            items.forEach(function(it){
+                                var li = document.createElement("li");
+                                li.className = it.level;
+                                li.textContent = it.msg;
+                                ul.appendChild(li);
+                                if(it.level === "err"){ hasErr = true; layoutErrors++; }
+                                if(it.level === "warn") hasWarn = true;
+                            });
+                            box.className = "group" + (hasErr ? " has-err" : (hasWarn ? " has-warn" : ""));
+                        }
+
+                        function checkLayout(lang){
+                            var expected = COUNTS[lang];
+                            var frame = document.createElement("iframe");
+                            frame.src = "/leporello/" + lang;
+                            document.getElementById("frameHost").appendChild(frame);
+                            return new Promise(function(resolve){ frame.onload = resolve; })
+                                .then(function(){
+                                    var doc = frame.contentDocument;
+                                    // the leporello re-runs its layout once fonts are ready - wait for that too
+                                    return (doc.fonts && doc.fonts.ready ? doc.fonts.ready : Promise.resolve())
+                                        .then(function(){ return wait(800); })
+                                        .then(function(){ return doc; });
+                                })
+                                .then(function(doc){
+                                    var items = [];
+                                    var sheets = doc.querySelectorAll(".sheet");
+
+                                    // rows that are laid out but cut off by their panel (invisible in print)
+                                    var clipped = 0;
+                                    Array.prototype.forEach.call(sheets, function(sheet, si){
+                                        var panels = sheet.querySelectorAll(":scope > .panel");
+                                        Array.prototype.forEach.call(panels, function(panel, pi){
+                                            var name = (si === 0 ? "Vorderseite" : "Rückseite") + ", Panel " + (pi + 1);
+                                            if(panel.classList.contains("is-overflowing")){
+                                                items.push({ level: "err", msg: name + " läuft über (rot markiert im Leporello)" });
+                                            }
+                                            panel.querySelectorAll(".panel__list").forEach(function(list){
+                                                var bottom = list.getBoundingClientRect().bottom;
+                                                list.querySelectorAll("tbody tr").forEach(function(tr){
+                                                    if(tr.getBoundingClientRect().bottom > bottom + 1){
+                                                        clipped++;
+                                                        items.push({ level: "err", msg: name + ": abgeschnitten – " + rowLabel(tr) });
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    });
+
+                                    var eventRows = doc.querySelectorAll(".panel__list[data-flow-index] tbody tr td.c-time").length;
+                                    var exhRows = doc.querySelectorAll(".p-table--noTime tbody tr").length;
+                                    if(eventRows === expected.events){
+                                        items.push({ level: "ok", msg: "alle " + eventRows + " Veranstaltungen auf die Panels verteilt" });
+                                    } else {
+                                        items.push({ level: "err", msg: "Veranstaltungen im Layout: " + eventRows + " statt " + expected.events });
+                                    }
+                                    if(exhRows === expected.exhibitions){
+                                        items.push({ level: "ok", msg: "alle " + exhRows + " Ausstellungen im Layout" });
+                                    } else {
+                                        items.push({ level: "err", msg: "Ausstellungen im Layout: " + exhRows + " statt " + expected.exhibitions });
+                                    }
+                                    if(!clipped && !doc.querySelector(".panel.is-overflowing")){
+                                        items.push({ level: "ok", msg: "kein Panel läuft über, nichts abgeschnitten" });
+                                    }
+                                    render(lang, items);
+                                })
+                                .catch(function(e){
+                                    render(lang, [{ level: "err", msg: "Layout-Check fehlgeschlagen: " + e.message }]);
+                                })
+                                .then(function(){ frame.remove(); });
+                        }
+
+                        // one after the other, so the two leporellos don't compete for layout time
+                        checkLayout("de")
+                            .then(function(){ return checkLayout("en"); })
+                            .then(function(){
+                                var pill = document.getElementById("sumLayout");
+                                pill.textContent = layoutErrors ? "Layout: " + layoutErrors + " Fehler" : "Layout ok";
+                                pill.className = "pill " + (layoutErrors ? "err" : "ok");
+                                var sum = document.getElementById("sumErr");
+                                var total = serverErrors + layoutErrors;
+                                sum.textContent = total + " Fehler";
+                                sum.className = "pill " + (total ? "err" : "ok");
+                            });
+                    })();

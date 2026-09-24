@@ -36,6 +36,7 @@ app.use((req, res, next) => {
 const fs = require("fs");
 var path = require("path");
 var glob = require("glob");
+const { runLeporelloCheck } = require("./lib/leporello-check");
 
 app.engine("pug", require("pug").__express);
 app.set("views", path.join(__dirname, "views"));
@@ -979,6 +980,23 @@ app.get("/generate-video", function (req, res) {
 // Quick A4 print tool for small posters / notes
 app.get("/print", function (req, res) {
   res.render("print");
+});
+
+// Content check: timetable vs. leporello (see lib/leporello-check.js). The
+// check fetches this app's own /timetable and /leporello pages, so it always
+// tests exactly what's rendered. The page additionally checks the leporello's
+// column layout client-side (hidden iframes).
+app.get("/check/leporello", async function (req, res) {
+  let result = null;
+  let error = null;
+  try {
+    result = await runLeporelloCheck(`http://127.0.0.1:${serverPort}`);
+  } catch (err) {
+    console.error(err);
+    error = err.message;
+  }
+  res.set("X-Robots-Tag", "noindex");
+  res.render("check-leporello", { result, error });
 });
 
 // Per-day program poster (9:16), exportable as JPG
