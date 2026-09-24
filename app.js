@@ -1092,6 +1092,20 @@ const LEPORELLO_DAYS = [
 function leporelloPad(n) {
   return (n < 10 ? "0" : "") + n;
 }
+// Hand-picked leporello title/artist texts that need a forced line break. Key
+// is the CMS text (whitespace-insensitive), value is the text to break after -
+// a "\n" is inserted there and rendered via white-space:pre-line on
+// .c-title/.c-artist.
+const LEPORELLO_BREAKS = {
+  "Mesh 2026: Infrastructures of Care": "Mesh 2026:",
+};
+function leporelloBreak(str) {
+  if (!str) return str;
+  const key = str.replace(/\s+/g, " ").trim();
+  const breakAfter = LEPORELLO_BREAKS[key];
+  if (!breakAfter || key.indexOf(breakAfter) !== 0) return str;
+  return breakAfter + "\n" + key.slice(breakAfter.length).trim();
+}
 // Keeps each name in an artist list ("Anna Puigjaner & Ethel Baraona Pohl,
 // Teresa Dillon") from wrapping between its first and last name: joins the
 // words within each comma/&-separated name with a non-breaking space, but
@@ -1215,8 +1229,8 @@ app.get("/leporello/:language?", async function (req, res) {
           format: e.Format,
           time: leporelloFormatTime(hourStart, minStart, hourEnd, minEnd),
           sortKey: hourStart * 60 + minStart,
-          title: tr.Title || "",
-          artist: keepNamesTogether(e.Artist || ""),
+          title: leporelloBreak(tr.Title || ""),
+          artist: keepNamesTogether(leporelloBreak(e.Artist || "")),
           venue: v ? v.Name : "",
         };
       });
@@ -1283,8 +1297,8 @@ app.get("/leporello/:language?", async function (req, res) {
             {};
           const v = venuesData[e.Venues[0].Venues_id];
           return {
-            title: tr.Title || "",
-            artist: keepNamesTogether(e.Artist || ""),
+            title: leporelloBreak(tr.Title || ""),
+            artist: keepNamesTogether(leporelloBreak(e.Artist || "")),
             venue: v ? v.Name : "",
           };
         })

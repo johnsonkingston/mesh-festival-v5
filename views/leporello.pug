@@ -83,8 +83,8 @@ html(lang=language[0])
             .p-table{width:100%;table-layout:fixed;border-collapse:collapse;}
             .p-table col.col-time{width:12%;}
             .p-table col.col-title{width:28%;}
-            .p-table col.col-artist{width:44%;}
-            .p-table col.col-venue{width:16%;}
+            .p-table col.col-artist{width:43%;}
+            .p-table col.col-venue{width:17%;}
             /* exhibitions have no fixed time slot – their list drops the time column
                and redistributes its width across the remaining three */
             .p-table--noTime col.col-title{width:32%;}
@@ -102,13 +102,15 @@ html(lang=language[0])
                 letter-spacing:-.02em;
             }
             .p-table td.c-title{font-weight:700;}
+            .p-table td.c-title, .p-table td.c-artist{white-space:pre-line;}
             /* narrower than screens.pug's 1080px poster – "hh:mm – hh:mm" needs to
                wrap onto two lines here instead of forcing nowrap, or it overlaps c-title */
             .p-table tr.p-secrow td{
-                border-bottom:none;padding:calc(2mm * var(--tscale,0.82)) 0 calc(1.4mm * var(--tscale,0.82));text-align:center;
+                border-bottom:none;padding:calc(2mm * var(--tscale,0.82)) 0 calc(1.4mm * var(--tscale,0.82));
             }
             .p-table .p-pill{
                 display:inline-block;background:var(--ink);color:var(--bg);
+                margin-left: 40%;
                 border-radius:1.2mm;padding:.15em .5em;font-weight:500;font-size:calc(3.5mm * var(--tscale,0.82));
             }
             .panel__empty{margin-top:14mm;text-align:center;font-size:4mm;opacity:.5;}
