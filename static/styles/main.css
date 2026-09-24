@@ -142,7 +142,7 @@ body.visit .content h4::after {
   body.artists .formatHeader::after,
   body.visit .content h2::after,
   body.visit .content h4::after {
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(1.5px);
   }
 }
 
@@ -3523,6 +3523,11 @@ body.startpage .logos .logofooterlang {
 }
 body.startpage .logos .logofootersquare {
   height: 4vw;
+}
+@media (orientation: portrait) {
+  body.startpage .logos .logofootersquare {
+    height: 10vw;
+  }
 }
 body.startpage .logos a,
 body.startpage .logos span {
