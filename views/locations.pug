@@ -8,11 +8,6 @@ html(lang=language[0])
             img(src="https://env-9468449.appengine.flow.ch/assets/062a20d5-24b3-4459-90fb-a200859647cd.jpg", alt="Locations")
 
         main
-            if data.translations.length > 0
-                if(data.translations[languageParameter] === undefined)
-                    h1.blurOrganic1-5= data.translations[0].Title
-                else
-                    h1.blurOrganic1-5= data.translations[languageParameter].Title
 
             .venueOverview
                 each venue in venues
