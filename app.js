@@ -874,10 +874,14 @@ app.get("/events/:eventSlug/:language?", async function (req, res) {
         result.data[0].time_transformed_de.end =
           result.data[0].time_transformed.start;
       }
+      result.data[0].time_transformed.endTime = result.data[0].Time[0].End
+        ? timeformat(result.data[0].Time[0].End)
+        : "";
     } else {
       result.data[0].time_transformed = new Object();
       result.data[0].time_transformed.start = "";
       result.data[0].time_transformed.end = "";
+      result.data[0].time_transformed.endTime = "";
     }
 
     //Format
@@ -1586,6 +1590,9 @@ app.get("/:language?", async function (req, res) {
   }
 });
 
+function timeformat(dateIn) {
+  return dateIn.split("-")[2].substring(3, 5) + ":" + dateIn.split(":")[1];
+}
 function dateformat(dateIn) {
   var dateUnix = Date.parse(dateIn);
   var time = dateIn.split("-")[2].substring(3, 5) + ":" + dateIn.split(":")[1];

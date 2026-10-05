@@ -42,9 +42,9 @@ html(lang=language[0])
                     if data.Display_Time
                         if(languageParameter == 0)
                             if(data.time_transformed_de !== undefined)
-                                p= data.time_transformed_de.start
+                                p= data.time_transformed_de.start + (data.time_transformed.endTime ? '–' + data.time_transformed.endTime : '')
                         else
-                            p= data.time_transformed.start
+                            p= data.time_transformed.start + (data.time_transformed.endTime ? '–' + data.time_transformed.endTime : '')
                     
                     if data.Venues.length > 0
                         if data.Venues[0].Venues_id.Name === 'Diverse Orte Basel Stadt'
