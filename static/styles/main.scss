@@ -1865,8 +1865,8 @@ ul {
     box-shadow: 0 0 1vw rgba(var(--color2));
     margin-top: 3.2vw; // sits flush below the fixed main nav
     @media (orientation: portrait) {
-      height: 10vw;
-      flex-wrap: nowrap;
+      height: auto;
+      flex-wrap: wrap; // search field wraps onto its own row below the tabs
       overflow: hidden;
       margin-top: 0;
       padding: 0;
@@ -1909,7 +1909,10 @@ ul {
       width: 15vw;
       padding-block: 0;
       @media (orientation: portrait) {
-        display: none;
+        flex: 0 0 auto;
+        width: 102vw;
+        padding: 1vw 2.5vw;
+        box-shadow: inset 0 0 2vw rgba(var(--color2));
       }
       &::placeholder {
         color: rgba(var(--color2));

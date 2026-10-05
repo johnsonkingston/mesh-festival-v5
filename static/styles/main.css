@@ -2104,8 +2104,8 @@ ul {
 }
 @media (orientation: portrait) {
   .artists .viewNav {
-    height: 10vw;
-    flex-wrap: nowrap;
+    height: auto;
+    flex-wrap: wrap;
     overflow: hidden;
     margin-top: 0;
     padding: 0;
@@ -2154,7 +2154,10 @@ ul {
 }
 @media (orientation: portrait) {
   .artists .viewNav input.bubble {
-    display: none;
+    flex: 0 0 auto;
+    width: 102vw;
+    padding: 1vw 2.5vw;
+    box-shadow: inset 0 0 2vw rgba(var(--color2));
   }
 }
 .artists .viewNav input.bubble::-moz-placeholder {
