@@ -2431,19 +2431,33 @@ footer {
     padding-bottom: 22vw;
     height: auto;
   }
-  img {
+  // social icons: the circle is part of the SVG itself, so no border-radius
+  // on the img – Safari clips filter:blur() to a rounded box badly (pink
+  // seams, bulging edges). Rounding + hover shadow live on the link instead,
+  // and the blurred img gets its own compositing layer.
+  a:has(> img) {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
     margin: 0.8vw;
-    height: 5vw;
-    padding: 0;
     border-radius: 50%;
-    filter: blur(1px);
     @media (orientation: portrait) {
-      height: 15vw;
       margin: 4vw;
     }
   }
-  img:hover {
+  a:has(> img):hover {
     box-shadow: 0 0 10px rgba(var(--color2));
+  }
+  img {
+    display: block;
+    height: 5vw;
+    padding: 0;
+    filter: blur(1px);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    @media (orientation: portrait) {
+      height: 15vw;
+    }
   }
   div {
     display: inline-block;

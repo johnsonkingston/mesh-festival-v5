@@ -9,13 +9,15 @@ html(lang=language[0])
             //a#calltoaction.bubble(href="https://meshfestival.ch/static/html/tickets.html" target="_blank") Tickets
 
 
+            - var festivalSubtitle = ['Festival für Kunst und Technologie', 'Festival for Art and Technology'][languageParameter]
+            - var monthName = ['Oktober', 'October'][languageParameter]
             .columnTitle
                 h1.blurOrganic2 Mesh
-                h4.blurOrganic1 Festival für Kunst und Technologie
+                h4.blurOrganic1= festivalSubtitle
                 h2.blurOrganic1-5
                     | 14.–18.
                     br
-                    | Oktober 2026
+                    | #{monthName} 2026
                 h4.place.blurOrganic1 Dreispitz Basel
             - var slide0 = (slides && slides.length > 0) ? slides[0] : null
             - var slide0Translation = (slide0 && slide0.translations && slide0.translations.length > 0) ? (slide0.translations[languageParameter] || slide0.translations[0]) : null
@@ -57,10 +59,10 @@ html(lang=language[0])
             .columnTitleBottom
                 h2
                     | 14.–18. 
-                    span.right Oktober
+                    span.right= monthName
                     br
                     | 2026
-                h4 Festival für Kunst und Technologie
+                h4= festivalSubtitle
                 h3 Dreispitz Basel
             if newsContent
                 #newsTicker
