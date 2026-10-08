@@ -60,6 +60,14 @@ html(lang="de")
             .btn:hover{opacity:.88;}
             .btn:disabled{opacity:.5;cursor:default;}
             .hint{font-size:.8rem;opacity:.65;margin:0;}
+            .toggle{display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:.95rem;cursor:pointer;user-select:none;}
+            .toggle input{position:absolute;opacity:0;width:1px;height:1px;}
+            .toggle__track{position:relative;flex:none;width:2.6rem;height:1.45rem;border-radius:1rem;background:rgba(51,51,51,.25);transition:background .2s ease;}
+            .toggle__track::after{content:"";position:absolute;top:.2rem;left:.2rem;width:1.05rem;height:1.05rem;border-radius:50%;background:#fff;transition:transform .2s ease;}
+            .toggle input:checked + .toggle__track{background:#333;}
+            .toggle input:checked + .toggle__track::after{transform:translateX(1.15rem);}
+            .toggle input:focus-visible + .toggle__track{outline:2px solid #333;outline-offset:2px;}
+            .toggle input:disabled + .toggle__track{opacity:.5;}
             .warning{
                 background:#fff3cd;
                 border:1px solid #f0c36d;
@@ -101,12 +109,19 @@ html(lang="de")
                     .field
                         label(for="artistsInput") Beteiligte / Artists
                         textarea#artistsInput(rows="3" spellcheck="false")
+                    label.toggle(for="logoToggle")
+                        input#logoToggle(type="checkbox")
+                        span.toggle__track
+                        span Logos einblenden / Show logos
                     button#exportBtn.btn(type="button") Video exportieren / Export video
                     p.hint Format 16:9, 1920 × 1080 (Videoauflösung), Export als WebM ohne Ton.
                 .preview
                     .preview__frame
                         canvas#previewCanvas
                         video#bgVideo(src=baseURL+"static/videos/Mesh-2026-Screenings.mp4" muted loop playsinline autoplay preload="auto" style="display:none;")
+                        //- same background with the partner logos baked into the footer bar,
+                        //- swapped in via the "Logos einblenden" toggle.
+                        video#bgLogoVideo(src=baseURL+"static/videos/Mesh-2026-Screenings-LOGO.mp4" muted loop playsinline preload="auto" style="display:none;")
                         //- optional foreground layer: white shapes on black, screen-blended over
                         //- the text so they read as drifting in front of it. Missing file = no-op.
                         video#cloudsVideo(src=baseURL+"static/videos/Mesh-2026-Screenings-Clouds.mp4" muted loop playsinline autoplay preload="auto" style="display:none;")
@@ -153,7 +168,12 @@ html(lang="de")
                 var artistsInput = document.getElementById("artistsInput");
                 var exportBtn = document.getElementById("exportBtn");
                 var previewCanvas = document.getElementById("previewCanvas");
-                var bgVideo = document.getElementById("bgVideo");
+                var bgPlainVideo = document.getElementById("bgVideo");
+                var bgLogoVideo = document.getElementById("bgLogoVideo");
+                var logoToggle = document.getElementById("logoToggle");
+                // the active background - swapped by the logo toggle. Everything
+                // below (preview, export timing) just reads bgVideo.
+                var bgVideo = bgPlainVideo;
                 var cloudsVideo = document.getElementById("cloudsVideo");
 
                 // the clouds layer is optional (produced separately) - if the file
@@ -338,6 +358,7 @@ html(lang="de")
                     }
                     var label = exportBtn.textContent;
                     exportBtn.disabled = true;
+                    logoToggle.disabled = true;
 
                     if(previewLoopId){ cancelAnimationFrame(previewLoopId); previewLoopId = null; }
 
@@ -435,18 +456,34 @@ html(lang="de")
                         }
                         if(!previewLoopId){ previewLoopId = requestAnimationFrame(previewLoop); }
                         exportBtn.disabled = false;
+                        logoToggle.disabled = false;
                         exportBtn.textContent = label;
                     }
                 }
 
                 exportBtn.addEventListener("click", exportVideo);
 
+                function setLogos(on){
+                    var next = on ? bgLogoVideo : bgPlainVideo;
+                    if(next === bgVideo) return;
+                    var prev = bgVideo;
+                    bgVideo = next;
+                    prev.pause();
+                    bgVideo.currentTime = 0;
+                    bgVideo.play().catch(function(){});
+                }
+                logoToggle.addEventListener("change", function(){ setLogos(logoToggle.checked); });
+                // browsers may restore the checkbox state on reload
+                setLogos(logoToggle.checked);
+
                 labelInput.value = DEFAULTS.label;
                 titleInput.value = DEFAULTS.title;
                 artistsInput.value = DEFAULTS.artists;
 
-                bgVideo.addEventListener("loadeddata", function(){
-                    if(!previewLoopId){ previewLoopId = requestAnimationFrame(previewLoop); }
+                [bgPlainVideo, bgLogoVideo].forEach(function(v){
+                    v.addEventListener("loadeddata", function(){
+                        if(!previewLoopId){ previewLoopId = requestAnimationFrame(previewLoop); }
+                    });
                 });
                 bgVideo.play().catch(function(){});
                 cloudsVideo.play().catch(function(){});

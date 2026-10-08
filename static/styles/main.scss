@@ -1048,7 +1048,7 @@ input.bubble {
   .eventHeader {
     margin: $padding * 4 0;
     .eventHeaderColumn {
-      width: 66%;
+      width: 86%;
       margin-right: 3%;
       display: inline-block;
       vertical-align: top;
@@ -2766,6 +2766,9 @@ body.startpage {
           line-height: $lineHeight2 * $scaleFactor;
           margin-right: $padding * $scaleFactor;
         }
+        a {
+          color: rgba(var(--color2));
+        }
       }
       em {
         margin-left: $padding * 4;
@@ -2837,6 +2840,12 @@ body.startpage {
         justify-content: center;
         align-items: center;
         gap: $padding * 1.5;
+        // blur lives on the rectangular container, not on the rounded
+        // bullets – Safari clips filter:blur() to a border-radius box badly
+        // (pink seams), same issue as the footer social icons.
+        filter: blur(1px);
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
         @media (orientation: portrait) {
           bottom: 13vw;
           gap: $padding * 1.5 * $scaleFactor;
@@ -2852,7 +2861,6 @@ body.startpage {
         opacity: 1;
         padding: 0;
         cursor: pointer;
-        filter: blur(1px);
         transition: background 0.3s ease;
         &.swiper-pagination-bullet-active {
           background: rgba(var(--color2));
