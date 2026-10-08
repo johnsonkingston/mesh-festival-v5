@@ -207,8 +207,10 @@ ul {
 /*GENERAL*/
 // caption for an image/video's file-library title (kept distinct from the
 // unrelated pre-existing ".caption" class used for venue/event grid labels
-// and the timetable's paid/free legend, to avoid leaking styles into those)
-.mediaCaption {
+// and the timetable's paid/free legend, to avoid leaking styles into those).
+// .image-caption is the CMS editor's caption class - same look.
+.mediaCaption,
+.image-caption {
   font-size: $fontSizeMicro;
   line-height: $lineHeightMicro;
   opacity: 0.5;
@@ -221,7 +223,8 @@ ul {
   }
 }
 .visit {
-  .mediaCaption {
+  .mediaCaption,
+  .image-caption {
     opacity: 1;
     margin-top: $padding * 0.5;
     font-size: $fontSize1;
@@ -953,11 +956,6 @@ input.bubble {
       }
       .image-link-fullsize {
         width: 100%;
-      }
-      .image-caption {
-        font-size: $fontSize1;
-        line-height: $lineHeight1;
-        margin-block-start: 0.2em;
       }
       .video-portrait video {
         width: 50%;

@@ -223,13 +223,15 @@ ul {
 }
 
 /*GENERAL*/
-.mediaCaption {
+.mediaCaption,
+.image-caption {
   font-size: 0.8vw;
   line-height: 1vw;
   opacity: 0.5;
 }
 @media (orientation: portrait) {
-  .mediaCaption {
+  .mediaCaption,
+  .image-caption {
     font-size: 3vw;
     line-height: 3.75vw;
     margin-block-start: 0;
@@ -238,14 +240,16 @@ ul {
   }
 }
 
-.visit .mediaCaption {
+.visit .mediaCaption,
+.visit .image-caption {
   opacity: 1;
   margin-top: 0.25vw;
   font-size: 1.2vw;
   line-height: 1.4vw;
 }
 @media (orientation: portrait) {
-  .visit .mediaCaption {
+  .visit .mediaCaption,
+  .visit .image-caption {
     font-size: 3vw;
     line-height: 3.5vw;
     margin-top: 0.625vw;
@@ -1141,12 +1145,6 @@ input.bubble {
 .page main .content .image-link-fullsize,
 .visit main .content .image-link-fullsize {
   width: 100%;
-}
-.page main .content .image-caption,
-.visit main .content .image-caption {
-  font-size: 1.2vw;
-  line-height: 1.4vw;
-  margin-block-start: 0.2em;
 }
 .page main .content .video-portrait video,
 .visit main .content .video-portrait video {
