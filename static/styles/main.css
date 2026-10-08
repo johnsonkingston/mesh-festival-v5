@@ -3181,6 +3181,7 @@ body.startpage .columnVideo .meshSlider.swiper {
 body.startpage .columnVideo .meshSlider .swiper-slide {
   position: relative;
   overflow: hidden;
+  background: rgba(var(--color1));
 }
 body.startpage .columnVideo .meshSlider .swiper-pagination {
   position: absolute;
@@ -3192,6 +3193,8 @@ body.startpage .columnVideo .meshSlider .swiper-pagination {
   justify-content: center;
   align-items: center;
   gap: 0.75vw;
+  filter: blur(1px);
+  transform: translateZ(0);
 }
 @media (orientation: portrait) {
   body.startpage .columnVideo .meshSlider .swiper-pagination {
@@ -3209,7 +3212,6 @@ body.startpage .columnVideo .meshSlider .swiper-pagination-bullet {
   opacity: 1;
   padding: 0;
   cursor: pointer;
-  filter: blur(1px);
   transition: background 0.3s ease;
 }
 body.startpage .columnVideo .meshSlider .swiper-pagination-bullet.swiper-pagination-bullet-active {

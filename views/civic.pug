@@ -48,15 +48,17 @@ html(lang=language[0])
                                 - var slideEventHref = slide.eventSlug ? (baseURL + 'timetable/' + language[0] + '?event=' + slide.eventSlug) : ''
                                 .swiper-slide(data-title=slideTranslation ? slideTranslation.Title : '',data-text=slideTranslation ? slideTranslation.Text : '',data-event-href=slideEventHref)
                                     if slideIsVideo
+                                        //- no festival-background poster on slides: it looks like the
+                                        //- first slide and flashed up between slides while loading.
                                         if i === 0
-                                            video.mobileVideo(loop="true",muted="true",playsinline="true",poster="/static/img/mesh-festival-background.jpg",src=imgURL+slide.File.filename_disk)
+                                            video.mobileVideo(loop="true",muted="true",playsinline="true",preload="auto",src=imgURL+slide.File.filename_disk)
                                         else
-                                            video.mobileVideo(loop="true",muted="true",playsinline="true",poster="/static/img/mesh-festival-background.jpg",data-src=imgURL+slide.File.filename_disk)
+                                            video.mobileVideo(loop="true",muted="true",playsinline="true",preload="auto",data-src=imgURL+slide.File.filename_disk)
                                     else
                                         if i === 0
                                             img.mobileVideo(alt=slideTranslation ? slideTranslation.Title : '',src=imgURL+slide.File.filename_disk+'?key=fullscreen')
                                         else
-                                            img.mobileVideo(alt=slideTranslation ? slideTranslation.Title : '',data-src=imgURL+slide.File.filename_disk+'?key=fullscreen',src="/static/img/mesh-festival-background.jpg")
+                                            img.mobileVideo(alt=slideTranslation ? slideTranslation.Title : '',data-src=imgURL+slide.File.filename_disk+'?key=fullscreen')
                         //- no .swiper-pagination here on purpose - this is a passive display, not
                         //- something a visitor clicks through, so the dots would just be noise.
                 else
@@ -127,6 +129,16 @@ html(lang=language[0])
                 function meshPreloadNeighbors(swiper){
                     meshLoadSlideMedia(swiper.slides[swiper.activeIndex]);
                     meshLoadSlideMedia(swiper.slides[swiper.activeIndex + 1]);
+                    meshLoadSlideMedia(swiper.slides[swiper.activeIndex - 1]);
+                }
+
+                // start the incoming slide's media as soon as the transition begins,
+                // so it's already showing while it slides in (not just after).
+                function meshPlayIncoming(swiper){
+                    var activeSlide = swiper.slides[swiper.activeIndex];
+                    meshLoadSlideMedia(activeSlide);
+                    var video = activeSlide && activeSlide.querySelector('video.mobileVideo');
+                    if (video && video.getAttribute('src')) video.play().catch(function(){});
                 }
 
                 function meshSyncVideos(swiper){
@@ -179,6 +191,7 @@ html(lang=language[0])
                                 meshSyncVideos(swiper);
                             },
                             slideChangeTransitionStart: function(swiper){
+                                meshPlayIncoming(swiper);
                                 meshUpdateText(swiper);
                             },
                             slideChangeTransitionEnd: function(swiper){

@@ -2829,6 +2829,9 @@ body.startpage {
       .swiper-slide {
         position: relative;
         overflow: hidden;
+        // opaque, so the festival background on .columnVideo doesn't show
+        // through a slide whose media is still loading
+        background: rgba(var(--color1));
       }
       .swiper-pagination {
         position: absolute;
