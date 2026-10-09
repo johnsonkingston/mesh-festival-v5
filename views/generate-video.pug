@@ -114,7 +114,7 @@ html(lang="de")
                         span.toggle__track
                         span Logos einblenden / Show logos
                     button#exportBtn.btn(type="button") Video exportieren / Export video
-                    p.hint Format 16:9, 1920 × 1080 (Videoauflösung), Export als WebM ohne Ton.
+                    p.hint Format 16:9, 1920 × 1080 (Videoauflösung), Export als MP4 ohne Ton (WebM, falls der Browser kein MP4 kann).
                 .preview
                     .preview__frame
                         canvas#previewCanvas
@@ -334,11 +334,17 @@ html(lang="de")
                 function fileName(){
                     var slug = (titleInput.value || "mesh").toLowerCase()
                         .replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-                    return "mesh-title-video" + (slug ? "-" + slug : "") + ".webm";
+                    var ext = (pickMimeType().indexOf("mp4") !== -1) ? ".mp4" : ".webm";
+                    return "mesh-title-video" + (slug ? "-" + slug : "") + ext;
                 }
 
                 function pickMimeType(){
+                    // MP4 (H.264) preferred - Chrome/Edge 126+ and Safari record it
+                    // natively; WebM stays as fallback for browsers that can't.
                     var candidates = [
+                        "video/mp4;codecs=avc1.640028",
+                        "video/mp4;codecs=avc1",
+                        "video/mp4",
                         "video/webm;codecs=vp9",
                         "video/webm;codecs=vp8",
                         "video/webm"
