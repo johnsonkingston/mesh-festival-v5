@@ -2874,6 +2874,7 @@ body.startpage {
     }
   }
   .editionTitle {
+    mix-blend-mode: difference;
     position: absolute;
     width: 30vw;
     top: 14vw;
@@ -2904,7 +2905,7 @@ body.startpage {
         font-size: $fontSize2 * $scaleFactor;
       }
     }
-    // event time / venue above the slide title - same size as .logos span
+    // Location_Time below the slide text - same size as .logos span
     #sliderEventInfo {
       display: block;
       font-size: $fontSize1;
@@ -2923,22 +2924,17 @@ body.startpage {
     }
     a {
       display: block;
-      color: rgba(var(--color2));
+      color: rgba(var(--color1));
       text-decoration: none;
-      background: rgba(var(--color1));
       padding: 0.5vw 0.5vw 0.5vw 2vw;
-      box-shadow: inset 0 0 1vw rgba(0, 0, 0, 0.3);
-      border-radius: 1vw;
 
       @media (orientation: portrait) {
-        border-radius: 2vw;
         padding: $padding * $scaleFactor;
       }
       &[href] {
         cursor: pointer;
       }
       &:hover {
-        color: inherit;
         text-shadow: none;
       }
     }
@@ -3388,12 +3384,7 @@ body.startpage {
     }
   }
 }
-.civic {
-  .editionTitle {
-    transform: scale(0.7);
-    transform-origin: 0 0;
-  }
-}
+
 .locations {
   #map {
     display: block;
