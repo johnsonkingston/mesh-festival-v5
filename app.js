@@ -1455,7 +1455,7 @@ async function getSlides() {
     "slides",
     async () => {
       const response = await fetch(
-        "https://env-9468449.appengine.flow.ch/items/Slides_Startpage?fields[]=*.*&fields[]=Link.item:Events.slug",
+        "https://env-9468449.appengine.flow.ch/items/Slides_Startpage?fields[]=*.*&fields[]=Link.item:Events.slug&fields[]=Link.item:Events.Time&fields[]=Link.item:Events.Venues.Venues_id.Name",
       );
       if (!response.ok) {
         console.log("Response not okay");
@@ -1526,6 +1526,50 @@ async function buildStartpageLocals(req) {
           ? slide.Link[0].item.slug
           : null;
       slide.eventSlug = eventLink;
+      // "Mittwoch, 14.10.: 20:00–21:00 / TransBona-Halle" line above the
+      // slide title on /civic - one string per language ([de, en])
+      var linkedEvent = eventLink ? slide.Link[0].item : null;
+      var weekdays = [
+        ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
+        ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      ];
+      var timeText = ["", ""];
+      if (linkedEvent && linkedEvent.Time && linkedEvent.Time[0]) {
+        var start = linkedEvent.Time[0].Start || "";
+        var end = linkedEvent.Time[0].End || "";
+        if (start) {
+          var weekday = new Date(
+            Date.UTC(
+              start.substring(0, 4),
+              start.substring(5, 7) - 1,
+              start.substring(8, 10),
+            ),
+          ).getUTCDay();
+          var hours = start.substring(11, 16);
+          if (end) hours += "\u2013" + end.substring(11, 16);
+          timeText = weekdays.map(
+            (names) =>
+              names[weekday] +
+              ", " +
+              start.substring(8, 10) +
+              "." +
+              start.substring(5, 7) +
+              ".: " +
+              hours,
+          );
+        }
+      }
+      var venueName =
+        linkedEvent &&
+        linkedEvent.Venues &&
+        linkedEvent.Venues[0] &&
+        linkedEvent.Venues[0].Venues_id &&
+        linkedEvent.Venues[0].Venues_id.Name
+          ? linkedEvent.Venues[0].Venues_id.Name
+          : "";
+      slide.eventInfo = timeText.map((text) =>
+        [text, venueName].filter((part) => part).join(" / "),
+      );
       return slide;
     })
     .sort((a, b) => {

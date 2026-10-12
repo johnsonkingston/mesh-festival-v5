@@ -2877,7 +2877,7 @@ body.startpage {
     position: absolute;
     width: 30vw;
     top: 14vw;
-    left: 1vw;
+    left: -1vw;
     z-index: 90;
     @media (orientation: portrait) {
       top: 34vw;
@@ -2904,6 +2904,20 @@ body.startpage {
         font-size: $fontSize2 * $scaleFactor;
       }
     }
+    // event time / venue above the slide title - same size as .logos span
+    #sliderEventInfo {
+      display: block;
+      font-size: $fontSize1;
+      line-height: $lineHeight1;
+      transition: opacity 0.4s ease;
+      @media (orientation: portrait) {
+        font-size: $fontSize2 * $scaleFactor;
+        line-height: $lineHeight2 * $scaleFactor;
+      }
+      &:empty {
+        display: none;
+      }
+    }
     .sliderFading {
       opacity: 0;
     }
@@ -2911,9 +2925,14 @@ body.startpage {
       display: block;
       color: rgba(var(--color2));
       text-decoration: none;
-      text-shadow: 0 0 1vw white;
+      background: rgba(var(--color1));
+      padding: 0.5vw 0.5vw 0.5vw 2vw;
+      box-shadow: inset 0 0 1vw rgba(0, 0, 0, 0.3);
+      border-radius: 1vw;
+
       @media (orientation: portrait) {
-        text-shadow: 0 0 8vw rgba(255, 255, 255, 1);
+        border-radius: 2vw;
+        padding: $padding * $scaleFactor;
       }
       &[href] {
         cursor: pointer;
@@ -2921,10 +2940,6 @@ body.startpage {
       &:hover {
         color: inherit;
         text-shadow: none;
-      }
-      &[href]:hover h1,
-      &[href]:hover h2 {
-        text-decoration: dotted underline;
       }
     }
   }
@@ -3373,7 +3388,12 @@ body.startpage {
     }
   }
 }
-
+.civic {
+  .editionTitle {
+    transform: scale(0.7);
+    transform-origin: 0 0;
+  }
+}
 .locations {
   #map {
     display: block;

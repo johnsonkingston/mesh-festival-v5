@@ -30,6 +30,7 @@ html(lang=language[0])
             .editionTitle
                 if slide0Translation
                     a#sliderTextLink(href=slide0EventHref)
+                        span.blurOrganic1#sliderEventInfo= slide0.eventInfo[languageParameter]
                         h2.blurOrganic1#sliderTagline= slide0Translation.Title
                         h1.blurOrganic1-5#sliderHeadline= slide0Translation.Text
                 else if data.translations && data.translations.length > 0
@@ -46,7 +47,7 @@ html(lang=language[0])
                                 - var slideTranslation = (slide.translations && slide.translations.length > 0) ? (slide.translations[languageParameter] || slide.translations[0]) : null
                                 - var slideIsVideo = slide.File && slide.File.type && slide.File.type.indexOf('video') === 0
                                 - var slideEventHref = slide.eventSlug ? (baseURL + 'timetable/' + language[0] + '?event=' + slide.eventSlug) : ''
-                                .swiper-slide(data-title=slideTranslation ? slideTranslation.Title : '',data-text=slideTranslation ? slideTranslation.Text : '',data-event-href=slideEventHref)
+                                .swiper-slide(data-title=slideTranslation ? slideTranslation.Title : '',data-text=slideTranslation ? slideTranslation.Text : '',data-event-href=slideEventHref,data-event-info=slide.eventInfo[languageParameter])
                                     if slideIsVideo
                                         //- no festival-background poster on slides: it looks like the
                                         //- first slide and flashed up between slides while loading.
@@ -158,20 +159,25 @@ html(lang=language[0])
                     var tagline = document.getElementById('sliderTagline');
                     var headline = document.getElementById('sliderHeadline');
                     var link = document.getElementById('sliderTextLink');
+                    var eventInfo = document.getElementById('sliderEventInfo');
                     var activeSlide = swiper.slides[swiper.activeIndex];
                     if (!activeSlide || (!tagline && !headline)) return;
                     var title = activeSlide.getAttribute('data-title') || '';
                     var text = activeSlide.getAttribute('data-text') || '';
                     var href = activeSlide.getAttribute('data-event-href') || '';
+                    var info = activeSlide.getAttribute('data-event-info') || '';
+                    if (eventInfo) eventInfo.classList.add('sliderFading');
                     if (tagline) tagline.classList.add('sliderFading');
                     if (headline) headline.classList.add('sliderFading');
                     setTimeout(function(){
+                        if (eventInfo) eventInfo.textContent = info;
                         if (tagline) tagline.textContent = title;
                         if (headline) headline.textContent = text;
                         if (link) {
                             if (href) link.setAttribute('href', href);
                             else link.removeAttribute('href');
                         }
+                        if (eventInfo) eventInfo.classList.remove('sliderFading');
                         if (tagline) tagline.classList.remove('sliderFading');
                         if (headline) headline.classList.remove('sliderFading');
                     }, 450);
