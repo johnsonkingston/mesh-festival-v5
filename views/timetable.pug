@@ -1,8 +1,13 @@
 html(lang=language[0])
     include includes/head.pug
     - var hourHeight = 5;
+    - var festivalDays = [14,15,16,17,18];
+    - var todayDate = new Date();
+    - var activeDayIndex = festivalDays.indexOf(todayDate.getMonth() == 9 ? todayDate.getDate() : -1);
+    - if(activeDayIndex == -1) activeDayIndex = 0;
     script.
         var hourHeight = #{hourHeight};
+        var initialDayIndex = #{activeDayIndex};
     script(src=baseURL+"static/script/timetable.js")
 
     body.timetable(data-size='1')
@@ -35,8 +40,8 @@ html(lang=language[0])
 
         main
             #dayNav
-                each day, dayIndex in [14,15,16,17,18]
-                    .dayNavItem(class=dayIndex==0?'active':'',data-day-index=dayIndex,onclick="goToDay("+dayIndex+")")
+                each day, dayIndex in festivalDays
+                    .dayNavItem(class=dayIndex==activeDayIndex?'active':'',data-day-index=dayIndex,onclick="goToDay("+dayIndex+")")
                         span.dayAbbr= dayAbbr[day][languageParameter]
                         span.dayFull= dayOutput[day][languageParameter]
             .timetableSlider

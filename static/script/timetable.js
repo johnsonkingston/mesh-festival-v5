@@ -318,6 +318,13 @@ function runShrink() {
 $(document).ready(function () {
   runShrink();
 
+  if (typeof initialDayIndex !== "undefined" && initialDayIndex > 0) {
+    var track = $(".timetableSliderTrack");
+    var slideWidth = track.width();
+    track.scrollLeft(initialDayIndex * slideWidth);
+    setActiveDayNav(initialDayIndex);
+  }
+
   $(".timetableSliderTrack").on("scroll", function () {
     var track = $(this);
     var slideWidth = track.width();
