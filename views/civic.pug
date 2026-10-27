@@ -3,7 +3,7 @@ html(lang=language[0])
     include includes/head.pug
     link(rel="stylesheet", href="/node_modules/swiper/swiper-bundle.min.css")
     script(src="/node_modules/swiper/swiper-bundle.min.js")
-    body.startpage.civic
+    body.startpage.civic(class=newsContent ? null : 'noNews')
         //- on-site display for a large screen: same nav bubbles as sitenav.pug,
         //- minus the (mobile-only, portrait-orientation) hamburger toggle - this
         //- page is a passive display, not something visitors navigate on.

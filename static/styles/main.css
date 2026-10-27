@@ -3144,6 +3144,20 @@ body.startpage #newsTicker:hover .newsTickerTrack {
     line-height: 3.5vw;
   }
 }
+body.startpage.noNews .columnVideo,
+body.startpage.noNews .column {
+  box-shadow: none;
+}
+@media (orientation: landscape) {
+  body.startpage.noNews .columnVideo {
+    margin-top: calc(13.1vw - 1px);
+    height: calc(100vh - 13.3vw + 2px);
+  }
+  body.startpage.noNews .columnTitleBottom {
+    background: rgba(var(--color1));
+    filter: none;
+  }
+}
 body.startpage .columnVideo {
   top: 0;
   left: 0;

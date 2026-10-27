@@ -2797,6 +2797,25 @@ body.startpage {
       }
     }
   }
+  // news switched off: no ticker bar, and no shadows/gradient edge either
+  &.noNews {
+    .columnVideo,
+    .column {
+      box-shadow: none;
+    }
+    @media (orientation: landscape) {
+      // overlap by 1px each side so no hairline of the page background shows
+      .columnVideo {
+        margin-top: calc(13.1vw - 1px);
+        height: calc(100vh - 13.3vw + 2px);
+      }
+      // keep the element (it fills the gap with the page colour), just drop the grey edge
+      .columnTitleBottom {
+        background: rgba(var(--color1));
+        filter: none;
+      }
+    }
+  }
   .columnVideo {
     top: 0;
     left: 0;
