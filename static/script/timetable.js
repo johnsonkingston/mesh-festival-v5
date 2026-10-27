@@ -320,8 +320,18 @@ $(document).ready(function () {
 
   if (typeof initialDayIndex !== "undefined" && initialDayIndex > 0) {
     var track = $(".timetableSliderTrack");
-    var slideWidth = track.width();
-    track.scrollLeft(initialDayIndex * slideWidth);
+    var slide = track.find(
+      '.timetableDaySlide[data-day-index="' + initialDayIndex + '"]',
+    );
+    if (slide.length) {
+      // Jump instantly: scroll-behavior:smooth (CSS) would otherwise
+      // animate this on load and can land mid-scroll if layout shifts
+      // (images/fonts) while it's running.
+      track.css("scroll-behavior", "auto");
+      track.scrollLeft(slide[0].offsetLeft);
+      track[0].offsetHeight; // force reflow before restoring
+      track.css("scroll-behavior", "");
+    }
     setActiveDayNav(initialDayIndex);
   }
 

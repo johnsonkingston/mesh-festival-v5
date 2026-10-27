@@ -1594,12 +1594,17 @@ ul {
 .timetable .timetableSliderTrack {
   display: flex;
   height: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+}
+@media (hover: none), (pointer: coarse) {
+  .timetable .timetableSliderTrack {
+    overflow-x: auto;
+  }
 }
 @media (orientation: portrait) {
   .timetable .timetableSliderTrack {
@@ -3770,4 +3775,51 @@ body.startpage #cookieNotice button {
 
 .locations #map {
   display: block;
+}
+
+body.startpage.startpage-minimal #hamburger {
+  display: none;
+}
+body.startpage.startpage-minimal #startpageNav {
+  display: block;
+  width: auto;
+  height: auto;
+  left: auto;
+  right: 0;
+  overflow: visible;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+body.startpage.startpage-minimal #startpageNav a.bubble:not(#lang) {
+  display: none;
+}
+body.startpage.startpage-minimal #startpageNav #lang {
+  top: 0vw;
+  right: -1.5vw;
+  padding-right: 1.5vw;
+}
+@media (orientation: portrait) {
+  body.startpage.startpage-minimal #startpageNav #lang {
+    top: 2vw;
+    right: 2vw;
+    padding-right: 0;
+  }
+}
+@media (orientation: landscape) {
+  body.startpage.startpage-minimal .columnVideo {
+    margin-top: 10.2vw;
+    height: calc(100vh - 10.4vw);
+  }
+  body.startpage.startpage-minimal .editionTitle {
+    top: 11.1vw;
+  }
+}
+@media (orientation: landscape) {
+  body.startpage.startpage-minimal .columnTitle {
+    top: 0;
+  }
+}
+body.startpage.startpage-minimal .columnTitle h2 {
+  display: none;
 }/*# sourceMappingURL=main.css.map */

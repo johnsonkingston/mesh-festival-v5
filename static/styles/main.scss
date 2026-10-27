@@ -1370,12 +1370,17 @@ ul {
   .timetableSliderTrack {
     display: flex;
     height: 100%;
-    overflow-x: auto;
+    // Desktop (mouse/trackpad): no manual drag — day switching only via
+    // the day nav / arrows. Touch devices keep native swipe below.
+    overflow-x: hidden;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    @media (hover: none), (pointer: coarse) {
+      overflow-x: auto;
+    }
     @media (orientation: portrait) {
       // height follows the active day (set in timetable.js)
       height: auto;
@@ -3388,5 +3393,60 @@ body.startpage {
 .locations {
   #map {
     display: block;
+  }
+}
+
+// ─── Startpage minimal variant ──────────────────────────────────────────────
+// Active only when app.js sets MINIMAL_STARTPAGE = true (body.startpage-minimal).
+// Hides the main navigation and the date at the top; only a small language
+// switch stays in the corner.
+body.startpage.startpage-minimal {
+  #hamburger {
+    display: none;
+  }
+  #startpageNav {
+    display: block;
+    width: auto;
+    height: auto;
+    left: auto;
+    right: 0;
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    a.bubble:not(#lang) {
+      display: none;
+    }
+    #lang {
+      top: 0vw;
+      right: -1.5vw;
+      padding-right: 1.5vw;
+      @media (orientation: portrait) {
+        top: 2vw;
+        right: 2vw;
+        padding-right: 0;
+      }
+    }
+  }
+  // landscape only: everything that sat below the (now hidden) 2.9vw nav bar
+  // moves up by that amount; the slider grows by the same amount so its
+  // bottom edge (and thus the layout below it) stays where it was.
+  @media (orientation: landscape) {
+    .columnVideo {
+      margin-top: 10.2vw;
+      height: calc(100vh - 10.4vw);
+    }
+    .editionTitle {
+      top: 11.1vw;
+    }
+  }
+  .columnTitle {
+    // no nav bar above it any more, so close the gap at the top edge
+    @media (orientation: landscape) {
+      top: 0;
+    }
+    h2 {
+      display: none;
+    }
   }
 }

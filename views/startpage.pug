@@ -3,7 +3,7 @@ html(lang=language[0])
     include includes/head.pug
     link(rel="stylesheet", href="/node_modules/swiper/swiper-bundle.min.css")
     script(src="/node_modules/swiper/swiper-bundle.min.js")
-    body.startpage
+    body.startpage(class=minimalStartpage ? 'startpage-minimal' : null)
         include includes/sitenav.pug
         main
             //a#calltoaction.bubble(href="https://meshfestival.ch/static/html/tickets.html" target="_blank") Tickets
@@ -22,7 +22,8 @@ html(lang=language[0])
                 h4.place.blurOrganic1 Dreispitz Basel
             - var slide0 = (slides && slides.length > 0) ? slides[0] : null
             - var slide0Translation = (slide0 && slide0.translations && slide0.translations.length > 0) ? (slide0.translations[languageParameter] || slide0.translations[0]) : null
-            - var slide0EventHref = (slide0 && slide0.eventSlug) ? (baseURL + 'timetable/' + language[0] + '?event=' + slide0.eventSlug) : null
+            //- minimal variant: link straight to the event so eventOverlay.js opens it as overlay here (original: jump to the timetable)
+            - var slide0EventHref = (slide0 && slide0.eventSlug) ? (minimalStartpage ? baseURL + 'events/' + slide0.eventSlug + '/' + language[0] : baseURL + 'timetable/' + language[0] + '?event=' + slide0.eventSlug) : null
             .editionTitle
                 if slide0Translation
                     a#sliderTextLink(href=slide0EventHref)
@@ -41,7 +42,7 @@ html(lang=language[0])
                             each slide, i in slides
                                 - var slideTranslation = (slide.translations && slide.translations.length > 0) ? (slide.translations[languageParameter] || slide.translations[0]) : null
                                 - var slideIsVideo = slide.File && slide.File.type && slide.File.type.indexOf('video') === 0
-                                - var slideEventHref = slide.eventSlug ? (baseURL + 'timetable/' + language[0] + '?event=' + slide.eventSlug) : ''
+                                - var slideEventHref = slide.eventSlug ? (minimalStartpage ? baseURL + 'events/' + slide.eventSlug + '/' + language[0] : baseURL + 'timetable/' + language[0] + '?event=' + slide.eventSlug) : ''
                                 .swiper-slide(data-title=slideTranslation ? slideTranslation.Title : '',data-text=slideTranslation ? slideTranslation.Text : '',data-event-href=slideEventHref)
                                     if slideIsVideo
                                         //- no festival-background poster on slides: it looks like the
@@ -77,10 +78,10 @@ html(lang=language[0])
                     if data.translations && data.translations.length > 0
                         if(data.translations[languageParameter] === undefined)
                             h1.blurOrganic2= data.translations[0].Title
-                            .content !{data.translations[0].Content_Service_Website}
+                            .content !{minimalStartpage ? data.translations[0].Content : data.translations[0].Content_Service_Website}
                         else
                             h1.blurOrganic2= data.translations[languageParameter].Title
-                            .content !{data.translations[languageParameter].Content_Service_Website}
+                            .content !{minimalStartpage ? data.translations[languageParameter].Content : data.translations[languageParameter].Content_Service_Website}
 
                 div
                     .logos

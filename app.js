@@ -1580,10 +1580,14 @@ app.get("/civic/:language?", async function (req, res) {
   }
 });
 
+// Reduced startpage variant (no navigation except the language switch, no
+// date at the top). Set to false to get the original startpage back.
+const MINIMAL_STARTPAGE = true;
+
 app.get("/:language?", async function (req, res) {
   try {
     const locals = await buildStartpageLocals(req);
-    res.render("startpage", locals);
+    res.render("startpage", { ...locals, minimalStartpage: MINIMAL_STARTPAGE });
   } catch (err) {
     console.error(err);
     res.redirect("/");
