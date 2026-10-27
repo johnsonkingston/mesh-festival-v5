@@ -168,19 +168,13 @@ body {
   overflow: hidden;
 }
 
-::-moz-selection {
-  color: rgba(var(--color1));
-  background: rgba(var(--color4));
-}
-
 ::selection {
   color: rgba(var(--color1));
   background: rgba(var(--color4));
 }
 
 a {
-  -webkit-text-decoration: dotted underline;
-          text-decoration: dotted underline;
+  text-decoration: dotted underline;
 }
 
 a:hover {
@@ -298,7 +292,6 @@ ul {
   background: rgba(var(--color1));
   color: rgba(var(--color2));
   text-align: center;
-  width: -moz-fit-content;
   width: fit-content;
 }
 @media (orientation: portrait) {
@@ -379,8 +372,7 @@ input.bubble {
   height: auto;
   mix-blend-mode: hard-light;
   max-height: calc(50vh - 10vw);
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .eventswrapper a .events .eventimg .label {
   background: rgba(var(--color1));
@@ -443,8 +435,7 @@ input.bubble {
   display: block;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .splashImage .splashImageCaption {
   position: absolute;
@@ -481,8 +472,7 @@ input.bubble {
   display: block;
   width: 100%;
   aspect-ratio: 4/3;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .venueOverview .venueItem .venueTitle {
   margin-top: 0.25vw;
@@ -531,8 +521,7 @@ input.bubble {
   left: 0;
   width: 49%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   z-index: 2;
   box-shadow: black 0 0 1vw;
   padding-left: 0;
@@ -549,8 +538,7 @@ input.bubble {
     top: auto;
     z-index: auto;
     box-shadow: rgba(var(--color2)) 0 0 2vw;
-    -o-object-position: left;
-       object-position: left;
+    object-position: left;
   }
 }
 .page main .mainimageWrap,
@@ -904,17 +892,6 @@ input.bubble {
   vertical-align: top;
   margin-bottom: 1.5vw;
   border-radius: 0.5vw;
-}
-@media (orientation: portrait) {
-  .page main .content .box-text,
-  .visit main .content .box-text {
-    width: 100%;
-    display: block;
-    border-radius: 1.25vw;
-  }
-}
-.page main .content .box-text,
-.visit main .content .box-text {
   color: white;
   padding: 0.5vw;
   margin-block-start: 0;
@@ -926,6 +903,14 @@ input.bubble {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: rgba(var(--color3));
   hyphens: auto;
+}
+@media (orientation: portrait) {
+  .page main .content .box-text,
+  .visit main .content .box-text {
+    width: 100%;
+    display: block;
+    border-radius: 1.25vw;
+  }
 }
 @media (orientation: portrait) {
   .page main .content .box-text,
@@ -1077,18 +1062,18 @@ input.bubble {
     line-height: 4.5vw;
   }
 }
+.page main .content .pill,
+.visit main .content .pill {
+  font-size: 1.2vw;
+  line-height: 1.4vw;
+  white-space: nowrap;
+}
 .page main .content .pill p,
 .visit main .content .pill p {
   display: inline;
   color: rgba(var(--color3));
   font-size: 1.2vw;
   line-height: 1.4vw;
-}
-.page main .content .pill,
-.visit main .content .pill {
-  font-size: 1.2vw;
-  line-height: 1.4vw;
-  white-space: nowrap;
 }
 @media (orientation: portrait) {
   .page main .content .pill,
@@ -1224,8 +1209,7 @@ input.bubble {
   .event main .mainimage {
     width: 100vw;
     margin-left: -1.25vw;
-    -o-object-position: center;
-       object-position: center;
+    object-position: center;
     box-shadow: rgba(var(--color2)) 0 0 2vw;
     margin-top: 2vw;
   }
@@ -2146,8 +2130,7 @@ ul {
 }
 .artists .viewNav input.bubble {
   -webkit-appearance: none;
-  -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   border: none;
   outline: none;
   font-family: inherit;
@@ -2162,9 +2145,6 @@ ul {
     padding: 1vw 2.5vw;
     box-shadow: inset 0 0 2vw rgba(var(--color2));
   }
-}
-.artists .viewNav input.bubble::-moz-placeholder {
-  color: rgba(var(--color2));
 }
 .artists .viewNav input.bubble::placeholder {
   color: rgba(var(--color2));
@@ -2788,6 +2768,7 @@ footer img {
   height: 5vw;
   padding: 0;
   filter: blur(1px);
+  -webkit-transform: translateZ(0);
   transform: translateZ(0);
 }
 @media (orientation: portrait) {
@@ -3150,8 +3131,8 @@ body.startpage.noNews .column {
 }
 @media (orientation: landscape) {
   body.startpage.noNews .columnVideo {
-    margin-top: calc(13.1vw - 1px);
-    height: calc(100vh - 13.3vw + 2px);
+    margin-top: calc(13.1vw - 4px);
+    height: calc(100vh - 13.3vw + 10px);
   }
   body.startpage.noNews .columnTitleBottom {
     background: rgba(var(--color1));
@@ -3181,8 +3162,7 @@ body.startpage .columnVideo {
 }
 body.startpage .columnVideo video,
 body.startpage .columnVideo .mobileVideo {
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   height: 100vh;
   width: 100vw;
 }
@@ -3211,6 +3191,7 @@ body.startpage .columnVideo .meshSlider .swiper-pagination {
   align-items: center;
   gap: 0.75vw;
   filter: blur(1px);
+  -webkit-transform: translateZ(0);
   transform: translateZ(0);
 }
 @media (orientation: portrait) {
@@ -3647,7 +3628,6 @@ body.startpage .logos .logobannerInner {
   transform: translateX(0);
   animation: startpage-move 10s linear infinite;
   display: inline-block;
-  width: -moz-fit-content;
   width: fit-content;
   white-space: nowrap;
 }
@@ -3658,8 +3638,7 @@ body.startpage .logos .logobannerOuter:hover .logobannerInner {
   animation-play-state: paused;
 }
 body.startpage .logos .logobannerThird {
-  -moz-column-count: 2;
-       column-count: 2;
+  column-count: 2;
   margin-top: 1vw;
   width: 30%;
   margin-left: 35%;
@@ -3668,8 +3647,7 @@ body.startpage .logos .logobannerThird {
   body.startpage .logos .logobannerThird {
     width: 90%;
     margin-left: 5%;
-    -moz-column-count: 1;
-         column-count: 1;
+    column-count: 1;
   }
 }
 body.startpage .logos .logobannerThird p {
@@ -3713,7 +3691,6 @@ body.startpage #calltoaction {
   position: absolute;
   right: 0.5vw;
   top: 18.5vw;
-  width: -moz-fit-content;
   width: fit-content;
   z-index: 10;
 }
@@ -3836,4 +3813,6 @@ body.startpage.startpage-minimal #startpageNav #lang {
 }
 body.startpage.startpage-minimal .columnTitle h2 {
   display: none;
-}/*# sourceMappingURL=main.css.map */
+}
+
+/*# sourceMappingURL=main.css.map */

@@ -2804,10 +2804,10 @@ body.startpage {
       box-shadow: none;
     }
     @media (orientation: landscape) {
-      // overlap by 1px each side so no hairline of the page background shows
+      // shift up 4px and extend the height so no hairline of the page background shows
       .columnVideo {
-        margin-top: calc(13.1vw - 1px);
-        height: calc(100vh - 13.3vw + 2px);
+        margin-top: calc(13.1vw - 4px);
+        height: calc(100vh - 13.3vw + 10px);
       }
       // keep the element (it fills the gap with the page colour), just drop the grey edge
       .columnTitleBottom {
