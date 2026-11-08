@@ -2872,7 +2872,7 @@ body.startpage {
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
         @media (orientation: portrait) {
-          bottom: 13vw;
+          bottom: 3vw;
           gap: $padding * 1.5 * $scaleFactor;
         }
       }
@@ -3085,8 +3085,8 @@ body.startpage {
         width: 40vw;
         position: relative;
         margin-left: 0;
-        margin-top: -10vw;
         padding-bottom: 0;
+        top: -10vw;
       }
     }
     h4 {
@@ -3097,9 +3097,8 @@ body.startpage {
         text-align: left;
         font-size: 5vw;
         line-height: 5vw;
-        width: 51vw;
-        top: -10.5vw;
-        left: 31vw;
+        width: 49vw;
+        left: 50vw;
         position: relative;
       }
     }
