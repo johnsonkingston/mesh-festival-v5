@@ -1,6 +1,9 @@
 //version 5.0.0
 const express = require("express");
 const app = express();
+const helmet = require("helmet");
+// CSP disabled: site uses inline scripts/external resources
+app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false, crossOriginResourcePolicy: false, crossOriginOpenerPolicy: false, referrerPolicy: { policy: "strict-origin-when-cross-origin" } }));
 const serverPort = process.env.PORT || 8080;
 
 const fetch = (...args) =>
