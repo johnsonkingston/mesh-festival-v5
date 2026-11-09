@@ -21,7 +21,7 @@ app.use(express.urlencoded());
 app.use("/static", express.static("static"));
 app.use("/static/lang", express.static("lang"));
 app.use("/static/includes", express.static("includes"));
-app.use("/node_modules", express.static("node_modules"));
+app.use("/node_modules/swiper", express.static("node_modules/swiper"));
 
 app.get("/ticketshop", function (req, res) {
   res.sendFile(path.join(__dirname, "static/html/tickets.html"));
